@@ -1,0 +1,21 @@
+{
+  "name": "RBE501 LeRobot + MuJoCo",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/miniforge3/envs/lerobot/bin/python",
+        "python.terminal.activateEnvInCurrentTerminal": true
+      }
+    }
+  }
+}
