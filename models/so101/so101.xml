@@ -235,6 +235,24 @@
             conaffinity="1"
         />
         </body>
+
+    <!-- ===================================================
+         REACH TARGET
+
+         Mocap body moved by the environment on reset via
+         data.mocap_pos. Sites never collide, so the marker
+         has no effect on physics.
+         =================================================== -->
+
+    <body name="reach_target" mocap="true" pos="0 0 0.6">
+        <site
+            name="reach_target_site"
+            type="sphere"
+            size="0.012"
+            rgba="1.0 0.1 0.1 0.7"
+        />
+    </body>
+
     <light
         name="key_light"
         pos="0 0 1.8"
@@ -327,7 +345,7 @@
            ================================================= -->
 
       <body
-          name="shoulder_link" gravcomp="1"
+          name="shoulder_link" gravcomp="0"
           pos="0.0388353 -8.97657e-09 0.0624"
           quat="1.76036e-12 1.32679e-06 -1 -1.32679e-06"
       >
@@ -342,7 +360,7 @@
         <joint
             name="shoulder_pan"
             range="-1.91986 1.91986"
-            actuatorfrcrange="-10 10"
+            actuatorfrcrange="-2.9 2.9"
         />
 
         <geom
@@ -375,7 +393,7 @@
              =============================================== -->
 
         <body
-            name="upper_arm_link" gravcomp="1"
+            name="upper_arm_link" gravcomp="0"
             pos="-0.0303992 -0.0182778 -0.0542"
             quat="0.499998 -0.5 -0.5 -0.500002"
         >
@@ -390,7 +408,7 @@
           <joint
               name="shoulder_lift"
               range="-1.74533 1.74533"
-              actuatorfrcrange="-10 10"
+              actuatorfrcrange="-2.9 2.9"
           />
 
           <geom
@@ -415,7 +433,7 @@
                ============================================= -->
 
           <body
-              name="lower_arm_link" gravcomp="1"
+              name="lower_arm_link" gravcomp="0"
               pos="-0.11257 -0.028 0"
               quat="0.707105 0 0 0.707108"
           >
@@ -430,7 +448,7 @@
             <joint
                 name="elbow_flex"
                 range="-1.69 1.69"
-                actuatorfrcrange="-10 10"
+                actuatorfrcrange="-2.9 2.9"
             />
 
             <geom
@@ -463,7 +481,7 @@
                  =========================================== -->
 
             <body
-                name="wrist_link" gravcomp="1"
+                name="wrist_link" gravcomp="0"
                 pos="-0.1349 0.0052 0"
                 quat="0.707105 0 0 -0.707108"
             >
@@ -478,7 +496,7 @@
               <joint
                   name="wrist_flex"
                   range="-1.65806 1.65806"
-                  actuatorfrcrange="-10 10"
+                  actuatorfrcrange="-2.9 2.9"
               />
 
               <geom
@@ -503,7 +521,7 @@
                    ========================================= -->
 
               <body
-                  name="gripper_link" gravcomp="1"
+                  name="gripper_link" gravcomp="0"
                   pos="0 -0.0611 0.0181"
                   quat="0.0172101 -0.0172081 0.706899 0.706896"
               >
@@ -518,7 +536,7 @@
                 <joint
                     name="wrist_roll"
                     range="-2.74385 2.84121"
-                    actuatorfrcrange="-10 10"
+                    actuatorfrcrange="-2.9 2.9"
                 />
 
                 <geom
@@ -535,6 +553,9 @@
                     type="mesh"
                     rgba="1 0.82 0.12 1"
                     mesh="wrist_roll_follower_so101_v1"
+                    friction="1.5 0.01 0.001"
+                    solimp="0.9 0.95 0.001"
+                    solref="0.005 1"
                 />
 
                 <!-- Official SO-101 end-effector / gripper frame -->
@@ -550,7 +571,7 @@
                      ======================================= -->
                 
                 <body
-                    name="moving_jaw_so101_v1_link" gravcomp="1"
+                    name="moving_jaw_so101_v1_link" gravcomp="0"
                     pos="0.0202 0.0188 -0.0234"
                     quat="0.707105 0.707108 -1.85362e-08 1.85363e-08"
                 >
@@ -565,7 +586,7 @@
                   <joint
                       name="gripper"
                       range="-0.174533 1.74533"
-                      actuatorfrcrange="-10 10"
+                      actuatorfrcrange="-2.9 2.9"
                   />
 
                   <geom
@@ -574,6 +595,9 @@
                       type="mesh"
                       rgba="1 0.82 0.12 1"
                       mesh="moving_jaw_so101_v1"
+                      friction="1.5 0.01 0.001"
+                      solimp="0.9 0.95 0.001"
+                      solref="0.005 1"
                   />
 
                 </body>
