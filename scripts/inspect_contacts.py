@@ -1,187 +1,60 @@
-from pathlib import Path
-import time
-import math
+"""HEADLESS contact inspection at the settled six-actuator test pose.
 
+HOW TO RUN (from the project folder):
+    uv run python scripts/inspect_contacts.py
+
+WHAT YOU CAN CHANGE / OPTIONS:
+    --help: show usage. No viewer or pose options are provided.
+    The pose uses ACTUATOR_TARGETS_DEG in so101_runtime.py. For another pose,
+    command it with test_all_actuators.py and inspect its contact-body report.
+    Geometry and collision settings belong in models/so101/so101.xml.
+
+BEHAVIOR / OUTPUT / SUCCESS:
+    Runs physics for five simulated seconds, then prints each unique contact
+    geom pair with geom IDs/names, owning bodies, and mesh names. Several
+    contact points can belong to one geom pair, so the total contact count may
+    exceed the number of pairs printed. Negative distance indicates contact
+    penetration (reported in mm). Unnamed geoms are identified by ID/body/mesh.
+    This helps identify unintended robot self-collisions and robot/environment
+    collisions. It reports SETTLED contacts, not the entire motion history.
+    Default success is cube_geom touching table_top, no robot contacts, and no
+    MuJoCo warnings. Expected cube/table contact is not a fault.
+
+RELATED FILES: test_all_actuators.py provides direct joint commands;
+so101_runtime.py shares the model loading, pose defaults, and reporting.
+"""
+import argparse
 import mujoco
-import mujoco.viewer
+import numpy as np
+from so101_runtime import Robot, load_model, ACTUATOR_TARGETS_DEG
 
 
-# ---------------------------------------------------------
-# Project paths
-# ---------------------------------------------------------
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-
-MODEL_PATH = (
-    PROJECT_ROOT
-    / "models"
-    / "so101"
-    / "so101.xml"
-)
+def geom_info(model, geom):
+    mesh = None
+    if model.geom_type[geom] == mujoco.mjtGeom.mjGEOM_MESH:
+        mesh = model.mesh(int(model.geom_dataid[geom])).name
+    return {"geom_id": int(geom), "geom_name": model.geom(int(geom)).name,
+            "body": model.body(int(model.geom_bodyid[geom])).name, "mesh": mesh}
 
 
-# ---------------------------------------------------------
-# Load model
-# ---------------------------------------------------------
-
-print("Loading:")
-print(MODEL_PATH)
-
-model = mujoco.MjModel.from_xml_path(str(MODEL_PATH))
-data = mujoco.MjData(model)
-
-
-# ---------------------------------------------------------
-# Desired actuator targets
-# ---------------------------------------------------------
-
-targets_deg = {
-    "shoulder_pan_motor": 20.0,
-    "shoulder_lift_motor": -20.0,
-    "elbow_flex_motor": 40.0,
-    "wrist_flex_motor": 15.0,
-    "wrist_roll_motor": 30.0,
-    "gripper_motor": 10.0,
-}
+def run():
+    robot = Robot(load_model())
+    data = robot.initial_data()
+    data.ctrl[robot.actuators] = np.deg2rad(ACTUATOR_TARGETS_DEG)
+    robot.advance(data, 5.)
+    seen = set()
+    print(f"Settled contacts: {data.ncon}")
+    for contact in data.contact:
+        pair = tuple(sorted((int(contact.geom1), int(contact.geom2))))
+        if pair not in seen:
+            seen.add(pair)
+            print(geom_info(robot.model, pair[0]))
+            print(geom_info(robot.model, pair[1]))
+            print(f"Contact distance: {contact.dist * 1000:.3f} mm")
+    return robot.report(data)
 
 
-# ---------------------------------------------------------
-# Apply target positions
-# ---------------------------------------------------------
-
-for actuator_name, target_deg in targets_deg.items():
-
-    actuator_id = mujoco.mj_name2id(
-        model,
-        mujoco.mjtObj.mjOBJ_ACTUATOR,
-        actuator_name
-    )
-
-    if actuator_id == -1:
-        raise ValueError(
-            f"Could not find actuator '{actuator_name}'."
-        )
-
-    data.ctrl[actuator_id] = math.radians(target_deg)
-
-
-# ---------------------------------------------------------
-# Helper function:
-# get body / geom / mesh information
-# ---------------------------------------------------------
-
-def get_geom_info(geom_id):
-
-    geom_name = mujoco.mj_id2name(
-        model,
-        mujoco.mjtObj.mjOBJ_GEOM,
-        geom_id
-    )
-
-    body_id = model.geom_bodyid[geom_id]
-
-    body_name = mujoco.mj_id2name(
-        model,
-        mujoco.mjtObj.mjOBJ_BODY,
-        body_id
-    )
-
-    # If this geom is a mesh, geom_dataid points to the mesh ID.
-    # For non-mesh geoms it may point to some other asset type,
-    # so we check the geom type first.
-    mesh_name = None
-    mesh_id = -1
-
-    if model.geom_type[geom_id] == mujoco.mjtGeom.mjGEOM_MESH:
-
-        mesh_id = model.geom_dataid[geom_id]
-
-        if mesh_id >= 0:
-            mesh_name = mujoco.mj_id2name(
-                model,
-                mujoco.mjtObj.mjOBJ_MESH,
-                mesh_id
-            )
-
-    return {
-        "geom_id": geom_id,
-        "geom_name": geom_name,
-        "body_id": body_id,
-        "body_name": body_name,
-        "mesh_id": mesh_id,
-        "mesh_name": mesh_name,
-    }
-
-
-# ---------------------------------------------------------
-# Run simulation and inspect contacts
-# ---------------------------------------------------------
-
-print()
-print("Inspecting contacts...")
-print()
-
-with mujoco.viewer.launch_passive(model, data) as viewer:
-
-    last_print_second = -1
-
-    while viewer.is_running():
-
-        # Advance physics normally
-        mujoco.mj_step(model, data)
-
-        current_second = int(data.time)
-
-        # Print once per second
-        if current_second != last_print_second:
-
-            last_print_second = current_second
-
-            print()
-            print(f"TIME: {data.time:.2f} s")
-            print(f"Number of contacts: {data.ncon}")
-            print("----------------------------------------")
-
-            seen_pairs = set()
-
-            for i in range(data.ncon):
-
-                contact = data.contact[i]
-
-                info1 = get_geom_info(contact.geom1)
-                info2 = get_geom_info(contact.geom2)
-
-                # Avoid printing the same geom pair repeatedly
-                pair = tuple(
-                    sorted([
-                        info1["geom_id"],
-                        info2["geom_id"]
-                    ])
-                )
-
-                if pair in seen_pairs:
-                    continue
-
-                seen_pairs.add(pair)
-
-                print(
-                    f"Geom {info1['geom_id']} "
-                    f"| body={info1['body_name']} "
-                    f"| geom_name={info1['geom_name']} "
-                    f"| mesh={info1['mesh_name']}"
-                )
-
-                print("    <-->")
-
-                print(
-                    f"Geom {info2['geom_id']} "
-                    f"| body={info2['body_name']} "
-                    f"| geom_name={info2['geom_name']} "
-                    f"| mesh={info2['mesh_name']}"
-                )
-
-                print()
-
-        viewer.sync()
-
-        time.sleep(model.opt.timestep)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.parse_args()
+    run()

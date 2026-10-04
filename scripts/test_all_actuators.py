@@ -1,187 +1,70 @@
-from pathlib import Path
-import time
-import math
+"""DIRECT JOINT COMMAND test for all six SO-101 position actuators.
 
-import mujoco
-import mujoco.viewer
+HOW TO RUN (from the project folder):
+    uv run python scripts/test_all_actuators.py
+    uv run python scripts/test_all_actuators.py --shoulder-pan 20
+    uv run python scripts/test_all_actuators.py --shoulder-pan 20 --shoulder-lift -15 --elbow-flex 40
+    uv run python scripts/test_all_actuators.py --gripper 30
 
+WHAT YOU CAN CHANGE / OPTIONS:
+    --shoulder-pan, --shoulder-lift, --elbow-flex, --wrist-flex, --wrist-roll,
+    --gripper: target joint angles in DEGREES. Omitted joints retain defaults:
+    [20, -20, 40, 15, 30, 10] in the above order. Current limits are read directly
+    from the MJCF and shown by --help; out-of-range commands are rejected.
+    --headless: run without a viewer. --help: show usage and joint limits.
+    These are JOINT commands. Use test_ik.py for Cartesian XYZ positions.
 
-# ---------------------------------------------------------
-# Project paths
-# ---------------------------------------------------------
+BEHAVIOR / OUTPUT / SUCCESS:
+    Commands are converted to radians and tracked for five simulated seconds
+    with robot-only gravity compensation. JSON prints commanded targets,
+    resulting joint positions, target-minus-actual errors (all in degrees),
+    contacts, and warnings. Defaults should settle near the commanded angles
+    with no warnings and only expected cube/table contact. Joint limits do not
+    guarantee collision-free poses. The default viewer continues physics.
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-
-MODEL_PATH = (
-    PROJECT_ROOT
-    / "models"
-    / "so101"
-    / "so101.xml"
-)
-
-
-# ---------------------------------------------------------
-# Load model
-# ---------------------------------------------------------
-
-print("Loading:")
-print(MODEL_PATH)
-
-model = mujoco.MjModel.from_xml_path(str(MODEL_PATH))
-data = mujoco.MjData(model)
-
-
-# ---------------------------------------------------------
-# Temporary debug settings
-# ---------------------------------------------------------
-
-# Keep gravity off for now
-#model.opt.gravity[:] = 0
-
-# Keep collisions off for now
-#model.opt.disableflags |= mujoco.mjtDisableBit.mjDSBL_CONTACT
+RELATED FILES: defaults and simulation helpers are in so101_runtime.py;
+limits, actuator gains, geometry, and collision settings are in so101.xml.
+"""
+import argparse
+import json
+import numpy as np
+from so101_runtime import Robot, load_model, show_viewer, ACTUATOR_TARGETS_DEG, JOINTS
 
 
-# ---------------------------------------------------------
-# Print model info
-# ---------------------------------------------------------
-
-print()
-print("MODEL INFORMATION")
-print("-----------------")
-print("Joints:", model.njnt)
-print("Actuators:", model.nu)
-print()
-
-
-# ---------------------------------------------------------
-# Desired joint targets in degrees
-# ---------------------------------------------------------
-
-targets_deg = {
-    "shoulder_pan_motor": 20.0,
-    "shoulder_lift_motor": -20.0,
-    "elbow_flex_motor": 40.0,
-    "wrist_flex_motor": 15.0,
-    "wrist_roll_motor": 30.0,
-    "gripper_motor": 10.0,
-}
+def run(headless=False, targets_deg=None, model=None):
+    robot = Robot(load_model() if model is None else model)
+    data = robot.initial_data()
+    targets = np.array(ACTUATOR_TARGETS_DEG if targets_deg is None else targets_deg, dtype=float)
+    limits = np.rad2deg(robot.model.jnt_range[[robot.model.joint(n).id for n in JOINTS]])
+    if targets.shape != (6,) or not np.all(np.isfinite(targets)):
+        raise ValueError("Supply six finite joint targets in degrees")
+    for name, target, (lower, upper) in zip(JOINTS, targets, limits):
+        if not lower <= target <= upper:
+            raise ValueError(f"{name}: {target:g} deg is outside [{lower:.6f}, {upper:.6f}] deg")
+    data.ctrl[robot.actuators] = np.deg2rad(targets)
+    print("Commanded joint targets (degrees):")
+    print(json.dumps(dict(zip(JOINTS, targets.tolist())), indent=2))
+    robot.advance(data, 5.)
+    result = {"commanded_joint_targets_deg": dict(zip(JOINTS, targets.tolist())),
+              "actual_joint_positions_deg": dict(zip(JOINTS, np.rad2deg(data.qpos[robot.qpos]).tolist())),
+              **robot.report(data)}
+    print(json.dumps(result, indent=2))
+    if not headless:
+        show_viewer(robot, data)
+    return result
 
 
-# ---------------------------------------------------------
-# Apply target positions to actuators
-# ---------------------------------------------------------
-
-for actuator_name, target_deg in targets_deg.items():
-
-    actuator_id = mujoco.mj_name2id(
-        model,
-        mujoco.mjtObj.mjOBJ_ACTUATOR,
-        actuator_name
-    )
-
-    if actuator_id == -1:
-        raise ValueError(
-            f"Could not find actuator '{actuator_name}'."
-        )
-
-    target_rad = math.radians(target_deg)
-
-    data.ctrl[actuator_id] = target_rad
-
-    print(
-        f"{actuator_name:22s} -> "
-        f"{target_deg:6.1f} deg "
-        f"({target_rad:.3f} rad)"
-    )
-
-
-# ---------------------------------------------------------
-# Reset initial state
-# ---------------------------------------------------------
-
-mujoco.mj_forward(model, data)
-
-
-# ---------------------------------------------------------
-# Helper to read a joint angle in degrees
-# ---------------------------------------------------------
-
-def get_joint_angle_deg(joint_name):
-
-    joint_id = mujoco.mj_name2id(
-        model,
-        mujoco.mjtObj.mjOBJ_JOINT,
-        joint_name
-    )
-
-    if joint_id == -1:
-        raise ValueError(
-            f"Could not find joint '{joint_name}'."
-        )
-
-    qpos_index = model.jnt_qposadr[joint_id]
-
-    return math.degrees(
-        data.qpos[qpos_index]
-    )
-
-
-# ---------------------------------------------------------
-# Map actuator names to joint names
-# ---------------------------------------------------------
-
-actuator_to_joint = {
-    "shoulder_pan_motor": "shoulder_pan",
-    "shoulder_lift_motor": "shoulder_lift",
-    "elbow_flex_motor": "elbow_flex",
-    "wrist_flex_motor": "wrist_flex",
-    "wrist_roll_motor": "wrist_roll",
-    "gripper_motor": "gripper",
-}
-
-
-# ---------------------------------------------------------
-# Run simulation
-# ---------------------------------------------------------
-
-print()
-print("Running all 6 actuators...")
-print()
-
-with mujoco.viewer.launch_passive(model, data) as viewer:
-
-    start_time = time.time()
-
-    last_print_second = -1
-
-    while viewer.is_running():
-
-        # Advance the physics
-        mujoco.mj_step(model, data)
-
-        elapsed = time.time() - start_time
-        current_second = int(elapsed)
-
-        # Print once per second
-        if current_second != last_print_second:
-
-            last_print_second = current_second
-
-            print(f"\nTime: {elapsed:.1f} s")
-
-            for actuator_name, joint_name in actuator_to_joint.items():
-
-                actual_deg = get_joint_angle_deg(joint_name)
-                target_deg = targets_deg[actuator_name]
-
-                print(
-                    f"{joint_name:15s} | "
-                    f"Target: {target_deg:6.1f} deg | "
-                    f"Actual: {actual_deg:6.2f} deg"
-                )
-
-        viewer.sync()
-
-        # Approximate real-time simulation
-        time.sleep(model.opt.timestep)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--headless", action="store_true")
+    model = load_model()
+    limits = np.rad2deg(model.jnt_range[[model.joint(n).id for n in JOINTS]])
+    for name, default, (lower, upper) in zip(JOINTS, ACTUATOR_TARGETS_DEG, limits):
+        parser.add_argument("--" + name.replace("_", "-"), type=float, default=default,
+                            help=f"Degrees; default {default:g}; MJCF limits [{lower:.6f}, {upper:.6f}]")
+    args = parser.parse_args()
+    targets = [getattr(args, name) for name in JOINTS]
+    for name, target, (lower, upper) in zip(JOINTS, targets, limits):
+        if not np.isfinite(target) or not lower <= target <= upper:
+            parser.error(f"--{name.replace('_', '-')}: use a finite angle in [{lower:.6f}, {upper:.6f}] degrees")
+    run(args.headless, targets, model)
