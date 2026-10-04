@@ -1,17 +1,25 @@
 [project]
-name = "project"
+name = "rbe_501_so101"
 version = "0.1.0"
-description = "Add your description here"
+description = "SO-101 MuJoCo Gymnasium environments and RL baselines"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "gymnasium>=1.0.0",
     "huggingface-hub>=0.36.2",
     "mujoco>=3.2.3",
     "numpy>=1.24.4",
+    "stable-baselines3>=2.3.0",
+    "torch>=2.0.0",
 ]
 
-[project.scripts]
-project = "project:main"
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["uv_build>=0.12.22,<0.13.0"]
