@@ -17,7 +17,8 @@ sudo apt-get install -y --no-install-recommends \
   libgomp1 \
   libsm6 \
   libxext6 \
-  libxrender1
+  libxrender1 \
+  x11-utils
 
 if [[ ! -x "${CONDA_BASE}/bin/conda" ]]; then
   echo "Miniforge not found at ${CONDA_BASE}/bin/conda" >&2
@@ -58,6 +59,16 @@ source "${CONDA_BASE}/etc/profile.d/conda.sh"
 conda activate ${CONDA_ENV_NAME}
 # <<< rbe501 lerobot conda <<<
 EOF
+fi
+
+if [[ -n "${DISPLAY:-}" ]] && xdpyinfo -display "${DISPLAY}" >/dev/null 2>&1; then
+  echo "==> X11 display ${DISPLAY} is reachable (MuJoCo viewer should work)."
+else
+  echo "==> X11 display not reachable from the container."
+  echo "    On the Ubuntu host (outside Docker), run once per login:"
+  echo "      xhost +local:docker"
+  echo "    Start Cursor from your desktop session, then Rebuild Container."
+  echo "    Or use: python scripts/test_all_actuators.py --headless"
 fi
 
 echo "==> Done. Reopen the terminal or rebuild if the Python interpreter is not selected."
