@@ -20,7 +20,9 @@ BEHAVIOR / OUTPUT / SUCCESS:
     resulting joint positions, target-minus-actual errors (all in degrees),
     contacts, and warnings. Defaults should settle near the commanded angles
     with no warnings and only expected cube/table contact. Joint limits do not
-    guarantee collision-free poses. The default viewer continues physics.
+    guarantee collision-free poses. Without --headless, the viewer opens first
+    and joint motion is visible during the five-second settle; JSON prints when
+    that interval finishes and the window stays open until you close it.
 
 RELATED FILES: defaults and simulation helpers are in so101_runtime.py;
 limits, actuator gains, geometry, and collision settings are in so101.xml.
@@ -28,7 +30,7 @@ limits, actuator gains, geometry, and collision settings are in so101.xml.
 import argparse
 import json
 import numpy as np
-from so101_runtime import Robot, load_model, show_viewer, ACTUATOR_TARGETS_DEG, JOINTS
+from so101_runtime import Robot, load_model, run_settling, ACTUATOR_TARGETS_DEG, JOINTS
 
 
 def run(headless=False, targets_deg=None, model=None):
@@ -44,14 +46,17 @@ def run(headless=False, targets_deg=None, model=None):
     data.ctrl[robot.actuators] = np.deg2rad(targets)
     print("Commanded joint targets (degrees):")
     print(json.dumps(dict(zip(JOINTS, targets.tolist())), indent=2))
-    robot.advance(data, 5.)
-    result = {"commanded_joint_targets_deg": dict(zip(JOINTS, targets.tolist())),
-              "actual_joint_positions_deg": dict(zip(JOINTS, np.rad2deg(data.qpos[robot.qpos]).tolist())),
-              **robot.report(data)}
-    print(json.dumps(result, indent=2))
-    if not headless:
-        show_viewer(robot, data)
-    return result
+
+    def build_result():
+        return {"commanded_joint_targets_deg": dict(zip(JOINTS, targets.tolist())),
+                "actual_joint_positions_deg": dict(zip(JOINTS, np.rad2deg(data.qpos[robot.qpos]).tolist())),
+                **robot.report(data)}
+
+    def emit():
+        print(json.dumps(build_result(), indent=2))
+
+    run_settling(robot, data, 5., headless=headless, on_complete=emit)
+    return build_result()
 
 
 if __name__ == "__main__":

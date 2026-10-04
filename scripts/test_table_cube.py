@@ -25,16 +25,17 @@ inspect_contacts.py identifies individual contact geometries.
 """
 import argparse
 import json
-from so101_runtime import Robot, load_model, show_viewer
+from so101_runtime import Robot, load_model, run_settling
 
 
 def run(headless=False):
     robot = Robot(load_model())
     data = robot.initial_data()
-    robot.advance(data, 2.)
-    print(json.dumps(robot.report(data), indent=2))
-    if not headless:
-        show_viewer(robot, data)
+
+    def emit():
+        print(json.dumps(robot.report(data), indent=2))
+
+    run_settling(robot, data, 2., headless=headless, on_complete=emit)
     return robot.report(data)
 
 

@@ -141,25 +141,56 @@ def ik_target(model, data):
     return data.xpos[model.body("cube").id].copy() + [0, 0, 0.06]
 
 
-def show_viewer(robot, data, target=None):
-    """Continue physics with current controls until the passive viewer is closed.
+def run_settling(robot, data, seconds, *, headless=False, on_complete=None, viewer_target=None):
+    """Run seconds of simulation; with a viewer, physics plays in the window first."""
+    if headless:
+        robot.advance(data, seconds)
+        if on_complete is not None:
+            on_complete()
+    else:
+        show_viewer(robot, data, viewer_target, sim_seconds=seconds, on_sim_complete=on_complete)
 
-    Optional world target (m) appears as a magenta sphere. Camera defaults suit
-    the table scene; timestep sleeping provides approximate real-time playback.
+
+def show_viewer(robot, data, target=None, *, sim_seconds=None, on_sim_complete=None):
+    """Run physics in the passive viewer until the window is closed.
+
+    sim_seconds: simulated time to run at real-time speed when the viewer opens
+    (same step count as Robot.advance). Use this instead of advance() before
+    show_viewer when you want settling motion visible on screen.
+    on_sim_complete: called once after sim_seconds finishes (or when the window
+    closes early if sim_seconds was not finished yet).
+    Optional world target (m) appears as a magenta sphere.
     """
     import mujoco.viewer
+
+    dt = robot.model.opt.timestep
+    settle_steps = round(sim_seconds / dt) if sim_seconds else 0
+    reported = False
+
+    def maybe_report(force=False):
+        nonlocal reported
+        if on_sim_complete and (force or (settle_steps == 0 and not reported)):
+            on_sim_complete()
+            reported = True
+
     with mujoco.viewer.launch_passive(robot.model, data) as viewer:
         viewer.cam.lookat[:] = [0.02, 0, 0.5]
         viewer.cam.distance = 1.05
         viewer.cam.azimuth = 135
         viewer.cam.elevation = -22
+        mujoco.mj_forward(robot.model, data)
+        viewer.sync()
         while viewer.is_running():
-            robot.advance(data, robot.model.opt.timestep)
+            robot.advance(data, dt)
+            if settle_steps:
+                settle_steps -= 1
+                if settle_steps == 0:
+                    maybe_report()
             if target is not None:
-                # Magenta marks the target; the model defines the TCP frame.
                 viewer.user_scn.ngeom = 1
                 mujoco.mjv_initGeom(viewer.user_scn.geoms[0], mujoco.mjtGeom.mjGEOM_SPHERE,
                                   np.full(3, 0.007), target, np.eye(3).ravel(),
                                   np.array([1., 0., 1., 1.]))
             viewer.sync()
-            time.sleep(robot.model.opt.timestep)
+            time.sleep(dt)
+    maybe_report(force=not reported)

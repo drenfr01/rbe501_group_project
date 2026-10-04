@@ -21,7 +21,8 @@ BEHAVIOR / OUTPUT / SUCCESS:
     roughly 0.85 mm IK and tracking error, no warnings, and only cube/table
     contacts. Arbitrary XYZ targets may be unreachable or blocked by collision;
     this is an IK test, not collision-free motion planning.
-    The default viewer continues physics; magenta marks the target.
+    Without --headless, the viewer opens first; arm tracking runs for five
+    simulated seconds (magenta sphere marks the target), then JSON prints.
 
 RELATED FILES: so101_runtime.py contains the solver; models/so101/so101.xml
 contains gripper_site, joint limits, actuators, and scene geometry.
@@ -29,7 +30,7 @@ contains gripper_site, joint limits, actuators, and scene geometry.
 import argparse
 import json
 import numpy as np
-from so101_runtime import Robot, load_model, ik_target, show_viewer
+from so101_runtime import Robot, load_model, ik_target, run_settling
 
 
 def run(headless=False, target=None):
@@ -40,14 +41,17 @@ def run(headless=False, target=None):
         raise ValueError("Target must contain three finite world coordinates in meters")
     command, error, iterations = robot.solve(data, target)
     data.ctrl[robot.actuators] = command
-    robot.advance(data, 5.)
-    result = {"tcp_site": "gripper_site", "target": target.tolist(),
-              "pure_ik_error_mm": error * 1000, "ik_iterations": iterations,
-              **robot.report(data, target)}
-    print(json.dumps(result, indent=2))
-    if not headless:
-        show_viewer(robot, data, target)
-    return result
+
+    def build_result():
+        return {"tcp_site": "gripper_site", "target": target.tolist(),
+                "pure_ik_error_mm": error * 1000, "ik_iterations": iterations,
+                **robot.report(data, target)}
+
+    def emit():
+        print(json.dumps(build_result(), indent=2))
+
+    run_settling(robot, data, 5., headless=headless, on_complete=emit, viewer_target=target)
+    return build_result()
 
 
 if __name__ == "__main__":
