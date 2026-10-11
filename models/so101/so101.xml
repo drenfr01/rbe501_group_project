@@ -342,6 +342,10 @@
 
       <!-- =================================================
            SHOULDER
+
+           actuatorfrcrange values here are placeholders.
+           MujocoSo101Backend overwrites every actuated joint
+           with SimConfig.stall_torque_nm at load time.
            ================================================= -->
 
       <body

@@ -16,7 +16,7 @@ import json
 import time
 from dataclasses import asdict, dataclass
 
-from rbe_501_so101.config import BenchmarkConfig, SimConfig
+from rbe_501_so101.config import BenchmarkConfig
 from rbe_501_so101.envs import SO101ReachEnv
 
 
@@ -51,7 +51,7 @@ def measure_throughput(cfg: BenchmarkConfig) -> ThroughputReport:
 def run_viewer_smoke_test(cfg: BenchmarkConfig) -> None:
     """Play random-action episodes in the passive viewer at real-time speed."""
     env = SO101ReachEnv(render_mode="human")
-    period = SimConfig().n_substeps * env.backend.model.opt.timestep
+    period = env.control_dt
     env.action_space.seed(cfg.seed)
     try:
         for episode in range(cfg.smoke_episodes):

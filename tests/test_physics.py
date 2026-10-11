@@ -4,6 +4,8 @@ import mujoco
 import numpy as np
 
 from rbe_501_so101.config import ReachTaskConfig, SimConfig
+from rbe_501_so101.envs.model_indices import descendant_body_ids
+from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
 
 ROBOT_BODIES = (
     "shoulder_link",
@@ -27,31 +29,12 @@ def _geom_by_mesh(model: mujoco.MjModel, mesh_name: str) -> int:
     return int(np.flatnonzero(model.geom_dataid == mesh_id)[0])
 
 
-def _robot_bodies(model: mujoco.MjModel, root_name: str) -> set[int]:
-    root = model.body(root_name).id
-    return {b for b in range(model.nbody) if _is_descendant(model, b, root)}
-
-
-def _is_descendant(model: mujoco.MjModel, body: int, root: int) -> bool:
-    while body not in (0, root):
-        body = int(model.body_parentid[body])
-    return body == root
-
-
 def test_gravity_compensation_is_disabled(raw_model):
     for name in ROBOT_BODIES:
         assert raw_model.body_gravcomp[raw_model.body(name).id] == 0.0, name
 
 
-def test_xml_torque_caps_equal_stall_torque(raw_model, sim_cfg):
-    stall = sim_cfg.stall_torque_nm
-    for name in sim_cfg.joints:
-        np.testing.assert_allclose(raw_model.jnt_actfrcrange[raw_model.joint(name).id], [-stall, stall])
-
-
 def test_backend_applies_configured_torque_caps():
-    from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-
     cfg = SimConfig(stall_torque_nm=1.5)
     backend = MujocoSo101Backend(cfg)
     for name in cfg.arm_joints:
@@ -94,7 +77,7 @@ def test_uncompensated_arm_sags_down_settles_and_avoids_table(backend, rng, sim_
 
 
 def _arm_touches_table(model: mujoco.MjModel, data: mujoco.MjData, cfg: SimConfig) -> bool:
-    robot = _robot_bodies(model, cfg.robot_root_body)
+    robot = descendant_body_ids(model, cfg.robot_root_body)
     table = model.body(cfg.table_body).id
     for contact in data.contact[: data.ncon]:
         bodies = {int(model.geom_bodyid[contact.geom1]), int(model.geom_bodyid[contact.geom2])}

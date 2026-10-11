@@ -3,6 +3,7 @@
 import numpy as np
 
 from rbe_501_so101.config import DynamicsRandomizationConfig, ReachTaskConfig, SimConfig
+from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
 from rbe_501_so101.envs.protocols import RobotBackend
 from rbe_501_so101.envs.types import RobotState
 
@@ -75,8 +76,6 @@ def test_reset_without_randomization_keeps_nominal_dynamics(backend, rng, raw_mo
 
 
 def test_randomization_scales_gains_within_configured_range(sim_cfg, rng, raw_model):
-    from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-
     cfg = DynamicsRandomizationConfig(enabled=True)
     backend = MujocoSo101Backend(sim_cfg, randomization=cfg)
     backend.reset(rng)
@@ -90,8 +89,6 @@ def test_randomization_scales_gains_within_configured_range(sim_cfg, rng, raw_mo
 
 
 def test_randomization_adds_bounded_payload(sim_cfg, rng, raw_model):
-    from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-
     cfg = DynamicsRandomizationConfig(enabled=True)
     backend = MujocoSo101Backend(sim_cfg, randomization=cfg)
     backend.reset(rng)
@@ -102,8 +99,6 @@ def test_randomization_adds_bounded_payload(sim_cfg, rng, raw_model):
 
 
 def test_randomization_does_not_compound_across_resets(sim_cfg, raw_model):
-    from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-
     cfg = DynamicsRandomizationConfig(enabled=True)
     backend = MujocoSo101Backend(sim_cfg, randomization=cfg)
     gen = np.random.default_rng(0)
@@ -112,3 +107,13 @@ def test_randomization_does_not_compound_across_resets(sim_cfg, raw_model):
     kp_scale = backend.model.actuator_gainprm[:, 0] / raw_model.actuator_gainprm[:, 0]
     assert np.all((kp_scale >= cfg.kp_scale_range[0]) & (kp_scale <= cfg.kp_scale_range[1]))
     backend.close()
+
+
+def test_backend_parks_the_grasp_cube(backend, rng, sim_cfg):
+    backend.reset(rng)
+    body = backend.model.body(sim_cfg.parked_bodies[0]).id
+    for geom in range(backend.model.ngeom):
+        if int(backend.model.geom_bodyid[geom]) != body:
+            continue
+        assert backend.model.geom_contype[geom] == 0
+        assert backend.model.geom_conaffinity[geom] == 0

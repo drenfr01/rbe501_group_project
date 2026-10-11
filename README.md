@@ -24,10 +24,34 @@ Robot-only body gravity compensation is enabled in the MJCF. This is idealized
 simulation compensation, not a hardware torque controller. The cube retains
 normal gravity. Actuator gains were not changed during cleanup.
 
+## Reach environment and RL baseline
+
+The Gymnasium reach task lives in `src/rbe_501_so101/`. Training, evaluation,
+policies, and the CLI are split so they can be imported in tests:
+
+| Module | Role |
+|---|---|
+| `rbe_501_so101.rl.training` | `Monitor` + `VecNormalize` env factory, SAC/PPO, one-seed train |
+| `rbe_501_so101.rl.evaluation` | episode rollout, reports, pass/fail vs IK-hold |
+| `rbe_501_so101.rl.policies` | trained, random, and IK-hold policies |
+| `rbe_501_so101.rl.cli` | argparse entry point |
+
+```bash
+python scripts/train_reach.py --algo sac --timesteps 300000 --seeds 0 1 2
+python scripts/train_reach.py --eval --model-dir checkpoints/reach/ --num-episodes 20
+python scripts/benchmark_env.py
+```
+
+In this devcontainer the interpreter is
+`/home/vscode/miniforge3/envs/lerobot/bin/python`. On a host with `uv`,
+`uv lock` / `uv sync` is the other supported path; keep `uv.lock` in sync
+with `pyproject.toml`.
+
 ## Test Scripts
 
-Run commands from the project folder after `uv sync`. Each script supports
-`--help` and starts with instructions and expected results.
+Run commands from the project folder after `uv sync` or from the conda env
+above. Each script supports `--help` and starts with instructions and expected
+results.
 
 | Script | Purpose | Typical command | Viewer | Normally change |
 |---|---|---|---|---|

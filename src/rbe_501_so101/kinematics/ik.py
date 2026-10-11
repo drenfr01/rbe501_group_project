@@ -8,11 +8,17 @@ import mujoco
 import numpy as np
 
 from rbe_501_so101.config import IKConfig, SimConfig
+from rbe_501_so101.envs.model_indices import ModelIndices
 
 CARTESIAN_DIM = 3
 PAN_INDEX = 0
 POSTURE_SLICE = slice(1, 4)
 PAN_PROBE_RAD = 0.5
+
+
+def wrapped_angle_delta(start: float, end: float) -> float:
+    """Smallest signed change from `start` to `end`, wrapped into (-pi, pi]."""
+    return float(((end - start + np.pi) % (2 * np.pi)) - np.pi)
 
 
 @dataclass(frozen=True)
@@ -22,10 +28,11 @@ class IKResult:
     q: np.ndarray
     error_m: float
     iterations: int
+    tolerance_m: float
 
-    def converged(self, tolerance_m: float) -> bool:
-        """Return True if the residual position error is within tolerance."""
-        return self.error_m < tolerance_m
+    def converged(self) -> bool:
+        """Return True if the residual position error is within the solver tolerance."""
+        return self.error_m < self.tolerance_m
 
 
 class PositionIKSolver:
@@ -35,18 +42,19 @@ class PositionIKSolver:
     seed postures with the pan joint aimed at the target (front or back), and
     returns the best result. Orientation is unconstrained, the gripper angle
     is left unchanged, and physics is never advanced.
+
+    Pan-aiming assumes the mount faces world +x at pan = 0, which matches the
+    current `robot_mount` placement.
     """
 
-    def __init__(self, model: mujoco.MjModel, sim_cfg: SimConfig, cfg: IKConfig) -> None:
+    def __init__(
+        self, model: mujoco.MjModel, ids: ModelIndices, sim_cfg: SimConfig, cfg: IKConfig
+    ) -> None:
         self._model = model
+        self._ids = ids
         self._cfg = cfg
         self._data = mujoco.MjData(model)
-        joint_ids = [model.joint(n).id for n in sim_cfg.joints]
-        n_arm = len(sim_cfg.arm_joints)
-        self._qpos_adr = model.jnt_qposadr[joint_ids]
-        self._arm_dof_adr = model.jnt_dofadr[joint_ids[:n_arm]]
-        self._arm_range = model.jnt_range[joint_ids[:n_arm]]
-        self._site_id = model.site(sim_cfg.tcp_site).id
+        self._arm_range = model.jnt_range[ids.arm_joint_ids]
         self._jac = np.zeros((CARTESIAN_DIM, model.nv))
         self._axis_xy = self._pan_axis_xy(sim_cfg.radial_axis_joint)
         self._pan_sign = self._measure_pan_sign(np.deg2rad(sim_cfg.initial_deg))
@@ -54,13 +62,14 @@ class PositionIKSolver:
     @classmethod
     def from_config(cls, sim_cfg: SimConfig, cfg: IKConfig) -> Self:
         """Build a solver with its own copy of the configured model."""
-        return cls(mujoco.MjModel.from_xml_path(str(sim_cfg.model_path)), sim_cfg, cfg)
+        model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
+        return cls(model, ModelIndices.from_model(model, sim_cfg), sim_cfg, cfg)
 
     def forward(self, q: np.ndarray) -> np.ndarray:
         """Return the gripper-site world position for a full joint vector."""
-        self._data.qpos[self._qpos_adr] = q
+        self._data.qpos[self._ids.qpos_adr] = q
         mujoco.mj_kinematics(self._model, self._data)
-        return self._data.site_xpos[self._site_id].copy()
+        return self._data.site_xpos[self._ids.tcp_site].copy()
 
     def solve(self, target: np.ndarray, q_init: np.ndarray) -> IKResult:
         """Return the first converged (or else the best) solution over all starts."""
@@ -69,7 +78,7 @@ class PositionIKSolver:
             result = self.solve_from(target, start)
             if best is None or result.error_m < best.error_m:
                 best = result
-            if best.converged(self._cfg.tolerance_m):
+            if best.converged():
                 break
         return best
 
@@ -82,7 +91,12 @@ class PositionIKSolver:
             q = self._update(q, error)
             error = target - self.forward(q)
             iteration += 1
-        return IKResult(q=q, error_m=float(np.linalg.norm(error)), iterations=iteration)
+        return IKResult(
+            q=q,
+            error_m=float(np.linalg.norm(error)),
+            iterations=iteration,
+            tolerance_m=self._cfg.tolerance_m,
+        )
 
     def _starts(self, target: np.ndarray, q_init: np.ndarray) -> Iterator[np.ndarray]:
         """The caller's pose, then every (seed posture, pan candidate) pair."""
@@ -104,12 +118,12 @@ class PositionIKSolver:
     def _update(self, q: np.ndarray, error: np.ndarray) -> np.ndarray:
         """One clipped damped-least-squares step on the arm joints."""
         mujoco.mj_comPos(self._model, self._data)
-        mujoco.mj_jacSite(self._model, self._data, self._jac, None, self._site_id)
-        jac = self._jac[:, self._arm_dof_adr]
+        mujoco.mj_jacSite(self._model, self._data, self._jac, None, self._ids.tcp_site)
+        jac = self._jac[:, self._ids.arm_dof_adr]
         damping = self._cfg.damping**2 * np.eye(CARTESIAN_DIM)
         dq = self._cfg.step_gain * jac.T @ np.linalg.solve(jac @ jac.T + damping, error)
         dq = np.clip(dq, -self._cfg.max_step_rad, self._cfg.max_step_rad)
-        n_arm = len(self._arm_dof_adr)
+        n_arm = self._ids.n_arm
         q[:n_arm] = np.clip(q[:n_arm] + dq, self._arm_range[:, 0], self._arm_range[:, 1])
         return q
 
@@ -120,10 +134,12 @@ class PositionIKSolver:
 
     def _measure_pan_sign(self, home: np.ndarray) -> float:
         """+1 if positive pan rotates the TCP counter-clockwise about +z, else -1."""
-        azimuths = []
-        for pan in (0.0, PAN_PROBE_RAD):
-            q = home.copy()
-            q[PAN_INDEX] = pan
-            offset = self.forward(q)[:2] - self._axis_xy
-            azimuths.append(np.arctan2(offset[1], offset[0]))
-        return float(np.sign(azimuths[1] - azimuths[0]))
+        azimuths = [self._tcp_azimuth(home, pan) for pan in (0.0, PAN_PROBE_RAD)]
+        return float(np.sign(wrapped_angle_delta(azimuths[0], azimuths[1])))
+
+    def _tcp_azimuth(self, home: np.ndarray, pan: float) -> float:
+        """Azimuth of the TCP about the pan axis at the given pan angle."""
+        q = home.copy()
+        q[PAN_INDEX] = pan
+        offset = self.forward(q)[:2] - self._axis_xy
+        return float(np.arctan2(offset[1], offset[0]))

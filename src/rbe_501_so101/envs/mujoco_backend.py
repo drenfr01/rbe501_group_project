@@ -7,41 +7,13 @@ import mujoco
 import numpy as np
 
 from rbe_501_so101.config import DynamicsRandomizationConfig, RenderConfig, SimConfig
+from rbe_501_so101.envs.model_indices import ModelIndices, disable_body_collisions, park_body
 from rbe_501_so101.envs.types import JointLimits, RobotState
 
 RenderMode = Literal["human", "rgb_array"]
 KP_GAIN_COL = 0
 KP_BIAS_COL = 1
 KV_BIAS_COL = 2
-
-
-@dataclass(frozen=True)
-class ModelIndices:
-    """Pre-cached MuJoCo addresses so the stepping loop never does string lookups."""
-
-    n_arm: int
-    joint_ids: np.ndarray
-    qpos_adr: np.ndarray
-    dof_adr: np.ndarray
-    actuator_ids: np.ndarray
-    tcp_site: int
-    target_mocap: int
-    payload_body: int
-
-    @classmethod
-    def from_model(cls, model: mujoco.MjModel, cfg: SimConfig) -> Self:
-        """Resolve all configured names to integer IDs and addresses."""
-        joint_ids = np.array([model.joint(n).id for n in cfg.joints])
-        return cls(
-            n_arm=len(cfg.arm_joints),
-            joint_ids=joint_ids,
-            qpos_adr=model.jnt_qposadr[joint_ids].copy(),
-            dof_adr=model.jnt_dofadr[joint_ids].copy(),
-            actuator_ids=np.array([model.actuator(n + cfg.actuator_suffix).id for n in cfg.joints]),
-            tcp_site=model.site(cfg.tcp_site).id,
-            target_mocap=int(model.body(cfg.target_mocap_body).mocapid[0]),
-            payload_body=model.body(cfg.payload_body).id,
-        )
 
 
 @dataclass(frozen=True)
@@ -86,6 +58,7 @@ class MujocoSo101Backend:
         self.model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
         self.data = mujoco.MjData(self.model)
         self._ids = ModelIndices.from_model(self.model, sim_cfg)
+        self._disable_parked_bodies()
         self._apply_torque_caps()
         self._nominal = NominalDynamics.capture(self.model, self._ids)
         self._limits = self._read_limits()
@@ -94,12 +67,18 @@ class MujocoSo101Backend:
         self._viewer = None
         self._renderer: mujoco.Renderer | None = None
 
+    @property
+    def ids(self) -> ModelIndices:
+        """Cached model addresses for callers that share this model."""
+        return self._ids
+
     def reset(self, rng: np.random.Generator) -> RobotState:
         """Restore (or randomize) dynamics and place the arm at the home pose."""
         self._restore_nominal_dynamics()
         if self._randomization.enabled:
             self._randomize_dynamics(rng)
         mujoco.mj_resetData(self.model, self.data)
+        self._park_unused_bodies()
         self._q_cmd = self._home.copy()
         self.data.qpos[self._ids.qpos_adr] = self._q_cmd
         self.data.ctrl[self._ids.actuator_ids] = self._q_cmd
@@ -143,6 +122,10 @@ class MujocoSo101Backend:
         """Return False once a human viewer window has been closed by the user."""
         return self._viewer is None or self._viewer.is_running()
 
+    def has_warnings(self) -> bool:
+        """True if MuJoCo recorded any physics warnings since the last reset."""
+        return bool(np.any(self.data.warning.number))
+
     def close(self) -> None:
         """Close the viewer and offscreen renderer, if any were created."""
         try:
@@ -171,8 +154,18 @@ class MujocoSo101Backend:
 
     def _read_limits(self) -> JointLimits:
         """Arm joint ranges from the model."""
-        arm_range = self.model.jnt_range[self._ids.joint_ids[: self._ids.n_arm]]
+        arm_range = self.model.jnt_range[self._ids.arm_joint_ids]
         return JointLimits(lower=arm_range[:, 0].copy(), upper=arm_range[:, 1].copy())
+
+    def _disable_parked_bodies(self) -> None:
+        """Remove leftover scene objects (the grasp cube) from the reach task."""
+        for name in self._cfg.parked_bodies:
+            disable_body_collisions(self.model, name)
+
+    def _park_unused_bodies(self) -> None:
+        """Teleport unused free bodies away after each `mj_resetData`."""
+        for name in self._cfg.parked_bodies:
+            park_body(self.model, self.data, name)
 
     def _restore_nominal_dynamics(self) -> None:
         """Undo any randomization from a previous episode."""

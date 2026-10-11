@@ -25,11 +25,8 @@ from rbe_501_so101.envs.protocols import (
 )
 from rbe_501_so101.envs.rewards import ReachReward
 from rbe_501_so101.envs.targets import ReachableTargetSampler
-from rbe_501_so101.envs.types import RewardTerms, RobotState
+from rbe_501_so101.envs.types import ObservationLayout, RewardTerms, RobotState
 
-CARTESIAN_DIM = 3
-OBS_JOINT_BLOCKS = 4
-OBS_CARTESIAN_BLOCKS = 2
 # Gymnasium's env checker warns on infinite Box bounds; the float32 maximum is
 # effectively unbounded while keeping check_env warning-free.
 OBS_BOUND = float(np.finfo(np.float32).max)
@@ -39,8 +36,8 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
     """Reach a sampled target with the 5 arm joints while the gripper is held fixed.
 
     Actions in [-1, 1] are scaled to relative joint-command changes. The
-    observation is [q, q_dot, q_cmd - q, a_prev, p_tcp, p_target - p_tcp].
-    Episodes never terminate early; they truncate after `max_episode_steps`.
+    observation is packed by `ObservationLayout`. Episodes never terminate
+    early; they truncate after `max_episode_steps`.
     """
 
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": RenderConfig().render_fps}
@@ -51,28 +48,69 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         backend: RobotBackend | None = None,
         sampler: TargetSampler | None = None,
         reward_fn: RewardFunction | None = None,
-        sim_cfg: SimConfig = SimConfig(),
-        task_cfg: ReachTaskConfig = ReachTaskConfig(),
-        sampler_cfg: TargetSamplerConfig = TargetSamplerConfig(),
-        reward_cfg: RewardConfig = RewardConfig(),
-        randomization_cfg: DynamicsRandomizationConfig = DynamicsRandomizationConfig(),
+        sim_cfg: SimConfig | None = None,
+        task_cfg: ReachTaskConfig | None = None,
+        sampler_cfg: TargetSamplerConfig | None = None,
+        reward_cfg: RewardConfig | None = None,
+        randomization_cfg: DynamicsRandomizationConfig | None = None,
         randomize_dynamics: bool = False,
     ) -> None:
-        self.render_mode = render_mode
-        self._task = task_cfg
-        self._n_arm = len(sim_cfg.arm_joints)
+        self._reject_conflicting_backend(backend, sim_cfg, randomization_cfg, randomize_dynamics)
+        sim_cfg = sim_cfg or SimConfig()
+        task_cfg = task_cfg or ReachTaskConfig()
+        sampler_cfg = sampler_cfg or TargetSamplerConfig()
+        reward_cfg = reward_cfg or RewardConfig()
+        randomization_cfg = randomization_cfg or DynamicsRandomizationConfig()
         if randomize_dynamics:
             randomization_cfg = replace(randomization_cfg, enabled=True)
+        self.render_mode = render_mode
+        self._sim = sim_cfg
+        self._task = task_cfg
+        self._layout = ObservationLayout(n_arm=len(sim_cfg.arm_joints))
         self.backend = backend or self._default_backend(sim_cfg, randomization_cfg)
-        self._sampler = sampler or ReachableTargetSampler.from_config(sim_cfg, sampler_cfg)
+        self._sampler = sampler or self._default_sampler(sim_cfg, sampler_cfg, task_cfg)
         self._reward_fn = reward_fn or ReachReward(reward_cfg)
-        self.action_space = spaces.Box(-1.0, 1.0, shape=(self._n_arm,), dtype=np.float32)
-        obs_dim = OBS_JOINT_BLOCKS * self._n_arm + OBS_CARTESIAN_BLOCKS * CARTESIAN_DIM
+        self._init_spaces()
+        self._reset_episode_state()
+
+    @staticmethod
+    def _reject_conflicting_backend(
+        backend: RobotBackend | None,
+        sim_cfg: SimConfig | None,
+        randomization_cfg: DynamicsRandomizationConfig | None,
+        randomize_dynamics: bool,
+    ) -> None:
+        """Fail if builder kwargs would have constructed a different backend."""
+        if backend is None:
+            return
+        if sim_cfg is not None or randomization_cfg is not None or randomize_dynamics:
+            raise ValueError(
+                "Do not pass sim_cfg, randomization_cfg, or randomize_dynamics "
+                "when injecting a backend"
+            )
+
+    def _init_spaces(self) -> None:
+        """Action and observation boxes from the observation layout."""
+        n_arm, obs_dim = self._layout.n_arm, self._layout.size
+        self.action_space = spaces.Box(-1.0, 1.0, shape=(n_arm,), dtype=np.float32)
         self.observation_space = spaces.Box(-OBS_BOUND, OBS_BOUND, shape=(obs_dim,), dtype=np.float32)
-        self._prev_action = np.zeros(self._n_arm, dtype=np.float32)
+
+    def _reset_episode_state(self) -> None:
+        """Zero per-episode fields that `reset()` also restores."""
+        self._prev_action = np.zeros(self._layout.n_arm, dtype=np.float32)
         self._step_count = 0
         self._state: RobotState | None = None
-        self._target = np.zeros(CARTESIAN_DIM)
+        self._target = np.zeros(self._layout.cartesian_dim)
+
+    @property
+    def layout(self) -> ObservationLayout:
+        """Named slices for the packed observation vector."""
+        return self._layout
+
+    @property
+    def control_dt(self) -> float:
+        """Duration of one `step()` in seconds."""
+        return self._sim.control_dt
 
     @property
     def state(self) -> RobotState:
@@ -100,7 +138,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self._state = self.backend.reset(self.np_random)
         if isinstance(self.backend, TargetMarker):
             self.backend.set_target_marker(self._target)
-        self._prev_action = np.zeros(self._n_arm, dtype=np.float32)
+        self._prev_action = np.zeros(self._layout.n_arm, dtype=np.float32)
         self._step_count = 0
         self._render_human()
         return self._observation(), {"distance_m": self._distance(), "target": self._target.copy()}
@@ -110,7 +148,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         action = np.clip(np.asarray(action, dtype=np.float32), -1.0, 1.0)
         self.backend.apply_delta(action.astype(float) * self._task.delta_q_max_rad)
         self._state = self.backend.step()
-        terms = self._reward_fn(self._state, self._target, action)
+        terms = self._reward_fn(self._state, self._target, action, self._prev_action)
         self._prev_action = action
         self._step_count += 1
         truncated = self._step_count >= self._task.max_episode_steps
@@ -131,14 +169,30 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self, sim_cfg: SimConfig, randomization_cfg: DynamicsRandomizationConfig
     ) -> MujocoSo101Backend:
         """MuJoCo backend whose home gripper angle is the task's hold angle."""
-        home = (*sim_cfg.initial_deg[: self._n_arm], self._task.gripper_hold_deg)
+        n_arm = self._layout.n_arm
+        home = (*sim_cfg.initial_deg[:n_arm], self._task.gripper_hold_deg)
         return MujocoSo101Backend(replace(sim_cfg, initial_deg=home), randomization_cfg, self.render_mode)
 
+    def _default_sampler(
+        self, sim_cfg: SimConfig, sampler_cfg: TargetSamplerConfig, task_cfg: ReachTaskConfig
+    ) -> ReachableTargetSampler:
+        """Sampler that reuses the backend model when the backend is MuJoCo."""
+        model = getattr(self.backend, "model", None)
+        ids = getattr(self.backend, "ids", None)
+        if model is not None and ids is not None:
+            return ReachableTargetSampler(
+                model, ids, sim_cfg, sampler_cfg, gripper_hold_deg=task_cfg.gripper_hold_deg
+            )
+        return ReachableTargetSampler.from_config(
+            sim_cfg, sampler_cfg, gripper_hold_deg=task_cfg.gripper_hold_deg
+        )
+
     def _observation(self) -> np.ndarray:
-        """Build the 26-dim float32 observation from the latest state."""
-        s, n = self.state, self._n_arm
-        parts = (s.qpos[:n], s.qvel[:n], (s.q_cmd - s.qpos)[:n], self._prev_action, s.tcp_pos, self._target - s.tcp_pos)
-        return np.concatenate(parts).astype(np.float32)
+        """Build the float32 observation from the latest state."""
+        s, n = self.state, self._layout.n_arm
+        return self._layout.pack(
+            s.qpos, s.qvel, (s.q_cmd - s.qpos)[:n], self._prev_action, s.tcp_pos, self._target - s.tcp_pos
+        )
 
     def _distance(self) -> float:
         """Euclidean distance (m) from the gripper site to the target."""

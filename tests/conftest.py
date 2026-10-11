@@ -13,6 +13,8 @@ from rbe_501_so101.config import (
     SimConfig,
     TargetSamplerConfig,
 )
+from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
+from rbe_501_so101.envs.reach_env import SO101ReachEnv
 
 RNG_SEED = 1234
 
@@ -60,20 +62,16 @@ def raw_model(sim_cfg: SimConfig) -> mujoco.MjModel:
 
 
 @pytest.fixture
-def backend(sim_cfg: SimConfig) -> Iterator["MujocoSo101Backend"]:  # noqa: F821
+def backend(sim_cfg: SimConfig) -> Iterator[MujocoSo101Backend]:
     """A headless MuJoCo backend, closed after the test."""
-    from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-
     instance = MujocoSo101Backend(sim_cfg)
     yield instance
     instance.close()
 
 
 @pytest.fixture
-def reach_env() -> Iterator["SO101ReachEnv"]:  # noqa: F821
+def reach_env() -> Iterator[SO101ReachEnv]:
     """A headless reach environment with default components, closed after the test."""
-    from rbe_501_so101.envs.reach_env import SO101ReachEnv
-
     env = SO101ReachEnv()
     yield env
     env.close()

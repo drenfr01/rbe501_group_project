@@ -1,9 +1,10 @@
-"""Unit tests for ReachReward: bonus shape, monotonicity, and action penalty."""
+"""Unit tests for ReachReward: bonus shape, scaled distance, and smoothness."""
 
 import numpy as np
 import pytest
 
 from rbe_501_so101.config import RewardConfig
+from rbe_501_so101.envs.rewards import ReachReward
 from rbe_501_so101.envs.types import RewardTerms, RobotState
 
 SAG_DISTANCE_M = 0.012
@@ -20,15 +21,21 @@ def _state_at_distance(distance: float) -> tuple[RobotState, np.ndarray]:
 
 
 @pytest.fixture
-def reward_fn(reward_cfg):
-    from rbe_501_so101.envs.rewards import ReachReward
-
+def reward_fn(reward_cfg: RewardConfig) -> ReachReward:
+    """Default reach reward."""
     return ReachReward(reward_cfg)
 
 
-def _terms(reward_fn, distance: float, action: np.ndarray | None = None) -> RewardTerms:
+def _terms(
+    reward_fn: ReachReward,
+    distance: float,
+    action: np.ndarray | None = None,
+    prev_action: np.ndarray | None = None,
+) -> RewardTerms:
+    """Score a state at `distance` meters with optional action history."""
     state, target = _state_at_distance(distance)
-    return reward_fn(state, target, np.zeros(N_ARM) if action is None else action)
+    zeros = np.zeros(N_ARM)
+    return reward_fn(state, target, zeros if action is None else action, zeros if prev_action is None else prev_action)
 
 
 def test_bonus_is_full_weight_at_zero_distance(reward_fn, reward_cfg):
@@ -56,16 +63,29 @@ def test_action_penalty_matches_squared_norm(reward_fn, reward_cfg):
     assert terms.action_penalty == pytest.approx(reward_cfg.action_penalty * float(action @ action))
 
 
-def test_total_combines_terms(reward_fn):
+def test_smoothness_penalty_matches_action_delta(reward_fn, reward_cfg):
+    action = np.ones(N_ARM)
+    prev = np.full(N_ARM, 0.25)
+    terms = _terms(reward_fn, 0.0, action, prev)
+    delta = action - prev
+    assert terms.smoothness_penalty == pytest.approx(reward_cfg.smoothness_penalty * float(delta @ delta))
+
+
+def test_total_uses_centimeter_distance_scale(reward_fn, reward_cfg):
     terms = _terms(reward_fn, 0.004, np.full(N_ARM, 0.3))
+    expected = (
+        -reward_cfg.distance_scale * terms.distance
+        + terms.bonus
+        - terms.action_penalty
+        - terms.smoothness_penalty
+    )
     assert terms.distance == pytest.approx(0.004)
-    assert terms.total == pytest.approx(-terms.distance + terms.bonus - terms.action_penalty)
+    assert terms.total == pytest.approx(expected)
 
 
 def test_reward_uses_config_weights():
-    from rbe_501_so101.envs.rewards import ReachReward
-
-    cfg = RewardConfig(bonus_weight=2.0, bonus_sigma_m=0.01, action_penalty=0.0)
+    cfg = RewardConfig(bonus_weight=2.0, bonus_sigma_m=0.01, action_penalty=0.0, smoothness_penalty=0.0)
     terms = _terms(ReachReward(cfg), 0.0, np.ones(N_ARM))
     assert terms.bonus == pytest.approx(2.0)
     assert terms.action_penalty == 0.0
+    assert terms.smoothness_penalty == 0.0

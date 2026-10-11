@@ -1,7 +1,9 @@
 """Central configuration: every tunable constant for simulation, tasks, and training."""
 
 from dataclasses import dataclass, field
+from math import radians
 from pathlib import Path
+from typing import Literal
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "models"
@@ -13,6 +15,7 @@ class SimConfig:
     """MuJoCo model location, control-loop timing, home pose, and actuator limits."""
 
     model_path: Path = MODELS_DIR / "so101" / "so101.xml"
+    timestep_s: float = 0.001
     n_substeps: int = 33
     initial_deg: tuple[float, ...] = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
     stall_torque_nm: float = 2.9
@@ -32,6 +35,13 @@ class SimConfig:
     radial_axis_joint: str = "shoulder_pan"
     robot_root_body: str = "robot_mount"
     table_body: str = "table_frame"
+    table_top_geom: str = "table_top"
+    parked_bodies: tuple[str, ...] = ("cube",)
+
+    @property
+    def control_dt(self) -> float:
+        """Duration of one policy step in seconds."""
+        return self.n_substeps * self.timestep_s
 
     @property
     def joints(self) -> tuple[str, ...]:
@@ -65,7 +75,7 @@ class ReachTaskConfig:
 class TargetSamplerConfig:
     """Clearance, radial band (from the shoulder-pan axis), and joint-limit margin."""
 
-    z_min_m: float = 0.50
+    clearance_m: float = 0.025
     radial_min_m: float = 0.12
     radial_max_m: float = 0.32
     joint_limit_margin_rad: float = 0.15
@@ -74,11 +84,18 @@ class TargetSamplerConfig:
 
 @dataclass(frozen=True)
 class RewardConfig:
-    """Weights of the reach reward: -d + w * exp(-(d/sigma)^2) - c * ||a||^2."""
+    """Weights of the reach reward.
+
+    Distance is stored in meters and scaled by `distance_scale` (cm by default)
+    so approaching the target has a usable gradient. The 5 mm bonus still only
+    pays once sag is being corrected. `smoothness_penalty` damps action chatter.
+    """
 
     bonus_weight: float = 1.0
     bonus_sigma_m: float = 0.005
     action_penalty: float = 0.01
+    distance_scale: float = 100.0
+    smoothness_penalty: float = 0.01
 
 
 @dataclass(frozen=True)
@@ -104,7 +121,7 @@ class IKConfig:
     max_iterations: int = 500
     damping: float = 0.05
     step_gain: float = 0.5
-    max_step_rad: float = 0.0872665
+    max_step_rad: float = radians(5.0)
     seed_postures_deg: tuple[tuple[float, float, float], ...] = (
         (-20.0, 40.0, 15.0),
         (-75.0, -75.0, -75.0),
@@ -126,7 +143,7 @@ class BenchmarkConfig:
 class TrainConfig:
     """RL training hyperparameters, evaluation protocol, and success thresholds."""
 
-    algo: str = "sac"
+    algo: Literal["sac", "ppo"] = "sac"
     timesteps: int = 300_000
     seeds: tuple[int, ...] = (0, 1, 2)
     learning_rate: float = 3e-4

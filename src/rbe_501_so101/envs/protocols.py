@@ -63,10 +63,14 @@ class TargetSampler(Protocol):
 
 
 class RewardFunction(Protocol):
-    """Computes reward terms from the robot state, target, and action."""
+    """Computes reward terms from the robot state, target, and actions."""
 
     def __call__(
-        self, state: RobotState, target: np.ndarray, action: np.ndarray
+        self,
+        state: RobotState,
+        target: np.ndarray,
+        action: np.ndarray,
+        prev_action: np.ndarray,
     ) -> RewardTerms:
         """Return the decomposed reward for one step."""
         ...
