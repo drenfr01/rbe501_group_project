@@ -1,5 +1,6 @@
 """MuJoCo implementation of the RobotBackend protocol for the SO-101 arm."""
 
+import threading
 from dataclasses import dataclass
 from typing import Literal, Self
 
@@ -11,6 +12,7 @@ from rbe_501_so101.envs.model_indices import ModelIndices, disable_body_collisio
 from rbe_501_so101.envs.types import JointLimits, RobotState
 
 RenderMode = Literal["human", "rgb_array"]
+VIEWER_JOIN_TIMEOUT_S = 5.0
 KP_GAIN_COL = 0
 KP_BIAS_COL = 1
 KV_BIAS_COL = 2
@@ -65,6 +67,7 @@ class MujocoSo101Backend:
         self._home = np.deg2rad(np.asarray(sim_cfg.initial_deg, dtype=float))
         self._q_cmd = self._home.copy()
         self._viewer = None
+        self._viewer_threads: list[threading.Thread] = []
         self._renderer: mujoco.Renderer | None = None
 
     @property
@@ -131,6 +134,7 @@ class MujocoSo101Backend:
         try:
             if self._viewer is not None:
                 self._viewer.close()
+                self._join_viewer_threads()
         finally:
             self._viewer = None
             if self._renderer is not None:
@@ -192,12 +196,30 @@ class MujocoSo101Backend:
     def _sync_viewer(self) -> None:
         """Launch the passive viewer on first use, then push the latest state."""
         if self._viewer is None:
-            import mujoco.viewer
-
-            self._viewer = mujoco.viewer.launch_passive(self.model, self.data)
-            self._configure_camera(self._viewer.cam)
+            self._launch_viewer()
         if self._viewer.is_running():
             self._viewer.sync()
+
+    def _launch_viewer(self) -> None:
+        """Open the passive viewer and remember the thread it runs on.
+
+        `launch_passive` runs the window on a daemon thread it does not expose,
+        and `Handle.close()` only requests exit. If the interpreter exits before
+        that thread finishes tearing down OpenGL, the NVIDIA driver segfaults,
+        so `close()` joins the thread captured here.
+        """
+        import mujoco.viewer
+
+        before = set(threading.enumerate())
+        self._viewer = mujoco.viewer.launch_passive(self.model, self.data)
+        self._viewer_threads = [t for t in threading.enumerate() if t not in before]
+        self._configure_camera(self._viewer.cam)
+
+    def _join_viewer_threads(self) -> None:
+        """Wait for the viewer's render thread to release its OpenGL context."""
+        for thread in self._viewer_threads:
+            thread.join(timeout=VIEWER_JOIN_TIMEOUT_S)
+        self._viewer_threads = []
 
     def _render_rgb(self) -> np.ndarray:
         """Render an offscreen RGB frame from the configured camera."""
