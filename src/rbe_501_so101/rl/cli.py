@@ -8,7 +8,7 @@ from typing import Literal
 
 from rbe_501_so101.config import TrainConfig
 from rbe_501_so101.rl.evaluation import run_evaluation
-from rbe_501_so101.rl.training import ALGORITHMS, train_seed
+from rbe_501_so101.rl.training import ALGORITHMS, resolve_device, train_seed
 
 AlgoName = Literal["sac", "ppo"]
 
@@ -25,6 +25,7 @@ class RunSettings:
     model_dir: Path
     num_episodes: int
     render: bool
+    cpu: bool
 
 
 def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
@@ -38,6 +39,7 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
     parser.add_argument("--model-dir", type=Path, default=cfg.model_dir)
     parser.add_argument("--num-episodes", type=int, default=cfg.eval_episodes)
     parser.add_argument("--render", action="store_true", help="open the viewer during evaluation")
+    parser.add_argument("--cpu", action="store_true", help="train on CPU even if a GPU is present")
     args = parser.parse_args(argv)
     return RunSettings(
         algo=args.algo,
@@ -48,6 +50,7 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
         model_dir=args.model_dir,
         num_episodes=args.num_episodes,
         render=args.render,
+        cpu=args.cpu,
     )
 
 
@@ -58,6 +61,7 @@ def main(argv: list[str] | None = None) -> None:
     if settings.evaluate:
         print(json.dumps(_evaluation_report(settings, cfg), indent=2))
         return
+    device = resolve_device(prefer_gpu=not settings.cpu)
     for seed in settings.seeds:
         path = train_seed(
             seed,
@@ -66,6 +70,7 @@ def main(argv: list[str] | None = None) -> None:
             randomize_dynamics=settings.randomize_dynamics,
             model_dir=settings.model_dir,
             cfg=cfg,
+            device=device,
         )
         print(f"saved {path}")
 

@@ -41,3 +41,9 @@ def test_parse_args_returns_run_settings_not_namespace():
     assert settings.evaluate is True
     assert settings.seeds == (0, 1)
     assert settings.num_episodes == 4
+    assert settings.cpu is False
+
+
+def test_parse_args_cpu_flag():
+    settings = parse_args(TrainConfig(), ["--cpu"])
+    assert settings.cpu is True

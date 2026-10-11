@@ -50,6 +50,14 @@ python -m pip install -e .
 echo "==> Smoke tests..."
 python -c "import mujoco; print('mujoco', mujoco.__version__)"
 python -c "import lerobot; print('lerobot', lerobot.__version__)"
+python - <<'EOF'
+import torch
+print("torch", torch.__version__, "cuda", torch.version.cuda)
+if torch.cuda.is_available():
+    print("gpu", torch.cuda.get_device_name(0))
+else:
+    print("gpu not visible. On the host install nvidia-container-toolkit, then Rebuild Container.")
+EOF
 
 if ! grep -qF "${MARKER}" "${HOME}/.bashrc" 2>/dev/null; then
   cat >>"${HOME}/.bashrc" <<EOF
