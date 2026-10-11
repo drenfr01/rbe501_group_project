@@ -52,6 +52,39 @@ In this devcontainer the interpreter is
 `uv lock` / `uv sync` is the other supported path; keep `uv.lock` in sync
 with `pyproject.toml`.
 
+### Why SAC
+
+Soft Actor-Critic is the default algorithm (`--algo sac`); PPO stays
+available for comparison.
+
+- **Continuous actions.** The policy outputs five joint-command deltas in
+  [−1, 1]. SAC is built for continuous action spaces, so no discretization
+  is needed.
+- **Sample efficiency.** SAC is off-policy: it reuses every transition from a
+  replay buffer many times. On-policy PPO discards data after each update and
+  typically needs several times more environment steps.
+- **Built-in exploration.** SAC maximizes reward plus policy entropy, with the
+  entropy weight tuned automatically. There is no exploration-noise schedule
+  to hand-tune, unlike TD3 or DDPG.
+- **Stable value estimates.** Twin Q-networks reduce value overestimation, and
+  the stochastic policy tends to tolerate the randomized motor gains and
+  payloads used in evaluation.
+- **Correct time-limit handling.** Episodes are truncated, not terminated, at
+  150 steps, so SAC keeps bootstrapping value from the final state. This
+  suits a task where the arm must keep holding the target.
+- **Common baseline.** SAC is a standard choice for robot-arm reaching and
+  manipulation, which makes results easy to compare with published work.
+
+Known trade-offs for this task:
+
+- **Entropy works against holding still.** Training favors spread-out actions,
+  which may contribute to the policy hovering near the target instead of
+  settling. Lowering or fixing `target_entropy` is a cheap test.
+- **Reward-scale sensitivity.** The entropy bonus competes directly with
+  reward magnitude, so rescaling the reward changes behavior.
+- **Seed variance.** Results differ noticeably between seeds at 300k steps, so
+  every experiment trains and reports three seeds.
+
 ## How the code flows
 
 Three layers hand control to each other on every step:
