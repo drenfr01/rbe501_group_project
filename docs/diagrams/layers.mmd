@@ -1,0 +1,31 @@
+flowchart TB
+    subgraph SB3["Stable-Baselines3 (RL library)"]
+        SAC["SAC: actor + twin critics on CUDA<br/>replay buffer, gradient updates"]
+        VN["VecNormalize<br/>running obs mean/var"]
+        DV["DummyVecEnv<br/>auto-reset on truncation"]
+        MON["Monitor<br/>episode reward log"]
+    end
+
+    subgraph GYM["Gymnasium task: SO101ReachEnv"]
+        ENV["reset() / step()<br/>action scaling, truncation at 150"]
+        LAYOUT[["ObservationLayout<br/>pack 26-dim obs"]]
+        REWARD["ReachReward<br/>implements RewardFunction"]
+        SAMPLER["ReachableTargetSampler<br/>implements TargetSampler"]
+    end
+
+    subgraph BACKEND["Robot backend: implements RobotBackend"]
+        MJB["MujocoSo101Backend<br/>apply_delta / step / reset"]
+        IDX[["ModelIndices<br/>cached MuJoCo addresses"]]
+    end
+
+    MJ[("MuJoCo<br/>MjModel + MjData<br/>mj_step x 33 per control step")]
+
+    SAC <-->|"normalized obs / action"| VN
+    VN <--> DV <--> MON <-->|"raw obs / action"| ENV
+    ENV --> LAYOUT
+    ENV -->|"RobotState, target, actions"| REWARD
+    ENV -->|"rng"| SAMPLER
+    ENV <-->|"delta joint command / RobotState"| MJB
+    MJB --> IDX
+    MJB <--> MJ
+    SAMPLER -. "forward kinematics<br/>+ collision check" .-> MJ

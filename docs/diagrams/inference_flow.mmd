@@ -1,0 +1,36 @@
+sequenceDiagram
+    autonumber
+    participant RUNNER as run_episode / run_policy.py
+    participant POL as TrainedPolicy (EvalPolicy)
+    participant VN as VecNormalize (frozen)
+    participant SAC as SB3 SAC actor (GPU)
+    participant ENV as SO101ReachEnv (Gymnasium)
+    participant RB as MujocoSo101Backend
+    participant MJ as MuJoCo
+
+    Note over RUNNER,MJ: Load once per seed
+    RUNNER->>POL: load_trained_policy(seed_dir)
+    POL->>VN: VecNormalize.load(vecnormalize.pkl), training=False
+    POL->>SAC: SAC.load(model.zip) on cuda
+
+    Note over RUNNER,MJ: Episode start (fixed seed, same targets for every policy)
+    RUNNER->>ENV: reset(seed=10000 + episode)
+    ENV->>RB: reset(rng), set_target_marker(target)
+    ENV-->>RUNNER: raw obs
+    RUNNER->>POL: reset(target, state)
+
+    Note over RUNNER,MJ: Every step until step 150
+    RUNNER->>POL: policy(obs)
+    POL->>VN: normalize_obs(obs)
+    POL->>SAC: predict(norm_obs, deterministic=True)
+    SAC-->>POL: mean action in [-1, 1], no exploration noise
+    POL-->>RUNNER: action
+    RUNNER->>ENV: step(action)
+    ENV->>RB: apply_delta, step
+    RB->>MJ: mj_step x 33
+    RB-->>ENV: RobotState
+    ENV-->>RUNNER: obs, reward (ignored), info.distance_m
+    RUNNER->>RUNNER: record distance and joint speed
+
+    Note over RUNNER,MJ: After the episode
+    RUNNER->>RUNNER: keep last 30 steps, summarize to PolicyReport, check pass/fail

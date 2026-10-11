@@ -6,13 +6,16 @@
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "remoteUser": "vscode",
-  "runArgs": ["--ipc=host"],
+  "runArgs": ["--ipc=host", "--gpus", "all"],
   "mounts": [
     "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
   ],
   "remoteEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
     "QT_X11_NO_MITSHM": "1"
+  },
+  "containerEnv": {
+    "NVIDIA_DRIVER_CAPABILITIES": "compute,utility,graphics"
   },
   "customizations": {
     "vscode": {
