@@ -1,0 +1,41 @@
+sequenceDiagram
+    autonumber
+    participant SAC as SB3 SAC (GPU)
+    participant VN as VecNormalize / DummyVecEnv / Monitor
+    participant ENV as SO101ReachEnv (Gymnasium)
+    participant TS as ReachableTargetSampler
+    participant RB as MujocoSo101Backend (RobotBackend)
+    participant MJ as MuJoCo
+    participant RF as ReachReward (RewardFunction)
+
+    Note over SAC,RF: Episode start
+    SAC->>VN: reset()
+    VN->>ENV: reset(seed)
+    ENV->>TS: sample(np_random)
+    TS->>MJ: random joints, mj_kinematics, mj_collision
+    TS-->>ENV: target xyz (above table, in band, collision-free)
+    ENV->>RB: reset(np_random)
+    RB->>MJ: restore or randomize gains, mj_resetData, home pose, mj_forward
+    RB-->>ENV: RobotState
+    ENV->>RB: set_target_marker(target)
+    ENV-->>VN: obs = ObservationLayout.pack(...)
+    VN-->>SAC: normalized obs
+
+    Note over SAC,RF: Every step until step 150
+    SAC->>SAC: actor samples action in [-1, 1]
+    SAC->>VN: step(action)
+    VN->>ENV: step(action)
+    ENV->>RB: apply_delta(action x 0.07 rad)
+    Note right of RB: q_cmd += delta, clipped to joint limits
+    ENV->>RB: step()
+    RB->>MJ: ctrl = q_cmd, mj_step x 33 (1 ms each), mj_forward
+    RB-->>ENV: RobotState (qpos, qvel, q_cmd, tcp_pos)
+    ENV->>RF: reward_fn(state, target, action, prev_action)
+    RF-->>ENV: RewardTerms (distance, bonus, penalties, total)
+    ENV-->>VN: obs, reward, terminated=False, truncated, info
+    VN-->>SAC: normalized obs, raw reward, auto-reset if truncated
+    SAC->>SAC: store transition in replay buffer
+    SAC->>SAC: sample batch of 256, update critics, actor, entropy
+
+    Note over SAC,RF: After all timesteps
+    SAC->>SAC: save model.zip and vecnormalize.pkl
