@@ -18,7 +18,8 @@ import numpy as np
 
 from rbe_501_so101.config import TrainConfig
 from rbe_501_so101.envs import SO101ReachEnv
-from rbe_501_so101.rl.evaluation import load_trained_policy
+from rbe_501_so101.rl.checkpoints import CheckpointRepository
+from rbe_501_so101.rl.evaluation import load_trained_policy, make_eval_env
 from rbe_501_so101.rl.policies import TrainedPolicy
 from rbe_501_so101.rl.training import ALGORITHMS
 
@@ -57,8 +58,10 @@ def main() -> None:
     """Load one checkpoint and play episodes."""
     cfg = TrainConfig()
     args = parse_args(cfg)
-    policy = load_trained_policy(args.model_dir / f"seed_{args.seed}", args.algo, cfg)
-    env = SO101ReachEnv(render_mode=None if args.headless else "human", randomize_dynamics=args.randomize_dynamics)
+    repo = CheckpointRepository(args.model_dir, cfg)
+    policy = load_trained_policy(repo, args.seed, args.algo)
+    render_mode = None if args.headless else "human"
+    env = make_eval_env(repo.load_preset(args.seed), args.randomize_dynamics, render_mode)
     try:
         for episode in range(args.episodes):
             distances = play_episode(env, policy, args.target_seed + episode, realtime=not args.headless)

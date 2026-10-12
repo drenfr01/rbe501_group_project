@@ -2,17 +2,17 @@
 
 from collections.abc import Callable
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import gymnasium as gym
 import torch
 from stable_baselines3 import PPO, SAC
 from stable_baselines3.common.base_class import BaseAlgorithm
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+from stable_baselines3.common.vec_env import DummyVecEnv, VecMonitor, VecNormalize
 
-from rbe_501_so101.config import TrainConfig
+from rbe_501_so101.config import PRESETS, ExperimentPreset, SacTuning, TrainConfig
 from rbe_501_so101.envs import REACH_ENV_ID
+from rbe_501_so101.rl.checkpoints import CheckpointRepository
 
 ALGORITHMS: dict[str, type[BaseAlgorithm]] = {"sac": SAC, "ppo": PPO}
 AlgoName = Literal["sac", "ppo"]
@@ -33,21 +33,34 @@ def resolve_device(prefer_gpu: bool = True) -> str:
     return "cpu"
 
 
-def make_env_factory(randomize: bool, monitor_path: Path | None = None) -> Callable[[], gym.Env]:
-    """Return a thunk creating a (monitored) reach env for vectorization."""
+def make_env_factory(randomize: bool, preset: ExperimentPreset = PRESETS["legacy"]) -> Callable[[], gym.Env]:
+    """Return a thunk creating a reach env configured by `preset`."""
 
     def factory() -> gym.Env:
-        env = gym.make(REACH_ENV_ID, randomize_dynamics=randomize)
-        return Monitor(env, filename=str(monitor_path) if monitor_path else None)
+        return gym.make(REACH_ENV_ID, randomize_dynamics=randomize, task_cfg=preset.task, reward_cfg=preset.reward)
 
     return factory
 
 
+def make_vec_env(
+    preset: ExperimentPreset, *, randomize: bool, monitor_path: Path | None, gamma: float
+) -> VecNormalize:
+    """`n_envs` reach envs behind an episode monitor and observation normalization."""
+    venv = DummyVecEnv([make_env_factory(randomize, preset) for _ in range(preset.sac.n_envs)])
+    monitored = VecMonitor(venv, filename=str(monitor_path) if monitor_path else None)
+    return VecNormalize(monitored, norm_obs=True, norm_reward=preset.sac.norm_reward, gamma=gamma)
+
+
 def build_model(
-    algo: AlgoName, env: VecNormalize, seed: int, cfg: TrainConfig, device: str = "cuda"
+    algo: AlgoName,
+    env: VecNormalize,
+    seed: int,
+    cfg: TrainConfig,
+    tuning: SacTuning = SacTuning(),
+    device: str = "cuda",
 ) -> BaseAlgorithm:
     """Construct SAC (default) or PPO with the configured hyperparameters."""
-    kwargs: dict = {
+    kwargs: dict[str, Any] = {
         "policy": "MlpPolicy",
         "env": env,
         "learning_rate": cfg.learning_rate,
@@ -57,8 +70,19 @@ def build_model(
         "device": device,
     }
     if algo == "sac":
-        kwargs.update(buffer_size=cfg.buffer_size, batch_size=cfg.batch_size)
+        kwargs.update(_sac_kwargs(cfg, tuning))
     return ALGORITHMS[algo](**kwargs)
+
+
+def _sac_kwargs(cfg: TrainConfig, tuning: SacTuning) -> dict[str, Any]:
+    """SAC-only constructor arguments."""
+    return {
+        "buffer_size": tuning.buffer_size,
+        "batch_size": cfg.batch_size,
+        "gradient_steps": tuning.gradient_steps,
+        "target_entropy": tuning.target_entropy,
+        "use_sde": tuning.use_sde,
+    }
 
 
 def train_seed(
@@ -67,19 +91,20 @@ def train_seed(
     algo: AlgoName,
     timesteps: int,
     randomize_dynamics: bool,
-    model_dir: Path,
+    repo: CheckpointRepository,
+    preset_name: str,
     cfg: TrainConfig,
     device: str = "cuda",
 ) -> Path:
-    """Train one seed and save the model plus normalization statistics."""
-    seed_dir = model_dir / f"seed_{seed}"
-    seed_dir.mkdir(parents=True, exist_ok=True)
-    venv = DummyVecEnv([make_env_factory(randomize_dynamics, seed_dir / "train")])
-    venv.seed(seed)
-    env = VecNormalize(venv, norm_obs=True, norm_reward=False, gamma=cfg.gamma)
-    model = build_model(algo, env, seed, cfg, device=device)
+    """Train one seed into a fresh folder and save model, normalizer, and preset."""
+    repo.ensure_untrained(seed)
+    preset = PRESETS[preset_name]
+    repo.save_preset(seed, preset_name, preset)
+    env = make_vec_env(preset, randomize=randomize_dynamics, monitor_path=repo.monitor_stem(seed), gamma=cfg.gamma)
+    env.seed(seed)
+    model = build_model(algo, env, seed, cfg, preset.sac, device=device)
     model.learn(total_timesteps=timesteps)
-    model.save(seed_dir / cfg.model_filename)
-    env.save(seed_dir / cfg.vecnormalize_filename)
+    model.save(repo.model_path(seed))
+    env.save(str(repo.normalizer_path(seed)))
     env.close()
-    return seed_dir
+    return repo.seed_dir(seed)

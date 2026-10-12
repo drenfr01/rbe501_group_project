@@ -18,12 +18,11 @@ from pathlib import Path
 from rbe_501_so101.config import (
     PROJECT_ROOT,
     DynamicsRandomizationConfig,
-    ReachTaskConfig,
-    RewardConfig,
     SimConfig,
     TargetSamplerConfig,
     TrainConfig,
 )
+from rbe_501_so101.rl.checkpoints import CheckpointRepository
 from rbe_501_so101.rl.plots import plot_holding_error, plot_training_reward
 from rbe_501_so101.rl.reporting import load_curves, load_report
 
@@ -31,17 +30,17 @@ EXPERIMENTS_DIR = PROJECT_ROOT / "experiments"
 MONITOR_NAME = "train.monitor.csv"
 
 
-def write_config(out_dir: Path) -> None:
-    """Snapshot every config used by training and evaluation."""
+def write_config(out_dir: Path, repo: CheckpointRepository, seed: int) -> None:
+    """Snapshot the run's preset plus every shared config used by training and evaluation."""
     configs = {
         "train": TrainConfig(),
-        "reward": RewardConfig(),
-        "task": ReachTaskConfig(),
         "sampler": TargetSamplerConfig(),
         "sim": SimConfig(),
         "randomization": DynamicsRandomizationConfig(),
     }
     payload = {name: asdict(cfg) for name, cfg in configs.items()}
+    payload["preset_name"] = repo.load_preset_name(seed)
+    payload["preset"] = repo.load_preset(seed).to_dict()
     (out_dir / "config.json").write_text(json.dumps(payload, indent=2, default=str))
 
 
@@ -51,11 +50,11 @@ def copy_monitors(model_dir: Path, seeds: tuple[int, ...], out_dir: Path) -> Non
         shutil.copy(model_dir / f"seed_{seed}" / MONITOR_NAME, out_dir / f"seed_{seed}_monitor.csv")
 
 
-def holding_rows(report: dict, baseline: dict | None) -> dict[str, dict]:
+def holding_rows(report: dict, baseline: dict | None, baseline_label: str) -> dict[str, dict]:
     """Policies to compare in the holding-error chart, in display order."""
     rows: dict[str, dict] = {}
     if baseline is not None:
-        rows["previous reward (nominal)"] = baseline["trained_nominal"]
+        rows[f"{baseline_label} (nominal)"] = baseline["trained_nominal"]
     rows["this run (nominal)"] = report["trained_nominal"]
     rows["this run (randomized)"] = report["trained_randomized_dynamics"]
     rows["IK hold"] = report["baselines"]["ik_hold"]
@@ -69,6 +68,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--eval-report", type=Path, required=True)
     parser.add_argument("--baseline-report", type=Path, help="earlier eval report to compare against")
+    parser.add_argument("--baseline-label", default="previous run", help="chart label for the baseline report")
     parser.add_argument("--seeds", type=int, nargs="+", default=list(TrainConfig().seeds))
     return parser.parse_args()
 
@@ -82,10 +82,11 @@ def main() -> None:
     report = load_report(args.eval_report)
     baseline = load_report(args.baseline_report) if args.baseline_report else None
     (out_dir / "eval_report.json").write_text(json.dumps(report, indent=2))
-    write_config(out_dir)
+    write_config(out_dir, CheckpointRepository(args.model_dir, TrainConfig()), seeds[0])
     copy_monitors(args.model_dir, seeds, out_dir)
     plot_training_reward(load_curves(args.model_dir, seeds, MONITOR_NAME), out_dir / "training_reward.png")
-    plot_holding_error(holding_rows(report, baseline), TrainConfig(), out_dir / "holding_error.png")
+    rows = holding_rows(report, baseline, args.baseline_label)
+    plot_holding_error(rows, TrainConfig(), out_dir / "holding_error.png")
     print(f"wrote {out_dir}")
 
 

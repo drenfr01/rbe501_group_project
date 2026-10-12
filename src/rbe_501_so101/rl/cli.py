@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
-from rbe_501_so101.config import TrainConfig
+from rbe_501_so101.config import PRESETS, TrainConfig
+from rbe_501_so101.rl.checkpoints import LEGACY_PRESET, CheckpointRepository
 from rbe_501_so101.rl.evaluation import run_evaluation
 from rbe_501_so101.rl.training import ALGORITHMS, resolve_device, train_seed
 
@@ -26,6 +27,7 @@ class RunSettings:
     num_episodes: int
     render: bool
     cpu: bool
+    preset: str
 
 
 def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
@@ -40,6 +42,12 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
     parser.add_argument("--num-episodes", type=int, default=cfg.eval_episodes)
     parser.add_argument("--render", action="store_true", help="open the viewer during evaluation")
     parser.add_argument("--cpu", action="store_true", help="train on CPU even if a GPU is present")
+    parser.add_argument(
+        "--preset",
+        choices=sorted(PRESETS),
+        default=LEGACY_PRESET,
+        help="training variant (evaluation reads each checkpoint's recorded preset)",
+    )
     args = parser.parse_args(argv)
     return RunSettings(
         algo=args.algo,
@@ -51,6 +59,7 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
         num_episodes=args.num_episodes,
         render=args.render,
         cpu=args.cpu,
+        preset=args.preset,
     )
 
 
@@ -62,13 +71,17 @@ def main(argv: list[str] | None = None) -> None:
         print(json.dumps(_evaluation_report(settings, cfg), indent=2))
         return
     device = resolve_device(prefer_gpu=not settings.cpu)
+    repo = CheckpointRepository(settings.model_dir, cfg)
+    for seed in settings.seeds:
+        repo.ensure_untrained(seed)
     for seed in settings.seeds:
         path = train_seed(
             seed,
             algo=settings.algo,
             timesteps=settings.timesteps,
             randomize_dynamics=settings.randomize_dynamics,
-            model_dir=settings.model_dir,
+            repo=repo,
+            preset_name=settings.preset,
             cfg=cfg,
             device=device,
         )

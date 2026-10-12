@@ -12,12 +12,13 @@ NEGLIGIBLE_BONUS_FRACTION = 0.01
 N_ARM = 5
 
 
-def _state_at_distance(distance: float) -> tuple[RobotState, np.ndarray]:
+def _state_at_distance(distance: float, qvel: np.ndarray | None = None) -> tuple[RobotState, np.ndarray]:
     """Build a robot state whose TCP is `distance` meters from the returned target."""
     zeros = np.zeros(N_ARM + 1)
     target = np.array([0.1, 0.0, 0.6])
     tcp = target + np.array([0.0, 0.0, -distance])
-    return RobotState(qpos=zeros, qvel=zeros, q_cmd=zeros, tcp_pos=tcp), target
+    velocity = zeros if qvel is None else qvel
+    return RobotState(qpos=zeros, qvel=velocity, q_cmd=zeros, tcp_pos=tcp), target
 
 
 @pytest.fixture
@@ -81,6 +82,53 @@ def test_total_uses_centimeter_distance_scale(reward_fn, reward_cfg):
     )
     assert terms.distance == pytest.approx(0.004)
     assert terms.total == pytest.approx(expected)
+
+
+def test_new_terms_are_off_by_default(reward_fn):
+    state, target = _state_at_distance(0.01, np.full(N_ARM + 1, 0.5))
+    terms = reward_fn(state, target, np.zeros(N_ARM), np.zeros(N_ARM))
+    assert terms.precision_penalty == 0.0
+    assert terms.velocity_penalty == 0.0
+
+
+def test_precision_penalty_is_log_of_distance():
+    cfg = RewardConfig(precision_weight=2.0, precision_eps_m=0.001)
+    terms = _terms(ReachReward(cfg), 0.004)
+    assert terms.precision_penalty == pytest.approx(2.0 * np.log1p(0.004 / 0.001))
+    assert _terms(ReachReward(cfg), 0.0).precision_penalty == pytest.approx(0.0)
+
+
+def test_precision_penalty_is_steeper_near_target():
+    reward_fn = ReachReward(RewardConfig(precision_weight=1.0))
+    near = _terms(reward_fn, 0.006).precision_penalty - _terms(reward_fn, 0.004).precision_penalty
+    far = _terms(reward_fn, 0.106).precision_penalty - _terms(reward_fn, 0.104).precision_penalty
+    assert near > 10 * far
+
+
+def test_velocity_penalty_applies_near_target_only():
+    cfg = RewardConfig(velocity_penalty=3.0, velocity_radius_m=0.02)
+    reward_fn = ReachReward(cfg)
+    qvel = np.full(N_ARM + 1, 0.2)
+    near_state, target = _state_at_distance(0.0, qvel)
+    near = reward_fn(near_state, target, np.zeros(N_ARM), np.zeros(N_ARM))
+    assert near.velocity_penalty == pytest.approx(3.0 * float(qvel @ qvel))
+    far_state, target = _state_at_distance(0.1, qvel)
+    far = reward_fn(far_state, target, np.zeros(N_ARM), np.zeros(N_ARM))
+    assert far.velocity_penalty < NEGLIGIBLE_BONUS_FRACTION * near.velocity_penalty
+
+
+def test_total_subtracts_precision_and_velocity_terms():
+    cfg = RewardConfig(precision_weight=1.0, velocity_penalty=2.0)
+    state, target = _state_at_distance(0.008, np.full(N_ARM + 1, 0.1))
+    terms = ReachReward(cfg)(state, target, np.zeros(N_ARM), np.zeros(N_ARM))
+    expected = -cfg.distance_scale * terms.distance + terms.bonus - terms.precision_penalty - terms.velocity_penalty
+    assert terms.total == pytest.approx(expected)
+
+
+def test_shaped_reward_still_decreases_with_distance():
+    reward_fn = ReachReward(RewardConfig(precision_weight=1.0, velocity_penalty=2.0))
+    totals = [_terms(reward_fn, d).total for d in np.linspace(0.0, 0.3, 301)]
+    assert np.all(np.diff(totals) < 0)
 
 
 def test_reward_uses_config_weights():

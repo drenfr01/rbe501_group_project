@@ -1,0 +1,43 @@
+{
+  "trained_nominal": {
+    "mean_mm": 5.326798354951712,
+    "p95_mm": 12.732658289228283,
+    "per_seed_mean_mm": {
+      "0": 4.411217200926454,
+      "1": 6.834139244599109,
+      "2": 4.735038619329574
+    },
+    "mean_joint_speed_rad_s": 0.002250292384522052
+  },
+  "trained_randomized_dynamics": {
+    "mean_mm": 6.18460746964787,
+    "p95_mm": 16.062613576146013,
+    "per_seed_mean_mm": {
+      "0": 4.938243854517455,
+      "1": 6.8520435184232555,
+      "2": 6.763535036002901
+    },
+    "mean_joint_speed_rad_s": 0.007674635467689465
+  },
+  "baselines": {
+    "random": {
+      "mean_mm": 345.0770930031391,
+      "p95_mm": 535.2676423285451,
+      "per_seed_mean_mm": {
+        "all": 345.0770930031391
+      },
+      "mean_joint_speed_rad_s": 0.4077956492826343
+    },
+    "ik_hold": {
+      "mean_mm": 10.289941423949653,
+      "p95_mm": 15.920896729288252,
+      "per_seed_mean_mm": {
+        "all": 10.289941423949653
+      },
+      "mean_joint_speed_rad_s": 2.7425569646114906e-07
+    }
+  },
+  "holding_window_steps": 30,
+  "episodes_per_seed": 20,
+  "passed": false
+}

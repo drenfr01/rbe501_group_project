@@ -54,6 +54,27 @@ class Renderable(Protocol):
         ...
 
 
+@runtime_checkable
+class JointGoalSolver(Protocol):
+    """Maps a Cartesian target to arm joint angles (e.g. inverse kinematics)."""
+
+    def joint_goal(self, target: np.ndarray, q_init: np.ndarray) -> np.ndarray:
+        """Return arm joint angles (rad) that place the gripper site at `target`."""
+        ...
+
+
+class ActionMapper(Protocol):
+    """Turns a normalized policy action into a joint-command change."""
+
+    def reset(self, joint_goal: np.ndarray | None) -> None:
+        """Start a new episode, optionally around a joint-space goal."""
+        ...
+
+    def to_delta(self, action: np.ndarray, state: RobotState) -> np.ndarray:
+        """Return the arm joint-command change (rad) for this step."""
+        ...
+
+
 class TargetSampler(Protocol):
     """Produces world-frame XYZ reach targets."""
 
