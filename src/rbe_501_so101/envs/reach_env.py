@@ -9,14 +9,17 @@ from gymnasium import spaces
 
 from rbe_501_so101.config import (
     DynamicsRandomizationConfig,
+    IKConfig,
     ReachTaskConfig,
     RenderConfig,
     RewardConfig,
     SimConfig,
     TargetSamplerConfig,
 )
+from rbe_501_so101.envs.actions import make_action_mapper
 from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend, RenderMode
 from rbe_501_so101.envs.protocols import (
+    JointGoalSolver,
     Renderable,
     RewardFunction,
     RobotBackend,
@@ -26,6 +29,7 @@ from rbe_501_so101.envs.protocols import (
 from rbe_501_so101.envs.rewards import ReachReward
 from rbe_501_so101.envs.targets import ReachableTargetSampler
 from rbe_501_so101.envs.types import ObservationLayout, RewardTerms, RobotState
+from rbe_501_so101.kinematics import PositionIKSolver
 
 # Gymnasium's env checker warns on infinite Box bounds; the float32 maximum is
 # effectively unbounded while keeping check_env warning-free.
@@ -35,9 +39,10 @@ OBS_BOUND = float(np.finfo(np.float32).max)
 class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
     """Reach a sampled target with the 5 arm joints while the gripper is held fixed.
 
-    Actions in [-1, 1] are scaled to relative joint-command changes. The
-    observation is packed by `ObservationLayout`. Episodes never terminate
-    early; they truncate after `max_episode_steps`.
+    Actions in [-1, 1] become joint-command changes through the configured
+    action mapper (relative deltas, or a residual on an IK goal solved at
+    reset). The observation is packed by `ObservationLayout`. Episodes never
+    terminate early; they truncate after `max_episode_steps`.
     """
 
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": RenderConfig().render_fps}
@@ -54,6 +59,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         reward_cfg: RewardConfig | None = None,
         randomization_cfg: DynamicsRandomizationConfig | None = None,
         randomize_dynamics: bool = False,
+        goal_solver: JointGoalSolver | None = None,
     ) -> None:
         self._reject_conflicting_backend(backend, sim_cfg, randomization_cfg, randomize_dynamics)
         sim_cfg = sim_cfg or SimConfig()
@@ -66,12 +72,23 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self.render_mode = render_mode
         self._sim = sim_cfg
         self._task = task_cfg
-        self._layout = ObservationLayout(n_arm=len(sim_cfg.arm_joints))
+        self._layout = self._build_layout(sim_cfg, task_cfg)
         self.backend = backend or self._default_backend(sim_cfg, randomization_cfg)
         self._sampler = sampler or self._default_sampler(sim_cfg, sampler_cfg, task_cfg)
         self._reward_fn = reward_fn or ReachReward(reward_cfg)
+        self._action_mapper = make_action_mapper(task_cfg)
+        self.goal_solver = goal_solver or self._default_goal_solver(sim_cfg)
         self._init_spaces()
         self._reset_episode_state()
+
+    @staticmethod
+    def _build_layout(sim_cfg: SimConfig, task_cfg: ReachTaskConfig) -> ObservationLayout:
+        """Observation layout with the extras the task configuration asks for."""
+        return ObservationLayout(
+            n_arm=len(sim_cfg.arm_joints),
+            include_fine_error=task_cfg.fine_error_obs,
+            include_joint_goal=task_cfg.action_mode == "residual_ik",
+        )
 
     @staticmethod
     def _reject_conflicting_backend(
@@ -101,6 +118,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self._step_count = 0
         self._state: RobotState | None = None
         self._target = np.zeros(self._layout.cartesian_dim)
+        self._joint_goal: np.ndarray | None = None
 
     @property
     def layout(self) -> ObservationLayout:
@@ -138,15 +156,17 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self._state = self.backend.reset(self.np_random)
         if isinstance(self.backend, TargetMarker):
             self.backend.set_target_marker(self._target)
+        self._joint_goal = self._solve_joint_goal()
+        self._action_mapper.reset(self._joint_goal)
         self._prev_action = np.zeros(self._layout.n_arm, dtype=np.float32)
         self._step_count = 0
         self._render_human()
         return self._observation(), {"distance_m": self._distance(), "target": self._target.copy()}
 
     def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
-        """Apply a scaled delta command, advance one control period, and score it."""
+        """Map the action to a command change, advance one control period, and score it."""
         action = np.clip(np.asarray(action, dtype=np.float32), -1.0, 1.0)
-        self.backend.apply_delta(action.astype(float) * self._task.delta_q_max_rad)
+        self.backend.apply_delta(self._action_mapper.to_delta(action, self.state))
         self._state = self.backend.step()
         terms = self._reward_fn(self._state, self._target, action, self._prev_action)
         self._prev_action = action
@@ -187,12 +207,41 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
             sim_cfg, sampler_cfg, gripper_hold_deg=task_cfg.gripper_hold_deg
         )
 
+    def _default_goal_solver(self, sim_cfg: SimConfig) -> JointGoalSolver | None:
+        """IK solver for residual mode, sharing the backend model when possible."""
+        if self._task.action_mode != "residual_ik":
+            return None
+        model = getattr(self.backend, "model", None)
+        ids = getattr(self.backend, "ids", None)
+        if model is not None and ids is not None:
+            return PositionIKSolver(model, ids, sim_cfg, IKConfig())
+        return PositionIKSolver.from_config(sim_cfg, IKConfig())
+
+    def _solve_joint_goal(self) -> np.ndarray | None:
+        """IK joint goal for the current target from the commanded pose, if used."""
+        if self.goal_solver is None:
+            return None
+        return np.asarray(self.goal_solver.joint_goal(self._target, self.state.q_cmd), dtype=float)
+
     def _observation(self) -> np.ndarray:
         """Build the float32 observation from the latest state."""
         s, n = self.state, self._layout.n_arm
+        rel_target = self._target - s.tcp_pos
         return self._layout.pack(
-            s.qpos, s.qvel, (s.q_cmd - s.qpos)[:n], self._prev_action, s.tcp_pos, self._target - s.tcp_pos
+            s.qpos,
+            s.qvel,
+            (s.q_cmd - s.qpos)[:n],
+            self._prev_action,
+            s.tcp_pos,
+            rel_target,
+            fine_error=self._fine_error(rel_target),
+            joint_goal=self._joint_goal,
         )
+
+    def _fine_error(self, rel_target: np.ndarray) -> np.ndarray:
+        """Target error clipped to `fine_error_clip_m` and scaled to [-1, 1]."""
+        clip = self._task.fine_error_clip_m
+        return np.clip(rel_target, -clip, clip) / clip
 
     def _distance(self) -> float:
         """Euclidean distance (m) from the gripper site to the target."""

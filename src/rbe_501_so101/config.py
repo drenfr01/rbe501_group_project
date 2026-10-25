@@ -1,9 +1,9 @@
 """Central configuration: every tunable constant for simulation, tasks, and training."""
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from math import radians
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, Self
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "models"
@@ -62,13 +62,29 @@ class RenderConfig:
     elevation: float = -22.0
 
 
+ActionMode = Literal["delta", "residual_ik"]
+
+
 @dataclass(frozen=True)
 class ReachTaskConfig:
-    """Action scaling, episode length, and fixed gripper angle for the reach task."""
+    """Action interface, episode length, observation extras, and gripper angle.
+
+    `action_mode="delta"` adds `sign(a)|a|^action_exponent * delta_q_max_rad` to
+    the joint command each step. `"residual_ik"` solves IK at reset and drives
+    the command (at most `delta_q_max_rad` per step) toward the IK pose plus
+    `residual_max_rad * sign(a)|a|^action_exponent`; the IK pose is observed.
+    `fine_error_obs` appends the target error clipped to `fine_error_clip_m`
+    and scaled to [-1, 1], so millimeter errors survive normalization.
+    """
 
     delta_q_max_rad: float = 0.07
     max_episode_steps: int = 150
     gripper_hold_deg: float = 40.0
+    action_mode: ActionMode = "delta"
+    action_exponent: float = 1.0
+    residual_max_rad: float = 0.1
+    fine_error_obs: bool = False
+    fine_error_clip_m: float = 0.02
 
 
 @dataclass(frozen=True)
@@ -89,6 +105,9 @@ class RewardConfig:
     Distance is stored in meters and scaled by `distance_scale` (cm by default)
     so approaching the target has a usable gradient. The 5 mm bonus still only
     pays once sag is being corrected. `smoothness_penalty` damps action chatter.
+    `precision_weight * ln(1 + d / precision_eps_m)` is steep at millimeter
+    range, and `velocity_penalty * ||q_dot||^2` (faded out beyond about
+    `velocity_radius_m`) rewards holding still at the target. Both default off.
     """
 
     bonus_weight: float = 1.0
@@ -96,6 +115,10 @@ class RewardConfig:
     action_penalty: float = 0.01
     distance_scale: float = 100.0
     smoothness_penalty: float = 0.01
+    precision_weight: float = 0.0
+    precision_eps_m: float = 0.001
+    velocity_penalty: float = 0.0
+    velocity_radius_m: float = 0.02
 
 
 @dataclass(frozen=True)
@@ -147,7 +170,6 @@ class TrainConfig:
     timesteps: int = 300_000
     seeds: tuple[int, ...] = (0, 1, 2)
     learning_rate: float = 3e-4
-    buffer_size: int = 300_000
     batch_size: int = 256
     gamma: float = 0.98
     model_dir: Path = field(default=CHECKPOINTS_DIR / "reach")
@@ -159,3 +181,66 @@ class TrainConfig:
     holding_joint_speed_max_rad_s: float = 0.05
     model_filename: str = "model.zip"
     vecnormalize_filename: str = "vecnormalize.pkl"
+    run_config_filename: str = "run_config.json"
+    monitor_stem: str = "train"
+
+
+@dataclass(frozen=True)
+class SacTuning:
+    """Vectorization and SAC settings that vary between experiment presets.
+
+    `gradient_steps` updates run after every vectorized step of `n_envs`
+    transitions. `target_entropy` is SAC's entropy target (`"auto"` = -action
+    dim); a lower value means less exploration noise once training settles.
+    `norm_reward` rescales rewards with running return statistics.
+    """
+
+    n_envs: int = 1
+    gradient_steps: int = 1
+    buffer_size: int = 300_000
+    target_entropy: float | Literal["auto"] = "auto"
+    use_sde: bool = False
+    norm_reward: bool = False
+
+
+@dataclass(frozen=True)
+class ExperimentPreset:
+    """Everything that defines a training variant; saved next to each checkpoint."""
+
+    task: ReachTaskConfig = field(default_factory=ReachTaskConfig)
+    reward: RewardConfig = field(default_factory=RewardConfig)
+    sac: SacTuning = field(default_factory=SacTuning)
+
+    def to_dict(self) -> dict[str, Any]:
+        """JSON-serializable nested dictionary."""
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> Self:
+        """Inverse of `to_dict`."""
+        return cls(
+            task=ReachTaskConfig(**data["task"]),
+            reward=RewardConfig(**data["reward"]),
+            sac=SacTuning(**data["sac"]),
+        )
+
+
+PARALLEL_SAC = SacTuning(n_envs=4, gradient_steps=2, buffer_size=1_000_000)
+LOW_ENTROPY_SAC = SacTuning(**{**asdict(PARALLEL_SAC), "target_entropy": -10.0})
+SHAPED_REWARD = RewardConfig(precision_weight=1.0, velocity_penalty=2.0)
+CUBIC_ACTION_EXPONENT = 3.0
+
+PRESETS: dict[str, ExperimentPreset] = {
+    "legacy": ExperimentPreset(),
+    "control_long": ExperimentPreset(sac=PARALLEL_SAC),
+    "shaped": ExperimentPreset(
+        task=ReachTaskConfig(action_exponent=CUBIC_ACTION_EXPONENT, fine_error_obs=True),
+        reward=SHAPED_REWARD,
+        sac=LOW_ENTROPY_SAC,
+    ),
+    "residual_ik": ExperimentPreset(
+        task=ReachTaskConfig(action_mode="residual_ik", fine_error_obs=True),
+        reward=SHAPED_REWARD,
+        sac=LOW_ENTROPY_SAC,
+    ),
+}

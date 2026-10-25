@@ -31,15 +31,16 @@ policies, and the CLI are split so they can be imported in tests:
 
 | Module | Role |
 |---|---|
-| `rbe_501_so101.rl.training` | `Monitor` + `VecNormalize` env factory, SAC/PPO, one-seed train |
+| `rbe_501_so101.rl.training` | `VecMonitor` + `VecNormalize` env factory, SAC/PPO, one-seed train |
+| `rbe_501_so101.rl.checkpoints` | `CheckpointRepository`: per-seed model, normalizer, preset, monitor |
 | `rbe_501_so101.rl.evaluation` | episode rollout, reports, pass/fail vs IK-hold |
 | `rbe_501_so101.rl.policies` | trained, random, and IK-hold policies |
 | `rbe_501_so101.rl.cli` | argparse entry point |
 
 ```bash
-python scripts/train_reach.py --algo sac --timesteps 300000 --seeds 0 1 2 --model-dir checkpoints/reach_scaled
-python scripts/train_reach.py --eval --model-dir checkpoints/reach_scaled --num-episodes 20
-python scripts/run_policy.py --model-dir checkpoints/reach_scaled --seed 0   # watch it in the viewer
+python scripts/train_reach.py --preset residual_ik --timesteps 1000000 --seeds 0 1 2 --model-dir checkpoints/reach_1m_residual_ik
+python scripts/train_reach.py --eval --model-dir checkpoints/reach_1m_residual_ik --num-episodes 20
+python scripts/run_policy.py --model-dir checkpoints/reach_1m_residual_ik --seed 0   # watch it in the viewer
 python scripts/benchmark_env.py
 ```
 
@@ -47,10 +48,57 @@ Training uses the GPU automatically and fails fast if CUDA is missing; pass
 `--cpu` to train on the CPU on purpose. Experiment records (config, eval
 report, plots) live in `experiments/`.
 
+`--preset` picks a training variant defined in `PRESETS` in
+`rbe_501_so101/config.py`:
+
+| Preset | What it changes |
+|---|---|
+| `legacy` (default) | The original setup: delta actions, single env, SAC defaults |
+| `control_long` | Same env and reward; 4 parallel envs, 2 gradient steps per step, 1M buffer |
+| `shaped` | `control_long` plus cubic action map, fine-error observation, log-distance and near-target velocity penalties, SAC target entropy −10 |
+| `residual_ik` | `shaped`, but the policy outputs a ±0.1 rad residual on an IK pose solved at reset (zero action = IK hold) |
+
+Each seed folder stores the preset in `run_config.json`, and evaluation
+rebuilds the env from it; folders without one are treated as `legacy`.
+Training refuses to write into a seed folder that already has a `model.zip`.
+
 In this devcontainer the interpreter is
 `/home/vscode/miniforge3/envs/lerobot/bin/python`. On a host with `uv`,
 `uv lock` / `uv sync` is the other supported path; keep `uv.lock` in sync
 with `pyproject.toml`.
+
+### Why SAC
+
+Soft Actor-Critic is the default algorithm (`--algo sac`); PPO stays
+available for comparison.
+
+- **Continuous actions.** The policy outputs five joint-command deltas in
+  [−1, 1]. SAC is built for continuous action spaces, so no discretization
+  is needed.
+- **Sample efficiency.** SAC is off-policy: it reuses every transition from a
+  replay buffer many times. On-policy PPO discards data after each update and
+  typically needs several times more environment steps.
+- **Built-in exploration.** SAC maximizes reward plus policy entropy, with the
+  entropy weight tuned automatically. There is no exploration-noise schedule
+  to hand-tune, unlike TD3 or DDPG.
+- **Stable value estimates.** Twin Q-networks reduce value overestimation, and
+  the stochastic policy tends to tolerate the randomized motor gains and
+  payloads used in evaluation.
+- **Correct time-limit handling.** Episodes are truncated, not terminated, at
+  150 steps, so SAC keeps bootstrapping value from the final state. This
+  suits a task where the arm must keep holding the target.
+- **Common baseline.** SAC is a standard choice for robot-arm reaching and
+  manipulation, which makes results easy to compare with published work.
+
+Known trade-offs for this task:
+
+- **Entropy works against holding still.** Training favors spread-out actions,
+  which may contribute to the policy hovering near the target instead of
+  settling. Lowering or fixing `target_entropy` is a cheap test.
+- **Reward-scale sensitivity.** The entropy bonus competes directly with
+  reward magnitude, so rescaling the reward changes behavior.
+- **Seed variance.** Results differ noticeably between seeds at 300k steps, so
+  every experiment trains and reports three seeds.
 
 ## How the code flows
 

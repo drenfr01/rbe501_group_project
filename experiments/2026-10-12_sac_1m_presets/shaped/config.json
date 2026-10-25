@@ -1,0 +1,113 @@
+{
+  "train": {
+    "algo": "sac",
+    "timesteps": 300000,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "learning_rate": 0.0003,
+    "batch_size": 256,
+    "gamma": 0.98,
+    "model_dir": "/workspaces/rbe501_group_project/checkpoints/reach",
+    "eval_episodes": 20,
+    "eval_seed_offset": 10000,
+    "holding_window_steps": 30,
+    "success_mean_m": 0.005,
+    "success_p95_m": 0.01,
+    "holding_joint_speed_max_rad_s": 0.05,
+    "model_filename": "model.zip",
+    "vecnormalize_filename": "vecnormalize.pkl",
+    "run_config_filename": "run_config.json",
+    "monitor_stem": "train"
+  },
+  "sampler": {
+    "clearance_m": 0.025,
+    "radial_min_m": 0.12,
+    "radial_max_m": 0.32,
+    "joint_limit_margin_rad": 0.15,
+    "max_attempts": 10000
+  },
+  "sim": {
+    "model_path": "/workspaces/rbe501_group_project/models/so101/so101.xml",
+    "timestep_s": 0.001,
+    "n_substeps": 33,
+    "initial_deg": [
+      0.0,
+      -20.0,
+      40.0,
+      15.0,
+      0.0,
+      40.0
+    ],
+    "stall_torque_nm": 2.9,
+    "arm_joints": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll"
+    ],
+    "gripper_joint": "gripper",
+    "actuator_suffix": "_motor",
+    "tcp_site": "gripper_site",
+    "target_mocap_body": "reach_target",
+    "target_site": "reach_target_site",
+    "payload_body": "gripper_link",
+    "radial_axis_joint": "shoulder_pan",
+    "robot_root_body": "robot_mount",
+    "table_body": "table_frame",
+    "table_top_geom": "table_top",
+    "parked_bodies": [
+      "cube"
+    ]
+  },
+  "randomization": {
+    "enabled": false,
+    "kp_scale_range": [
+      0.7,
+      1.3
+    ],
+    "damping_scale_range": [
+      0.7,
+      1.3
+    ],
+    "payload_mass_range_kg": [
+      0.0,
+      0.05
+    ]
+  },
+  "preset_name": "shaped",
+  "preset": {
+    "task": {
+      "delta_q_max_rad": 0.07,
+      "max_episode_steps": 150,
+      "gripper_hold_deg": 40.0,
+      "action_mode": "delta",
+      "action_exponent": 3.0,
+      "residual_max_rad": 0.1,
+      "fine_error_obs": true,
+      "fine_error_clip_m": 0.02
+    },
+    "reward": {
+      "bonus_weight": 1.0,
+      "bonus_sigma_m": 0.005,
+      "action_penalty": 0.01,
+      "distance_scale": 100.0,
+      "smoothness_penalty": 0.01,
+      "precision_weight": 1.0,
+      "precision_eps_m": 0.001,
+      "velocity_penalty": 2.0,
+      "velocity_radius_m": 0.02
+    },
+    "sac": {
+      "n_envs": 4,
+      "gradient_steps": 2,
+      "buffer_size": 1000000,
+      "target_entropy": -10.0,
+      "use_sde": false,
+      "norm_reward": false
+    }
+  }
+}

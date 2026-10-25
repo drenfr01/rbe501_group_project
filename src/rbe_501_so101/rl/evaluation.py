@@ -7,10 +7,12 @@ from typing import Literal
 import numpy as np
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
-from rbe_501_so101.config import IKConfig, ReachTaskConfig, SimConfig, TrainConfig
+from rbe_501_so101.config import ExperimentPreset, IKConfig, ReachTaskConfig, SimConfig, TrainConfig
 from rbe_501_so101.envs import SO101ReachEnv
+from rbe_501_so101.envs.mujoco_backend import RenderMode
 from rbe_501_so101.envs.types import ObservationLayout
 from rbe_501_so101.kinematics import PositionIKSolver
+from rbe_501_so101.rl.checkpoints import CheckpointRepository
 from rbe_501_so101.rl.policies import EvalPolicy, IKHoldPolicy, RandomPolicy, TrainedPolicy
 from rbe_501_so101.rl.training import ALGORITHMS, make_env_factory
 
@@ -78,13 +80,45 @@ def summarize(per_seed: dict[str, list[EpisodeStats]]) -> PolicyReport:
     )
 
 
-def load_trained_policy(seed_dir: Path, algo: AlgoName, cfg: TrainConfig) -> TrainedPolicy:
+def make_eval_env(
+    preset: ExperimentPreset, randomize: bool, render_mode: RenderMode | None = None
+) -> SO101ReachEnv:
+    """Unwrapped reach env built exactly as the preset's training env was."""
+    return SO101ReachEnv(
+        render_mode=render_mode,
+        task_cfg=preset.task,
+        reward_cfg=preset.reward,
+        randomize_dynamics=randomize,
+    )
+
+
+def load_trained_policy(repo: CheckpointRepository, seed: int, algo: AlgoName) -> TrainedPolicy:
     """Load a checkpoint and its frozen normalization statistics."""
-    venv = DummyVecEnv([make_env_factory(False)])
-    normalizer = VecNormalize.load(str(seed_dir / cfg.vecnormalize_filename), venv)
+    venv = DummyVecEnv([make_env_factory(False, repo.load_preset(seed))])
+    normalizer = VecNormalize.load(str(repo.normalizer_path(seed)), venv)
     normalizer.training = False
-    model = ALGORITHMS[algo].load(seed_dir / cfg.model_filename)
+    model = ALGORITHMS[algo].load(repo.model_path(seed))
     return TrainedPolicy(model, normalizer, venv)
+
+
+def evaluate_seed(
+    repo: CheckpointRepository,
+    seed: int,
+    algo: AlgoName,
+    num_episodes: int,
+    cfg: TrainConfig,
+    randomize: bool,
+    render: bool,
+) -> list[EpisodeStats]:
+    """Evaluate one seed in an env rebuilt from that seed's recorded preset."""
+    render_mode: RenderMode | None = "human" if render and not randomize else None
+    env = make_eval_env(repo.load_preset(seed), randomize, render_mode)
+    policy = load_trained_policy(repo, seed, algo)
+    try:
+        return evaluate(env, policy, num_episodes, cfg)
+    finally:
+        env.close()
+        policy.close()
 
 
 def evaluate_trained(
@@ -97,19 +131,9 @@ def evaluate_trained(
     render: bool,
 ) -> PolicyReport:
     """Evaluate every seed's checkpoint on nominal or randomized dynamics."""
-    env = SO101ReachEnv(render_mode="human" if render and not randomize else None, randomize_dynamics=randomize)
-    per_seed: dict[str, list[EpisodeStats]] = {}
-    policies: list[TrainedPolicy] = []
-    try:
-        for seed in seeds:
-            policy = load_trained_policy(model_dir / f"seed_{seed}", algo, cfg)
-            policies.append(policy)
-            per_seed[str(seed)] = evaluate(env, policy, num_episodes, cfg)
-        return summarize(per_seed)
-    finally:
-        env.close()
-        for policy in policies:
-            policy.close()
+    repo = CheckpointRepository(model_dir, cfg)
+    per_seed = {str(s): evaluate_seed(repo, s, algo, num_episodes, cfg, randomize, render) for s in seeds}
+    return summarize(per_seed)
 
 
 def evaluate_baselines(num_episodes: int, cfg: TrainConfig) -> dict[str, PolicyReport]:

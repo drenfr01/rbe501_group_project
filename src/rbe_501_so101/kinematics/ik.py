@@ -82,6 +82,10 @@ class PositionIKSolver:
                 break
         return best
 
+    def joint_goal(self, target: np.ndarray, q_init: np.ndarray) -> np.ndarray:
+        """Arm joint angles of the best solution (the `JointGoalSolver` protocol)."""
+        return self.solve(target, q_init).q[: self._ids.n_arm].copy()
+
     def solve_from(self, target: np.ndarray, q_init: np.ndarray) -> IKResult:
         """Iterate damped least squares from a single start pose."""
         q = np.asarray(q_init, dtype=float).copy()
