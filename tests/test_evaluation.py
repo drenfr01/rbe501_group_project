@@ -3,9 +3,18 @@
 import numpy as np
 import pytest
 
-from rbe_501_so101.config import TrainConfig
+from rbe_501_so101.config import EnvOptions, RobustnessConfig, TrainConfig
 from rbe_501_so101.rl.cli import parse_args
-from rbe_501_so101.rl.evaluation import EpisodeStats, PolicyReport, completed_episodes, passes, summarize
+from rbe_501_so101.rl.evaluation import (
+    EpisodeStats,
+    EvalOverrides,
+    PolicyReport,
+    completed_episodes,
+    passes,
+    run_episode,
+    summarize,
+)
+from rbe_501_so101.rl.policies import RandomPolicy
 
 
 def _episode(error_m: float, speed: float = 0.01) -> EpisodeStats:
@@ -47,3 +56,24 @@ def test_parse_args_returns_run_settings_not_namespace():
 def test_parse_args_cpu_flag():
     settings = parse_args(TrainConfig(), ["--cpu"])
     assert settings.cpu is True
+
+
+def test_parse_args_calibration_and_perturb_flags(tmp_path):
+    settings = parse_args(TrainConfig(), ["--eval", "--calibration", str(tmp_path / "c.json"), "--perturb"])
+    assert settings.overrides == EvalOverrides(calibration_path=tmp_path / "c.json", perturb=True)
+    assert parse_args(TrainConfig(), ["--eval"]).overrides == EvalOverrides()
+
+
+def test_eval_overrides_layer_on_preset_options(tmp_path):
+    base = EnvOptions()
+    assert EvalOverrides().apply(base) == base
+    applied = EvalOverrides(calibration_path=tmp_path / "c.json", perturb=True).apply(base)
+    assert applied.calibration_path == str(tmp_path / "c.json")
+    assert applied.perturbation.delay_steps == max(RobustnessConfig().delay_steps)
+    assert applied.perturbation.quantization_rad == RobustnessConfig().quantization_rad
+
+
+def test_episode_stats_record_holding_actions(reach_env):
+    policy = RandomPolicy(0, reach_env.layout.n_arm)
+    stats = run_episode(reach_env, policy, seed=0, window=TrainConfig().holding_window_steps)
+    assert stats.holding_actions.shape == (TrainConfig().holding_window_steps, reach_env.layout.n_arm)

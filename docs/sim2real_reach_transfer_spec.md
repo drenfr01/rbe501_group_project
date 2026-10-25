@@ -37,7 +37,7 @@ We have a reach policy that works in simulation. Given a 3D target, it moves the
 
 In simulation the policy holds the gripper 0.3 mm from the target on average, 0.7 mm at the 95th percentile. IK alone, with no correction, is off by 10.3 mm. With randomized motor gains and payload, the policy still holds 1.0 mm (see `experiments/2026-10-12_sac_1m_presets/README.md`).
 
-The caveat is that the simulator's motor stiffness values are placeholders. The MJCF uses `kp="20"` for the shoulder and elbow, `6` for wrist flex, and `4` for wrist roll, and none of these were measured. LeRobot writes `P_Coefficient=16, I=0, D=32` to every STS3215 when it connects, and we don't know how much sag that produces. There is no real-robot code yet: `src/rbe_501_so101/hardware/` is empty, and the only hardware tool is `scripts/jog.py`.
+The caveat is that the simulator's motor stiffness values are placeholders. The MJCF uses `kp="20"` for the shoulder and elbow, `6` for wrist flex, and `4` for wrist roll, and none of these were measured. LeRobot writes `P_Coefficient=16, I=0, D=32` to every STS3215 when it connects, and we don't know how much sag that produces. There is no real-robot code yet: `src/rbe_501_so101/hardware/` is empty, and the only hardware tool is `scripts/jog.py` (now `scripts/sim2real/collect/jog.py`).
 
 ### What we don't know yet
 

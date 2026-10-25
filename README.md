@@ -225,6 +225,11 @@ uv run python scripts/test_ik.py --x 0.15 --y 0.00 --z 0.55 --headless
 uv run python scripts/diagnose_tracking.py --seconds 5
 ```
 
+Sim-to-real tools (real arm data collection and sim robustness analysis, including
+the keyboard jog tool at `scripts/sim2real/collect/jog.py`) are indexed in
+[`scripts/sim2real/README.md`](scripts/sim2real/README.md); findings are logged in
+[`reports/`](reports/README.md).
+
 IK takes all XYZ options or none; it preserves the default target when omitted.
 Actuator options accept partial overrides, retaining omitted joint defaults.
 Angles are validated against MJCF limits (shown by `--help`) before simulation.
