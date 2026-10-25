@@ -79,4 +79,17 @@ else
   echo "    Or use: python scripts/test_all_actuators.py --headless"
 fi
 
+SO101_PORT="/dev/so101_follower"
+SO101_CALIBRATION="${HOME}/.cache/huggingface/lerobot/calibration/robots"
+if [[ -e "${SO101_PORT}" ]]; then
+  echo "==> SO-101 follower visible at ${SO101_PORT} -> $(readlink -f "${SO101_PORT}")."
+else
+  echo "==> ${SO101_PORT} not visible. Plug in the arm (host udev rule required); no rebuild needed."
+fi
+if compgen -G "${SO101_CALIBRATION}/*/*.json" >/dev/null; then
+  echo "==> LeRobot calibration found: $(ls "${SO101_CALIBRATION}"/*/*.json | xargs -n1 basename | tr '\n' ' ')"
+else
+  echo "==> No LeRobot calibration under ${SO101_CALIBRATION}; run lerobot-calibrate on host or here."
+fi
+
 echo "==> Done. Reopen the terminal or rebuild if the Python interpreter is not selected."

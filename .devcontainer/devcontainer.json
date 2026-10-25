@@ -4,11 +4,19 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
+  "initializeCommand": "mkdir -p \"${localEnv:HOME}/.cache/huggingface/lerobot\"",
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "remoteUser": "vscode",
-  "runArgs": ["--ipc=host", "--gpus", "all"],
+  "runArgs": [
+    "--ipc=host",
+    "--gpus", "all",
+    "--device-cgroup-rule=c 166:* rmw",
+    "--device-cgroup-rule=c 188:* rmw"
+  ],
   "mounts": [
-    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=/dev,target=/dev,type=bind",
+    "source=${localEnv:HOME}/.cache/huggingface/lerobot,target=/home/vscode/.cache/huggingface/lerobot,type=bind"
   ],
   "remoteEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",

@@ -13,4 +13,10 @@ RUN set -eux; \
     rm /tmp/miniforge.sh; \
     chown -R vscode:vscode /home/vscode/miniforge3
 
+# SO-101 serial ports on the host are root:dialout (gid 20, same as this image).
+RUN usermod -aG dialout vscode
+
 USER vscode
+
+# Pre-create the LeRobot calibration mount target; otherwise Docker creates ~/.cache as root.
+RUN mkdir -p /home/vscode/.cache/huggingface/lerobot
