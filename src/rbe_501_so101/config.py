@@ -5,6 +5,8 @@ from math import radians
 from pathlib import Path
 from typing import Any, Literal, Self
 
+import numpy as np
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "models"
 CHECKPOINTS_DIR = PROJECT_ROOT / "checkpoints"
@@ -181,6 +183,10 @@ class TrainConfig:
     holding_joint_speed_max_rad_s: float = 0.05
     model_filename: str = "model.zip"
     vecnormalize_filename: str = "vecnormalize.pkl"
+    checkpoint_freq_steps: int = 25_000
+    checkpoint_dirname: str = "checkpoint"
+    checkpoint_log_filename: str = "checkpoint_log.json"
+    replay_buffer_filename: str = "replay_buffer.pkl"
     run_config_filename: str = "run_config.json"
     monitor_stem: str = "train"
 
@@ -244,3 +250,157 @@ PRESETS: dict[str, ExperimentPreset] = {
         sac=LOW_ENTROPY_SAC,
     ),
 }
+
+
+MassMode = Literal["fixed", "random"]
+
+
+@dataclass(frozen=True)
+class ObjectConfig:
+    """Cube geometry for the pick-and-lift task."""
+
+    body: str = "cube"
+    geom: str = "cube_geom"
+    side_m: float = 0.025
+
+
+@dataclass(frozen=True)
+class ObjectMassConfig:
+    """Fixed mass or a uniform per-episode mass range, in kilograms."""
+
+    mode: MassMode = "fixed"
+    fixed_kg: float = 0.01
+    range_kg: tuple[float, float] = (0.005, 0.02)
+
+    def __post_init__(self) -> None:
+        low, high = self.range_kg
+        if self.fixed_kg <= 0.0 or low <= 0.0 or low > high:
+            raise ValueError(f"masses must be positive with low <= high, got {self}")
+        if self.mode not in ("fixed", "random"):
+            raise ValueError(f"unknown mass mode {self.mode!r}")
+
+    def sample(self, rng: np.random.Generator) -> float:
+        """Choose one object mass for a new episode."""
+        if self.mode == "fixed":
+            return self.fixed_kg
+        return float(rng.uniform(*self.range_kg))
+
+
+@dataclass(frozen=True)
+class GripperConfig:
+    """Finger contact geometry and gripper angles."""
+
+    fixed_jaw_mesh: str = "wrist_roll_follower_so101_v1"
+    moving_jaw_mesh: str = "moving_jaw_so101_v1"
+    fixed_pad_cutoff_m: float = -0.058
+    moving_pad_cutoff_m: float = -0.048
+    pad_friction: tuple[float, float, float] = (1.5, 0.01, 0.001)
+    pad_solref: tuple[float, float] = (0.005, 1.0)
+    pad_solimp: tuple[float, float, float, float, float] = (0.9, 0.95, 0.001, 0.5, 2.0)
+    pinch_clearance_m: float = 0.004
+    open_deg: float = 45.0
+    close_deg: float = -10.0
+
+    def pinch_point_b(self, side_m: float) -> tuple[float, float, float]:
+        """Cube center offset in gripper coordinates."""
+        return (-(side_m / 2 + self.pinch_clearance_m), 0.0, 0.0)
+
+
+@dataclass(frozen=True)
+class ContactSolverConfig:
+    """Contact solver settings for the grasp model."""
+
+    elliptic_cone: bool = True
+    impratio: float = 10.0
+
+
+@dataclass(frozen=True)
+class ObjectPlacementConfig:
+    """Cube spawn radius and azimuth around the pan axis."""
+
+    radial_min_m: float = 0.14
+    radial_max_m: float = 0.22
+    azimuth_max_deg: float = 40.0
+
+
+@dataclass(frozen=True)
+class PickLiftTaskConfig:
+    """Action scaling, episode length, and the lift height that counts as success."""
+
+    delta_q_max_rad: float = 0.07
+    delta_gripper_max_rad: float = 0.1
+    max_episode_steps: int = 200
+    lift_success_m: float = 0.04
+
+
+@dataclass(frozen=True)
+class PickLiftRewardConfig:
+    """Weights for reach, grasp, lift, success, and action cost."""
+
+    reach_scale_per_m: float = 10.0
+    grasp_bonus: float = 0.25
+    lift_weight: float = 1.0
+    success_bonus: float = 1.0
+    action_penalty: float = 0.01
+
+
+@dataclass(frozen=True)
+class PinchIKConfig:
+    """Pinch-point IK tolerances, step size, and restart posture."""
+
+    tolerance_m: float = 0.001
+    tilt_tolerance_rad: float = radians(3.0)
+    max_iterations: int = 600
+    damping: float = 0.03
+    step_gain: float = 0.5
+    max_step_rad: float = 0.08
+    seed_posture_deg: tuple[float, float, float] = (0.0, 0.0, 90.0)
+
+
+@dataclass(frozen=True)
+class ScriptedPickLiftConfig:
+    """Grasp waypoints, phase lengths, and joint rates."""
+
+    pregrasp_height_m: float = 0.05
+    grasp_height_m: float = 0.0
+    lift_height_m: float = 0.07
+    approach_steps: int = 40
+    descend_steps: int = 30
+    close_steps: int = 30
+    arm_rate_rad: float = 0.07
+    close_rate_rad: float = 0.05
+    lift_rate_rad: float = 0.02
+
+
+@dataclass(frozen=True)
+class ResidualConfig:
+    """Residual control: executed action = scripted action + scale * policy action."""
+
+    scale: float = 0.5
+
+
+@dataclass(frozen=True)
+class PickLiftEvalConfig:
+    """Mass sweep used to compare fixed-mass and random-mass policies."""
+
+    masses_kg: tuple[float, ...] = (0.005, 0.01, 0.015, 0.02)
+    episodes_per_mass: int = 10
+    seed_offset: int = 20_000
+
+
+@dataclass(frozen=True)
+class PickLiftConfig:
+    """Settings for the pick-and-lift environment."""
+
+    sim: SimConfig = field(
+        default_factory=lambda: SimConfig(
+            parked_bodies=(), initial_deg=(*SimConfig().initial_deg[:-1], GripperConfig().open_deg)
+        )
+    )
+    task: PickLiftTaskConfig = field(default_factory=PickLiftTaskConfig)
+    gripper: GripperConfig = field(default_factory=GripperConfig)
+    object: ObjectConfig = field(default_factory=ObjectConfig)
+    contact: ContactSolverConfig = field(default_factory=ContactSolverConfig)
+    placement: ObjectPlacementConfig = field(default_factory=ObjectPlacementConfig)
+    reward: PickLiftRewardConfig = field(default_factory=PickLiftRewardConfig)
+    mass: ObjectMassConfig = field(default_factory=ObjectMassConfig)

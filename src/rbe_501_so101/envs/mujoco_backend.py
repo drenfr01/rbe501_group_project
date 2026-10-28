@@ -41,7 +41,8 @@ class NominalDynamics:
 class MujocoSo101Backend:
     """Drives the simulated SO-101 with delta joint commands at the control rate.
 
-    Each `step()` writes the commanded angles to the position actuators and runs
+    The model is loaded from `sim_cfg.model_path` unless a compiled `model` is
+    passed (the pick-and-lift task edits the scene before compiling). Each `step()` writes the commanded angles to the position actuators and runs
     `n_substeps` physics steps. Commands are integrated on the commanded angle
     (not the measured one), so a zero delta holds the command steady.
     """
@@ -52,12 +53,13 @@ class MujocoSo101Backend:
         randomization: DynamicsRandomizationConfig = DynamicsRandomizationConfig(),
         render_mode: RenderMode | None = None,
         render_cfg: RenderConfig = RenderConfig(),
+        model: mujoco.MjModel | None = None,
     ) -> None:
         self._cfg = sim_cfg
         self._randomization = randomization
         self._render_mode = render_mode
         self._render_cfg = render_cfg
-        self.model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
+        self.model = model if model is not None else mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
         self.data = mujoco.MjData(self.model)
         self._ids = ModelIndices.from_model(self.model, sim_cfg)
         self._disable_parked_bodies()

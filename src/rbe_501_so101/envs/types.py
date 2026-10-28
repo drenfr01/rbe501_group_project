@@ -145,3 +145,92 @@ class ObservationLayout:
         if block is None:
             raise ValueError(f"layout includes {name} but none was given")
         return [block]
+
+
+@dataclass(frozen=True)
+class ObjectState:
+    """Pose summary of the object {o}: its center p_s in {s}, resting height, and mass m."""
+
+    p_s: np.ndarray
+    rest_z: float
+    mass_kg: float
+
+    @property
+    def lift_m(self) -> float:
+        """Height of the object center above where it rested at reset."""
+        return float(self.p_s[2] - self.rest_z)
+
+
+@dataclass(frozen=True)
+class GraspState:
+    """Robot and object state with two-pad contact status."""
+
+    robot: RobotState
+    p_pinch: np.ndarray
+    obj: ObjectState
+    grasped: bool
+
+
+@dataclass(frozen=True)
+class PickLiftRewardTerms:
+    """Pick-and-lift reward components and measured distances."""
+
+    reach: float
+    grasp: float
+    lift: float
+    success: float
+    action_penalty: float
+    total: float
+    distance_m: float
+    lift_m: float
+
+
+@dataclass(frozen=True)
+class PickLiftObservationLayout:
+    """Slices of [q, q_dot, q_cmd-q, previous action, pinch, object, object-pinch]."""
+
+    n_joints: int
+    xyz: int = 3
+
+    @property
+    def q(self) -> slice:
+        """Measured arm and gripper angles."""
+        return slice(0, self.n_joints)
+
+    @property
+    def q_dot(self) -> slice:
+        """Measured joint speeds."""
+        return slice(self.n_joints, 2 * self.n_joints)
+
+    @property
+    def command_error(self) -> slice:
+        """Commanded minus measured angles."""
+        return slice(2 * self.n_joints, 3 * self.n_joints)
+
+    @property
+    def previous_action(self) -> slice:
+        """Action used on the preceding step."""
+        return slice(3 * self.n_joints, 4 * self.n_joints)
+
+    @property
+    def pinch_pos(self) -> slice:
+        """Pinch point in world coordinates."""
+        start = 4 * self.n_joints
+        return slice(start, start + self.xyz)
+
+    @property
+    def object_pos(self) -> slice:
+        """Cube center in world coordinates."""
+        start = self.pinch_pos.stop
+        return slice(start, start + self.xyz)
+
+    @property
+    def object_error(self) -> slice:
+        """Cube center minus pinch point."""
+        start = self.object_pos.stop
+        return slice(start, start + self.xyz)
+
+    @property
+    def size(self) -> int:
+        """Total observation length."""
+        return self.object_error.stop
