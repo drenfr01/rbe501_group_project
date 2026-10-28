@@ -9,7 +9,7 @@ The policy never observes `m`.
 python scripts/run_pick_lift.py --mass-kg 0.01
 python scripts/train_pick_lift.py train --mass-mode fixed --mass-kg 0.01 --seeds 0
 python scripts/train_pick_lift.py train --mass-mode random --mass-range 0.005 0.02 --seeds 0
-python scripts/train_pick_lift.py compare checkpoints/pick_lift_fixed_10g_25mm checkpoints/pick_lift_random_5_20g_25mm \
+python scripts/train_pick_lift.py compare "checkpoints/pick-lift checkpoint/pick_lift_fixed_10g_25mm" "checkpoints/pick-lift checkpoint/pick_lift_random_5_20g_25mm" \
     --out logs/pick_lift_5_20g_25mm_sweep.json --plot logs/pick_lift_5_20g_25mm_sweep.png
 ```
 
@@ -23,6 +23,9 @@ Rerun `train` with a larger `--timesteps` value to continue from the saved
 checkpoint. The value is the total desired steps. Each seed saves its model,
 replay buffer, and observation normalization statistics every 25,000 steps
 and on interruption.
+
+The shared 25 mm runs are in `checkpoints/pick-lift checkpoint/`. Their replay
+buffers use Git LFS.
 
 The action has six relative joint commands: five arm joints and the gripper.
 The 33-value observation includes joint positions, speeds, command errors,

@@ -10,6 +10,7 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "models"
 CHECKPOINTS_DIR = PROJECT_ROOT / "checkpoints"
+PICK_LIFT_CHECKPOINTS_DIR = CHECKPOINTS_DIR / "pick-lift checkpoint"
 
 
 @dataclass(frozen=True)

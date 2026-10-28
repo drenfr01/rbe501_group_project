@@ -5,7 +5,7 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from rbe_501_so101.config import CHECKPOINTS_DIR, ObjectMassConfig, PickLiftEvalConfig, TrainConfig
+from rbe_501_so101.config import PICK_LIFT_CHECKPOINTS_DIR, ObjectMassConfig, PickLiftEvalConfig, TrainConfig
 from rbe_501_so101.rl.pick_lift import MassResult, RunInfo, compare_runs, train_pick_lift_seed
 from rbe_501_so101.rl.training import ALGORITHMS, resolve_device
 
@@ -72,7 +72,7 @@ def _add_train_args(parser: argparse.ArgumentParser, cfg: TrainConfig) -> None:
     parser.add_argument("--algo", choices=sorted(ALGORITHMS), default=cfg.algo)
     parser.add_argument("--timesteps", type=int, default=cfg.timesteps)
     parser.add_argument("--seeds", type=int, nargs="+", default=list(cfg.seeds))
-    parser.add_argument("--model-dir", type=Path, default=None, help="default: checkpoints/pick_lift_<mode>_<mass>g_<side>mm")
+    parser.add_argument("--model-dir", type=Path, default=None, help="default: checkpoints/pick-lift checkpoint/pick_lift_<mode>_<mass>g_<side>mm")
     parser.add_argument("--cpu", action="store_true", help="train on CPU even if a GPU is present")
 
 
@@ -90,7 +90,7 @@ def _train_settings(args: argparse.Namespace) -> TrainSettings:
     """Typed `train` settings with the mass configuration built from the flags."""
     mass = ObjectMassConfig(mode=args.mass_mode, fixed_kg=args.mass_kg, range_kg=tuple(args.mass_range))
     run = RunInfo(mass=mass, control=args.control, algo=args.algo)
-    model_dir = args.model_dir or CHECKPOINTS_DIR / _mass_run_name(run)
+    model_dir = args.model_dir or PICK_LIFT_CHECKPOINTS_DIR / _mass_run_name(run)
     return TrainSettings(run=run, timesteps=args.timesteps, seeds=tuple(args.seeds), model_dir=model_dir, cpu=args.cpu)
 
 
