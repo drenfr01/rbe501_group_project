@@ -1,0 +1,15 @@
+{
+  "joints": [
+    {
+      "joint": "shoulder_lift",
+      "kp_nm_per_rad": 15.79458068400547,
+      "frictionloss_nm": 0.17368058296022168
+    },
+    {
+      "joint": "elbow_flex",
+      "kp_nm_per_rad": 12.271006001137064,
+      "frictionloss_nm": 0.10590797336628714
+    }
+  ],
+  "source": "/workspaces/rbe501_group_project/data/sag_check/2026-10-31_rbe501_follower_p24_190722"
+}

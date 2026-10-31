@@ -410,12 +410,15 @@ class SagCheckConfig:
     than `gravity_torque_floor_nm` use the positive LeRobot side. Every pose is
     entered from `waypoint_sim_deg` (sim degrees, arm joints), and the whole
     path is checked against the table before torque is enabled.
+    `approach_offset_range_deg` bounds a command-line override of the offset
+    (larger offsets sweep the whole friction band but move closer to limits).
     """
 
     poses_path: Path = DATA_DIR / "sag_check" / "poses" / "poses.json"
     sessions_dir: Path = DATA_DIR / "sag_check"
     session_filename: str = "session.json"
     approach_offset_deg: float = 3.0
+    approach_offset_range_deg: tuple[float, float] = (0.5, 15.0)
     gravity_torque_floor_nm: float = 0.01
     waypoint_sim_deg: tuple[float, ...] = (0.0, 0.0, 0.0, 0.0, 0.0)
     path_check: PathCheckConfig = PathCheckConfig()

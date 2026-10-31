@@ -33,7 +33,7 @@ from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
 from rbe_501_so101.hardware.path_safety import MM_PER_M, preflight
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag import RecordedPose, SagRepository, SagSession
-from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner
+from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner, with_approach_offset
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
 from rbe_501_so101.kinematics.gravity import GravityTorqueModel
 from rbe_501_so101.provenance import begin_run, require_clean_tree, timestamped_suffix
@@ -50,6 +50,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--port", default=hw.port)
     parser.add_argument("--robot-id", default=hw.robot_id)
     parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
+    parser.add_argument(
+        "--approach-offset",
+        type=float,
+        default=SagCheckConfig().approach_offset_deg,
+        help="degrees above/below each pose to approach from (larger sweeps the whole friction band)",
+    )
     parser.add_argument("--poses", type=Path, default=SagCheckConfig().poses_path, help="pose list JSON")
     parser.add_argument("--out", type=Path, default=None, help="session folder (default data/sag_check/<date>_<id>)")
     parser.add_argument("--allow-dirty", action="store_true", help="run even with uncommitted changes")
@@ -135,12 +141,12 @@ def session_dir(args: argparse.Namespace, repo: SagRepository, robot_id: str, hw
     return repo.session_dir(timestamped_suffix(robot_id, hw.position_p_gain, datetime.now()))
 
 
-def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfig) -> None:
+def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfig, cfg: SagCheckConfig) -> None:
     """Check the path, run every pose from both sides, save the session, and ramp back to the start pose."""
     pose_joints, poses = repo.load_poses()
     if pose_joints != joints():
         sys.exit(f"pose file joints {pose_joints} do not match {joints()}")
-    robot_id, cfg = robot_id_for(args.sim, hw), SagCheckConfig()
+    robot_id = robot_id_for(args.sim, hw)
     model = mujoco.MjModel.from_xml_path(str(SimConfig().model_path))
     joint_map = JointMap.from_model(model, SimConfig(), hw)
     bus, clock = open_bus(args.sim, hw)
@@ -167,13 +173,19 @@ def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     require_clean_tree(args.allow_dirty)
     hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id, position_p_gain=args.p_gain)
-    repo = SagRepository(replace(SagCheckConfig(), poses_path=resolve_project_path(args.poses)))
+    try:
+        base = replace(SagCheckConfig(), poses_path=resolve_project_path(args.poses))
+        cfg = with_approach_offset(base, args.approach_offset)
+    except ValueError as exc:
+        sys.exit(str(exc))
+    repo = SagRepository(cfg)
     if args.command == "record-poses":
         if args.sim:
             sys.exit("record-poses needs the real arm (poses are jogged by hand)")
         record_poses(repo, hw)
         return
-    run_session(repo, args, hw)
+    print(f"approach offset {cfg.approach_offset_deg:g} deg")
+    run_session(repo, args, hw, cfg)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 
 import math
 from collections.abc import Mapping
+from dataclasses import replace
 from typing import Protocol
 
 import numpy as np
@@ -14,6 +15,14 @@ from rbe_501_so101.hardware.sag import APPROACHES, Approach, RecordedPose, SagSa
 from rbe_501_so101.kinematics.gravity import GravityTorqueModel
 
 APPROACH_SIGN: dict[Approach, float] = {"above": 1.0, "below": -1.0}
+
+
+def with_approach_offset(cfg: SagCheckConfig, offset_deg: float) -> SagCheckConfig:
+    """`cfg` with a new approach offset; refuses offsets outside `approach_offset_range_deg`."""
+    low, high = cfg.approach_offset_range_deg
+    if not low <= offset_deg <= high:
+        raise ValueError(f"approach offset {offset_deg} deg outside [{low}, {high}] deg")
+    return replace(cfg, approach_offset_deg=offset_deg)
 
 
 class ApproachOffsets(Protocol):

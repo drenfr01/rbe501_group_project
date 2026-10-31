@@ -8,7 +8,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 - `findings/`: short, dated write-ups of individual results for sharing. Start with the
   [2026-10-31 session recap](findings/2026-10-31_session_recap.md); also the
   [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
-  [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md).
+  [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md), and the
+  [P = 24 sag check](findings/2026-10-31_sag_check_p24.md).
 - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
 
 ## Outline and status
@@ -18,7 +19,7 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 | 1. Introduction | Reach policy holds 0.3 mm in sim; does it transfer to a real SO-101? | outline |
 | 2. System | SO-101, STS3215 servos, LeRobot bus, MuJoCo model, residual-IK SAC policy, three classical controllers (IK hold, gravity compensation, joint integral) | outline |
 | 3. Method | Phase 0 sag check and stiffness fit, Phase 1 joint mapping, Phase 2 sim robustness sweep, Phase 3 hardware trials; run manifests for provenance | tooling done |
-| 4.1 Real sag and stiffness | per-joint sag, hysteresis, fitted kp with 95% CI (`figures/real_sag.png`) | waiting on hardware session |
+| 4.1 Real sag and stiffness | per-joint sag, hysteresis, fitted kp with 95% CI (`figures/real_sag.png`) | measured at P = 24; hysteresis needs an 8° rerun |
 | 4.2 Joint mapping | signs, offsets, references, joint ranges (D-02) | ranges done; mapping waiting on hardware |
 | 4.3 Sim robustness | feedback vs feedforward, working stiffness range, sensing/delay, verdict (`figures/kp_sweep.png`, `figures/saturation.png`) | provisional results (nominal kp) |
 | 4.4 Hardware trials | encoder-based error and repeatability per controller vs calibrated-sim prediction | waiting on hardware; sim dry runs done |
@@ -40,5 +41,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    direction (about 6.5° of hysteresis); the sim predicts 1.5° from both sides (D-01, D-03).
 7. All real steady-state errors scale as 1/(servo P gain); P = 24 (from LeRobot's 16) cuts them by about 35% before
    motion gets jerky ([gain sweep](findings/2026-10-31_gain_sweep.md)).
+8. At P = 24 the real stiffness is 0.79x (shoulder lift) and 0.61x (elbow) the MJCF value, outside the 0.75x the
+   current policy tolerates on the elbow. The measured hysteresis shrinks from 4.4° to 1.3° when the approach is 3°
+   instead of 30° ([P = 24 sag check](findings/2026-10-31_sag_check_p24.md), D-01, D-03).
 
 ![Stiffness sweep](figures/kp_sweep.png)

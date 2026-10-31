@@ -1,0 +1,112 @@
+{
+  "robot_id": "rbe501_follower",
+  "n_poses": 12,
+  "joints": [
+    {
+      "joint": "shoulder_pan",
+      "mean_sag_deg": -0.02543956043956012,
+      "max_abs_sag_deg": 0.17538461538460837,
+      "mean_abs_hysteresis_deg": 0.7435897435897437,
+      "mjcf_kp": 20.0,
+      "fit": {
+        "joint": "shoulder_pan",
+        "identifiable": false,
+        "n_samples": 12,
+        "torque_span_nm": 2.3045774502040766e-06,
+        "compliance_rad_per_nm": null,
+        "compliance_ci": null,
+        "kp_nm_per_rad": null,
+        "kp_ci_low": null,
+        "kp_ci_high": null
+      },
+      "friction_nm": null
+    },
+    {
+      "joint": "shoulder_lift",
+      "mean_sag_deg": -1.9839560439560369,
+      "max_abs_sag_deg": 2.7653846153846136,
+      "mean_abs_hysteresis_deg": 0.6300366300366305,
+      "mjcf_kp": 20.0,
+      "fit": {
+        "joint": "shoulder_lift",
+        "identifiable": true,
+        "n_samples": 12,
+        "torque_span_nm": 0.7059667272738107,
+        "compliance_rad_per_nm": 0.06331285521322255,
+        "compliance_ci": [
+          0.05012929326594266,
+          0.07649641716050244
+        ],
+        "kp_nm_per_rad": 15.79458068400547,
+        "kp_ci_low": 13.07250766923934,
+        "kp_ci_high": 19.94841608268573
+      },
+      "friction_nm": 0.17368058296022168
+    },
+    {
+      "joint": "elbow_flex",
+      "mean_sag_deg": -1.8868131868131857,
+      "max_abs_sag_deg": 2.765164835164839,
+      "mean_abs_hysteresis_deg": 0.4945054945054952,
+      "mjcf_kp": 20.0,
+      "fit": {
+        "joint": "elbow_flex",
+        "identifiable": true,
+        "n_samples": 12,
+        "torque_span_nm": 0.13579140259864664,
+        "compliance_rad_per_nm": 0.08149291100561253,
+        "compliance_ci": [
+          0.06876785058081228,
+          0.09421797143041277
+        ],
+        "kp_nm_per_rad": 12.271006001137064,
+        "kp_ci_low": 10.613686378702996,
+        "kp_ci_high": 14.541678873979837
+      },
+      "friction_nm": 0.10590797336628714
+    },
+    {
+      "joint": "wrist_flex",
+      "mean_sag_deg": -0.3382051282051286,
+      "max_abs_sag_deg": 0.575384615384607,
+      "mean_abs_hysteresis_deg": 0.8131868131868135,
+      "mjcf_kp": 6.0,
+      "fit": {
+        "joint": "wrist_flex",
+        "identifiable": false,
+        "n_samples": 12,
+        "torque_span_nm": 0.04996937622801266,
+        "compliance_rad_per_nm": null,
+        "compliance_ci": null,
+        "kp_nm_per_rad": null,
+        "kp_ci_low": null,
+        "kp_ci_high": null
+      },
+      "friction_nm": null
+    },
+    {
+      "joint": "wrist_roll",
+      "mean_sag_deg": 0.005943223443223095,
+      "max_abs_sag_deg": 0.04571428571428582,
+      "mean_abs_hysteresis_deg": 0.8278388278388286,
+      "mjcf_kp": 4.0,
+      "fit": {
+        "joint": "wrist_roll",
+        "identifiable": false,
+        "n_samples": 12,
+        "torque_span_nm": 5.707215994661219e-05,
+        "compliance_rad_per_nm": null,
+        "compliance_ci": null,
+        "kp_nm_per_rad": null,
+        "kp_ci_low": null,
+        "kp_ci_high": null
+      },
+      "friction_nm": null
+    }
+  ],
+  "headroom_warnings": [],
+  "residual_max_rad": 0.1,
+  "warning_fraction": 0.5,
+  "min_hysteresis_deg": 0.087890625,
+  "n_excluded_clamped": 0
+}

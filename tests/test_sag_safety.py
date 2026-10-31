@@ -12,7 +12,12 @@ from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
 from rbe_501_so101.hardware.path_safety import preflight
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag import RecordedPose
-from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner, UniformOffsets
+from rbe_501_so101.hardware.sag_procedure import (
+    GravityAwareOffsets,
+    SagCheckRunner,
+    UniformOffsets,
+    with_approach_offset,
+)
 from rbe_501_so101.kinematics.gravity import GravityTorqueModel
 from rbe_501_so101.provenance import timestamped_suffix
 
@@ -116,3 +121,16 @@ def test_path_check_passes_a_high_plan_with_waypoint(raw_model, joint_map, gravi
 
 def test_timestamped_suffix_names_gain_and_time():
     assert timestamped_suffix("rbe501_follower", 24, datetime(2026, 10, 31, 15, 2, 9)) == "rbe501_follower_p24_150209"
+
+
+def test_approach_offset_within_range_is_applied():
+    """A larger approach offset (to sweep the whole friction band) replaces the default."""
+    cfg = with_approach_offset(SagCheckConfig(), 8.0)
+    assert cfg.approach_offset_deg == 8.0
+
+
+@pytest.mark.parametrize("offset", [0.0, -3.0, SagCheckConfig().approach_offset_range_deg[1] + 1.0])
+def test_approach_offset_outside_range_is_refused(offset):
+    """Zero, negative, or very large offsets are refused before anything moves."""
+    with pytest.raises(ValueError, match="approach offset"):
+        with_approach_offset(SagCheckConfig(), offset)

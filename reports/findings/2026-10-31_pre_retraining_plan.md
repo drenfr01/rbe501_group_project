@@ -44,9 +44,12 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
    its offsets, and the sim replay of a real session reuses them. Sessions are written to
    `data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/`. The poses recorded this morning are refused (the path
    comes 4 mm inside the clearance), so step 6 starts by re-recording them.
-6. **Re-record the sag poses higher, then run the sag check** at the chosen gain (run).
+6. **Re-record the sag poses higher, then run the sag check** at the chosen gain (done: 12 poses, P = 24, clean).
 7. **Fit the calibration** (have): `analyze_sag.py` writes `data/calibration/actuator_calibration.json` (stiffness
-   per joint, friction where the hysteresis is identifiable).
+   per joint, friction where the hysteresis is identifiable). Done: kp 15.8 (lift) and 12.3 (elbow) N·m/rad. The friction
+   is a lower bound: 3° approaches measure a third of the pose check's hysteresis
+   ([finding](2026-10-31_sag_check_p24.md)). Open: a short rerun with 8° approaches on a few poses, plus one pose near
+   zero shoulder torque and one reaching out horizontally, to settle the friction and the shoulder intercept.
 
 ## C. Make the simulator reproduce the real arm
 
