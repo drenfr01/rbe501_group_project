@@ -9,8 +9,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
 - **Sub-task:** reach, Phase 0 (real sag check) and Phase 2 (stiffness sweep)
 - **Sim:** MJCF position actuators kp = 20 / 20 / 20 / 6 / 4 / 4 N·m/rad (pan, lift, elbow, wrist flex, wrist roll,
   gripper) with `dampratio=1`. None were measured.
-- **Real:** open. LeRobot writes P/I/D = 16/0/32 to every STS3215 on connect; the resulting stiffness in N·m/rad is
-  unknown until `sag_check.py run` + `analyze_sag.py`.
+- **Real:** LeRobot writes P/I/D = 16/0/32 to every STS3215 on connect; the resulting stiffness in N·m/rad is
+  unknown until `sag_check.py run` + `analyze_sag.py`. The pose check gives a first estimate: about 3–4° of gravity sag
+  on shoulder lift and elbow at the L pose (midpoint of the two approach directions), versus about 1.5° in sim.
+  That suggests the real stiffness is 2–3× lower than the MJCF value, before the deadband is accounted for.
 - **Impact (sim, measured):** the residual-IK policy holds 0.34 mm at nominal kp but 6.3 mm at 0.5x and 22.4 mm at
   0.3x; it meets the 2 mm transfer limit only for kp scales 0.75 to 1.5 (D-08, A-01).
 - **Action:** `ActuatorCalibration` file (`data/calibration/actuator_calibration.json`) loaded on top of the MJCF;
@@ -43,7 +45,9 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   about 0.1 deg after 0.3 s, and below 0.0001 deg after the procedure's 2 s settle. A Coulomb joint would hold about
   frictionloss / kp = 0.43 deg (lift, elbow) indefinitely. MuJoCo's friction loss is a soft constraint and the joint
   slowly creeps to the same equilibrium from both sides.
-- **Real:** open. Gear friction in the STS3215 is expected to leave a direction-dependent final position.
+- **Real (measured, pose check):** the final position depends on the approach direction by about 6.5° on shoulder lift
+  and elbow under gravity load: +7.2° vs +0.7° (lift) and +6.4° vs 0.0° (elbow) at the same goals. The sim gives
+  1.3–1.6° from both sides. See [the pose-check finding](findings/2026-10-31_pose_check.md).
 - **Impact:** the calibration's `frictionloss` (from `friction_torque = kp * hysteresis`) changes the transient but
   cannot reproduce a real steady-state hysteresis. The calibrated-sim check can match sag but not hysteresis.
 - **Action:** report real hysteresis separately as an unmodeled effect; only write friction when hysteresis exceeds

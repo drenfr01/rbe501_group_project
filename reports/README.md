@@ -5,8 +5,9 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 
 - [`differences.md`](differences.md): sim-vs-real differences log (stable IDs `D-xx`).
 - [`assumptions.md`](assumptions.md): each training assumption, how it was tested, the result (IDs `A-xx`).
-- `findings/`: short, dated write-ups of individual results for sharing (e.g.
-  [first real sag check](findings/2026-10-31_real_sag_check.md)).
+- `findings/`: short, dated write-ups of individual results for sharing. Start with the
+  [2026-10-31 session recap](findings/2026-10-31_session_recap.md); also the
+  [first real sag check](findings/2026-10-31_real_sag_check.md) and the [pose check](findings/2026-10-31_pose_check.md).
 - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
 
 ## Outline and status
@@ -22,7 +23,7 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 | 4.4 Hardware trials | encoder-based error and repeatability per controller vs calibrated-sim prediction | waiting on hardware; sim dry runs done |
 | 5. Discussion | which differences mattered, modeling limits (D-03 friction creep), what the cube task should add | outline |
 
-## Key findings so far (sim only)
+## Key findings so far (sim, then first hardware day)
 
 1. The learned correction behaves like feedforward, not feedback: across stiffness 0.3x to 3x its error grows 65x,
    more than gravity compensation (32x), while joint integral control stays flat at 0.77 mm (D-08).
@@ -34,5 +35,7 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    limits, the measured joint offsets, and the safety margin are applied (D-02, D-11).
 5. LeRobot's zero is up to 27° away from the MJCF zero (shoulder lift). Without the mapping the sim drew the arm
    below the table at poses that were in the air (D-11).
+6. Commanded poses on the real arm miss by up to 7° on shoulder lift and elbow. The miss depends on the approach
+   direction (about 6.5° of hysteresis); the sim predicts 1.5° from both sides (D-01, D-03).
 
 ![Stiffness sweep](figures/kp_sweep.png)
