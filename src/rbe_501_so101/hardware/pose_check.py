@@ -125,6 +125,7 @@ def _driver_config(cfg: PoseCheckConfig) -> SagCheckConfig:
         ramp_speed_deg_s=cfg.ramp_speed_deg_s,
         ramp_period_s=cfg.ramp_period_s,
         clamp_tolerance_deg=cfg.clamp_tolerance_deg,
+        final_goal_timeout_s=cfg.final_goal_timeout_s,
     )
 
 
@@ -157,11 +158,11 @@ class PoseCheckRunner:
     def visit(self, pose: CheckPose) -> PoseCheckResult:
         """Ramp to the pose, settle, and average the readings."""
         goal = self.lerobot_goal(pose)
-        clamps_before = self._driver.clamp_count
         self._driver.ramp(goal)
+        _, clamped = self._driver.send_final(goal)
         self._clock.sleep(self._cfg.settle_s)
         mean, std = self._driver.average_reads()
-        return self._result(pose, goal, mean, std, self._driver.clamp_count > clamps_before)
+        return self._result(pose, goal, mean, std, clamped)
 
     def finish(self) -> None:
         """Ramp back to the starting pose, then turn torque off."""

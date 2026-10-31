@@ -404,6 +404,7 @@ class SagCheckConfig:
     ramp_speed_deg_s: float = 30.0
     ramp_period_s: float = 1.0 / 30.0
     clamp_tolerance_deg: float = 1e-6
+    final_goal_timeout_s: float = 3.0
 
 
 @dataclass(frozen=True)
@@ -462,6 +463,7 @@ class PoseCheckConfig:
     n_reads: int = 20
     read_interval_s: float = 0.02
     clamp_tolerance_deg: float = 1e-6
+    final_goal_timeout_s: float = 3.0
     path_step_deg: float = 1.0
     sag_allowance_deg: tuple[float, ...] = (0.0, 6.0, 6.0, 6.0, 0.0)
 

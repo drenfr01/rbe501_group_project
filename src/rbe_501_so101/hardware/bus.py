@@ -157,7 +157,9 @@ class FakeJointBus:
     """In-memory arm for tests: each goal settles instantly to `goal - sag_deg`.
 
     With `max_relative_deg`, goals are first clipped to within that distance of
-    the present position, as LeRobot's `max_relative_target` does.
+    the present position, as LeRobot's `max_relative_target` does. With
+    `max_step_deg`, each send or read moves a joint at most that far toward
+    its goal, like a servo too slow to follow the ramp.
     """
 
     def __init__(
@@ -168,8 +170,11 @@ class FakeJointBus:
         limits: Mapping[str, tuple[float, float]] | None = None,
         status: tuple[MotorStatus, ...] | None = None,
         max_relative_deg: float | None = None,
+        max_step_deg: float | None = None,
     ) -> None:
         self.joints = joints
+        self.max_step_deg = max_step_deg
+        self._target: dict[str, float] = {}
         self.positions = {pos_key(j): float((start_deg or {}).get(j, 0.0)) for j in joints}
         self.sag_deg = dict(sag_deg or {})
         self.max_relative_deg = max_relative_deg
@@ -180,7 +185,8 @@ class FakeJointBus:
         self.closed = False
 
     def read_positions(self) -> dict[str, float]:
-        """Current positions (a copy)."""
+        """Current positions (a copy), after one more step toward the goal."""
+        self._step()
         return dict(self.positions)
 
     def read_status(self) -> tuple[MotorStatus, ...]:
@@ -194,12 +200,16 @@ class FakeJointBus:
         return tuple(MotorSettings(j, **defaults, **extra) for j in self.joints)
 
     def send_positions(self, goal: dict[str, float]) -> dict[str, float]:
-        """Clip (if configured), record the goal, and settle at it minus the configured sag."""
+        """Clip (if configured), record the goal, and move toward it minus the configured sag."""
         sent = clip_relative(goal, self.positions, self.max_relative_deg)
         self.sent.append(dict(sent))
-        for key, value in sent.items():
-            self.positions[key] = value - self.sag_deg.get(key.removesuffix(".pos"), 0.0)
+        self._target.update({k: v - self.sag_deg.get(k.removesuffix(".pos"), 0.0) for k, v in sent.items()})
+        self._step()
         return sent
+
+    def _step(self) -> None:
+        """Move toward the sagged goal, at most `max_step_deg` per joint."""
+        self.positions.update(clip_relative(self._target, self.positions, self.max_step_deg))
 
     def set_torque(self, enabled: bool) -> None:
         """Record torque changes."""

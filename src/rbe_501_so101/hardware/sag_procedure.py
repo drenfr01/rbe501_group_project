@@ -20,8 +20,11 @@ class SagCheckRunner:
     (in the positive LeRobot direction) and steps down to it; "from below"
     mirrors that. The gripper is never offset. Every move longer than the
     final step is ramped at `ramp_speed_deg_s`. Every send is compared with what
-    the bus reports it actually sent, so LeRobot's relative-target clipping is
-    counted and flagged on the affected samples.
+    the bus reports it actually sent, and clipped sends are counted. A joint
+    that lags the ramp by more than LeRobot's relative-target cap gets its
+    final goal clipped, so the final goal is re-sent until it goes through
+    unclipped (up to `final_goal_timeout_s`); a sample is flagged `clamped`
+    only if it never does.
     """
 
     def __init__(self, bus: JointBus, clock: Clock, cfg: SagCheckConfig, joints: tuple[str, ...]) -> None:
@@ -71,15 +74,27 @@ class SagCheckRunner:
     def _sample(self, pose: RecordedPose, approach: Approach) -> SagSample:
         """Ramp to the approach point, step onto the pose, settle, and average."""
         goal = self.goal_dict(pose.positions_deg)
-        clamps_before = self.clamp_count
         self.ramp(self._approach_point(goal, approach))
-        sent = self._send(goal)
+        sent, clamped = self.send_final(goal)
         self._clock.sleep(self._cfg.settle_s)
         mean, std = self.average_reads()
         sent_deg = tuple(sent[pos_key(j)] for j in self._joints)
         status = self._bus.read_status()
-        clamped = self.clamp_count > clamps_before
         return SagSample(pose.pose_id, approach, pose.positions_deg, mean, std, status, sent_deg, clamped)
+
+    def send_final(self, goal: dict[str, float]) -> tuple[dict[str, float], bool]:
+        """Re-send `goal` until the bus accepts it unclipped; return the last send and whether it was still clipped."""
+        attempts = max(1, math.ceil(self._cfg.final_goal_timeout_s / self._cfg.ramp_period_s))
+        for _ in range(attempts):
+            sent = self._send(goal)
+            if not self._clipped(sent, goal):
+                return sent, False
+            self._clock.sleep(self._cfg.ramp_period_s)
+        return sent, True
+
+    def _clipped(self, sent: dict[str, float], goal: dict[str, float]) -> bool:
+        """True if any joint was sent somewhere other than its goal."""
+        return any(abs(sent[k] - v) > self._cfg.clamp_tolerance_deg for k, v in goal.items())
 
     def _approach_point(self, goal: dict[str, float], approach: Approach) -> dict[str, float]:
         """Goal shifted by the approach offset on every arm joint."""
@@ -100,7 +115,7 @@ class SagCheckRunner:
     def _send(self, goal: dict[str, float]) -> dict[str, float]:
         """Send a goal, remember it as the ramp origin, and count it if the bus clipped it."""
         sent = self._bus.send_positions(goal)
-        if any(abs(sent[k] - v) > self._cfg.clamp_tolerance_deg for k, v in goal.items()):
+        if self._clipped(sent, goal):
             self.clamp_count += 1
         self._last = dict(goal)
         self.last_sent = sent

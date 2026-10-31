@@ -204,6 +204,13 @@ def test_runner_records_sent_goal_and_leaves_unclamped_samples_unflagged():
     assert samples[0].sent_goal_deg == samples[0].goal_deg
 
 
+def test_runner_resends_the_final_goal_until_a_lagging_joint_accepts_it():
+    bus = FakeJointBus(JOINTS, max_relative_deg=10.0, max_step_deg=2.0)
+    samples = SagCheckRunner(bus, FakeClock(), FAST_SAG_CFG, JOINTS).run((RecordedPose(0, (0.0, 60.0, 30.0, 0.0, 0.0, 50.0)),))
+    assert [s.clamped for s in samples] == [False, False]
+    assert samples[0].sent_goal_deg == samples[0].goal_deg
+
+
 def test_runner_flags_samples_where_lerobot_clamped_a_goal():
     bus = FakeJointBus(JOINTS, sag_deg={"shoulder_lift": 12.0}, max_relative_deg=10.0)
     samples = SagCheckRunner(bus, FakeClock(), FAST_SAG_CFG, JOINTS).run((RecordedPose(0, (0.0, 20.0, 30.0, 0.0, 0.0, 50.0)),))

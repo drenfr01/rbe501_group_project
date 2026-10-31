@@ -86,6 +86,22 @@ def test_runner_commands_the_mapped_lerobot_goal_and_keeps_the_gripper(joint_map
     assert result.clamped is False
 
 
+def test_runner_sends_the_true_goal_even_when_a_joint_lags_the_ramp(joint_map):
+    bus = FakeJointBus(SIM.joints, start_deg={"shoulder_lift": 80.0}, max_relative_deg=10.0, max_step_deg=1.0)
+    runner = PoseCheckRunner(bus, FakeClock(), joint_map, FAST, SIM.joints)
+    runner.start()
+    result = runner.visit(PoseCheckConfig().poses[0])
+    assert result.sent_deg == pytest.approx(result.lerobot_goal_deg)
+    assert result.clamped is False
+
+
+def test_runner_flags_a_goal_lerobot_never_accepts(joint_map):
+    bus = FakeJointBus(SIM.joints, sag_deg={"shoulder_lift": 12.0}, max_relative_deg=10.0)
+    runner = PoseCheckRunner(bus, FakeClock(), joint_map, FAST, SIM.joints)
+    runner.start()
+    assert runner.visit(PoseCheckConfig().poses[0]).clamped is True
+
+
 def test_runner_finishes_at_the_start_with_torque_off(joint_map):
     bus = FakeJointBus(SIM.joints, start_deg={"shoulder_lift": -80.0})
     runner = PoseCheckRunner(bus, FakeClock(), joint_map, FAST, SIM.joints)
