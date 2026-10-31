@@ -36,6 +36,22 @@ class ReachabilityMap:
         np.savez_compressed(path, points=self.points, radial_m=self.radial_m, accepted=self.accepted)
 
 
+class SequenceTargetSampler:
+    """Returns fixed targets in order, cycling, ignoring the RNG (for hardware trials)."""
+
+    def __init__(self, targets: tuple[np.ndarray, ...]) -> None:
+        if not targets:
+            raise ValueError("need at least one target")
+        self._targets = tuple(np.asarray(t, dtype=float) for t in targets)
+        self._index = 0
+
+    def sample(self, rng: np.random.Generator) -> np.ndarray:
+        """Next target in the sequence."""
+        target = self._targets[self._index % len(self._targets)]
+        self._index += 1
+        return target.copy()
+
+
 class ReachableTargetSampler:
     """Samples targets from random arm configurations via forward kinematics.
 

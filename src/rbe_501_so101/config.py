@@ -1,13 +1,17 @@
 """Central configuration: every tunable constant for simulation, tasks, and training."""
 
 from dataclasses import asdict, dataclass, field
-from math import radians
+from math import pi, radians
 from pathlib import Path
 from typing import Any, Literal, Self
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "models"
 CHECKPOINTS_DIR = PROJECT_ROOT / "checkpoints"
+DATA_DIR = PROJECT_ROOT / "data"
+EXPERIMENTS_DIR = PROJECT_ROOT / "experiments"
+REPORTS_DIR = PROJECT_ROOT / "reports"
+ENCODER_COUNTS_PER_REV = 4096
 
 
 @dataclass(frozen=True)
@@ -37,6 +41,7 @@ class SimConfig:
     table_body: str = "table_frame"
     table_top_geom: str = "table_top"
     parked_bodies: tuple[str, ...] = ("cube",)
+    calibration_path: Path | None = None
 
     @property
     def control_dt(self) -> float:
@@ -204,12 +209,57 @@ class SacTuning:
 
 
 @dataclass(frozen=True)
+class PerturbationConfig:
+    """Sensing and timing effects applied around a simulated backend.
+
+    With `randomize_delay`, each episode draws its delay uniformly from
+    `0..delay_steps` instead of using `delay_steps` exactly.
+    """
+
+    delay_steps: int = 0
+    quantization_rad: float = 0.0
+    randomize_delay: bool = False
+
+    @property
+    def active(self) -> bool:
+        """True if any perturbation would change what the policy sees."""
+        return self.delay_steps > 0 or self.quantization_rad > 0.0
+
+
+ENCODER_QUANTIZATION_RAD = 2 * pi / ENCODER_COUNTS_PER_REV
+
+
+@dataclass(frozen=True)
+class EnvOptions:
+    """Simulator options a preset (or an evaluation) builds the reach env with.
+
+    `calibration_path` is stored as a string so presets stay JSON-serializable.
+    `randomization.enabled` forces randomization on even without the CLI flag.
+    """
+
+    calibration_path: str | None = None
+    perturbation: PerturbationConfig = field(default_factory=PerturbationConfig)
+    randomization: DynamicsRandomizationConfig = field(default_factory=DynamicsRandomizationConfig)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> Self:
+        """Inverse of `asdict`, restoring tuples that JSON turned into lists."""
+        rand = {k: tuple(v) if isinstance(v, list) else v for k, v in data["randomization"].items()}
+        return cls(
+            calibration_path=data["calibration_path"],
+            perturbation=PerturbationConfig(**data["perturbation"]),
+            randomization=DynamicsRandomizationConfig(**rand),
+        )
+
+
+@dataclass(frozen=True)
 class ExperimentPreset:
     """Everything that defines a training variant; saved next to each checkpoint."""
 
     task: ReachTaskConfig = field(default_factory=ReachTaskConfig)
     reward: RewardConfig = field(default_factory=RewardConfig)
     sac: SacTuning = field(default_factory=SacTuning)
+    env: EnvOptions = field(default_factory=EnvOptions)
 
     def to_dict(self) -> dict[str, Any]:
         """JSON-serializable nested dictionary."""
@@ -217,11 +267,13 @@ class ExperimentPreset:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Self:
-        """Inverse of `to_dict`."""
+        """Inverse of `to_dict`; run configs saved before `env` existed get the defaults."""
+        env = EnvOptions.from_dict(data["env"]) if "env" in data else EnvOptions()
         return cls(
             task=ReachTaskConfig(**data["task"]),
             reward=RewardConfig(**data["reward"]),
             sac=SacTuning(**data["sac"]),
+            env=env,
         )
 
 
@@ -244,3 +296,211 @@ PRESETS: dict[str, ExperimentPreset] = {
         sac=LOW_ENTROPY_SAC,
     ),
 }
+
+CALIBRATION_DIR = DATA_DIR / "calibration"
+DEFAULT_CALIBRATION_FILE = "data/calibration/actuator_calibration.json"
+CALIBRATED_RANDOMIZATION = DynamicsRandomizationConfig(enabled=True)
+CALIBRATED_PERTURBATION = PerturbationConfig(
+    delay_steps=1, quantization_rad=ENCODER_QUANTIZATION_RAD, randomize_delay=True
+)
+PRESETS["residual_ik_calibrated"] = ExperimentPreset(
+    task=PRESETS["residual_ik"].task,
+    reward=PRESETS["residual_ik"].reward,
+    sac=PRESETS["residual_ik"].sac,
+    env=EnvOptions(
+        calibration_path=DEFAULT_CALIBRATION_FILE,
+        perturbation=CALIBRATED_PERTURBATION,
+        randomization=CALIBRATED_RANDOMIZATION,
+    ),
+)
+
+
+def resolve_project_path(path: str | Path) -> Path:
+    """Absolute path; relative paths are taken from the project root."""
+    path = Path(path)
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+@dataclass(frozen=True)
+class ProvenanceConfig:
+    """Run-manifest file names and the packages whose versions are recorded."""
+
+    manifest_filename: str = "manifest.json"
+    patch_filename: str = "uncommitted.patch"
+    packages: tuple[str, ...] = ("rbe_501_so101", "mujoco", "lerobot", "torch")
+
+
+@dataclass(frozen=True)
+class JointMappingEntry:
+    """How one LeRobot joint reading maps onto the matching sim joint."""
+
+    sign: float = 1.0
+    offset_rad: float = 0.0
+
+
+@dataclass(frozen=True)
+class HardwareConfig:
+    """Physical SO-101 connection, unit mapping, and motion limits.
+
+    `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
+    before torque is cut. Replace it with a pose where the arm is supported
+    once the Phase 1 mapping is known.
+    """
+
+    port: str = "/dev/so101_follower"
+    robot_id: str = "rbe501_follower"
+    max_relative_target_deg: float = 10.0
+    speed_scale: float = 0.5
+    home_ramp_s: float = 3.0
+    settle_s: float = 1.0
+    limit_margin_rad: float = 0.15
+    joint_map: tuple[JointMappingEntry, ...] = (
+        JointMappingEntry(1.0, radians(1.5)),
+        JointMappingEntry(1.0, radians(-26.8)),
+        JointMappingEntry(1.0, radians(-6.7)),
+        JointMappingEntry(1.0, radians(-0.5)),
+        JointMappingEntry(1.0, 0.0),
+    )
+    gripper_percent_range: tuple[float, float] = (0.0, 100.0)
+    mapping_tolerance_deg: float = 0.5
+    rest_deg: tuple[float, ...] = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
+    rest_ramp_s: float = 3.0
+    lerobot_degrees_per_count: float = 360.0 / 4095
+
+
+@dataclass(frozen=True)
+class SafetyConfig:
+    """Abort thresholds checked on every hardware control step."""
+
+    max_temperature_c: float = 55.0
+    max_load_fraction: float = 0.8
+    max_consecutive_overruns: int = 3
+    table_clearance_m: float = 0.02
+    status_check_every_steps: int = 10
+    clearance_root_body: str = "upper_arm_link"
+
+
+@dataclass(frozen=True)
+class SagCheckConfig:
+    """Phase 0: how each recorded pose is approached and sampled.
+
+    Ramps move every joint at most `ramp_speed_deg_s`, sending a goal every
+    `ramp_period_s`.
+    """
+
+    poses_path: Path = DATA_DIR / "sag_check" / "poses" / "poses.json"
+    sessions_dir: Path = DATA_DIR / "sag_check"
+    session_filename: str = "session.json"
+    approach_offset_deg: float = 5.0
+    settle_s: float = 2.0
+    n_reads: int = 20
+    read_interval_s: float = 0.02
+    ramp_speed_deg_s: float = 30.0
+    ramp_period_s: float = 1.0 / 30.0
+    clamp_tolerance_deg: float = 1e-6
+
+
+@dataclass(frozen=True)
+class SagFitConfig:
+    """Stiffness fit: confidence level and when a joint counts as identifiable.
+
+    A joint is not identifiable when its gravity torque spans less than
+    `min_torque_span_nm` across the poses.
+    """
+
+    confidence: float = 0.95
+    min_torque_span_nm: float = 0.05
+    min_samples: int = 3
+    early_warning_fraction: float = 0.5
+    min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
+    experiment_suffix: str = "sag_analysis"
+
+
+@dataclass(frozen=True)
+class CheckPose:
+    """A pose in sim degrees (arm joints) and what the operator measures on the physical arm.
+
+    At sim zero the upper-arm mesh is vertical and the forearm and gripper are
+    level, so angles in `check` are measured on the links themselves.
+    """
+
+    name: str
+    sim_deg: tuple[float, ...]
+    check: str
+
+
+DEFAULT_CHECK_POSES: tuple[CheckPose, ...] = (
+    CheckPose("L_pose", (0.0, 0.0, 0.0, 0.0, 0.0), "upper arm vertical (90°), forearm level (0°), gripper level (0°)"),
+    CheckPose("forearm_up_30", (0.0, 0.0, -30.0, 0.0, 0.0), "upper arm vertical, forearm and gripper 30° above level"),
+    CheckPose("lean_forward_30", (0.0, 30.0, -30.0, 0.0, 0.0), "upper arm 30° forward of vertical, forearm and gripper level"),
+    CheckPose("wrist_down_45", (0.0, 0.0, 0.0, 45.0, 0.0), "upper arm vertical, forearm level, gripper 45° below level"),
+    CheckPose("pan_45", (45.0, 0.0, 0.0, 0.0, 0.0), "L pose with the base turned 45° from straight ahead"),
+)
+
+
+@dataclass(frozen=True)
+class PoseCheckConfig:
+    """Pose check: command known sim poses on the real arm and compare with level measurements.
+
+    Before torque is enabled the whole path (start, every pose, back to start)
+    is checked every `path_step_deg`, both as commanded and with
+    `sag_allowance_deg` added (positive sim lift/elbow/wrist move the arm down).
+    """
+
+    poses: tuple[CheckPose, ...] = DEFAULT_CHECK_POSES
+    results_dir: Path = DATA_DIR / "pose_check"
+    results_filename: str = "results.json"
+    ramp_speed_deg_s: float = 15.0
+    ramp_period_s: float = 1.0 / 30.0
+    settle_s: float = 2.0
+    n_reads: int = 20
+    read_interval_s: float = 0.02
+    clamp_tolerance_deg: float = 1e-6
+    path_step_deg: float = 1.0
+    sag_allowance_deg: tuple[float, ...] = (0.0, 6.0, 6.0, 6.0, 0.0)
+
+
+@dataclass(frozen=True)
+class MirrorConfig:
+    """Phase 1 mirror tool loop rate and where reference readings are saved."""
+
+    loop_hz: float = 30.0
+    references_dir: Path = DATA_DIR / "joint_mapping"
+    references_filename: str = "references.json"
+
+
+@dataclass(frozen=True)
+class IntegralControlConfig:
+    """Model-free baseline: fraction of the remaining joint error added to the command each step.
+
+    Integration starts once the command is within `reached_tol_rad` of the IK pose.
+    """
+
+    gain: float = 0.2
+    reached_tol_rad: float = 1e-4
+
+
+@dataclass(frozen=True)
+class RobustnessConfig:
+    """Phase 2 sweep grid and the transfer-or-retrain thresholds."""
+
+    kp_scales: tuple[float, ...] = (0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0)
+    delay_steps: tuple[int, ...] = (0, 1)
+    quantization_rad: float = ENCODER_QUANTIZATION_RAD
+    episodes_per_point: int = 20
+    saturation_threshold: float = 0.95
+    transfer_max_mean_m: float = 0.002
+    max_saturation_fraction: float = 0.05
+    experiment_suffix: str = "reach_robustness"
+
+
+@dataclass(frozen=True)
+class RealTrialConfig:
+    """Phase 3 output naming and the fixed repeatability protocol."""
+
+    experiment_suffix: str = "real_reach"
+    repeat_targets: int = 3
+    repeats_per_target: int = 10
+    fixed_targets_path: Path = DATA_DIR / "targets" / "reach_fixed.json"
+    repeat_targets_path: Path = DATA_DIR / "targets" / "reach_repeat.json"
+    n_fixed_targets: int = 10

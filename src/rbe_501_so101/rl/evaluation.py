@@ -1,14 +1,25 @@
 """Evaluate trained reach policies against random and IK-hold baselines."""
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Literal
 
 import numpy as np
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
-from rbe_501_so101.config import ExperimentPreset, IKConfig, ReachTaskConfig, SimConfig, TrainConfig
+from rbe_501_so101.config import (
+    PRESETS,
+    EnvOptions,
+    ExperimentPreset,
+    IKConfig,
+    PerturbationConfig,
+    ReachTaskConfig,
+    RobustnessConfig,
+    SimConfig,
+    TrainConfig,
+)
 from rbe_501_so101.envs import SO101ReachEnv
+from rbe_501_so101.envs.factory import make_reach_env
 from rbe_501_so101.envs.mujoco_backend import RenderMode
 from rbe_501_so101.envs.types import ObservationLayout
 from rbe_501_so101.kinematics import PositionIKSolver
@@ -23,10 +34,11 @@ AlgoName = Literal["sac", "ppo"]
 
 @dataclass(frozen=True)
 class EpisodeStats:
-    """Holding-window errors (m) and mean arm joint speed (rad/s) for one episode."""
+    """Holding-window errors (m), mean arm joint speed (rad/s), and actions for one episode."""
 
     holding_errors_m: np.ndarray
     mean_joint_speed: float
+    holding_actions: np.ndarray | None = None
 
 
 @dataclass(frozen=True)
@@ -43,14 +55,16 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int) 
     """Roll out one episode. Return None if the viewer closed before truncation."""
     obs, _ = env.reset(seed=seed)
     policy.reset(env.target, env.state)
-    errors, speeds, truncated = [], [], False
+    errors, speeds, actions, truncated = [], [], [], False
     while not truncated:
         if not env.viewer_open:
             return None
-        obs, _, _, truncated, info = env.step(policy(obs))
+        action = np.asarray(policy(obs), dtype=float)
+        obs, _, _, truncated, info = env.step(action)
         errors.append(info["distance_m"])
         speeds.append(float(np.mean(np.abs(obs[env.layout.qvel]))))
-    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])))
+        actions.append(action)
+    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])), np.array(actions[-window:]))
 
 
 def completed_episodes(stats: list[EpisodeStats | None]) -> list[EpisodeStats]:
@@ -81,15 +95,13 @@ def summarize(per_seed: dict[str, list[EpisodeStats]]) -> PolicyReport:
 
 
 def make_eval_env(
-    preset: ExperimentPreset, randomize: bool, render_mode: RenderMode | None = None
+    preset: ExperimentPreset,
+    randomize: bool,
+    render_mode: RenderMode | None = None,
+    options: EnvOptions | None = None,
 ) -> SO101ReachEnv:
-    """Unwrapped reach env built exactly as the preset's training env was."""
-    return SO101ReachEnv(
-        render_mode=render_mode,
-        task_cfg=preset.task,
-        reward_cfg=preset.reward,
-        randomize_dynamics=randomize,
-    )
+    """Unwrapped reach env built as the preset's training env was, unless `options` override it."""
+    return make_reach_env(preset, randomize, render_mode, options)
 
 
 def load_trained_policy(repo: CheckpointRepository, seed: int, algo: AlgoName) -> TrainedPolicy:
@@ -101,6 +113,29 @@ def load_trained_policy(repo: CheckpointRepository, seed: int, algo: AlgoName) -
     return TrainedPolicy(model, normalizer, venv)
 
 
+@dataclass(frozen=True)
+class EvalOverrides:
+    """CLI evaluation overrides layered on each checkpoint's own env options.
+
+    `perturb` adds encoder rounding and the largest delay in `RobustnessConfig`.
+    """
+
+    calibration_path: Path | None = None
+    perturb: bool = False
+
+    def apply(self, base: EnvOptions, robustness: RobustnessConfig = RobustnessConfig()) -> EnvOptions:
+        """Base options with the requested calibration and perturbation."""
+        options = base
+        if self.calibration_path is not None:
+            options = replace(options, calibration_path=str(self.calibration_path))
+        if self.perturb:
+            perturbation = PerturbationConfig(
+                delay_steps=max(robustness.delay_steps), quantization_rad=robustness.quantization_rad
+            )
+            options = replace(options, perturbation=perturbation)
+        return options
+
+
 def evaluate_seed(
     repo: CheckpointRepository,
     seed: int,
@@ -109,10 +144,12 @@ def evaluate_seed(
     cfg: TrainConfig,
     randomize: bool,
     render: bool,
+    overrides: EvalOverrides = EvalOverrides(),
 ) -> list[EpisodeStats]:
     """Evaluate one seed in an env rebuilt from that seed's recorded preset."""
     render_mode: RenderMode | None = "human" if render and not randomize else None
-    env = make_eval_env(repo.load_preset(seed), randomize, render_mode)
+    preset = repo.load_preset(seed)
+    env = make_eval_env(preset, randomize, render_mode, overrides.apply(preset.env))
     policy = load_trained_policy(repo, seed, algo)
     try:
         return evaluate(env, policy, num_episodes, cfg)
@@ -129,17 +166,20 @@ def evaluate_trained(
     cfg: TrainConfig,
     randomize: bool,
     render: bool,
+    overrides: EvalOverrides = EvalOverrides(),
 ) -> PolicyReport:
     """Evaluate every seed's checkpoint on nominal or randomized dynamics."""
     repo = CheckpointRepository(model_dir, cfg)
-    per_seed = {str(s): evaluate_seed(repo, s, algo, num_episodes, cfg, randomize, render) for s in seeds}
+    per_seed = {str(s): evaluate_seed(repo, s, algo, num_episodes, cfg, randomize, render, overrides) for s in seeds}
     return summarize(per_seed)
 
 
-def evaluate_baselines(num_episodes: int, cfg: TrainConfig) -> dict[str, PolicyReport]:
+def evaluate_baselines(
+    num_episodes: int, cfg: TrainConfig, overrides: EvalOverrides = EvalOverrides()
+) -> dict[str, PolicyReport]:
     """Random and IK-hold baselines on the same targets as the trained policy."""
     sim_cfg = SimConfig()
-    env = SO101ReachEnv()
+    env = make_reach_env(PRESETS["legacy"], randomize=False, options=overrides.apply(EnvOptions()))
     layout = ObservationLayout(n_arm=len(sim_cfg.arm_joints))
     solver = PositionIKSolver.from_config(sim_cfg, IKConfig())
     baselines: dict[str, EvalPolicy] = {
@@ -171,12 +211,14 @@ def run_evaluation(
     num_episodes: int,
     cfg: TrainConfig,
     render: bool,
+    overrides: EvalOverrides = EvalOverrides(),
 ) -> dict:
     """Evaluate trained policies and baselines and assemble the JSON report."""
-    nominal = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, randomize=False, render=render)
-    randomized = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, randomize=True, render=False)
-    baselines = evaluate_baselines(num_episodes, cfg)
+    nominal = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, False, render, overrides)
+    randomized = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, True, False, overrides)
+    baselines = evaluate_baselines(num_episodes, cfg, overrides)
     return {
+        "overrides": {"calibration_path": str(overrides.calibration_path), "perturb": overrides.perturb},
         "trained_nominal": asdict(nominal),
         "trained_randomized_dynamics": asdict(randomized),
         "baselines": {name: asdict(report) for name, report in baselines.items()},

@@ -36,6 +36,12 @@ from rbe_501_so101.kinematics import PositionIKSolver
 OBS_BOUND = float(np.finfo(np.float32).max)
 
 
+def task_home_deg(sim_cfg: SimConfig, task_cfg: ReachTaskConfig) -> tuple[float, ...]:
+    """Home pose with the gripper at the task's hold angle (degrees)."""
+    n_arm = len(sim_cfg.arm_joints)
+    return (*sim_cfg.initial_deg[:n_arm], task_cfg.gripper_hold_deg)
+
+
 class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
     """Reach a sampled target with the 5 arm joints while the gripper is held fixed.
 
@@ -189,8 +195,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
         self, sim_cfg: SimConfig, randomization_cfg: DynamicsRandomizationConfig
     ) -> MujocoSo101Backend:
         """MuJoCo backend whose home gripper angle is the task's hold angle."""
-        n_arm = self._layout.n_arm
-        home = (*sim_cfg.initial_deg[:n_arm], self._task.gripper_hold_deg)
+        home = task_home_deg(sim_cfg, self._task)
         return MujocoSo101Backend(replace(sim_cfg, initial_deg=home), randomization_cfg, self.render_mode)
 
     def _default_sampler(

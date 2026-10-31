@@ -12,6 +12,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecMonitor, VecNormali
 
 from rbe_501_so101.config import PRESETS, ExperimentPreset, SacTuning, TrainConfig
 from rbe_501_so101.envs import REACH_ENV_ID
+from rbe_501_so101.envs.factory import reach_env_kwargs
 from rbe_501_so101.rl.checkpoints import CheckpointRepository
 
 ALGORITHMS: dict[str, type[BaseAlgorithm]] = {"sac": SAC, "ppo": PPO}
@@ -34,10 +35,10 @@ def resolve_device(prefer_gpu: bool = True) -> str:
 
 
 def make_env_factory(randomize: bool, preset: ExperimentPreset = PRESETS["legacy"]) -> Callable[[], gym.Env]:
-    """Return a thunk creating a reach env configured by `preset`."""
+    """Return a thunk creating a reach env configured by `preset` (including its env options)."""
 
     def factory() -> gym.Env:
-        return gym.make(REACH_ENV_ID, randomize_dynamics=randomize, task_cfg=preset.task, reward_cfg=preset.reward)
+        return gym.make(REACH_ENV_ID, **reach_env_kwargs(preset, randomize))
 
     return factory
 
