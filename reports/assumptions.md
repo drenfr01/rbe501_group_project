@@ -12,7 +12,7 @@ Tests run in sim by `scripts/sim2real/analyze/robustness_sweep.py`
 | A-03 | No delay between command and measurement | rounding + one 33 ms step delay | 14.35 mm, worse than IK hold (10.37 mm); 39% saturated | **no** (D-05) |
 | A-04 | Arm starts at home, at rest | real backend driving the sim arm (ramp + settle) | baselines unchanged; policy pending Phase 3 | pending |
 | A-05 | Commands move at the training rate limit | half speed with rounding + delay | 14.35 to 10.61 mm | partly |
-| A-06 | Any target in the sim joint range is reachable | 400 sampler targets vs real calibrated range | 9.5% need shoulder lift outside the hardware range | **no** (D-02) |
+| A-06 | Any target in the sim joint range is reachable | 400 sampler targets vs real calibrated range | 4.8% need elbow or shoulder lift outside the hardware range under the Phase 1 mapping (9.5% assuming identity) | **no** (D-02, D-11) |
 | A-07 | Joints have no friction | not testable in sim: MuJoCo friction creeps to zero hysteresis | - | pending Phase 0 (D-03) |
 
 ## Transfer decision (provisional)

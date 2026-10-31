@@ -25,10 +25,12 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
 - **Real:** LeRobot calibration `rbe501_follower` (half range in LeRobot degrees): pan ±118.7, lift ±87.8,
   elbow ±97.0, wrist flex ±104.9, wrist roll full turn. The real backend clips to the tighter of both minus
   `limit_margin_rad` (0.15 rad = 8.6 deg), so shoulder lift is limited to ±79.2 deg on hardware versus ±100 in training.
-- **Impact (measured):** of 400 targets from the training sampler, 38 (9.5%) need a shoulder-lift angle outside the
-  hardware range (22, 5.5%, even outside the raw calibrated range); every violation is shoulder lift. On the sim bus
-  such a target leaves every controller, including integral control, about 31 mm off because the command saturates
-  at the clip. Assumes zero offsets and unit signs until Phase 1 fixes them.
+- **Impact (measured):** under the Phase 1 mapping (D-11) the real ranges in sim degrees are lift -115 to +61 and
+  elbow -104 to +90, so the real shoulder reaches 15° further back than the model but 39° less far forward. With the
+  margin the hardware window is lift -91 to +52, elbow -88 to +82. Of 400 sampler configurations, 19 (4.8%) fall
+  outside it (elbow 15, lift 5). Under the earlier identity mapping the estimate was 38 (9.5%), all shoulder lift. On
+  the sim bus such a target leaves every controller, including integral control, about 31 mm off because the command
+  saturates at the clip. All 10 targets in `reach_fixed.json` stay inside the window under the new mapping.
 - **Action:** `data/targets/reach_fixed.json` keeps only targets whose IK pose is inside the hardware range minus the
   margin (3 of the first 13 rejected). A retrained policy should sample targets within the real range.
 - **Evidence:** `run_policy_real.py --sim` on the unfiltered first target; the target files' `source` field.
@@ -113,3 +115,31 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
 - **Sim:** gripper actuator with the MJCF force range.
 - **Real:** LeRobot writes `Max_Torque_Limit` = 500 (50%) to the gripper on connect. Irrelevant for a bare-arm reach,
   but it bounds grip force for the cube task.
+
+### D-11: Joint zero offsets between LeRobot calibration and the MJCF
+
+- **Sub-task:** reach, Phase 1 (joint mapping)
+- **Sim:** MJCF zero pose draws the upper arm vertical and the forearm and gripper horizontal. The line between the
+  shoulder-lift and elbow axes is 14° off the drawn upper arm, so "vertical" must be judged on the mesh, not the axes.
+- **Real:** LeRobot DEGREES puts 0 at the midpoint of each calibrated range, which is not the MJCF zero. Eight
+  references were taken with `mirror_arm.py` (torque off, link orientations judged by eye):
+  `data/joint_mapping/2026-10-31_rbe501_follower/references.json`.
+- **Fit (`sim = lerobot + offset`, all signs +1):** pan +1.5° (three "straight ahead" references), shoulder lift
+  -26.8° (two "upper arm vertical" references, 27.7 and 26.5, plus one "flat" reference, 26.2 from the 90° mark),
+  elbow -6.7° (mean of four 90° bends, spread ±7°), wrist flex -0.5° (two 90° references, 0.2° apart). Wrist roll
+  was not referenced (0).
+- **Consistency:** three "upper arm flat" references with the elbow folded or the wrist turned disagree by 8 to 14°
+  with the vertical ones, more than eye judgment of a vertical link. Two candidate fits were rejected: the opposite
+  shoulder sign puts a hand-held reference 165 mm inside the table, and an axis-to-axis fit (lift -41°) contradicts
+  the renders. Under the identity mapping, sag poses 3 to 8 (held in the air when recorded) were 1 to 64 mm inside
+  the sim table; this is the "shoulder and elbow tilted down" seen in the viewer.
+- **Impact:** every hardware sim-to-real comparison depends on this map: the safety monitor's table check,
+  joint-limit clipping (D-02), gravity torque in the sag fit, and policy observations.
+- **Action:** `HardwareConfig.joint_map` holds the fit; `tests/test_joint_mapping.py` checks the hand-held references
+  map above the table and the vertical references draw a vertical upper arm. `pose_check.py` commands known sim
+  poses on the powered arm for a level-app check (that check also includes servo sag). Still to do: a contact check
+  (gripper resting on the table must read about 0 mm clearance in the mirror tool) and tighten the elbow and the
+  "flat" references with a phone level.
+- **Evidence:** [joint_mapping_references.png](figures/joint_mapping_references.png) (references 1, 2, 3, 5, 7
+  rendered with the fit), [joint_mapping_identity.png](figures/joint_mapping_identity.png) (sim zero and references
+  2, 1, 3 before the fit).

@@ -7,6 +7,12 @@ table, not the servos. One result survives: the poses without contact show every
 its goal from either direction (a deadband). The simulator does not model this. The stiffness measurement has to be
 redone with a table check in place.
 
+**Update (joint mapping, D-11):** with the measured joint offsets, the sim puts the *measured* positions at poses 3
+to 9 between 39 and 143 mm above the table. The recorded goals are 126 to 196 mm above it. Either the contact happened
+while moving between poses rather than at the held poses, or the mapping is still off by more than eye-judgment
+error. Until a contact check settles this, the large shoulder-lift and elbow errors at those poses could be partly
+real gravity sag, not only table contact.
+
 - **Session:** `data/sag_check/2026-10-31_rbe501_follower/` (`session.json`, `manifest.json`; clean tree at commit `e0b129e`)
 - **Poses:** `data/sag_check/poses/poses.json`, 10 poses jogged by hand, each at least 5° inside the calibrated joint limits
 - **Command:** `python scripts/sim2real/collect/sag_check.py run`

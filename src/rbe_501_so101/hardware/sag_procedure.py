@@ -30,6 +30,7 @@ class SagCheckRunner:
         self._cfg = cfg
         self._joints = joints
         self._last: dict[str, float] | None = None
+        self.last_sent: dict[str, float] | None = None
         self.clamp_count = 0
 
     def goal_dict(self, positions_deg: tuple[float, ...]) -> dict[str, float]:
@@ -46,11 +47,12 @@ class SagCheckRunner:
         self.hold_present()
         return tuple(self._sample(pose, approach) for pose in poses for approach in APPROACHES)
 
-    def hold_present(self) -> None:
-        """Make the present position the goal before enabling torque, so nothing jumps."""
+    def hold_present(self) -> dict[str, float]:
+        """Make the present position the goal before enabling torque, so nothing jumps; return it."""
         self._last = self._bus.read_positions()
         self._bus.send_positions(self._last)
         self._bus.set_torque(True)
+        return dict(self._last)
 
     def finish(self, rest_goal: dict[str, float]) -> None:
         """Ramp to the rest pose, then turn torque off."""
@@ -73,7 +75,7 @@ class SagCheckRunner:
         self.ramp(self._approach_point(goal, approach))
         sent = self._send(goal)
         self._clock.sleep(self._cfg.settle_s)
-        mean, std = self._average_reads()
+        mean, std = self.average_reads()
         sent_deg = tuple(sent[pos_key(j)] for j in self._joints)
         status = self._bus.read_status()
         clamped = self.clamp_count > clamps_before
@@ -85,7 +87,7 @@ class SagCheckRunner:
         gripper = pos_key(self._joints[-1])
         return {k: v if k == gripper else v + shift for k, v in goal.items()}
 
-    def _average_reads(self) -> tuple[tuple[float, ...], tuple[float, ...]]:
+    def average_reads(self) -> tuple[tuple[float, ...], tuple[float, ...]]:
         """Mean and standard deviation of `n_reads` position readings."""
         reads = []
         for _ in range(self._cfg.n_reads):
@@ -101,4 +103,5 @@ class SagCheckRunner:
         if any(abs(sent[k] - v) > self._cfg.clamp_tolerance_deg for k, v in goal.items()):
             self.clamp_count += 1
         self._last = dict(goal)
+        self.last_sent = sent
         return sent

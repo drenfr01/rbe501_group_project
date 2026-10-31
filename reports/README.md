@@ -30,7 +30,9 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    hold (D-05). Rounding alone triples it (D-04).
 3. MuJoCo's `frictionloss` creeps to the same equilibrium from both sides, so the simulator cannot show the
    lasting hysteresis that gear friction produces (D-03).
-4. About 9.5% of training targets need shoulder-lift angles the real arm cannot reach once calibrated limits and the
-   safety margin are applied (D-02).
+4. About 5% of training configurations need elbow or shoulder-lift angles the real arm cannot reach once calibrated
+   limits, the measured joint offsets, and the safety margin are applied (D-02, D-11).
+5. LeRobot's zero is up to 27° away from the MJCF zero (shoulder lift). Without the mapping the sim drew the arm
+   below the table at poses that were in the air (D-11).
 
 ![Stiffness sweep](figures/kp_sweep.png)

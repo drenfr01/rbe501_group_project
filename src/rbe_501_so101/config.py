@@ -354,7 +354,13 @@ class HardwareConfig:
     home_ramp_s: float = 3.0
     settle_s: float = 1.0
     limit_margin_rad: float = 0.15
-    joint_map: tuple[JointMappingEntry, ...] = tuple(JointMappingEntry() for _ in range(5))
+    joint_map: tuple[JointMappingEntry, ...] = (
+        JointMappingEntry(1.0, radians(1.5)),
+        JointMappingEntry(1.0, radians(-26.8)),
+        JointMappingEntry(1.0, radians(-6.7)),
+        JointMappingEntry(1.0, radians(-0.5)),
+        JointMappingEntry(1.0, 0.0),
+    )
     gripper_percent_range: tuple[float, float] = (0.0, 100.0)
     mapping_tolerance_deg: float = 0.5
     rest_deg: tuple[float, ...] = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
@@ -408,6 +414,50 @@ class SagFitConfig:
     early_warning_fraction: float = 0.5
     min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
     experiment_suffix: str = "sag_analysis"
+
+
+@dataclass(frozen=True)
+class CheckPose:
+    """A pose in sim degrees (arm joints) and what the operator measures on the physical arm.
+
+    At sim zero the upper-arm mesh is vertical and the forearm and gripper are
+    level, so angles in `check` are measured on the links themselves.
+    """
+
+    name: str
+    sim_deg: tuple[float, ...]
+    check: str
+
+
+DEFAULT_CHECK_POSES: tuple[CheckPose, ...] = (
+    CheckPose("L_pose", (0.0, 0.0, 0.0, 0.0, 0.0), "upper arm vertical (90°), forearm level (0°), gripper level (0°)"),
+    CheckPose("forearm_up_30", (0.0, 0.0, -30.0, 0.0, 0.0), "upper arm vertical, forearm and gripper 30° above level"),
+    CheckPose("lean_forward_30", (0.0, 30.0, -30.0, 0.0, 0.0), "upper arm 30° forward of vertical, forearm and gripper level"),
+    CheckPose("wrist_down_45", (0.0, 0.0, 0.0, 45.0, 0.0), "upper arm vertical, forearm level, gripper 45° below level"),
+    CheckPose("pan_45", (45.0, 0.0, 0.0, 0.0, 0.0), "L pose with the base turned 45° from straight ahead"),
+)
+
+
+@dataclass(frozen=True)
+class PoseCheckConfig:
+    """Pose check: command known sim poses on the real arm and compare with level measurements.
+
+    Before torque is enabled the whole path (start, every pose, back to start)
+    is checked every `path_step_deg`, both as commanded and with
+    `sag_allowance_deg` added (positive sim lift/elbow/wrist move the arm down).
+    """
+
+    poses: tuple[CheckPose, ...] = DEFAULT_CHECK_POSES
+    results_dir: Path = DATA_DIR / "pose_check"
+    results_filename: str = "results.json"
+    ramp_speed_deg_s: float = 15.0
+    ramp_period_s: float = 1.0 / 30.0
+    settle_s: float = 2.0
+    n_reads: int = 20
+    read_interval_s: float = 0.02
+    clamp_tolerance_deg: float = 1e-6
+    path_step_deg: float = 1.0
+    sag_allowance_deg: tuple[float, ...] = (0.0, 6.0, 6.0, 6.0, 0.0)
 
 
 @dataclass(frozen=True)

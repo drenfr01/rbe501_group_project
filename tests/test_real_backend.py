@@ -5,7 +5,7 @@ from dataclasses import replace
 import numpy as np
 import pytest
 
-from rbe_501_so101.config import HardwareConfig, IKConfig, ReachTaskConfig, SafetyConfig, SimConfig
+from rbe_501_so101.config import HardwareConfig, IKConfig, JointMappingEntry, ReachTaskConfig, SafetyConfig, SimConfig
 from rbe_501_so101.envs.protocols import RobotBackend
 from rbe_501_so101.envs.reach_env import SO101ReachEnv
 from rbe_501_so101.envs.targets import SequenceTargetSampler
@@ -21,7 +21,7 @@ from rbe_501_so101.rl.evaluation import run_episode
 from rbe_501_so101.rl.policies import IKHoldPolicy
 
 SIM = SimConfig()
-HW = HardwareConfig()
+HW = HardwareConfig(joint_map=tuple(JointMappingEntry() for _ in range(5)))
 N_ARM = len(SIM.arm_joints)
 HOME_DEG = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
 BELOW_TABLE_DEG = (0.0, 90.0, 0.0, 0.0, 0.0, 40.0)

@@ -48,6 +48,10 @@ class SafetyMonitor:
         body_z = self._data.xpos[self._bodies, 2]
         return float(min(body_z.min(), self._data.site_xpos[self._ids.tcp_site, 2]))
 
+    def clearance_margin(self, q: np.ndarray) -> float:
+        """Metres the lowest monitored point sits above the table clearance (negative: inside it)."""
+        return self.lowest_point_z(q) - self._z_min
+
     def check_command(self, q: np.ndarray) -> None:
         """Reject a commanded pose that brings the arm within the table clearance."""
         z = self.lowest_point_z(q)

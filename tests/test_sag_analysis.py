@@ -5,7 +5,7 @@ from dataclasses import replace
 import numpy as np
 import pytest
 
-from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SagFitConfig, SimConfig
+from rbe_501_so101.config import HardwareConfig, JointMappingEntry, SagCheckConfig, SagFitConfig, SimConfig
 from rbe_501_so101.kinematics.gravity import GravityTorqueModel
 from rbe_501_so101.rl.plots import plot_real_sag
 from rbe_501_so101.hardware.joint_mapping import JointMap
@@ -19,6 +19,7 @@ from rbe_501_so101.hardware.sag_analysis import (
 )
 
 SIM = SimConfig()
+IDENTITY_HW = HardwareConfig(joint_map=tuple(JointMappingEntry() for _ in SIM.arm_joints))
 POSES_DEG = (
     (0.0, -20.3, 40.1, 15.2, 0.0, 40.0),
     (10.2, 0.4, 20.3, 40.1, 30.0, 40.0),
@@ -51,7 +52,7 @@ def _session() -> SagSession:
 @pytest.fixture
 def analysis(raw_model):
     """Analysis of the synthetic session."""
-    joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
+    joint_map = JointMap.from_model(raw_model, SIM, IDENTITY_HW)
     return analyze_session(_session(), joint_map, raw_model, SIM, SagFitConfig(), residual_max_rad=0.1)
 
 
@@ -94,7 +95,7 @@ def test_real_sag_plot_is_written(analysis, tmp_path):
 
 
 def test_simulated_session_compares_joint_by_joint(raw_model):
-    joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
+    joint_map = JointMap.from_model(raw_model, SIM, IDENTITY_HW)
     real = _session()
     simulated = simulate_session(real, SIM, joint_map, SagCheckConfig(settle_s=1.0, n_reads=3), quantization_rad=0.0)
     rows = compare_sag(real, simulated, SIM.arm_joints)
@@ -106,7 +107,7 @@ def test_simulated_session_compares_joint_by_joint(raw_model):
 
 
 def test_analysis_excludes_clamped_samples_and_reports_them(raw_model):
-    joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
+    joint_map = JointMap.from_model(raw_model, SIM, IDENTITY_HW)
     clean = _session()
     junk = tuple(replace(s, pose_id=99, measured_deg=(0.0,) * 6, clamped=True) for s in clean.samples[:2])
     dirty = replace(clean, samples=clean.samples + junk)

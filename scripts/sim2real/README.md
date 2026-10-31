@@ -20,6 +20,7 @@ Run from the repo root in the `lerobot` conda env
 | `collect/sag_check.py record-poses` | 0 | yes (torque off, move by hand) | `data/sag_check/poses/poses.json` | `python scripts/sim2real/collect/sag_check.py record-poses` |
 | `collect/sag_check.py run` | 0 | yes (`--sim` for a dry run) | `data/sag_check/<date>_<robot_id>/session.json`, manifest | `python scripts/sim2real/collect/sag_check.py run` |
 | `collect/mirror_arm.py` | 1, and the Phase 3 dry run | yes (torque off) | `data/joint_mapping/<date>_<robot_id>/references.json`, manifest | `python scripts/sim2real/collect/mirror_arm.py` |
+| `collect/pose_check.py` | 1 (verify the map) | yes, torque on (`--sim` for a dry run) | `data/pose_check/<date>_<robot_id>/results.json` (goal, sent, reading in LeRobot and sim degrees, operator's level reading), manifest | `python scripts/sim2real/collect/pose_check.py` |
 | `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction) | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
 | `analyze/analyze_sag.py` | 0 | no | `experiments/<date>_sag_analysis/` (report.json, README, real_sag.png), `data/calibration/actuator_calibration.json`; `--report-figures` copies `real_sag.png` to `reports/figures/` | `python scripts/sim2real/analyze/analyze_sag.py data/sag_check/<date>_rbe501_follower --report-figures` |
 | `analyze/robustness_sweep.py` | 2 | no | `experiments/<date>_reach_robustness/` (report.json, README, kp_sweep.png, saturation.png); `--report-figures` copies the plots to `reports/figures/` | `python scripts/sim2real/analyze/robustness_sweep.py --calibration data/calibration/actuator_calibration.json --session data/sag_check/<date>_rbe501_follower --report-figures` |
@@ -28,7 +29,8 @@ Run from the repo root in the `lerobot` conda env
 
 1. `sag_check.py record-poses` (about 10 poses clear of the table and the joint limits), then `sag_check.py run`.
 2. `mirror_arm.py`: confirm every joint sign and record physical references (link levels, stops) to fix the
-   offsets in `HardwareConfig.joint_map`; re-measure at a second reference.
+   offsets in `HardwareConfig.joint_map`; re-measure at a second reference. Then `pose_check.py` sends the arm to
+   poses defined in sim degrees (upper arm vertical, forearm level, ...) and you check the links with a level.
 3. `analyze_sag.py` on the session (needs the Phase 1 mapping), which writes the calibration file.
 4. `robustness_sweep.py --calibration ... --session ...` for the transfer-or-retrain decision.
 5. `run_policy_real.py` for each of `ik_hold`, `gravity_comp`, `integral`, `trained` on

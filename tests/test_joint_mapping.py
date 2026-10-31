@@ -1,9 +1,11 @@
 """JointMap: LeRobot degrees / gripper percent to sim radians and back."""
 
+import mujoco
 import numpy as np
 import pytest
 
 from rbe_501_so101.config import HardwareConfig, JointMappingEntry, SimConfig
+from rbe_501_so101.envs.model_indices import table_clearance_z
 from rbe_501_so101.hardware.joint_mapping import JointMap
 
 SIM = SimConfig()
@@ -56,6 +58,51 @@ def test_arm_limits_convert_and_stay_ordered_under_sign_flip():
     assert limits.lower[0] == pytest.approx(-np.deg2rad(45.0))
     assert limits.upper[0] == pytest.approx(np.deg2rad(90.0))
     assert np.all(limits.lower < limits.upper)
+
+
+IN_AIR_REFERENCES = {
+    "lift flat back, forearm up": [-1.54, -63.78, 14.02, 13.45, 0.0, 0.0],
+    "lift up, forearm flat": [-1.36, 27.74, 5.23, 13.36, 0.0, 0.0],
+    "lift flat, wrist flat": [-1.54, -71.6, 9.01, 90.55, 0.0, 0.0],
+    "lift up, wrist down": [-1.54, 26.51, -1.45, 90.37, 0.0, 0.0],
+    "sag pose 4, reaching out": [2.68, 61.41, -48.22, 61.45, 18.42, 33.76],
+    "sag pose 5, reaching out": [1.27, 68.7, -38.9, 25.67, 18.42, 33.82],
+}
+VERTICAL_UPPER_ARM = ("lift up, forearm flat", "lift up, wrist down")
+VERTICAL_TOLERANCE_DEG = 3.0
+
+
+def _posed(raw_model, values: list[float]) -> mujoco.MjData:
+    """Kinematics of the model at one LeRobot reading under the default mapping."""
+    data = mujoco.MjData(raw_model)
+    q = JointMap.from_model(raw_model, SIM, HardwareConfig()).to_sim(_reading(values))
+    for name, angle in zip(SIM.joints, q, strict=True):
+        data.qpos[raw_model.jnt_qposadr[raw_model.joint(name).id]] = angle
+    mujoco.mj_kinematics(raw_model, data)
+    return data
+
+
+@pytest.mark.parametrize("name", IN_AIR_REFERENCES)
+def test_default_mapping_keeps_hand_held_references_above_table(raw_model, name):
+    data = _posed(raw_model, IN_AIR_REFERENCES[name])
+    table_z = table_clearance_z(raw_model, SIM.table_top_geom, 0.0)
+    assert data.site_xpos[raw_model.site(SIM.tcp_site).id][2] > table_z
+
+
+def _upper_arm(raw_model, data: mujoco.MjData) -> np.ndarray:
+    """Unit vector from the shoulder-lift axis to the elbow axis."""
+    upper = data.xanchor[raw_model.joint("elbow_flex").id] - data.xanchor[raw_model.joint("shoulder_lift").id]
+    return upper / np.linalg.norm(upper)
+
+
+@pytest.mark.parametrize("name", VERTICAL_UPPER_ARM)
+def test_default_mapping_draws_upper_arm_vertical(raw_model, name):
+    """The upper-arm mesh is drawn vertical at sim zero, offset from the axis-to-axis line."""
+    drawn_vertical = mujoco.MjData(raw_model)
+    mujoco.mj_kinematics(raw_model, drawn_vertical)
+    mapped = _posed(raw_model, IN_AIR_REFERENCES[name])
+    cos = _upper_arm(raw_model, mapped) @ _upper_arm(raw_model, drawn_vertical)
+    assert np.rad2deg(np.arccos(np.clip(cos, -1.0, 1.0))) < VERTICAL_TOLERANCE_DEG
 
 
 def test_from_model_reads_gripper_range(raw_model):
