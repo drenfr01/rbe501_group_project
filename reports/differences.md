@@ -20,6 +20,9 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   shoulder is under-predicted by 0.8°, and a fit with an intercept (kp 37.9 + 1.26°) is equally good on the
   available torque span. Calibration: `data/calibration/actuator_calibration.json`. See
   [the P = 24 sag check](findings/2026-10-31_sag_check_p24.md).
+  **Superseded by the 8° rerun:** with the friction band fully swept, kp is 10.2 (lift), 11.1 (elbow) and 11.9 (wrist
+  flex) N·m/rad, i.e. 0.5x, 0.56x and 2.0x MJCF. That is about the same for every loaded joint, as identical servos
+  at the same gain should be. This is now the calibration.
 - **Impact (sim, measured):** the residual-IK policy holds 0.34 mm at nominal kp but 6.3 mm at 0.5x and 22.4 mm at
   0.3x; it meets the 2 mm transfer limit only for kp scales 0.75 to 1.5 (D-08, A-01).
 - **Action:** `ActuatorCalibration` file (`data/calibration/actuator_calibration.json`) loaded on top of the MJCF;
@@ -59,6 +62,9 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   versus 4.4° on the shoulder from the pose check's 30° moves at the same gain. The measured hysteresis depends on the
   move size, most likely because a 3° step is smaller than sag plus band. The calibration's friction (0.17 / 0.11 N·m)
   is therefore a lower bound. Unloaded joints show a symmetric ±0.75° band.
+  **Resolved by the 8° rerun:** the band is 3.1° (lift) and 3.6° (elbow), matching the pose check (4.4°, 3.9°).
+  Friction torque is 0.27–0.35 N·m, as large as the gravity torque, so moving with gravity lands on target and
+  moving against it stops ~4° short. This direction dependence is the largest real error and the sim has none of it.
 - **Impact:** the calibration's `frictionloss` (from `friction_torque = kp * hysteresis`) changes the transient but
   cannot reproduce a real steady-state hysteresis. The calibrated-sim check can match sag but not hysteresis.
 - **Action:** report real hysteresis separately as an unmodeled effect; only write friction when hysteresis exceeds
