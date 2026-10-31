@@ -1,16 +1,16 @@
 """Wrap any RobotBackend with encoder rounding and whole-step command delay."""
 
 from collections import deque
-from typing import Any
 
 import numpy as np
 
 from rbe_501_so101.config import PerturbationConfig
-from rbe_501_so101.envs.protocols import ForwardKinematics, Renderable, RobotBackend, TargetMarker
-from rbe_501_so101.envs.types import JointLimits, RobotState
+from rbe_501_so101.envs.backend_wrapper import BackendWrapper
+from rbe_501_so101.envs.protocols import ForwardKinematics, RobotBackend
+from rbe_501_so101.envs.types import RobotState
 
 
-class PerturbedBackend:
+class PerturbedBackend(BackendWrapper):
     """Makes a simulated arm look like the real one to the policy.
 
     Delay: deltas queue for `delay_steps` control periods before reaching the
@@ -25,7 +25,7 @@ class PerturbedBackend:
     def __init__(
         self, inner: RobotBackend, cfg: PerturbationConfig, control_dt: float, kinematics: ForwardKinematics
     ) -> None:
-        self.inner = inner
+        super().__init__(inner)
         self._cfg = cfg
         self._dt = control_dt
         self._fk = kinematics
@@ -33,16 +33,6 @@ class PerturbedBackend:
         self._queue: deque[np.ndarray] = deque()
         self._pending: np.ndarray | None = None
         self._prev_q: np.ndarray | None = None
-
-    @property
-    def model(self) -> Any:
-        """Inner MuJoCo model, if any (lets the env share it with samplers and IK)."""
-        return getattr(self.inner, "model", None)
-
-    @property
-    def ids(self) -> Any:
-        """Inner model indices, if any."""
-        return getattr(self.inner, "ids", None)
 
     def reset(self, rng: np.random.Generator) -> RobotState:
         """Reset the inner backend, draw this episode's delay, and clear the queue."""
@@ -65,27 +55,6 @@ class PerturbedBackend:
         self._pending = np.zeros_like(self._pending)
         self.inner.apply_delta(self._queue.popleft())
         return self._perturb(self.inner.step())
-
-    def joint_limits(self) -> JointLimits:
-        """Inner limits."""
-        return self.inner.joint_limits()
-
-    def close(self) -> None:
-        """Close the inner backend."""
-        self.inner.close()
-
-    def set_target_marker(self, xyz: np.ndarray) -> None:
-        """Forward to the inner backend if it has a marker."""
-        if isinstance(self.inner, TargetMarker):
-            self.inner.set_target_marker(xyz)
-
-    def render(self) -> np.ndarray | None:
-        """Forward to the inner backend if it renders."""
-        return self.inner.render() if isinstance(self.inner, Renderable) else None
-
-    def is_open(self) -> bool:
-        """Inner viewer state (True when the inner backend cannot render)."""
-        return self.inner.is_open() if isinstance(self.inner, Renderable) else True
 
     def _perturb(self, state: RobotState) -> RobotState:
         """Apply rounding (if enabled) and report the issued command."""

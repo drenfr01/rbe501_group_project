@@ -41,6 +41,7 @@ from rbe_501_so101.rl.robustness import (
     SweepResult,
     classify_correction,
     evaluate_condition,
+    hardware_speed_scale,
     measured_kp_scales,
     run_sensing_sweep,
     run_stiffness_sweep,
@@ -65,7 +66,9 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--kp-scales", type=float, nargs="+", default=list(cfg.kp_scales))
     parser.add_argument("--calibration", type=Path, default=None, help="Phase 0 ActuatorCalibration JSON")
     parser.add_argument("--session", type=Path, default=None, help="Phase 0 sag session, for the calibrated-sim check")
-    parser.add_argument("--speed-scale", type=float, default=HardwareConfig().speed_scale)
+    parser.add_argument(
+        "--speed-scale", type=float, default=None, help="hardware command-rate scale (default: cap at the arm's step)"
+    )
     parser.add_argument("--out", type=Path, default=None)
     parser.add_argument("--report-figures", action="store_true", help="also copy the plots to reports/figures/")
     return parser.parse_args(argv)
@@ -112,6 +115,13 @@ def kp_marks(calibration: Path | None) -> dict[str, float]:
     return measured_kp_scales(ActuatorCalibration.load(calibration), nominal, sim_cfg.arm_joints)
 
 
+def deployed_speed(args: argparse.Namespace, repo: CheckpointRepository, seeds: tuple[int, ...]) -> float:
+    """The requested rate scale, or the one that caps the checkpoint's step at the hardware's."""
+    if args.speed_scale is not None:
+        return args.speed_scale
+    return hardware_speed_scale(repo.load_preset(seeds[0]).task, HardwareConfig())
+
+
 def build_report(args: argparse.Namespace, cfg: RobustnessConfig) -> RobustnessReport:
     """Run every sweep and draw the verdicts."""
     repo = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig())
@@ -127,7 +137,7 @@ def build_report(args: argparse.Namespace, cfg: RobustnessConfig) -> RobustnessR
     return RobustnessReport(
         model_dir=str(args.model_dir), seeds=seeds, calibration_path=str(cal) if cal else None,
         stiffness=stiffness, sensing=sensing, sensing_calibrated=sensing_cal,
-        speed=speed_results(repo, seeds, decide, args.speed_scale, cfg), calibrated=calibrated,
+        speed=speed_results(repo, seeds, decide, deployed_speed(args, repo, seeds), cfg), calibrated=calibrated,
         decision_condition=label, decision=transfer_decision(decision_results, cfg),
         correction=classify_correction(stiffness), working_range=working_range(stiffness, cfg),
         measured_kp_scales=kp_marks(cal),

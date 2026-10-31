@@ -23,7 +23,6 @@ from datetime import datetime
 from pathlib import Path
 
 import mujoco
-import numpy as np
 
 from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SimConfig, resolve_project_path
 from rbe_501_so101.hardware.bus import JointBus, LeRobotJointBus
@@ -33,7 +32,12 @@ from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
 from rbe_501_so101.hardware.path_safety import MM_PER_M, preflight
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag import RecordedPose, SagRepository, SagSession
-from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner, with_approach_offset
+from rbe_501_so101.hardware.sag_procedure import (
+    GravityAwareOffsets,
+    SagCheckRunner,
+    lerobot_waypoint,
+    with_approach_offset,
+)
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
 from rbe_501_so101.kinematics.gravity import GravityTorqueModel
 from rbe_501_so101.provenance import begin_run, require_clean_tree, timestamped_suffix
@@ -112,9 +116,7 @@ def build_runner(bus: JointBus, clock: Clock, cfg: SagCheckConfig, joint_map: Jo
     offsets = GravityAwareOffsets(
         joint_map, GravityTorqueModel.from_config(SimConfig()), cfg.approach_offset_deg, cfg.gravity_torque_floor_nm
     )
-    waypoint = joint_map.to_lerobot(np.append(np.deg2rad(cfg.waypoint_sim_deg), 0.0))
-    arm_waypoint = {pos_key(j): waypoint[pos_key(j)] for j in SimConfig().arm_joints}
-    return SagCheckRunner(bus, clock, cfg, joints(), offsets, arm_waypoint)
+    return SagCheckRunner(bus, clock, cfg, joints(), offsets, lerobot_waypoint(joint_map, cfg.waypoint_sim_deg))
 
 
 def check_path(

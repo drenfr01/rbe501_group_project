@@ -19,7 +19,13 @@
         "kp_ci_low": null,
         "kp_ci_high": null
       },
-      "friction_nm": null
+      "friction_nm": null,
+      "stiction": {
+        "joint": "shoulder_pan",
+        "half_band_rad": 0.017338215865965727,
+        "load_slope_rad_per_nm": 0.0,
+        "n_poses": 5
+      }
     },
     {
       "joint": "shoulder_lift",
@@ -41,7 +47,13 @@
         "kp_ci_low": 8.949221747128144,
         "kp_ci_high": 11.917542286635564
       },
-      "friction_nm": 0.27291164812206636
+      "friction_nm": 0.27291164812206636,
+      "stiction": {
+        "joint": "shoulder_lift",
+        "half_band_rad": 0.016183007495005657,
+        "load_slope_rad_per_nm": 0.03486340866719594,
+        "n_poses": 5
+      }
     },
     {
       "joint": "elbow_flex",
@@ -63,7 +75,13 @@
         "kp_ci_low": 10.446919724895668,
         "kp_ci_high": 11.938359103473395
       },
-      "friction_nm": 0.35049369227463945
+      "friction_nm": 0.35049369227463945,
+      "stiction": {
+        "joint": "elbow_flex",
+        "half_band_rad": 0.03145428542055715,
+        "load_slope_rad_per_nm": 0.0,
+        "n_poses": 5
+      }
     },
     {
       "joint": "wrist_flex",
@@ -85,7 +103,13 @@
         "kp_ci_low": 9.074507286963746,
         "kp_ci_high": 17.4011142955962
       },
-      "friction_nm": 0.22329023812398013
+      "friction_nm": 0.22329023812398013,
+      "stiction": {
+        "joint": "wrist_flex",
+        "half_band_rad": 0.018719135713697443,
+        "load_slope_rad_per_nm": 0.0,
+        "n_poses": 5
+      }
     },
     {
       "joint": "wrist_roll",
@@ -104,12 +128,22 @@
         "kp_ci_low": null,
         "kp_ci_high": null
       },
-      "friction_nm": null
+      "friction_nm": null,
+      "stiction": {
+        "joint": "wrist_roll",
+        "half_band_rad": 0.015036682786412686,
+        "load_slope_rad_per_nm": 0.0,
+        "n_poses": 5
+      }
     }
   ],
-  "headroom_warnings": [],
+  "headroom_warnings": [
+    "shoulder_lift",
+    "elbow_flex"
+  ],
   "residual_max_rad": 0.1,
   "warning_fraction": 0.5,
   "min_hysteresis_deg": 0.087890625,
-  "n_excluded_clamped": 0
+  "n_excluded_clamped": 0,
+  "assume_unidentified_kp": true
 }

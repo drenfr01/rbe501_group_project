@@ -52,14 +52,14 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
 
 ## C. Make the simulator reproduce the real arm
 
-8. **Deadband / stiction model** (new, the biggest gap). MuJoCo's `frictionloss` creeps to the same equilibrium
+8. **Deadband / stiction model** (done: `ServoEffectsBackend`, friction hysteresis on the servo goal, see [servo model and gate](2026-10-31_servo_model_and_gate.md)). MuJoCo's `frictionloss` creeps to the same equilibrium
    from both sides (D-03), so the sim can't show the direction-dependent error. Add a backend wrapper, alongside
    `PerturbedBackend`, that holds the joint still while the commanded error is inside a band, and that band widens
    with gravity load. Fit its parameters to the sag-check and pose-check data.
-9. **Model LeRobot's 10° relative-goal clip and the hardware speed** (new). Training applies neither, but on the
+9. **Model LeRobot's 10° relative-goal clip and the hardware speed** (done: clip in `ServoEffectsBackend`; the new preset trains at 0.035 rad/step and deployment caps the step at the hardware's). Training applies neither, but on the
    real arm a lagging, sagged joint makes the clip bite (`wrist_down_45` was clipped today). Train at the hardware
    speed (`speed_scale` 0.5) or randomize it.
-10. **Gate: the calibrated sim must reproduce the real data** (new + run). Replay today's pose check and the new sag
+10. **Gate: the calibrated sim must reproduce the real data** (done: PASS, 12/12 rows within 1°, worst 0.77°; `calibrated_sim_gate.py`). Replay today's pose check and the new sag
     check on the sim bus with the calibration and deadband model. Then compare per joint and per approach
     direction. Pass if the errors match within about 1° (enough to reach the 2 mm scale at the gripper).
     - This needs `--calibration` on `pose_check.py --sim`.
@@ -68,25 +68,25 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
 
 ## D. Configure the training run
 
-11. **Restrict targets to the hardware window** (new). The sampler draws from the full MJCF range, and 4.8% of its
+11. **Restrict targets to the hardware window** (done: targets and training command limits). The sampler draws from the full MJCF range, and 4.8% of its
     configurations are unreachable on the real arm (D-02). Sample inside the real calibrated range mapped through
     `joint_map`, minus `limit_margin_rad`.
-12. **Randomization centred on the calibration** (partly have). Today's ranges are kp 0.7–1.3×, damping 0.7–1.3×,
+12. **Randomization centred on the calibration** (done: kp 0.7–1.4×, friction band 0.5–1.5×, in `residual_ik_sim2real`). Today's ranges are kp 0.7–1.3×, damping 0.7–1.3×,
     payload 0–50 g, and delay 0–1 step. Re-centre kp on the calibrated value and widen it to cover the estimate's
     uncertainty and gain drift (the Phase 2 sweep suggests about 0.5–2×). Add randomization of the deadband/friction
     width (new). Keep encoder rounding.
-13. **Observation choices.** The policy sees encoder positions, which include the sag, the same signal as on
+13. **Observation choices** (done: nothing sim-only; command limits aligned). The policy sees encoder positions, which include the sag, the same signal as on
     hardware. Check that the residual-IK action and observation layout have nothing that only exists in sim.
-14. **Baselines and the bar to beat** (have the sweep, run it). Run `robustness_sweep.py --calibration ...
+14. **Baselines and the bar to beat** (done: integral control 0.8 mm; current policy 8.9 mm; `acceptance.py`). Run `robustness_sweep.py --calibration ...
     --session ...` for the current policy and IK hold, gravity compensation, and integral control in the calibrated
     sim. Integral control is the bar: a retrained policy that doesn't beat it under randomization isn't worth
     deploying.
-15. **Acceptance criteria, written down before training.** Proposed, all in the calibrated sim with randomization:
+15. **Acceptance criteria, written down before training** (done: `AcceptanceConfig`; settling time and the two-sided test moved to the hardware runs). Proposed, all in the calibrated sim with randomization:
     - mean holding error under 2 mm, and worst-case kp scale under 5 mm;
     - no worse than integral control in any condition, and better on settling time;
     - saturation under 20%;
     - error after approaching from either direction within 1 mm of each other (no hysteresis left).
-16. **Smoke test** (run). Train for about 50k steps on the final preset to check it learns and nothing crashes, and
+16. **Smoke test** (done: 50k steps in 85 s, learns, beats IK hold already; about 28 min per 1M-step seed). Train for about 50k steps on the final preset to check it learns and nothing crashes, and
     check the episode time per step for the compute estimate.
 17. **Freeze and record.** Commit everything, train from a clean tree (the manifest records commit and versions),
     and use 3 seeds and the same step budget as `reach_1m_residual_ik` so the comparison is fair.

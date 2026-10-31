@@ -17,11 +17,21 @@ KV_BIAS_COL = 2
 
 @dataclass(frozen=True)
 class JointActuatorCalibration:
-    """Measured values for one joint; `None` keeps the MJCF value."""
+    """Measured values for one joint; `None` keeps the MJCF value.
+
+    `kp_assumed` marks a stiffness that was not measured on this joint (no
+    gravity load) but copied from the measured ones. The stiction fields are
+    the friction band's half-width `stiction_half_band_rad +
+    stiction_load_slope_rad_per_nm * |gravity torque|`, applied by the servo
+    model in `ServoEffectsBackend`, not by MuJoCo.
+    """
 
     joint: str
     kp_nm_per_rad: float | None = None
     frictionloss_nm: float | None = None
+    kp_assumed: bool = False
+    stiction_half_band_rad: float | None = None
+    stiction_load_slope_rad_per_nm: float | None = None
 
 
 @dataclass(frozen=True)

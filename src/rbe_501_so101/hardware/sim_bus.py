@@ -1,15 +1,26 @@
 """A `JointBus` (and `Clock`) backed by the MuJoCo arm, so hardware procedures run in sim."""
 
+from typing import Protocol
+
 import numpy as np
 
 from rbe_501_so101.config import SimConfig
-from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
+from rbe_501_so101.envs.protocols import RobotBackend
 from rbe_501_so101.hardware.bus import clip_relative
 from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
 from rbe_501_so101.hardware.types import MotorSettings, MotorStatus
 
 SIM_RNG_SEED = 0
 NOT_MEASURED = float("nan")
+
+
+class CommandedBackend(RobotBackend, Protocol):
+    """A simulated arm that also reports its current command (arm joints, then gripper)."""
+
+    @property
+    def command(self) -> np.ndarray:
+        """Current commanded joint angles, as a copy."""
+        ...
 
 
 class SimJointBus:
@@ -24,7 +35,7 @@ class SimJointBus:
 
     def __init__(
         self,
-        backend: MujocoSo101Backend,
+        backend: CommandedBackend,
         joint_map: JointMap,
         sim_cfg: SimConfig = SimConfig(),
         quantization_rad: float = 0.0,

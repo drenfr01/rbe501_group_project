@@ -4,13 +4,12 @@
     "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
     "--out",
     "experiments/2026-10-31_sag_analysis_p24_offset8",
-    "--calibration-out",
-    "experiments/2026-10-31_sag_analysis_p24_offset8/actuator_calibration.json"
+    "--report-figures"
   ],
-  "git_commit": "9d1d9b0262f0dbf5ea0a56dc0d23e3fc51630bf1",
-  "git_dirty": false,
-  "started_at": "2026-10-31T19:24:27.096080+00:00",
-  "finished_at": "2026-10-31T19:24:27.255910+00:00",
+  "git_commit": "7d7c81633d4e51c75e5274044996f4e28db31c82",
+  "git_dirty": true,
+  "started_at": "2026-10-31T19:38:56.730871+00:00",
+  "finished_at": "2026-10-31T19:38:56.886932+00:00",
   "package_versions": [
     {
       "name": "rbe_501_so101",

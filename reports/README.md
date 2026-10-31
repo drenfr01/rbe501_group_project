@@ -10,7 +10,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
   pointers); also the [earlier session recap](findings/2026-10-31_session_recap.md), the
   [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
   [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md), and the
-  [P = 24 sag check](findings/2026-10-31_sag_check_p24.md).
+  [P = 24 sag check](findings/2026-10-31_sag_check_p24.md), and the
+  [servo model, calibrated-sim gate, and retraining setup](findings/2026-10-31_servo_model_and_gate.md).
 - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
 
 ## Outline and status
@@ -24,6 +25,7 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 | 4.2 Joint mapping | signs, offsets, references, joint ranges (D-02) | ranges done; mapping waiting on hardware |
 | 4.3 Sim robustness | feedback vs feedforward, working stiffness range, sensing/delay, verdict (`figures/kp_sweep.png`, `figures/saturation.png`) | provisional results (nominal kp) |
 | 4.4 Hardware trials | encoder-based error and repeatability per controller vs calibrated-sim prediction | waiting on hardware; sim dry runs done |
+| 4.5 Calibrated sim | servo friction model, gate against real data (`figures/calibrated_sim_gate.png`), acceptance criteria and baselines | gate passed; retraining configured |
 | 5. Discussion | which differences mattered, modeling limits (D-03 friction creep), what the cube task should add | outline |
 
 ## Key findings so far (sim, then first hardware day)
@@ -46,5 +48,9 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    (outside the 0.75x the current policy tolerates) and twice it on the wrist. Friction is as large as gravity:
    with gravity the joints land on target, against it they stop ~4° short
    ([P = 24 sag check](findings/2026-10-31_sag_check_p24.md), D-01, D-03).
+9. Friction modeled as hysteresis on the servo goal (a band that widens with gravity load, with a rounded corner)
+   lets the calibrated sim reproduce every real direction-dependent error within 1° (12/12 rows; stiffness alone:
+   3/12). In that sim the current policy holds 8.9 mm and integral control 0.8 mm, which is the bar for the retrained
+   policy ([servo model and gate](findings/2026-10-31_servo_model_and_gate.md), D-03, D-08).
 
 ![Stiffness sweep](figures/kp_sweep.png)

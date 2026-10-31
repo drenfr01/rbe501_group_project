@@ -110,6 +110,20 @@ class JointComplianceFit:
     kp_ci_high: float | None = None
 
 
+@dataclass(frozen=True)
+class StictionFit:
+    """Friction band of one joint: half-width `half_band_rad + load_slope_rad_per_nm * |gravity torque|`.
+
+    Fitted to half the difference between arriving from above and from below
+    (sim radians), one point per pose.
+    """
+
+    joint: str
+    half_band_rad: float
+    load_slope_rad_per_nm: float
+    n_poses: int
+
+
 class SagRepository:
     """Owns `data/sag_check/`: the recorded pose list and one folder per session."""
 
@@ -191,6 +205,49 @@ def fit_compliance(
     gravity = GravityTorqueModel(model, ModelIndices.from_model(model, sim_cfg))
     torques, sags = _torques_and_sags(session, joint_map, gravity)
     return tuple(_fit_joint(name, torques[:, j], sags[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
+
+
+def one_sided_sag_by_joint(session: SagSession) -> PoseJointTable:
+    """Sag of every single arrival (one row per sample): what a correction must cover."""
+    rows = np.array([_sag(s) for s in session.samples]).reshape(len(session.samples), len(session.joints))
+    return PoseJointTable(tuple(s.pose_id for s in session.samples), session.joints, rows)
+
+
+def smallest_approach_deg(session: SagSession) -> float | None:
+    """Smallest arm-joint approach offset in the session, or None if offsets were not recorded."""
+    offsets = [s.approach_offset_deg for s in session.samples]
+    if not offsets or any(o is None for o in offsets):
+        return None
+    return float(min(np.min(np.abs(o[:-1])) for o in offsets))
+
+
+def fit_stiction(
+    session: SagSession,
+    joint_map: JointMap,
+    model: mujoco.MjModel,
+    sim_cfg: SimConfig = SimConfig(),
+    cfg: SagFitConfig = SagFitConfig(),
+) -> tuple[StictionFit, ...]:
+    """Friction band per arm joint; empty when the approaches were too small to sweep it."""
+    smallest = smallest_approach_deg(session)
+    if smallest is None or smallest < cfg.min_friction_approach_deg:
+        return ()
+    gravity = GravityTorqueModel(model, ModelIndices.from_model(model, sim_cfg))
+    torques, _ = _torques_and_sags(session, joint_map, gravity)
+    n_arm = len(joint_map.joints) - 1
+    half = np.abs([joint_map.arm_delta_to_sim(row[:n_arm]) for row in hysteresis_by_joint(session).values_deg])
+    return tuple(_fit_band(name, np.abs(torques[:, j]), half[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
+
+
+def _fit_band(joint: str, load: np.ndarray, half: np.ndarray, cfg: SagFitConfig) -> StictionFit:
+    """Least squares `half = b0 + slope * load`, or the mean when the load barely varies or the slope is negative."""
+    mean = StictionFit(joint, float(np.mean(half)), 0.0, len(half))
+    if np.ptp(load) < cfg.min_slope_torque_span_nm or len(half) < cfg.min_samples:
+        return mean
+    (slope, b0), *_ = np.linalg.lstsq(np.c_[load, np.ones_like(load)], half, rcond=None)
+    if slope < 0 or b0 < 0:
+        return mean
+    return StictionFit(joint, float(b0), float(slope), len(half))
 
 
 def _torques_and_sags(

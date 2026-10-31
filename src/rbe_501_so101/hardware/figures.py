@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 from rbe_501_so101.hardware.direction_errors import DirectionalError  # noqa: E402
 from rbe_501_so101.hardware.sag import JointComplianceFit  # noqa: E402
+from rbe_501_so101.hardware.sim_gate import GateRow  # noqa: E402
 
 FIG_SIZE = (9, 5)
 WIDE_FIG_SIZE = (11, 4.5)
@@ -19,6 +20,7 @@ DPI = 150
 BAR_WIDTH = 0.8
 GRID_ALPHA = 0.3
 FIT_POINTS = 50
+GATE_LABEL_WIDTH_IN = 1.3
 WITH_MARKER, AGAINST_MARKER = "v", "^"
 
 
@@ -131,6 +133,24 @@ def plot_gain_sweep(gains: Sequence[int], errors_deg: Mapping[str, Sequence[floa
     ax.set_xlabel("servo P gain (LeRobot default 16, Feetech factory 32)")
     ax.set_ylabel("largest miss over the visits (deg)")
     ax.set_title("Every error shrinks as 1 / P (dotted: c / P fits)")
+    _finish(ax, fig, path)
+
+
+def plot_gate(rows_by_model: Mapping[str, Sequence[GateRow]], tolerance_deg: float, path: Path) -> None:
+    """Mean error per gate row: the real arm, then each sim model (rows must line up across models)."""
+    models = list(rows_by_model)
+    first = rows_by_model[models[0]]
+    labels = [f"{r.source.replace(', ', chr(10))}\n{r.joint}\n{r.direction}" for r in first]
+    series = {"real arm": [r.real_mean_deg for r in first]}
+    series |= {m: [r.sim_mean_deg for r in rows_by_model[m]] for m in models}
+    fig, ax = plt.subplots(figsize=(max(WIDE_FIG_SIZE[0], len(labels) * GATE_LABEL_WIDTH_IN), WIDE_FIG_SIZE[1] + 1))
+    width = BAR_WIDTH / len(series)
+    for k, (name, values) in enumerate(series.items()):
+        ax.bar(np.arange(len(labels)) + (k - (len(series) - 1) / 2) * width, values, width, label=name)
+    ax.axhline(0.0, color="k", lw=0.8)
+    ax.set_xticks(np.arange(len(labels)), labels, fontsize=7)
+    ax.set_ylabel("mean error along gravity (sim deg)")
+    ax.set_title(f"Real arm vs simulator, replaying the same procedures (gate: within {tolerance_deg:g}°)")
     _finish(ax, fig, path)
 
 

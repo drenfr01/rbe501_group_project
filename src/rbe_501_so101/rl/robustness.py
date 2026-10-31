@@ -15,6 +15,7 @@ from rbe_501_so101.config import (
     DynamicsRandomizationConfig,
     EnvOptions,
     ExperimentPreset,
+    HardwareConfig,
     PerturbationConfig,
     ReachTaskConfig,
     RobustnessConfig,
@@ -134,10 +135,17 @@ def evaluate_condition(
     """Trained policy (all seeds) and each baseline (once) under one condition."""
     trained = {str(s): _trained_stats(repo, s, condition, cfg, train_cfg) for s in seeds}
     results = [_to_result(TRAINED, condition, trained, cfg)]
-    preset = repo.load_preset(seeds[0])
-    for name in BASELINE_NAMES:
-        results.append(_to_result(name, condition, {"all": _baseline_stats(name, preset, condition, cfg, train_cfg)}, None))
-    return results
+    return results + evaluate_baselines(repo.load_preset(seeds[0]), condition, cfg, train_cfg)
+
+
+def evaluate_baselines(
+    preset: ExperimentPreset, condition: SweepCondition, cfg: RobustnessConfig, train_cfg: TrainConfig = TrainConfig()
+) -> list[SweepResult]:
+    """Each classical baseline (once) under one condition, with the preset's task timing."""
+    return [
+        _to_result(name, condition, {"all": _baseline_stats(name, preset, condition, cfg, train_cfg)}, None)
+        for name in BASELINE_NAMES
+    ]
 
 
 def transfer_decision(results: list[SweepResult], cfg: RobustnessConfig) -> TransferDecision:
@@ -240,6 +248,11 @@ def slowed_preset(preset: ExperimentPreset, speed_scale: float) -> ExperimentPre
     if speed_scale == 1.0:
         return preset
     return replace(preset, task=replace(preset.task, delta_q_max_rad=preset.task.delta_q_max_rad * speed_scale))
+
+
+def hardware_speed_scale(task: ReachTaskConfig, hw: HardwareConfig) -> float:
+    """Rate scale that caps a task's command step at the hardware's (never above 1)."""
+    return min(1.0, hw.max_command_step_rad / task.delta_q_max_rad)
 
 
 def _calibration(options: EnvOptions) -> ActuatorCalibration | None:

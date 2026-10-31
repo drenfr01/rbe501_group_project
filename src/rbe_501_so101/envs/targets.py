@@ -55,7 +55,8 @@ class SequenceTargetSampler:
 class ReachableTargetSampler:
     """Samples targets from random arm configurations via forward kinematics.
 
-    Joint angles are drawn uniformly within the limits shrunk by a margin; the
+    Joint angles are drawn uniformly within the limits shrunk by a margin (and
+    intersected with `cfg.joint_window_rad`, if set); the
     resulting gripper-site position is accepted only if it clears the table,
     lies within the radial band around the shoulder-pan axis, and the pose
     does not put the arm in contact with the world. Every accepted target is
@@ -76,9 +77,7 @@ class ReachableTargetSampler:
         self._data = mujoco.MjData(model)
         hold_deg = ReachTaskConfig().gripper_hold_deg if gripper_hold_deg is None else gripper_hold_deg
         self._gripper_angle = float(np.deg2rad(hold_deg))
-        arm_range = model.jnt_range[ids.arm_joint_ids]
-        self._low = arm_range[:, 0] + cfg.joint_limit_margin_rad
-        self._high = arm_range[:, 1] - cfg.joint_limit_margin_rad
+        self._low, self._high = self._bounds(model.jnt_range[ids.arm_joint_ids], cfg)
         self._axis_xy = self._radial_axis_xy(model, sim_cfg.radial_axis_joint)
         self._z_min_m = table_clearance_z(model, sim_cfg.table_top_geom, cfg.clearance_m)
         self._robot_bodies = descendant_body_ids(model, sim_cfg.robot_root_body)
@@ -94,6 +93,21 @@ class ReachableTargetSampler:
         """Build a sampler with its own copy of the configured model."""
         model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
         return cls(model, ModelIndices.from_model(model, sim_cfg), sim_cfg, cfg, gripper_hold_deg)
+
+    @property
+    def joint_bounds(self) -> tuple[np.ndarray, np.ndarray]:
+        """Lower and upper arm-joint bounds the configurations are drawn from (radians)."""
+        return self._low.copy(), self._high.copy()
+
+    @staticmethod
+    def _bounds(arm_range: np.ndarray, cfg: TargetSamplerConfig) -> tuple[np.ndarray, np.ndarray]:
+        """Model range minus the margin, intersected with the optional joint window."""
+        low = arm_range[:, 0] + cfg.joint_limit_margin_rad
+        high = arm_range[:, 1] - cfg.joint_limit_margin_rad
+        if cfg.joint_window_rad is not None:
+            window = np.asarray(cfg.joint_window_rad, dtype=float)
+            low, high = np.maximum(low, window[:, 0]), np.minimum(high, window[:, 1])
+        return low, high
 
     @property
     def z_min_m(self) -> float:

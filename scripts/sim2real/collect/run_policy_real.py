@@ -53,7 +53,7 @@ from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tr
 from rbe_501_so101.rl.checkpoints import CheckpointRepository
 from rbe_501_so101.rl.evaluation import load_trained_policy
 from rbe_501_so101.rl.policies import BASELINE_NAMES, EvalPolicy, make_baseline
-from rbe_501_so101.rl.robustness import TRAINED, baseline_task, slowed_preset
+from rbe_501_so101.rl.robustness import TRAINED, baseline_task, hardware_speed_scale, slowed_preset
 
 DEFAULT_PRESET = "residual_ik"
 
@@ -68,7 +68,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--calibration", type=Path, default=None, help="ActuatorCalibration JSON")
     parser.add_argument("--targets", type=Path, default=trials.fixed_targets_path)
     parser.add_argument("--repeats", type=int, default=1)
-    parser.add_argument("--speed-scale", type=float, default=hw.speed_scale, help="scales the command rate limit")
+    parser.add_argument(
+        "--speed-scale",
+        type=float,
+        default=None,
+        help=f"scales the command rate limit (default: cap it at the arm's {hw.max_command_step_rad:.3f} rad/step)",
+    )
     parser.add_argument("--port", default=hw.port)
     parser.add_argument("--robot-id", default=hw.robot_id)
     parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
@@ -84,8 +89,13 @@ def load_preset(args: argparse.Namespace) -> ExperimentPreset:
         preset = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig()).load_preset(args.seed)
     else:
         preset = PRESETS[DEFAULT_PRESET]
-    preset = slowed_preset(preset, args.speed_scale)
+    preset = slowed_preset(preset, speed_scale(args, preset))
     return preset if args.policy == TRAINED else replace(preset, task=baseline_task(preset.task))
+
+
+def speed_scale(args: argparse.Namespace, preset: ExperimentPreset) -> float:
+    """The requested rate scale, or the one that caps the preset's step at the hardware's."""
+    return args.speed_scale if args.speed_scale is not None else hardware_speed_scale(preset.task, HardwareConfig())
 
 
 def build_policy(args: argparse.Namespace, preset: ExperimentPreset, env: SO101ReachEnv) -> EvalPolicy:
@@ -160,7 +170,8 @@ def main(argv: list[str] | None = None) -> None:
     if records:
         summary = summarize_trials(records, TrainConfig().holding_window_steps)
         TrialRepository(out).save_summary(summary)
-        context = f"Robot `{robot_id}`, speed scale {args.speed_scale}, calibration `{args.calibration}`."
+        speed = args.speed_scale if args.speed_scale is not None else "hardware cap"
+        context = f"Robot `{robot_id}`, speed scale {speed}, calibration `{args.calibration}`."
         (out / "README.md").write_text(trial_readme(summary, aborted, context))
         print(f"mean {summary.mean_error_mm:.2f} mm, p95 {summary.p95_error_mm:.2f} mm -> {out}")
     if aborted:

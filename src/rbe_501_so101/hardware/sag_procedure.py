@@ -25,6 +25,12 @@ def with_approach_offset(cfg: SagCheckConfig, offset_deg: float) -> SagCheckConf
     return replace(cfg, approach_offset_deg=offset_deg)
 
 
+def lerobot_waypoint(joint_map: JointMap, waypoint_sim_deg: tuple[float, ...]) -> dict[str, float]:
+    """The raised waypoint (sim degrees, arm joints) as an arm-only LeRobot goal."""
+    goal = joint_map.to_lerobot(np.append(np.deg2rad(waypoint_sim_deg), 0.0))
+    return {pos_key(j): goal[pos_key(j)] for j in joint_map.joints[:-1]}
+
+
 class ApproachOffsets(Protocol):
     """Per-joint offset (LeRobot degrees) from a goal to its "from above" approach point."""
 

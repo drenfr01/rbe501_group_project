@@ -1,6 +1,6 @@
 """Central configuration: every tunable constant for simulation, tasks, and training."""
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from math import pi, radians
 from pathlib import Path
 from typing import Any, Literal, Self
@@ -94,13 +94,18 @@ class ReachTaskConfig:
 
 @dataclass(frozen=True)
 class TargetSamplerConfig:
-    """Clearance, radial band (from the shoulder-pan axis), and joint-limit margin."""
+    """Clearance, radial band (from the shoulder-pan axis), and joint-limit margin.
+
+    `joint_window_rad` (sim radians, per arm joint) intersects the model's
+    joint ranges (minus the margin) when given.
+    """
 
     clearance_m: float = 0.025
     radial_min_m: float = 0.12
     radial_max_m: float = 0.32
     joint_limit_margin_rad: float = 0.15
     max_attempts: int = 10_000
+    joint_window_rad: tuple[tuple[float, float], ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -230,26 +235,64 @@ ENCODER_QUANTIZATION_RAD = 2 * pi / ENCODER_COUNTS_PER_REV
 
 
 @dataclass(frozen=True)
+class ServoEffectsConfig:
+    """Real-servo effects between the controller's command and the MuJoCo actuator.
+
+    `stiction` applies the calibration's friction band as play on the servo
+    goal: the goal only moves once the command pulls it further than the band,
+    which reproduces the real arm's direction-dependent stop (D-03). Each
+    episode scales the band by a draw from `stiction_scale_range`.
+    `stiction_transition_ratio` rounds the corner of the play (0 = sharp play,
+    1 = Dahl): after a reversal the goal starts slipping before the command has
+    crossed the whole band. 1.5 fits the 3° and 8° sag checks and the pose
+    check together (calibrated-sim gate, 2026-10-31).
+    `relative_clip_rad` mimics LeRobot's `max_relative_target`: the goal
+    reaching the servo stays within it of the measured position (None = off).
+    """
+
+    stiction: bool = False
+    stiction_scale_range: tuple[float, float] = (1.0, 1.0)
+    stiction_transition_ratio: float = 1.5
+    relative_clip_rad: float | None = None
+
+    @property
+    def active(self) -> bool:
+        """True if any effect changes what reaches the actuator."""
+        return self.stiction or self.relative_clip_rad is not None
+
+
+@dataclass(frozen=True)
 class EnvOptions:
     """Simulator options a preset (or an evaluation) builds the reach env with.
 
     `calibration_path` is stored as a string so presets stay JSON-serializable.
     `randomization.enabled` forces randomization on even without the CLI flag.
+    `target_joint_window_rad` (sim radians, per arm joint) further restricts the
+    joint ranges reach targets are sampled from, e.g. to the real arm's range.
     """
 
     calibration_path: str | None = None
     perturbation: PerturbationConfig = field(default_factory=PerturbationConfig)
     randomization: DynamicsRandomizationConfig = field(default_factory=DynamicsRandomizationConfig)
+    servo: ServoEffectsConfig = field(default_factory=ServoEffectsConfig)
+    target_joint_window_rad: tuple[tuple[float, float], ...] | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Self:
-        """Inverse of `asdict`, restoring tuples that JSON turned into lists."""
-        rand = {k: tuple(v) if isinstance(v, list) else v for k, v in data["randomization"].items()}
+        """Inverse of `asdict`, restoring tuples that JSON turned into lists (newer fields default)."""
+        window = data.get("target_joint_window_rad")
         return cls(
             calibration_path=data["calibration_path"],
             perturbation=PerturbationConfig(**data["perturbation"]),
-            randomization=DynamicsRandomizationConfig(**rand),
+            randomization=DynamicsRandomizationConfig(**_tuples(data["randomization"])),
+            servo=ServoEffectsConfig(**_tuples(data.get("servo", {}))),
+            target_joint_window_rad=None if window is None else tuple(tuple(w) for w in window),
         )
+
+
+def _tuples(data: dict[str, Any]) -> dict[str, Any]:
+    """Lists (from JSON) back to tuples."""
+    return {k: tuple(v) if isinstance(v, list) else v for k, v in data.items()}
 
 
 @dataclass(frozen=True)
@@ -348,6 +391,10 @@ class HardwareConfig:
     in motion. Every actuator calibration is specific to the gain it was
     measured at.
 
+    `real_half_range_deg` is each arm joint's calibrated half range in LeRobot
+    degrees, from LeRobot's `rbe501_follower` calibration file (2026-10-31); the
+    live value comes from the bus, this copy lets training use the window offline.
+
     `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
     before torque is cut. It is the folded, supported pose read from the arm
     on 2026-10-31 (LeRobot -2.42, -73.19, 96.57, 3.25, 2.24, gripper 0.27).
@@ -374,6 +421,51 @@ class HardwareConfig:
     rest_deg: tuple[float, ...] = (-0.92, -99.99, 89.87, 2.75, 2.24, -9.7)
     rest_ramp_s: float = 3.0
     lerobot_degrees_per_count: float = 360.0 / 4095
+    real_half_range_deg: tuple[float, ...] = (118.7, 87.8, 97.0, 104.9, 180.0)
+
+    @property
+    def max_command_step_rad(self) -> float:
+        """Largest per-step command change deployed on the arm: the default sim rate times `speed_scale`."""
+        return self.speed_scale * ReachTaskConfig().delta_q_max_rad
+
+    def sim_joint_window_rad(self) -> tuple[tuple[float, float], ...]:
+        """Real calibrated arm range in sim radians, shrunk by `limit_margin_rad` (what the real backend allows)."""
+        window = []
+        for half, entry in zip(self.real_half_range_deg, self.joint_map, strict=True):
+            ends = sorted(entry.sign * radians(s * half) + entry.offset_rad for s in (-1.0, 1.0))
+            window.append((ends[0] + self.limit_margin_rad, ends[1] - self.limit_margin_rad))
+        return tuple(window)
+
+
+# Plan steps 8-12: train on the arm as measured on 2026-10-31. Stiffness from the
+# 8° sag check, randomized 0.7-1.4x around it (pan and roll kp are assumed);
+# stiction randomized 0.5-1.5x around the fitted band; LeRobot's 10° relative
+# clip; reach targets inside the real joint range; the real arm's command rate,
+# so deployment needs no slowdown; a 0.2 rad residual, enough for sag plus a
+# friction band at the soft end of the stiffness range.
+SIM2REAL_RESIDUAL_MAX_RAD = 0.2
+SIM2REAL_KP_SCALE_RANGE = (0.7, 1.4)
+SIM2REAL_STICTION_SCALE_RANGE = (0.5, 1.5)
+PRESETS["residual_ik_sim2real"] = ExperimentPreset(
+    task=replace(
+        PRESETS["residual_ik"].task,
+        delta_q_max_rad=HardwareConfig().max_command_step_rad,
+        residual_max_rad=SIM2REAL_RESIDUAL_MAX_RAD,
+    ),
+    reward=PRESETS["residual_ik"].reward,
+    sac=PRESETS["residual_ik"].sac,
+    env=EnvOptions(
+        calibration_path=DEFAULT_CALIBRATION_FILE,
+        perturbation=CALIBRATED_PERTURBATION,
+        randomization=replace(CALIBRATED_RANDOMIZATION, kp_scale_range=SIM2REAL_KP_SCALE_RANGE),
+        servo=ServoEffectsConfig(
+            stiction=True,
+            stiction_scale_range=SIM2REAL_STICTION_SCALE_RANGE,
+            relative_clip_rad=radians(HardwareConfig().max_relative_target_deg),
+        ),
+        target_joint_window_rad=HardwareConfig().sim_joint_window_rad(),
+    ),
+)
 
 
 @dataclass(frozen=True)
@@ -437,6 +529,15 @@ class SagFitConfig:
 
     A joint is not identifiable when its gravity torque spans less than
     `min_torque_span_nm` across the poses.
+
+    Stiction (the friction band) is only fitted from sessions whose approach
+    offsets are all at least `min_friction_approach_deg`: smaller approaches
+    land inside the band and under-measure it (3° gave a third of the 8°
+    band on 2026-10-31). The band's load slope is fitted only when the
+    joint's gravity torque spans `min_slope_torque_span_nm`; otherwise the
+    band is the mean. With `assume_unidentified_kp`, joints without gravity
+    load (pan, wrist roll) get the mean fitted stiffness, flagged as assumed:
+    every arm joint is the same servo at the same gain.
     """
 
     confidence: float = 0.95
@@ -444,6 +545,9 @@ class SagFitConfig:
     min_samples: int = 3
     early_warning_fraction: float = 0.5
     min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
+    min_friction_approach_deg: float = 6.0
+    min_slope_torque_span_nm: float = 0.2
+    assume_unidentified_kp: bool = True
     experiment_suffix: str = "sag_analysis"
 
 
@@ -491,6 +595,19 @@ class PoseCheckConfig:
 
 
 @dataclass(frozen=True)
+class CalibratedSimGateConfig:
+    """Plan step 10: the calibrated sim must reproduce the real measurements before training.
+
+    For every joint and arrival direction, the mean absolute difference
+    between real and replayed error must stay within `tolerance_deg` (about
+    2 mm at the gripper for the shoulder at reach distance).
+    """
+
+    tolerance_deg: float = 1.0
+    experiment_suffix: str = "calibrated_sim_gate"
+
+
+@dataclass(frozen=True)
 class MirrorConfig:
     """Phase 1 mirror tool loop rate and where reference readings are saved."""
 
@@ -522,6 +639,31 @@ class RobustnessConfig:
     transfer_max_mean_m: float = 0.002
     max_saturation_fraction: float = 0.05
     experiment_suffix: str = "reach_robustness"
+
+
+@dataclass(frozen=True)
+class AcceptanceConfig:
+    """Plan step 15: what a retrained policy must do in the calibrated sim before it goes on the arm.
+
+    Judged in the deployment condition (every random draw at the measured arm,
+    the longest training delay, encoder rounding) and in stress conditions at
+    the edges of the training randomization (each kp extreme, the largest
+    stiction band). The policy must hold within `deployment_max_mean_mm`, beat
+    IK hold by more than its seed spread, saturate on less than
+    `max_saturation_fraction` of holding steps, stay within
+    `worst_case_max_mean_mm` under stress, and be no worse than integral
+    control (plus `integral_margin_mm`) in any condition. Settling time and the
+    two-sided approach test are left to the hardware repeatability runs.
+    """
+
+    deployment_max_mean_mm: float = 2.0
+    worst_case_max_mean_mm: float = 5.0
+    max_saturation_fraction: float = 0.2
+    integral_margin_mm: float = 0.0
+    kp_scales: tuple[float, ...] = SIM2REAL_KP_SCALE_RANGE
+    stiction_scales: tuple[float, ...] = (SIM2REAL_STICTION_SCALE_RANGE[1],)
+    episodes_per_condition: int = 20
+    experiment_suffix: str = "acceptance"
 
 
 @dataclass(frozen=True)

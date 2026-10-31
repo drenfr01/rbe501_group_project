@@ -71,11 +71,13 @@ def test_large_sag_triggers_the_headroom_warning(analysis):
     assert analysis.headroom_warnings == ("shoulder_lift",)
 
 
-def test_calibration_only_includes_identifiable_joints(analysis):
+def test_calibration_measures_identifiable_joints_and_assumes_the_rest(analysis):
     calibration = calibration_from_analysis(analysis, source="unit test")
-    names = {e.joint for e in calibration.joints}
-    assert "shoulder_pan" not in names
-    lift = next(e for e in calibration.joints if e.joint == "shoulder_lift")
+    entries = {e.joint: e for e in calibration.joints}
+    assert entries["shoulder_pan"].kp_assumed and entries["shoulder_pan"].frictionloss_nm is None
+    no_assumption = calibration_from_analysis(replace(analysis, assume_unidentified_kp=False), source="unit test")
+    assert "shoulder_pan" not in {e.joint for e in no_assumption.joints}
+    lift = entries["shoulder_lift"]
     assert lift.kp_nm_per_rad is not None and lift.frictionloss_nm is not None
     wrist = next((e for e in calibration.joints if e.joint == "wrist_flex"), None)
     assert wrist is None or wrist.frictionloss_nm is None

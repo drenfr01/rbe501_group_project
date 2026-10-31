@@ -1,19 +1,44 @@
 {
   "joints": [
     {
+      "joint": "shoulder_pan",
+      "kp_nm_per_rad": 11.097887262312176,
+      "frictionloss_nm": null,
+      "kp_assumed": true,
+      "stiction_half_band_rad": 0.017338215865965727,
+      "stiction_load_slope_rad_per_nm": 0.0
+    },
+    {
       "joint": "shoulder_lift",
       "kp_nm_per_rad": 10.222258557321833,
-      "frictionloss_nm": 0.27291164812206636
+      "frictionloss_nm": null,
+      "kp_assumed": false,
+      "stiction_half_band_rad": 0.016183007495005657,
+      "stiction_load_slope_rad_per_nm": 0.03486340866719594
     },
     {
       "joint": "elbow_flex",
       "kp_nm_per_rad": 11.142955167742327,
-      "frictionloss_nm": 0.35049369227463945
+      "frictionloss_nm": null,
+      "kp_assumed": false,
+      "stiction_half_band_rad": 0.03145428542055715,
+      "stiction_load_slope_rad_per_nm": 0.0
     },
     {
       "joint": "wrist_flex",
       "kp_nm_per_rad": 11.92844806187237,
-      "frictionloss_nm": 0.22329023812398013
+      "frictionloss_nm": null,
+      "kp_assumed": false,
+      "stiction_half_band_rad": 0.018719135713697443,
+      "stiction_load_slope_rad_per_nm": 0.0
+    },
+    {
+      "joint": "wrist_roll",
+      "kp_nm_per_rad": 11.097887262312176,
+      "frictionloss_nm": null,
+      "kp_assumed": true,
+      "stiction_half_band_rad": 0.015036682786412686,
+      "stiction_load_slope_rad_per_nm": 0.0
     }
   ],
   "source": "/workspaces/rbe501_group_project/data/sag_check/2026-10-31_rbe501_follower_p24_192311"

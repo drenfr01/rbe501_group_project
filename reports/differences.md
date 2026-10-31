@@ -44,7 +44,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   the sim bus such a target leaves every controller, including integral control, about 31 mm off because the command
   saturates at the clip. All 10 targets in `reach_fixed.json` stay inside the window under the new mapping.
 - **Action:** `data/targets/reach_fixed.json` keeps only targets whose IK pose is inside the hardware range minus the
-  margin (3 of the first 13 rejected). A retrained policy should sample targets within the real range.
+  margin (3 of the first 13 rejected). **Done for retraining:** `residual_ik_sim2real` samples targets inside the real
+  range minus the margin (`HardwareConfig.sim_joint_window_rad`: lift -106 to +52, elbow -95 to +82 sim deg), and
+  clips the training command to the same window, as the real backend does. IK from home for 300 windowed targets
+  never left the window.
 - **Evidence:** `run_policy_real.py --sim` on the unfiltered first target; the target files' `source` field.
 
 ### D-03: MuJoCo friction creeps, so the sim has no lasting hysteresis
@@ -66,9 +69,12 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   Friction torque is 0.27–0.35 N·m, as large as the gravity torque, so moving with gravity lands on target and
   moving against it stops ~4° short. This direction dependence is the largest real error and the sim has none of it.
 - **Impact:** the calibration's `frictionloss` (from `friction_torque = kp * hysteresis`) changes the transient but
-  cannot reproduce a real steady-state hysteresis. The calibrated-sim check can match sag but not hysteresis.
-- **Action:** report real hysteresis separately as an unmodeled effect; only write friction when hysteresis exceeds
-  one encoder count. A stiction model (or a deadband in the backend) is needed if hysteresis turns out large.
+  cannot reproduce a real steady-state hysteresis.
+- **Resolved (model):** `ServoEffectsBackend` applies the friction as hysteresis on the servo goal (play with a
+  rounded, Dahl-type corner, transition ratio 1.5), with a half-band fitted per joint from the 8° session
+  (lift 0.93° + 2.0°/N·m × |τ|; elbow 1.8°; wrist 1.1°) and `frictionloss` left off. Replaying the 8° and 3° sag
+  checks and the P = 24 pose check, the calibrated sim matches the real arm within 1° in all 12 joint × direction rows
+  (worst 0.77°); with stiffness only, 3 of 12. See [the servo-model finding](findings/2026-10-31_servo_model_and_gate.md).
 
 ### D-04: Encoder quantization
 
@@ -109,7 +115,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
 
 - **Sub-task:** reach, Phase 2 (reduced speed) and Phase 3
 - **Sim:** training rate limit 0.07 rad per 33 ms step.
-- **Real:** first hardware runs use `speed_scale` 0.5.
+- **Real:** first hardware runs use `speed_scale` 0.5 (0.035 rad per step).
+- **Resolved for retraining:** `residual_ik_sim2real` trains at 0.035 rad per step. Deployment now caps the step at
+  the hardware's (`hardware_speed_scale`) instead of always halving it, so the old presets still run at half speed
+  and the new one runs as trained.
 - **Impact (measured, sim, with rounding and one-step delay):** the policy's error drops from 14.35 to 10.61 mm at half
   speed; the slow approach still settles before the holding window for the baselines.
 
@@ -122,6 +131,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   It was trained without dynamics randomization.
 - **Impact:** transfer depends on the sim matching the real stiffness to within about -25% / +50%.
 - **Action:** the provisional verdict is retrain; see [assumptions.md](assumptions.md).
+- **Update (calibrated sim with stiction, 2026-10-31):** in the acceptance conditions the current policy holds 8.9 mm
+  (deployment), 15.0 mm at 0.7× kp, and saturates on 31% of holding steps; integral control holds 0.8 mm. Rejected on
+  4 of 5 criteria. `residual_ik_sim2real` randomizes kp 0.7–1.4× around the calibration and the stiction band
+  0.5–1.5×, so a feedforward-only correction can no longer fit every episode.
 
 ### D-09: Servo variant and supply voltage
 
