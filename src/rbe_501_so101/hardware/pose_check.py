@@ -19,8 +19,10 @@ from rbe_501_so101.hardware.clock import Clock
 from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
+from rbe_501_so101.hardware.types import MotorSettings
 
 MM_PER_M = 1000.0
+SETTINGS_FILENAME = "servo_settings.json"
 
 
 @dataclass(frozen=True)
@@ -64,6 +66,26 @@ class PoseCheckRepository:
     def load(self) -> tuple[PoseCheckResult, ...]:
         """All saved results."""
         return tuple(PoseCheckResult.from_dict(r) for r in json.loads(self.path.read_text()))
+
+    @property
+    def settings_path(self) -> Path:
+        """Servo registers read back at the start of the run, next to the results."""
+        return self.path.with_name(SETTINGS_FILENAME)
+
+    def save_settings(self, settings: tuple[MotorSettings, ...]) -> Path:
+        """Write the read-back servo settings (gain, torque limits) for this run."""
+        self.settings_path.parent.mkdir(parents=True, exist_ok=True)
+        self.settings_path.write_text(json.dumps([asdict(s) for s in settings], indent=2))
+        return self.settings_path
+
+    def load_settings(self) -> tuple[MotorSettings, ...]:
+        """Servo settings saved with this run."""
+        return tuple(MotorSettings(**s) for s in json.loads(self.settings_path.read_text()))
+
+
+def run_suffix(robot_id: str, p_gain: int, now: datetime) -> str:
+    """Folder suffix `<robot>_p<gain>_<HHMMSS>`, so repeated runs on one day never overwrite each other."""
+    return f"{robot_id}_p{p_gain}_{now:%H%M%S}"
 
 
 def segment_points(start: np.ndarray, end: np.ndarray, step_rad: float) -> np.ndarray:

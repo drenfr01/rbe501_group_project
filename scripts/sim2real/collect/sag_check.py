@@ -35,6 +35,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("command", choices=("record-poses", "run"))
     parser.add_argument("--port", default=hw.port)
     parser.add_argument("--robot-id", default=hw.robot_id)
+    parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
     parser.add_argument("--poses", type=Path, default=SagCheckConfig().poses_path, help="pose list JSON")
     parser.add_argument("--out", type=Path, default=None, help="session folder (default data/sag_check/<date>_<id>)")
     parser.add_argument("--allow-dirty", action="store_true", help="run even with uncommitted changes")
@@ -112,7 +113,7 @@ def main(argv: list[str] | None = None) -> None:
     """Entry point; refuses a dirty tree before touching the arm."""
     args = parse_args(argv)
     require_clean_tree(args.allow_dirty)
-    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id)
+    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id, position_p_gain=args.p_gain)
     repo = SagRepository(replace(SagCheckConfig(), poses_path=resolve_project_path(args.poses)))
     if args.command == "record-poses":
         if args.sim:

@@ -7,7 +7,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 - [`assumptions.md`](assumptions.md): each training assumption, how it was tested, the result (IDs `A-xx`).
 - `findings/`: short, dated write-ups of individual results for sharing. Start with the
   [2026-10-31 session recap](findings/2026-10-31_session_recap.md); also the
-  [first real sag check](findings/2026-10-31_real_sag_check.md) and the [pose check](findings/2026-10-31_pose_check.md).
+  [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
+  [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md).
 - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
 
 ## Outline and status

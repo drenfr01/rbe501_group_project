@@ -11,19 +11,22 @@ checked against the table, with a sag allowance; the run is refused if any
 point comes too close. Moves are ramped at `ramp_speed_deg_s`. Keep the power
 switch within reach; Ctrl-C ramps back to the start pose before torque off.
 
-Results go to data/pose_check/<date>_<robot_id>/results.json. `--sim` runs the
+Results go to data/pose_check/<date>_<robot_id>_p<gain>_<HHMMSS>/ (results.json,
+servo_settings.json). `--p-gain` sets the servo P_Coefficient for the run. `--sim` runs the
 same code against MuJoCo as a dry run.
 """
 
 import argparse
 import sys
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
 import mujoco
 import numpy as np
 
 from rbe_501_so101.config import CheckPose, HardwareConfig, PoseCheckConfig, SimConfig, resolve_project_path
+from rbe_501_so101.hardware.bus import JointBus
 from rbe_501_so101.hardware.joint_mapping import JointMap
 from rbe_501_so101.hardware.operator import TerminalKeys
 from rbe_501_so101.hardware.pose_check import (
@@ -33,6 +36,7 @@ from rbe_501_so101.hardware.pose_check import (
     PoseCheckRunner,
     plan_path,
     preflight,
+    run_suffix,
 )
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
@@ -46,6 +50,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--port", default=hw.port)
     parser.add_argument("--robot-id", default=hw.robot_id)
+    parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
     parser.add_argument("--poses", nargs="+", choices=names, default=names, help="subset of poses, in order")
     parser.add_argument("--out", type=Path, default=None, help="folder for results.json")
     parser.add_argument("--allow-dirty", action="store_true")
@@ -90,13 +95,29 @@ def run(runner: PoseCheckRunner, poses: tuple[CheckPose, ...], repo: PoseCheckRe
     print(f"\nsaved {len(results)} poses to {repo.path}")
 
 
+def output_dir(args: argparse.Namespace, hw: HardwareConfig, robot_id: str, cfg: PoseCheckConfig) -> Path:
+    """`--out`, or a new `data/pose_check/<date>_<robot>_p<gain>_<HHMMSS>/` per run."""
+    if args.out:
+        return resolve_project_path(args.out)
+    return experiment_dir(run_suffix(robot_id, hw.position_p_gain, datetime.now()), base=cfg.results_dir)
+
+
+def record_settings(bus: JointBus, repo: PoseCheckRepository) -> None:
+    """Save the servo registers as read back, and show the P gain the motors report."""
+    settings = bus.read_settings()
+    repo.save_settings(settings)
+    if settings:
+        print("servo P gain read back: " + ", ".join(f"{s.name} {s.p}" for s in settings))
+
+
 def main(argv: list[str] | None = None) -> None:
     """Entry point; the path check runs before torque is enabled."""
     args = parse_args(argv)
     require_clean_tree(args.allow_dirty)
-    hw, cfg, sim_cfg = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id), PoseCheckConfig(), SimConfig()
+    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id, position_p_gain=args.p_gain)
+    cfg, sim_cfg = PoseCheckConfig(), SimConfig()
     poses, robot_id = selected(args.poses, cfg), robot_id_for(args.sim, hw)
-    out = resolve_project_path(args.out) if args.out else experiment_dir(robot_id, base=cfg.results_dir)
+    out = output_dir(args, hw, robot_id, cfg)
     model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
     joint_map = JointMap.from_model(model, sim_cfg, hw)
     bus, clock = open_bus(args.sim, hw)
@@ -105,11 +126,12 @@ def main(argv: list[str] | None = None) -> None:
     except SafetyAbort as exc:
         bus.close()
         sys.exit(f"refusing to move: {exc}")
-    manifest = begin_run(out, robot_id)
+    manifest, repo = begin_run(out, robot_id), PoseCheckRepository(out / cfg.results_filename)
+    record_settings(bus, repo)
     runner = PoseCheckRunner(bus, clock, joint_map, cfg, sim_cfg.joints)
     runner.start()
     try:
-        run(runner, poses, PoseCheckRepository(out / cfg.results_filename), args.sim)
+        run(runner, poses, repo, args.sim)
     finally:
         runner.finish()
         bus.close()

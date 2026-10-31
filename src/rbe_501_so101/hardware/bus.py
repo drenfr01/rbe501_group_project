@@ -34,6 +34,19 @@ def clip_relative(
     return {k: float(min(max(v, present[k] - max_relative_deg), present[k] + max_relative_deg)) for k, v in goal.items()}
 
 
+def follower_config_kwargs(cfg: HardwareConfig) -> dict[str, object]:
+    """`SO101FollowerConfig` arguments: port, id, relative-target cap, and the position P gain."""
+    low, high = cfg.position_p_gain_range
+    if not low <= cfg.position_p_gain <= high:
+        raise ValueError(f"P gain {cfg.position_p_gain} outside {low}..{high}")
+    return dict(
+        port=cfg.port,
+        id=cfg.robot_id,
+        max_relative_target=cfg.max_relative_target_deg,
+        position_p_coefficient=cfg.position_p_gain,
+    )
+
+
 @runtime_checkable
 class JointBus(Protocol):
     """Minimal physical-arm interface the rest of the code depends on.
@@ -79,11 +92,10 @@ class LeRobotJointBus:
 
     @classmethod
     def connect(cls, cfg: HardwareConfig = HardwareConfig(), calibrate: bool = False) -> Self:
-        """Connect to the follower with the configured port, id, and relative-target cap."""
+        """Connect to the follower with the configured port, id, relative-target cap, and P gain."""
         from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
 
-        robot_cfg = SO101FollowerConfig(port=cfg.port, id=cfg.robot_id, max_relative_target=cfg.max_relative_target_deg)
-        robot = SO101Follower(robot_cfg)
+        robot = SO101Follower(SO101FollowerConfig(**follower_config_kwargs(cfg)))
         robot.connect(calibrate=calibrate)
         return cls(robot, cfg.lerobot_degrees_per_count)
 

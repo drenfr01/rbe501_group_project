@@ -71,6 +71,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--speed-scale", type=float, default=hw.speed_scale, help="scales the command rate limit")
     parser.add_argument("--port", default=hw.port)
     parser.add_argument("--robot-id", default=hw.robot_id)
+    parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
     parser.add_argument("--out", type=Path, default=None)
     parser.add_argument("--sim", action="store_true", help="dry run on the MuJoCo arm")
     parser.add_argument("--allow-dirty", action="store_true")
@@ -151,7 +152,7 @@ def main(argv: list[str] | None = None) -> None:
     if args.policy == TRAINED and args.model_dir is None:
         sys.exit("--policy trained needs --model-dir")
     require_clean_tree(args.allow_dirty)
-    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id)
+    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id, position_p_gain=args.p_gain)
     robot_id = robot_id_for(args.sim, hw)
     out = output_dir(args, robot_id)
     manifest = begin_run(out, robot_id)

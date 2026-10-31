@@ -342,6 +342,10 @@ class JointMappingEntry:
 class HardwareConfig:
     """Physical SO-101 connection, unit mapping, and motion limits.
 
+    `position_p_gain` is the STS3215 `P_Coefficient` LeRobot writes on connect
+    (LeRobot default 16, Feetech factory default 32). Every actuator
+    calibration is specific to the gain it was measured at.
+
     `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
     before torque is cut. Replace it with a pose where the arm is supported
     once the Phase 1 mapping is known.
@@ -350,6 +354,8 @@ class HardwareConfig:
     port: str = "/dev/so101_follower"
     robot_id: str = "rbe501_follower"
     max_relative_target_deg: float = 10.0
+    position_p_gain: int = 16
+    position_p_gain_range: tuple[int, int] = (1, 254)
     speed_scale: float = 0.5
     home_ramp_s: float = 3.0
     settle_s: float = 1.0
