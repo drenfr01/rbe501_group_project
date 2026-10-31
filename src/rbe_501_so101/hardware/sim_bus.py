@@ -4,7 +4,8 @@ import numpy as np
 
 from rbe_501_so101.config import SimConfig
 from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
-from rbe_501_so101.hardware.joint_mapping import JointMap
+from rbe_501_so101.hardware.bus import clip_relative
+from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
 from rbe_501_so101.hardware.types import MotorSettings, MotorStatus
 
 SIM_RNG_SEED = 0
@@ -16,7 +17,9 @@ class SimJointBus:
 
     Readings are rounded to `quantization_rad` like an encoder. Only the arm
     joints are commanded; the gripper stays at the backend's home angle. The
-    sim has no thermal or electrical model, so status fields are NaN.
+    sim has no thermal or electrical model, so status fields are NaN. With
+    `max_relative_deg`, arm goals are clipped around the present reading as
+    LeRobot does (the uncommanded gripper is not, since it never moves).
     """
 
     def __init__(
@@ -25,9 +28,11 @@ class SimJointBus:
         joint_map: JointMap,
         sim_cfg: SimConfig = SimConfig(),
         quantization_rad: float = 0.0,
+        max_relative_deg: float | None = None,
     ) -> None:
         self._backend = backend
         self._map = joint_map
+        self._max_relative_deg = max_relative_deg
         self._dt = sim_cfg.control_dt
         self._quant = quantization_rad
         self._n_arm = len(sim_cfg.arm_joints)
@@ -60,11 +65,14 @@ class SimJointBus:
         return ()
 
     def send_positions(self, goal: dict[str, float]) -> dict[str, float]:
-        """Move the arm command to the goal (missing joints keep their command)."""
+        """Move the arm command to the (clipped) goal; missing joints keep their command."""
+        gripper = pos_key(self._map.joints[-1])
+        arm_goal = {k: v for k, v in goal.items() if k != gripper}
+        sent = {**goal, **clip_relative(arm_goal, self.read_positions(), self._max_relative_deg)}
         current = self._map.to_lerobot(self._backend.command)
-        q = self._map.to_sim({**current, **goal})
+        q = self._map.to_sim({**current, **sent})
         self._backend.apply_delta(q[: self._n_arm] - self._backend.command[: self._n_arm])
-        return dict(goal)
+        return sent
 
     def set_torque(self, enabled: bool) -> None:
         """The simulated servos are always powered."""

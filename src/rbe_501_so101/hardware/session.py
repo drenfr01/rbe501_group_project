@@ -32,7 +32,8 @@ def open_bus(
     if not sim:
         return LeRobotJointBus.connect(hw), SystemClock()
     backend = MujocoSo101Backend(sim_cfg)
-    bus = SimJointBus(backend, JointMap.from_model(backend.model, sim_cfg, hw), sim_cfg, quantization_rad)
+    joint_map = JointMap.from_model(backend.model, sim_cfg, hw)
+    bus = SimJointBus(backend, joint_map, sim_cfg, quantization_rad, hw.max_relative_target_deg)
     return bus, bus
 
 

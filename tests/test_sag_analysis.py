@@ -1,5 +1,7 @@
 """Phase 0 analysis: per-joint summary, calibration file, sim comparison, and README text."""
 
+from dataclasses import replace
+
 import numpy as np
 import pytest
 
@@ -101,3 +103,15 @@ def test_simulated_session_compares_joint_by_joint(raw_model):
     assert lift.real_mean_sag_deg == pytest.approx(np.mean([_sag_deg(p)[1] for p in POSES_DEG]))
     sim_expected = lift.real_mean_sag_deg * TRUE_KP[1] / 20.0
     assert lift.sim_mean_sag_deg == pytest.approx(sim_expected, rel=0.1)
+
+
+def test_analysis_excludes_clamped_samples_and_reports_them(raw_model):
+    joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
+    clean = _session()
+    junk = tuple(replace(s, pose_id=99, measured_deg=(0.0,) * 6, clamped=True) for s in clean.samples[:2])
+    dirty = replace(clean, samples=clean.samples + junk)
+    expected = analyze_session(clean, joint_map, raw_model, SIM, SagFitConfig(), residual_max_rad=0.1)
+    result = analyze_session(dirty, joint_map, raw_model, SIM, SagFitConfig(), residual_max_rad=0.1)
+    assert result.n_excluded_clamped == 2 and result.n_poses == expected.n_poses
+    assert result.joints == expected.joints
+    assert "2 samples excluded" in sag_readme(result)

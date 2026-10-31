@@ -391,6 +391,7 @@ class SagCheckConfig:
     read_interval_s: float = 0.02
     ramp_speed_deg_s: float = 30.0
     ramp_period_s: float = 1.0 / 30.0
+    clamp_tolerance_deg: float = 1e-6
 
 
 @dataclass(frozen=True)

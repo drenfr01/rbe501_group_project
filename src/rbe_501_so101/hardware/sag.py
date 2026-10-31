@@ -7,7 +7,7 @@ degrees and only converted to sim radians (with the Phase 1 `JointMap`) for fits
 
 import json
 import math
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import date
 from pathlib import Path
 from typing import Any, Literal
@@ -36,7 +36,13 @@ class RecordedPose:
 
 @dataclass(frozen=True)
 class SagSample:
-    """One settled arrival at a pose, in LeRobot degrees."""
+    """One settled arrival at a pose, in LeRobot degrees.
+
+    `sent_goal_deg` is the final goal LeRobot actually sent after its
+    `max_relative_target` clipping; `clamped` is True if any goal sent for this
+    sample (approach ramp or final step) was clipped. Both are None in sessions
+    recorded before they were logged.
+    """
 
     pose_id: int
     approach: Approach
@@ -44,6 +50,8 @@ class SagSample:
     measured_deg: tuple[float, ...]
     measured_std_deg: tuple[float, ...]
     status: tuple[MotorStatus, ...]
+    sent_goal_deg: tuple[float, ...] | None = None
+    clamped: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -134,6 +142,11 @@ class SagRepository:
         data = json.loads(self._cfg.poses_path.read_text())
         poses = tuple(RecordedPose(p["pose_id"], tuple(p["positions_deg"])) for p in data["poses"])
         return tuple(data["joints"]), poses
+
+
+def usable_samples(session: SagSession) -> SagSession:
+    """The session without samples flagged as clamped (unknown counts as usable)."""
+    return replace(session, samples=tuple(s for s in session.samples if s.clamped is not True))
 
 
 def sag_by_joint(session: SagSession) -> PoseJointTable:
@@ -250,4 +263,6 @@ def _sample_from_dict(data: dict[str, Any]) -> SagSample:
         measured_deg=tuple(data["measured_deg"]),
         measured_std_deg=tuple(data["measured_std_deg"]),
         status=tuple(MotorStatus(**m) for m in data["status"]),
+        sent_goal_deg=tuple(data["sent_goal_deg"]) if data.get("sent_goal_deg") is not None else None,
+        clamped=data.get("clamped"),
     )

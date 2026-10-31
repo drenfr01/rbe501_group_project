@@ -25,6 +25,15 @@ SETTINGS_REGISTERS: dict[str, str] = {
 }
 
 
+def clip_relative(
+    goal: Mapping[str, float], present: Mapping[str, float], max_relative_deg: float | None
+) -> dict[str, float]:
+    """Each goal limited to `max_relative_deg` from its present position (LeRobot's `max_relative_target`)."""
+    if max_relative_deg is None:
+        return {k: float(v) for k, v in goal.items()}
+    return {k: float(min(max(v, present[k] - max_relative_deg), present[k] + max_relative_deg)) for k, v in goal.items()}
+
+
 @runtime_checkable
 class JointBus(Protocol):
     """Minimal physical-arm interface the rest of the code depends on.
@@ -133,7 +142,11 @@ class LeRobotJointBus:
 
 
 class FakeJointBus:
-    """In-memory arm for tests: each goal settles instantly to `goal - sag_deg`."""
+    """In-memory arm for tests: each goal settles instantly to `goal - sag_deg`.
+
+    With `max_relative_deg`, goals are first clipped to within that distance of
+    the present position, as LeRobot's `max_relative_target` does.
+    """
 
     def __init__(
         self,
@@ -142,10 +155,12 @@ class FakeJointBus:
         sag_deg: Mapping[str, float] | None = None,
         limits: Mapping[str, tuple[float, float]] | None = None,
         status: tuple[MotorStatus, ...] | None = None,
+        max_relative_deg: float | None = None,
     ) -> None:
         self.joints = joints
         self.positions = {pos_key(j): float((start_deg or {}).get(j, 0.0)) for j in joints}
         self.sag_deg = dict(sag_deg or {})
+        self.max_relative_deg = max_relative_deg
         self._limits = dict(limits or {j: (-180.0, 180.0) for j in joints})
         self.status = status or tuple(MotorStatus(j, 30.0, 12.0, 0.1) for j in joints)
         self.sent: list[dict[str, float]] = []
@@ -167,11 +182,12 @@ class FakeJointBus:
         return tuple(MotorSettings(j, **defaults, **extra) for j in self.joints)
 
     def send_positions(self, goal: dict[str, float]) -> dict[str, float]:
-        """Record the goal and settle at it minus the configured sag."""
-        self.sent.append(dict(goal))
-        for key, value in goal.items():
+        """Clip (if configured), record the goal, and settle at it minus the configured sag."""
+        sent = clip_relative(goal, self.positions, self.max_relative_deg)
+        self.sent.append(dict(sent))
+        for key, value in sent.items():
             self.positions[key] = value - self.sag_deg.get(key.removesuffix(".pos"), 0.0)
-        return dict(goal)
+        return sent
 
     def set_torque(self, enabled: bool) -> None:
         """Record torque changes."""

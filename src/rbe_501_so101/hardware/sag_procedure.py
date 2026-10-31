@@ -19,7 +19,9 @@ class SagCheckRunner:
     "From above" starts every arm joint `approach_offset_deg` past the goal
     (in the positive LeRobot direction) and steps down to it; "from below"
     mirrors that. The gripper is never offset. Every move longer than the
-    final step is ramped at `ramp_speed_deg_s`.
+    final step is ramped at `ramp_speed_deg_s`. Every send is compared with what
+    the bus reports it actually sent, so LeRobot's relative-target clipping is
+    counted and flagged on the affected samples.
     """
 
     def __init__(self, bus: JointBus, clock: Clock, cfg: SagCheckConfig, joints: tuple[str, ...]) -> None:
@@ -28,6 +30,7 @@ class SagCheckRunner:
         self._cfg = cfg
         self._joints = joints
         self._last: dict[str, float] | None = None
+        self.clamp_count = 0
 
     def goal_dict(self, positions_deg: tuple[float, ...]) -> dict[str, float]:
         """`<joint>.pos` goal from values in session joint order."""
@@ -66,11 +69,15 @@ class SagCheckRunner:
     def _sample(self, pose: RecordedPose, approach: Approach) -> SagSample:
         """Ramp to the approach point, step onto the pose, settle, and average."""
         goal = self.goal_dict(pose.positions_deg)
+        clamps_before = self.clamp_count
         self.ramp(self._approach_point(goal, approach))
-        self._send(goal)
+        sent = self._send(goal)
         self._clock.sleep(self._cfg.settle_s)
         mean, std = self._average_reads()
-        return SagSample(pose.pose_id, approach, pose.positions_deg, mean, std, self._bus.read_status())
+        sent_deg = tuple(sent[pos_key(j)] for j in self._joints)
+        status = self._bus.read_status()
+        clamped = self.clamp_count > clamps_before
+        return SagSample(pose.pose_id, approach, pose.positions_deg, mean, std, status, sent_deg, clamped)
 
     def _approach_point(self, goal: dict[str, float], approach: Approach) -> dict[str, float]:
         """Goal shifted by the approach offset on every arm joint."""
@@ -88,7 +95,10 @@ class SagCheckRunner:
         arr = np.array(reads)
         return tuple(arr.mean(axis=0).tolist()), tuple(arr.std(axis=0).tolist())
 
-    def _send(self, goal: dict[str, float]) -> None:
-        """Send a goal and remember it as the ramp origin."""
-        self._bus.send_positions(goal)
+    def _send(self, goal: dict[str, float]) -> dict[str, float]:
+        """Send a goal, remember it as the ramp origin, and count it if the bus clipped it."""
+        sent = self._bus.send_positions(goal)
+        if any(abs(sent[k] - v) > self._cfg.clamp_tolerance_deg for k, v in goal.items()):
+            self.clamp_count += 1
         self._last = dict(goal)
+        return sent

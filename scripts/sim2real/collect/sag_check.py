@@ -19,7 +19,7 @@ from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SimConfig, reso
 from rbe_501_so101.hardware.bus import LeRobotJointBus
 from rbe_501_so101.hardware.joint_mapping import pos_key
 from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
-from rbe_501_so101.hardware.sag import RecordedPose, SagRepository
+from rbe_501_so101.hardware.sag import RecordedPose, SagRepository, SagSession
 from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
 from rbe_501_so101.provenance import begin_run, require_clean_tree
@@ -77,6 +77,16 @@ def _record_loop(bus: LeRobotJointBus, keys: TerminalKeys) -> list[RecordedPose]
     return poses
 
 
+def report_clamps(session: SagSession, clamp_count: int) -> None:
+    """Say which samples LeRobot clipped (they are excluded from the analysis)."""
+    flagged = [f"pose {s.pose_id} {s.approach}" for s in session.samples if s.clamped]
+    if not flagged:
+        print("no goals were clamped by LeRobot")
+        return
+    print(f"WARNING: LeRobot clamped {clamp_count} goals; {len(flagged)} samples flagged and excluded from analysis:")
+    print("  " + ", ".join(flagged))
+
+
 def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfig) -> None:
     """Run every pose from both sides, save the session, and ramp back to the start pose."""
     pose_joints, poses = repo.load_poses()
@@ -91,6 +101,7 @@ def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfi
     try:
         session = runner.session(robot_id, poses)
         print(f"session saved to {repo.save_session(session, out)}")
+        report_clamps(session, runner.clamp_count)
     finally:
         runner.finish(rest)
         bus.close()

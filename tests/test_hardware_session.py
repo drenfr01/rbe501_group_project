@@ -1,6 +1,7 @@
 """Shared hardware-session wiring: the real backend stack running end to end on the simulated bus."""
 
 import numpy as np
+import pytest
 
 from rbe_501_so101.config import HardwareConfig, ReachTaskConfig, SimConfig, TrainConfig
 from rbe_501_so101.envs.reach_env import SO101ReachEnv
@@ -54,3 +55,20 @@ def test_publish_figure_copies_under_stable_name(tmp_path):
     dest = publish_figure(src, "kp_sweep.png", reports_dir=tmp_path / "reports")
     assert dest == tmp_path / "reports" / "figures" / "kp_sweep.png"
     assert dest.read_bytes() == b"png"
+
+
+def test_sim_bus_clips_relative_to_present_like_lerobot():
+    bus, _ = open_bus(sim=True, hw=FAST_HW)
+    present = bus.read_positions()
+    key = "elbow_flex.pos"
+    sent = bus.send_positions({key: present[key] + 30.0})
+    assert sent[key] == pytest.approx(present[key] + FAST_HW.max_relative_target_deg)
+    bus.close()
+
+
+def test_sim_bus_does_not_clip_the_gripper_it_never_moves():
+    bus, _ = open_bus(sim=True, hw=FAST_HW)
+    key = "gripper.pos"
+    far = bus.read_positions()[key] - 30.0
+    assert bus.send_positions({key: far})[key] == pytest.approx(far)
+    bus.close()

@@ -27,6 +27,7 @@ from rbe_501_so101.hardware.sag import (
     headroom_warnings,
     hysteresis_by_joint,
     sag_by_joint,
+    usable_samples,
 )
 from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
 from rbe_501_so101.hardware.sim_bus import SimJointBus
@@ -187,3 +188,42 @@ def test_wide_span_requirement_marks_everything_unidentifiable(imperfect_arm_ses
     joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
     cfg = replace(SagFitConfig(), min_torque_span_nm=1e3)
     assert not any(f.identifiable for f in fit_compliance(imperfect_arm_session, joint_map, raw_model, SIM, cfg))
+
+
+def test_fake_bus_clips_goals_relative_to_present_like_lerobot():
+    bus = FakeJointBus(JOINTS, max_relative_deg=10.0)
+    sent = bus.send_positions({pos_key("elbow_flex"): 25.0, pos_key("shoulder_pan"): -4.0})
+    assert sent == {pos_key("elbow_flex"): 10.0, pos_key("shoulder_pan"): -4.0}
+    assert bus.read_positions()[pos_key("elbow_flex")] == pytest.approx(10.0)
+
+
+def test_runner_records_sent_goal_and_leaves_unclamped_samples_unflagged():
+    bus = FakeJointBus(JOINTS, sag_deg={"shoulder_lift": 1.0}, max_relative_deg=10.0)
+    samples = SagCheckRunner(bus, FakeClock(), FAST_SAG_CFG, JOINTS).run((RecordedPose(0, (0.0, 20.0, 30.0, 0.0, 0.0, 50.0)),))
+    assert [s.clamped for s in samples] == [False, False]
+    assert samples[0].sent_goal_deg == samples[0].goal_deg
+
+
+def test_runner_flags_samples_where_lerobot_clamped_a_goal():
+    bus = FakeJointBus(JOINTS, sag_deg={"shoulder_lift": 12.0}, max_relative_deg=10.0)
+    samples = SagCheckRunner(bus, FakeClock(), FAST_SAG_CFG, JOINTS).run((RecordedPose(0, (0.0, 20.0, 30.0, 0.0, 0.0, 50.0)),))
+    assert all(s.clamped for s in samples)
+    assert samples[0].sent_goal_deg[1] != pytest.approx(samples[0].goal_deg[1])
+
+
+def test_session_round_trips_clamp_fields_and_loads_older_sessions(tmp_path):
+    flagged = replace(_hand_session().samples[0], sent_goal_deg=(9.0,) * 6, clamped=True)
+    session = _session((flagged,))
+    assert SagSession.from_dict(session.to_dict()) == session
+    old = session.to_dict()
+    for sample in old["samples"]:
+        del sample["sent_goal_deg"], sample["clamped"]
+    loaded = SagSession.from_dict(old).samples[0]
+    assert loaded.clamped is None and loaded.sent_goal_deg is None
+
+
+def test_usable_samples_drops_only_clamped_ones():
+    clean, unknown = _hand_session().samples
+    session = _session((clean, replace(unknown, clamped=None), replace(clean, pose_id=1, clamped=True)))
+    kept = usable_samples(session)
+    assert [(s.pose_id, s.approach) for s in kept.samples] == [(0, "above"), (0, "below")]

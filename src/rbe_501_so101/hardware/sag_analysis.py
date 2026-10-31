@@ -16,6 +16,7 @@ from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
 from rbe_501_so101.hardware.joint_mapping import JointMap
 from rbe_501_so101.hardware.sag import (
     JointComplianceFit,
+    PoseJointTable,
     RecordedPose,
     SagSession,
     fit_compliance,
@@ -23,6 +24,7 @@ from rbe_501_so101.hardware.sag import (
     headroom_warnings,
     hysteresis_by_joint,
     sag_by_joint,
+    usable_samples,
 )
 from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
 from rbe_501_so101.hardware.sim_bus import SimJointBus
@@ -52,6 +54,7 @@ class SagAnalysis:
     residual_max_rad: float
     warning_fraction: float
     min_hysteresis_deg: float
+    n_excluded_clamped: int = 0
 
 
 @dataclass(frozen=True)
@@ -71,19 +74,31 @@ def analyze_session(
     fit_cfg: SagFitConfig,
     residual_max_rad: float,
 ) -> SagAnalysis:
-    """Sag, hysteresis, and stiffness fit per arm joint, plus the headroom early warning."""
-    sag = sag_by_joint(session)
-    hysteresis = hysteresis_by_joint(session)
-    fits = fit_compliance(session, joint_map, model, sim_cfg, fit_cfg)
-    kp_mjcf = model.actuator_gainprm[[model.actuator(j + sim_cfg.actuator_suffix).id for j in sim_cfg.arm_joints], 0]
-    joints = tuple(
-        _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map)
-        for i, fit in enumerate(fits)
-    )
+    """Sag, hysteresis, and stiffness fit per arm joint, plus the headroom early warning.
+
+    Samples flagged as clamped (LeRobot clipped a goal) are excluded first.
+    """
+    usable = usable_samples(session)
+    sag = sag_by_joint(usable)
+    joints = _joint_summaries(usable, sag, joint_map, model, sim_cfg, fit_cfg)
     warnings = headroom_warnings(sag, joint_map, residual_max_rad, fit_cfg.early_warning_fraction)
     return SagAnalysis(
         session.robot_id, len(sag.pose_ids), joints, warnings, residual_max_rad, fit_cfg.early_warning_fraction,
-        fit_cfg.min_hysteresis_deg,
+        fit_cfg.min_hysteresis_deg, len(session.samples) - len(usable.samples),
+    )
+
+
+def _joint_summaries(
+    session: SagSession, sag: PoseJointTable, joint_map: JointMap, model: mujoco.MjModel, sim_cfg: SimConfig,
+    fit_cfg: SagFitConfig,
+) -> tuple[JointSagSummary, ...]:
+    """Per-arm-joint sag, hysteresis, and stiffness fit against the MJCF kp."""
+    hysteresis = hysteresis_by_joint(session)
+    fits = fit_compliance(session, joint_map, model, sim_cfg, fit_cfg)
+    kp_mjcf = model.actuator_gainprm[[model.actuator(j + sim_cfg.actuator_suffix).id for j in sim_cfg.arm_joints], 0]
+    return tuple(
+        _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map)
+        for i, fit in enumerate(fits)
     )
 
 
@@ -104,7 +119,7 @@ def simulate_session(
     """Run the Phase 0 procedure in sim (with `sim_cfg.calibration_path`, if set) at the real poses."""
     no_randomization = DynamicsRandomizationConfig(enabled=False)
     bus = SimJointBus(MujocoSo101Backend(sim_cfg, no_randomization), joint_map, sim_cfg, quantization_rad)
-    goals = {s.pose_id: s.goal_deg for s in real.samples}
+    goals = {s.pose_id: s.goal_deg for s in usable_samples(real).samples}
     poses = tuple(RecordedPose(pid, goal) for pid, goal in goals.items())
     try:
         return SagCheckRunner(bus, bus, cfg, real.joints).session("sim", poses)
@@ -113,8 +128,8 @@ def simulate_session(
 
 
 def compare_sag(real: SagSession, sim: SagSession, joints: tuple[str, ...]) -> tuple[JointSagComparison, ...]:
-    """Mean sag per joint, real against sim, over the same poses."""
-    real_mean = sag_by_joint(real).values_deg.mean(axis=0)
+    """Mean sag per joint, real against sim, over the same poses (clamped real samples excluded)."""
+    real_mean = sag_by_joint(usable_samples(real)).values_deg.mean(axis=0)
     sim_mean = sag_by_joint(sim).values_deg.mean(axis=0)
     index = {name: i for i, name in enumerate(real.joints)}
     return tuple(JointSagComparison(j, float(real_mean[index[j]]), float(sim_mean[index[j]])) for j in joints)
@@ -127,6 +142,7 @@ def sag_readme(analysis: SagAnalysis) -> str:
         "",
         f"{analysis.n_poses} poses, each approached from above and from below. Sag is commanded minus",
         "measured (LeRobot degrees); hysteresis is half of (from above minus from below).",
+        *_exclusion_lines(analysis),
         "",
         "| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) | friction (N*m) |",
         "|---|---|---|---|---|---|---|",
@@ -154,6 +170,17 @@ def _joint_summary(
         fit=fit,
         friction_nm=friction,
     )
+
+
+def _exclusion_lines(analysis: SagAnalysis) -> list[str]:
+    """Note on samples dropped because LeRobot clipped a goal."""
+    if not analysis.n_excluded_clamped:
+        return []
+    return [
+        "",
+        f"**{analysis.n_excluded_clamped} samples excluded:** LeRobot's `max_relative_target` clipped a goal sent for",
+        "them, so the arm was not commanded to the recorded pose.",
+    ]
 
 
 def _joint_row(j: JointSagSummary) -> str:
