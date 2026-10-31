@@ -10,7 +10,7 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
 
 ## A. Settle the hardware configuration (everything after this depends on it)
 
-1. **Choose the servo P gain** (run). Run `pose_check.py --p-gain G --poses L_pose lean_forward_30 L_pose` for
+1. **Choose the servo P gain** (done: P = 24, see [gain sweep](2026-10-31_gain_sweep.md)). Run `pose_check.py --p-gain G --poses L_pose lean_forward_30 L_pose` for
    G = 16, 24, 32 (48 if 32 is clean). Pick the highest gain with no buzzing or wobble and acceptable temperature and
    load. Set it as `HardwareConfig.position_p_gain`. Every later calibration is specific to this gain.
    - **have:** `--p-gain` on `pose_check.py`, `sag_check.py`, and `run_policy_real.py`.

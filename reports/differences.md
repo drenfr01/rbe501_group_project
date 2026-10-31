@@ -13,6 +13,8 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
   unknown until `sag_check.py run` + `analyze_sag.py`. The pose check gives a first estimate: about 3–4° of gravity sag
   on shoulder lift and elbow at the L pose (midpoint of the two approach directions), versus about 1.5° in sim.
   That suggests the real stiffness is 2–3× lower than the MJCF value, before the deadband is accounted for.
+  The [gain sweep](findings/2026-10-31_gain_sweep.md) shows every steady-state error scales as 1/P (16, 24, 32),
+  so the real stiffness is proportional to P. The campaign uses P = 24 from here on.
 - **Impact (sim, measured):** the residual-IK policy holds 0.34 mm at nominal kp but 6.3 mm at 0.5x and 22.4 mm at
   0.3x; it meets the 2 mm transfer limit only for kp scales 0.75 to 1.5 (D-08, A-01).
 - **Action:** `ActuatorCalibration` file (`data/calibration/actuator_calibration.json`) loaded on top of the MJCF;

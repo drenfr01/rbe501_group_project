@@ -38,5 +38,7 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    below the table at poses that were in the air (D-11).
 6. Commanded poses on the real arm miss by up to 7° on shoulder lift and elbow. The miss depends on the approach
    direction (about 6.5° of hysteresis); the sim predicts 1.5° from both sides (D-01, D-03).
+7. All real steady-state errors scale as 1/(servo P gain); P = 24 (from LeRobot's 16) cuts them by about 35% before
+   motion gets jerky ([gain sweep](findings/2026-10-31_gain_sweep.md)).
 
 ![Stiffness sweep](figures/kp_sweep.png)
