@@ -16,12 +16,16 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
    - **have:** `--p-gain` on `pose_check.py`, `sag_check.py`, and `run_policy_real.py`.
    - **have:** each pose-check run gets its own folder `data/pose_check/<date>_<robot>_p<gain>_<time>/`, with the
      servo registers read back into `servo_settings.json`.
-2. **Pin the joint offsets** (run). At the chosen gain, record level-app numbers on `L_pose` approached from both
+2. **Pin the joint offsets** (deferred: no level available, and by-eye isn't better than the current fit). A
+   constant offset error of a few degrees affects sim and real alike through the same map. So it barely changes the
+   sag fit, the calibrated-sim gate, or the encoder-based reach error; it matters only for external ground truth.
+   Cheap upgrade when convenient: contact references in `mirror_arm.py` (forearm laid flat on the table, upper arm
+   pressed against the side of a box) or a square-on side photo. Original plan (run): At the chosen gain, record level-app numbers on `L_pose` approached from both
    sides. Take the midpoint of the two encoder readings as the physical angle, and correct the shoulder-lift and
    elbow offsets in `HardwareConfig.joint_map` if they're off by more than 1°.
-3. **Record the servo variant and supply** (7.4 V or 12 V STS3215, supply rating). This bounds the stall torque
+3. **Record the servo variant and supply** (done: 5 V kit supply, 7.4 V STS3215, see D-09) (7.4 V or 12 V STS3215, supply rating). This bounds the stall torque
    (D-09).
-4. **Set `HardwareConfig.rest_deg`** to a pose where the arm is supported. It's where every run ramps to before
+4. **Set `HardwareConfig.rest_deg`** (done: the folded supported pose read on 2026-10-31, 99 mm above the table clearance) to a pose where the arm is supported. It's where every run ramps to before
    torque off.
 
 ## B. Measure the actuators properly

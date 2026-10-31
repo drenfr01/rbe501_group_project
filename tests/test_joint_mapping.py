@@ -7,6 +7,7 @@ import pytest
 from rbe_501_so101.config import HardwareConfig, JointMappingEntry, SimConfig
 from rbe_501_so101.envs.model_indices import table_clearance_z
 from rbe_501_so101.hardware.joint_mapping import JointMap
+from rbe_501_so101.hardware.safety import SafetyMonitor
 
 SIM = SimConfig()
 GRIPPER_RANGE_RAD = (-0.17, 1.75)
@@ -103,6 +104,21 @@ def test_default_mapping_draws_upper_arm_vertical(raw_model, name):
     mapped = _posed(raw_model, IN_AIR_REFERENCES[name])
     cos = _upper_arm(raw_model, mapped) @ _upper_arm(raw_model, drawn_vertical)
     assert np.rad2deg(np.arccos(np.clip(cos, -1.0, 1.0))) < VERTICAL_TOLERANCE_DEG
+
+
+SUPPORTED_REST_READING = [-2.42, -73.19, 96.57, 3.25, 2.24, 0.27]
+REST_TOLERANCE_DEG = 0.1
+
+
+def test_default_rest_is_the_recorded_supported_pose(raw_model):
+    joint_map = JointMap.from_model(raw_model, SIM, HardwareConfig())
+    rest = joint_map.to_lerobot(np.deg2rad(HardwareConfig().rest_deg))
+    np.testing.assert_allclose(list(rest.values())[:5], SUPPORTED_REST_READING[:5], atol=REST_TOLERANCE_DEG)
+
+
+def test_default_rest_clears_the_table(raw_model):
+    safety = SafetyMonitor.from_model(raw_model, SIM)
+    assert safety.clearance_margin(np.deg2rad(HardwareConfig().rest_deg)) > 0.0
 
 
 def test_from_model_reads_gripper_range(raw_model):

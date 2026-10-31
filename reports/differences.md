@@ -112,8 +112,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
 
 - **Sub-task:** reach, Phase 0
 - **Sim:** one torque model for all joints.
-- **Real:** open. STS3215 ships in 7.4 V and 12 V variants with different stall torque; the voltage read during the sag
-  session (`MotorStatus.voltage_v`) and the variant must be recorded before comparing stiffness across arms.
+- **Real (recorded):** the official SO-101 kit (Partabot) with its 5 V supply, so the 7.4 V STS3215 variant running
+  below its rated voltage. The servos read 5.3 to 5.5 V under load. Stall torque scales with supply voltage, which
+  is consistent with the soft, gain-limited behaviour in D-01 and the gain sweep. Any stiffness comparison with
+  other arms must state the supply.
 
 ### D-10: Gripper torque limit
 

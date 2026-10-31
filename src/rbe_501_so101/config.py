@@ -349,8 +349,8 @@ class HardwareConfig:
     measured at.
 
     `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
-    before torque is cut. Replace it with a pose where the arm is supported
-    once the Phase 1 mapping is known.
+    before torque is cut. It is the folded, supported pose read from the arm
+    on 2026-10-31 (LeRobot -2.42, -73.19, 96.57, 3.25, 2.24, gripper 0.27).
     """
 
     port: str = "/dev/so101_follower"
@@ -371,7 +371,7 @@ class HardwareConfig:
     )
     gripper_percent_range: tuple[float, float] = (0.0, 100.0)
     mapping_tolerance_deg: float = 0.5
-    rest_deg: tuple[float, ...] = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
+    rest_deg: tuple[float, ...] = (-0.92, -99.99, 89.87, 2.75, 2.24, -9.7)
     rest_ramp_s: float = 3.0
     lerobot_degrees_per_count: float = 360.0 / 4095
 
