@@ -24,6 +24,7 @@ Run from the repo root in the `lerobot` conda env
 | `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction) | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
 | `analyze/analyze_sag.py` | 0 | no | `experiments/<date>_sag_analysis/` (report.json, README, real_sag.png), `data/calibration/actuator_calibration.json`; `--report-figures` copies `real_sag.png` to `reports/figures/` | `python scripts/sim2real/analyze/analyze_sag.py data/sag_check/<date>_rbe501_follower --report-figures` |
 | `analyze/robustness_sweep.py` | 2 | no | `experiments/<date>_reach_robustness/` (report.json, README, kp_sweep.png, saturation.png); `--report-figures` copies the plots to `reports/figures/` | `python scripts/sim2real/analyze/robustness_sweep.py --calibration data/calibration/actuator_calibration.json --session data/sag_check/<date>_rbe501_follower --report-figures` |
+| `analyze/hardware_figures.py` | 0 | no | `experiments/<date>_hardware_figures/` (friction_bands, direction_errors, stiffness, gain_sweep PNGs, summary.json); `--report-figures` copies them to `reports/figures/` | see the example in the script's docstring (two sag sessions, one pose check, the gain-sweep runs) |
 
 ## Order of a hardware campaign
 

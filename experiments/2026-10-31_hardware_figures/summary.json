@@ -1,0 +1,67 @@
+{
+  "bands_deg": {
+    "3\u00b0 approaches": {
+      "shoulder_lift": 1.260073260073261,
+      "elbow_flex": 0.9890109890109904
+    },
+    "8\u00b0 approaches": {
+      "shoulder_lift": 3.0593406593406565,
+      "elbow_flex": 3.6043956043956045
+    },
+    "pose check, 30\u00b0 moves": {
+      "shoulder_lift": 4.39560439560442,
+      "elbow_flex": 3.8681318681318695
+    }
+  },
+  "fitted_kp": {
+    "shoulder_lift": 10.222258557321833,
+    "elbow_flex": 11.142955167742327,
+    "wrist_flex": 11.92844806187237
+  },
+  "mjcf_kp": {
+    "shoulder_pan": 20.0,
+    "shoulder_lift": 20.0,
+    "elbow_flex": 20.0,
+    "wrist_flex": 6.0,
+    "wrist_roll": 4.0
+  },
+  "gains": [
+    16,
+    24,
+    32
+  ],
+  "largest_miss_deg": {
+    "shoulder_pan": [
+      1.8846153846153852,
+      1.1813186813186807,
+      0.9175824175824169
+    ],
+    "shoulder_lift": [
+      7.705494505494504,
+      4.980219780219792,
+      3.5736263736263867
+    ],
+    "elbow_flex": [
+      6.354945054945055,
+      4.267032967032975,
+      3.21208791208792
+    ],
+    "wrist_flex": [
+      2.576923076923079,
+      1.5219780219780221,
+      1.082417582417583
+    ],
+    "wrist_roll": [
+      1.0989010989010988,
+      1.0989010989010988,
+      0.5714285714285713
+    ]
+  },
+  "sources": {
+    "small_session": "data/sag_check/2026-10-31_rbe501_follower_p24_190722",
+    "large_session": "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
+    "pose_check": "data/pose_check/2026-10-31_rbe501_follower_p24_184714",
+    "gain_runs": "[PosixPath('data/pose_check/2026-10-31_rbe501_follower_p16_184613'), PosixPath('data/pose_check/2026-10-31_rbe501_follower_p24_184714'), PosixPath('data/pose_check/2026-10-31_rbe501_follower_p32_184813')]",
+    "out": "None"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "script": "scripts/sim2real/analyze/hardware_figures.py",
+  "argv": [
+    "--small-session",
+    "data/sag_check/2026-10-31_rbe501_follower_p24_190722",
+    "--large-session",
+    "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
+    "--pose-check",
+    "data/pose_check/2026-10-31_rbe501_follower_p24_184714",
+    "--gain-runs",
+    "data/pose_check/2026-10-31_rbe501_follower_p16_184613",
+    "data/pose_check/2026-10-31_rbe501_follower_p24_184714",
+    "data/pose_check/2026-10-31_rbe501_follower_p32_184813",
+    "--report-figures"
+  ],
+  "git_commit": "e6a600649485e9c331083a3468e8ce0a9bc31d40",
+  "git_dirty": false,
+  "started_at": "2026-10-31T19:30:42.859663+00:00",
+  "finished_at": "2026-10-31T19:30:43.280350+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": null
+}

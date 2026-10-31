@@ -6,7 +6,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 - [`differences.md`](differences.md): sim-vs-real differences log (stable IDs `D-xx`).
 - [`assumptions.md`](assumptions.md): each training assumption, how it was tested, the result (IDs `A-xx`).
 - `findings/`: short, dated write-ups of individual results for sharing. Start with the
-  [2026-10-31 session recap](findings/2026-10-31_session_recap.md); also the
+  [plain-English summary of the first hardware day](findings/2026-10-31_hardware_findings.md) (all charts and data
+  pointers); also the [earlier session recap](findings/2026-10-31_session_recap.md), the
   [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
   [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md), and the
   [P = 24 sag check](findings/2026-10-31_sag_check_p24.md).

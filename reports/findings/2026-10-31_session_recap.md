@@ -1,5 +1,8 @@
 # Session recap: first hardware day on the SO-101 follower (2026-10-31)
 
+> **Superseded** by [What we learned on the first hardware day](2026-10-31_hardware_findings.md), which adds the
+> gain sweep and both P = 24 sag checks. Several numbers below (P = 16 errors, the ±1.3° deadband) were revised there.
+
 **TL;DR:** The real arm doesn't behave like the simulator. Under gravity, the shoulder-lift and elbow servos stop
 up to 7° short of their goals, and how far short depends on which way they were moving (about 6.5° of hysteresis).
 The sim predicts 1.5° from both sides. Even the 1.3° deadband on unloaded joints is enough to miss the 2 mm reach
