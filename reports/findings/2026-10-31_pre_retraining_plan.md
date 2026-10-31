@@ -30,12 +30,20 @@ Status: **have** = built and tested; **new** = needs code; **run** = needs a har
 
 ## B. Measure the actuators properly
 
-5. **Make the sag check safe and non-destructive** (new):
+5. **Make the sag check safe and non-destructive** (done):
    - table pre-flight over the poses, both approach points, and every interpolated path, with a sag allowance
      (reuse `preflight` from the pose check);
    - approach offsets of about 3°, signed per joint so the gripper moves away from the table;
    - a raised waypoint between poses;
    - a unique session folder per run (today's folder name would be overwritten by a second run today).
+
+   Done: `sag_check.py run` now plans rest → waypoint → above → pose → below → pose for every pose, checks the
+   whole path against the table (1° steps, 6° sag allowance on lift/elbow/wrist) before torque on, and refuses
+   to move otherwise. "Above" is chosen per joint from the sign of the gravity torque at the pose, so the
+   approach point lifts the arm (3°; uniform for pan/roll, which carry no gravity load). Each sample records
+   its offsets, and the sim replay of a real session reuses them. Sessions are written to
+   `data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/`. The poses recorded this morning are refused (the path
+   comes 4 mm inside the clearance), so step 6 starts by re-recording them.
 6. **Re-record the sag poses higher, then run the sag check** at the chosen gain (run).
 7. **Fit the calibration** (have): `analyze_sag.py` writes `data/calibration/actuator_calibration.json` (stiffness
    per joint, friction where the hysteresis is identifiable).

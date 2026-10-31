@@ -18,7 +18,7 @@ Run from the repo root in the `lerobot` conda env
 |---|---|---|---|---|
 | `collect/jog.py` | tooling | yes | nothing | `python scripts/sim2real/collect/jog.py --port /dev/so101_follower` |
 | `collect/sag_check.py record-poses` | 0 | yes (torque off, move by hand) | `data/sag_check/poses/poses.json` | `python scripts/sim2real/collect/sag_check.py record-poses` |
-| `collect/sag_check.py run` | 0 | yes (`--sim` for a dry run) | `data/sag_check/<date>_<robot_id>/session.json`, manifest | `python scripts/sim2real/collect/sag_check.py run` |
+| `collect/sag_check.py run` | 0 | yes (`--sim` for a dry run) | `data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/session.json`, manifest; refuses to move if the planned path (with sag allowance) comes near the table | `python scripts/sim2real/collect/sag_check.py run --p-gain 24` |
 | `collect/mirror_arm.py` | 1, and the Phase 3 dry run | yes (torque off) | `data/joint_mapping/<date>_<robot_id>/references.json`, manifest | `python scripts/sim2real/collect/mirror_arm.py` |
 | `collect/pose_check.py` | 1 (verify the map) | yes, torque on (`--sim` for a dry run) | `data/pose_check/<date>_<robot_id>_p<gain>_<time>/` (`results.json`: goal, sent, reading in LeRobot and sim degrees, operator's level reading; `servo_settings.json`), manifest | `python scripts/sim2real/collect/pose_check.py --p-gain 16` |
 | `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction) | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
@@ -27,7 +27,8 @@ Run from the repo root in the `lerobot` conda env
 
 ## Order of a hardware campaign
 
-1. `sag_check.py record-poses` (about 10 poses clear of the table and the joint limits), then `sag_check.py run`.
+1. `sag_check.py record-poses` (about 10 poses clear of the table and the joint limits; keep the gripper well above
+   the table, the path check adds a 6° sag allowance), then `sag_check.py run --sim` to check the path, then `sag_check.py run`.
 2. `mirror_arm.py`: confirm every joint sign and record physical references (link levels, stops) to fix the
    offsets in `HardwareConfig.joint_map`; re-measure at a second reference. Then `pose_check.py` sends the arm to
    poses defined in sim degrees (upper arm vertical, forearm level, ...) and you check the links with a level.

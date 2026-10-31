@@ -106,6 +106,22 @@ def test_simulated_session_compares_joint_by_joint(raw_model):
     assert lift.sim_mean_sag_deg == pytest.approx(sim_expected, rel=0.1)
 
 
+def test_simulated_session_replays_the_real_approach_offsets(raw_model):
+    joint_map = JointMap.from_model(raw_model, SIM, IDENTITY_HW)
+    offsets = (3.0, -3.0, -3.0, 3.0, 3.0, 0.0)
+    real = replace(
+        _session(),
+        samples=tuple(
+            replace(s, approach_offset_deg=tuple(v if s.approach == "above" else -v for v in offsets))
+            for s in _session().samples
+        ),
+    )
+    simulated = simulate_session(real, SIM, joint_map, SagCheckConfig(settle_s=0.5, n_reads=2), quantization_rad=0.0)
+    np.testing.assert_allclose(
+        [s.approach_offset_deg for s in simulated.samples], [s.approach_offset_deg for s in real.samples]
+    )
+
+
 def test_analysis_excludes_clamped_samples_and_reports_them(raw_model):
     joint_map = JointMap.from_model(raw_model, SIM, IDENTITY_HW)
     clean = _session()

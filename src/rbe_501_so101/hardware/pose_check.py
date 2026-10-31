@@ -5,7 +5,6 @@ physical links sit at the angles each `CheckPose.check` describes.
 """
 
 import json
-import math
 from dataclasses import asdict, dataclass, replace
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,11 +16,9 @@ from rbe_501_so101.config import CheckPose, PoseCheckConfig, SagCheckConfig
 from rbe_501_so101.hardware.bus import JointBus
 from rbe_501_so101.hardware.clock import Clock
 from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
-from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
 from rbe_501_so101.hardware.types import MotorSettings
 
-MM_PER_M = 1000.0
 SETTINGS_FILENAME = "servo_settings.json"
 
 
@@ -81,39 +78,6 @@ class PoseCheckRepository:
     def load_settings(self) -> tuple[MotorSettings, ...]:
         """Servo settings saved with this run."""
         return tuple(MotorSettings(**s) for s in json.loads(self.settings_path.read_text()))
-
-
-def run_suffix(robot_id: str, p_gain: int, now: datetime) -> str:
-    """Folder suffix `<robot>_p<gain>_<HHMMSS>`, so repeated runs on one day never overwrite each other."""
-    return f"{robot_id}_p{p_gain}_{now:%H%M%S}"
-
-
-def segment_points(start: np.ndarray, end: np.ndarray, step_rad: float) -> np.ndarray:
-    """Joint-space line from `start` to `end`, no joint moving more than `step_rad` per point."""
-    n = max(1, math.ceil(float(np.abs(end - start).max()) / step_rad))
-    return start + np.outer(np.linspace(0.0, 1.0, n + 1), end - start)
-
-
-def plan_path(start: np.ndarray, poses: tuple[np.ndarray, ...]) -> list[np.ndarray]:
-    """Waypoints: the start, every pose in order, then the start again."""
-    return [start, *poses, start]
-
-
-def preflight(safety: SafetyMonitor, path: list[np.ndarray], cfg: PoseCheckConfig) -> float:
-    """Smallest table margin (m) along the path, with and without sag; raise if it goes too low.
-
-    A start already inside the clearance (an arm resting low) is allowed, but
-    nothing on the path may go lower than the start does.
-    """
-    sag = np.deg2rad(np.append(cfg.sag_allowance_deg, 0.0))
-    floor = min(0.0, safety.clearance_margin(path[0]), safety.clearance_margin(path[0] + sag))
-    worst = math.inf
-    for start, end in zip(path[:-1], path[1:], strict=True):
-        for q in segment_points(start, end, math.radians(cfg.path_step_deg)):
-            worst = min(worst, safety.clearance_margin(q), safety.clearance_margin(q + sag))
-    if worst < floor:
-        raise SafetyAbort(f"path comes {MM_PER_M * -worst:.0f} mm inside the table clearance")
-    return worst
 
 
 def _driver_config(cfg: PoseCheckConfig) -> SagCheckConfig:

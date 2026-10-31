@@ -4,25 +4,39 @@ Subcommands:
   record-poses  torque off; move the arm by hand and press `r` to save the
                 current pose to the poses file, `q` to finish.
   run           approach every saved pose from above and below, settle, and
-                average readings. Writes data/sag_check/<date>_<robot_id>/.
+                average readings. Writes
+                data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/.
 
-Keep the power switch within reach. `--sim` runs `run` against MuJoCo
+"From above" is the side gravity pulls away from, per joint and pose, so the
+approach point lifts the arm; every pose is entered through a raised waypoint
+(`SagCheckConfig.waypoint_sim_deg`). Before torque is enabled the whole path
+(waypoints, both approach points, every pose, back to rest) is checked
+against the table with a sag allowance, and the run is refused if it comes
+too close. Keep the power switch within reach. `--sim` runs `run` against MuJoCo
 through the same bus interface (robot id "sim") as a dry run.
 """
 
 import argparse
 import sys
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
+import mujoco
+import numpy as np
+
 from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SimConfig, resolve_project_path
-from rbe_501_so101.hardware.bus import LeRobotJointBus
-from rbe_501_so101.hardware.joint_mapping import pos_key
+from rbe_501_so101.hardware.bus import JointBus, LeRobotJointBus
+from rbe_501_so101.hardware.clock import Clock
+from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
 from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
+from rbe_501_so101.hardware.path_safety import MM_PER_M, preflight
+from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.sag import RecordedPose, SagRepository, SagSession
-from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
+from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
-from rbe_501_so101.provenance import begin_run, require_clean_tree
+from rbe_501_so101.kinematics.gravity import GravityTorqueModel
+from rbe_501_so101.provenance import begin_run, require_clean_tree, timestamped_suffix
 
 RECORD_KEY = "r"
 POLL_S = 0.1
@@ -79,26 +93,65 @@ def _record_loop(bus: LeRobotJointBus, keys: TerminalKeys) -> list[RecordedPose]
 
 
 def report_clamps(session: SagSession, clamp_count: int) -> None:
-    """Say which samples LeRobot clipped (they are excluded from the analysis)."""
+    """Say how often LeRobot clipped ramp goals, and which samples never got their final goal (excluded)."""
     flagged = [f"pose {s.pose_id} {s.approach}" for s in session.samples if s.clamped]
-    if not flagged:
-        print("no goals were clamped by LeRobot")
-        return
-    print(f"WARNING: LeRobot clamped {clamp_count} goals; {len(flagged)} samples flagged and excluded from analysis:")
-    print("  " + ", ".join(flagged))
+    print(f"LeRobot clipped {clamp_count} ramp goals (a joint lagged the ramp by more than its relative-target cap)")
+    if flagged:
+        print(f"WARNING: {len(flagged)} samples never got their final goal and are excluded from analysis:")
+        print("  " + ", ".join(flagged))
+
+
+def build_runner(bus: JointBus, clock: Clock, cfg: SagCheckConfig, joint_map: JointMap) -> SagCheckRunner:
+    """Runner with gravity-aware approach sides and the raised waypoint (LeRobot units)."""
+    offsets = GravityAwareOffsets(
+        joint_map, GravityTorqueModel.from_config(SimConfig()), cfg.approach_offset_deg, cfg.gravity_torque_floor_nm
+    )
+    waypoint = joint_map.to_lerobot(np.append(np.deg2rad(cfg.waypoint_sim_deg), 0.0))
+    arm_waypoint = {pos_key(j): waypoint[pos_key(j)] for j in SimConfig().arm_joints}
+    return SagCheckRunner(bus, clock, cfg, joints(), offsets, arm_waypoint)
+
+
+def check_path(
+    runner: SagCheckRunner,
+    poses: tuple[RecordedPose, ...],
+    rest: dict[str, float],
+    joint_map: JointMap,
+    model: mujoco.MjModel,
+    cfg: SagCheckConfig,
+) -> None:
+    """Refuse the run (before torque on) if any planned point comes near the table."""
+    path = [joint_map.to_sim(goal) for goal in [rest, *runner.plan(poses, rest)]]
+    try:
+        margin = preflight(SafetyMonitor.from_model(model, SimConfig()), path, cfg.path_check)
+    except SafetyAbort as exc:
+        sys.exit(f"refusing to move: {exc}. Re-record the poses higher.")
+    print(f"path check passed: lowest point stays {MM_PER_M * margin:.0f} mm above the table clearance (with sag allowance)")
+
+
+def session_dir(args: argparse.Namespace, repo: SagRepository, robot_id: str, hw: HardwareConfig) -> Path:
+    """`--out`, or a new timestamped session folder per run."""
+    if args.out:
+        return resolve_project_path(args.out)
+    return repo.session_dir(timestamped_suffix(robot_id, hw.position_p_gain, datetime.now()))
 
 
 def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfig) -> None:
-    """Run every pose from both sides, save the session, and ramp back to the start pose."""
+    """Check the path, run every pose from both sides, save the session, and ramp back to the start pose."""
     pose_joints, poses = repo.load_poses()
     if pose_joints != joints():
         sys.exit(f"pose file joints {pose_joints} do not match {joints()}")
-    robot_id = robot_id_for(args.sim, hw)
-    out = resolve_project_path(args.out) if args.out else repo.session_dir(robot_id)
-    manifest = begin_run(out, robot_id)
+    robot_id, cfg = robot_id_for(args.sim, hw), SagCheckConfig()
+    model = mujoco.MjModel.from_xml_path(str(SimConfig().model_path))
+    joint_map = JointMap.from_model(model, SimConfig(), hw)
     bus, clock = open_bus(args.sim, hw)
-    runner = SagCheckRunner(bus, clock, SagCheckConfig(), joints())
-    rest = bus.read_positions()
+    runner, rest = build_runner(bus, clock, cfg, joint_map), bus.read_positions()
+    try:
+        check_path(runner, poses, rest, joint_map, model, cfg)
+    except SystemExit:
+        bus.close()
+        raise
+    out = session_dir(args, repo, robot_id, hw)
+    manifest = begin_run(out, robot_id)
     try:
         session = runner.session(robot_id, poses)
         print(f"session saved to {repo.save_session(session, out)}")

@@ -7,7 +7,8 @@ import pytest
 
 from rbe_501_so101.config import HardwareConfig
 from rbe_501_so101.hardware.bus import FakeJointBus, follower_config_kwargs
-from rbe_501_so101.hardware.pose_check import PoseCheckRepository, run_suffix
+from rbe_501_so101.hardware.pose_check import PoseCheckRepository
+from rbe_501_so101.provenance import timestamped_suffix
 
 
 def test_follower_config_carries_the_p_gain():
@@ -30,8 +31,8 @@ def test_out_of_range_gain_is_refused(gain):
 
 
 def test_run_folders_name_the_gain_and_never_collide():
-    first = run_suffix("rbe501_follower", 32, datetime(2026, 10, 31, 12, 0, 5))
-    second = run_suffix("rbe501_follower", 32, datetime(2026, 10, 31, 12, 4, 0))
+    first = timestamped_suffix("rbe501_follower", 32, datetime(2026, 10, 31, 12, 0, 5))
+    second = timestamped_suffix("rbe501_follower", 32, datetime(2026, 10, 31, 12, 4, 0))
     assert first == "rbe501_follower_p32_120005"
     assert first != second
 

@@ -39,9 +39,10 @@ class SagSample:
     """One settled arrival at a pose, in LeRobot degrees.
 
     `sent_goal_deg` is the final goal LeRobot actually sent after its
-    `max_relative_target` clipping; `clamped` is True if any goal sent for this
-    sample (approach ramp or final step) was clipped. Both are None in sessions
-    recorded before they were logged.
+    `max_relative_target` clipping; `clamped` is True if the final goal never
+    went through unclipped. `approach_offset_deg` is the approach point minus
+    the goal per joint. All three are None in sessions recorded before they
+    were logged.
     """
 
     pose_id: int
@@ -52,6 +53,7 @@ class SagSample:
     status: tuple[MotorStatus, ...]
     sent_goal_deg: tuple[float, ...] | None = None
     clamped: bool | None = None
+    approach_offset_deg: tuple[float, ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -263,6 +265,12 @@ def _sample_from_dict(data: dict[str, Any]) -> SagSample:
         measured_deg=tuple(data["measured_deg"]),
         measured_std_deg=tuple(data["measured_std_deg"]),
         status=tuple(MotorStatus(**m) for m in data["status"]),
-        sent_goal_deg=tuple(data["sent_goal_deg"]) if data.get("sent_goal_deg") is not None else None,
+        sent_goal_deg=_optional_tuple(data.get("sent_goal_deg")),
         clamped=data.get("clamped"),
+        approach_offset_deg=_optional_tuple(data.get("approach_offset_deg")),
     )
+
+
+def _optional_tuple(values: list[float] | None) -> tuple[float, ...] | None:
+    """JSON list to tuple, keeping None for fields older sessions lack."""
+    return tuple(values) if values is not None else None

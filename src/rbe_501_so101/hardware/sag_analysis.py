@@ -26,7 +26,7 @@ from rbe_501_so101.hardware.sag import (
     sag_by_joint,
     usable_samples,
 )
-from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
+from rbe_501_so101.hardware.sag_procedure import RecordedOffsets, SagCheckRunner, UniformOffsets
 from rbe_501_so101.hardware.sim_bus import SimJointBus
 
 
@@ -121,8 +121,9 @@ def simulate_session(
     bus = SimJointBus(MujocoSo101Backend(sim_cfg, no_randomization), joint_map, sim_cfg, quantization_rad)
     goals = {s.pose_id: s.goal_deg for s in usable_samples(real).samples}
     poses = tuple(RecordedPose(pid, goal) for pid, goal in goals.items())
+    offsets = RecordedOffsets(real, UniformOffsets(cfg.approach_offset_deg, real.joints))
     try:
-        return SagCheckRunner(bus, bus, cfg, real.joints).session("sim", poses)
+        return SagCheckRunner(bus, bus, cfg, real.joints, offsets).session("sim", poses)
     finally:
         bus.close()
 

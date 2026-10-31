@@ -389,17 +389,36 @@ class SafetyConfig:
 
 
 @dataclass(frozen=True)
+class PathCheckConfig:
+    """Pre-flight table check of a joint-space path before torque is enabled.
+
+    Points are checked every `step_deg`, both as commanded and with
+    `sag_allowance_deg` added (positive sim lift/elbow/wrist move the arm down).
+    """
+
+    step_deg: float = 1.0
+    sag_allowance_deg: tuple[float, ...] = (0.0, 6.0, 6.0, 6.0, 0.0)
+
+
+@dataclass(frozen=True)
 class SagCheckConfig:
     """Phase 0: how each recorded pose is approached and sampled.
 
     Ramps move every joint at most `ramp_speed_deg_s`, sending a goal every
-    `ramp_period_s`.
+    `ramp_period_s`. "From above" approaches each loaded joint from the side
+    gravity pulls away from (lifting the links past it); joints holding less
+    than `gravity_torque_floor_nm` use the positive LeRobot side. Every pose is
+    entered from `waypoint_sim_deg` (sim degrees, arm joints), and the whole
+    path is checked against the table before torque is enabled.
     """
 
     poses_path: Path = DATA_DIR / "sag_check" / "poses" / "poses.json"
     sessions_dir: Path = DATA_DIR / "sag_check"
     session_filename: str = "session.json"
-    approach_offset_deg: float = 5.0
+    approach_offset_deg: float = 3.0
+    gravity_torque_floor_nm: float = 0.01
+    waypoint_sim_deg: tuple[float, ...] = (0.0, 0.0, 0.0, 0.0, 0.0)
+    path_check: PathCheckConfig = PathCheckConfig()
     settle_s: float = 2.0
     n_reads: int = 20
     read_interval_s: float = 0.02
@@ -452,8 +471,7 @@ class PoseCheckConfig:
     """Pose check: command known sim poses on the real arm and compare with level measurements.
 
     Before torque is enabled the whole path (start, every pose, back to start)
-    is checked every `path_step_deg`, both as commanded and with
-    `sag_allowance_deg` added (positive sim lift/elbow/wrist move the arm down).
+    is checked against the table (`path_check`) before torque is enabled.
     """
 
     poses: tuple[CheckPose, ...] = DEFAULT_CHECK_POSES
@@ -466,8 +484,7 @@ class PoseCheckConfig:
     read_interval_s: float = 0.02
     clamp_tolerance_deg: float = 1e-6
     final_goal_timeout_s: float = 3.0
-    path_step_deg: float = 1.0
-    sag_allowance_deg: tuple[float, ...] = (0.0, 6.0, 6.0, 6.0, 0.0)
+    path_check: PathCheckConfig = PathCheckConfig()
 
 
 @dataclass(frozen=True)

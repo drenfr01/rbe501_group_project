@@ -100,6 +100,11 @@ def experiment_dir(suffix: str, base: Path = EXPERIMENTS_DIR, day: date | None =
     return base / f"{(day or date.today()).isoformat()}_{suffix}"
 
 
+def timestamped_suffix(robot_id: str, p_gain: int, now: datetime) -> str:
+    """Folder suffix `<robot>_p<gain>_<HHMMSS>`, so repeated runs on one day never overwrite each other."""
+    return f"{robot_id}_p{p_gain}_{now:%H%M%S}"
+
+
 def begin_run(out_dir: Path, robot_id: str | None = None, repo_root: Path = PROJECT_ROOT) -> RunManifest:
     """Capture and write the manifest for a new output folder."""
     manifest = RunManifest.capture(robot_id, repo_root=repo_root)

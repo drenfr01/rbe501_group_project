@@ -29,18 +29,11 @@ from rbe_501_so101.config import CheckPose, HardwareConfig, PoseCheckConfig, Sim
 from rbe_501_so101.hardware.bus import JointBus
 from rbe_501_so101.hardware.joint_mapping import JointMap
 from rbe_501_so101.hardware.operator import TerminalKeys
-from rbe_501_so101.hardware.pose_check import (
-    MM_PER_M,
-    PoseCheckRepository,
-    PoseCheckResult,
-    PoseCheckRunner,
-    plan_path,
-    preflight,
-    run_suffix,
-)
+from rbe_501_so101.hardware.path_safety import MM_PER_M, plan_path, preflight
+from rbe_501_so101.hardware.pose_check import PoseCheckRepository, PoseCheckResult, PoseCheckRunner
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 from rbe_501_so101.hardware.session import open_bus, robot_id_for
-from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tree
+from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tree, timestamped_suffix
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -68,7 +61,7 @@ def check_path(joint_map: JointMap, model: mujoco.MjModel, start: dict[str, floa
     """Refuse the run (before torque on) if the planned path comes near the table."""
     q_start = joint_map.to_sim(start)
     q_poses = tuple(np.append(np.deg2rad(p.sim_deg), q_start[-1]) for p in poses)
-    margin = preflight(SafetyMonitor.from_model(model, SimConfig()), plan_path(q_start, q_poses), cfg)
+    margin = preflight(SafetyMonitor.from_model(model, SimConfig()), plan_path(q_start, q_poses), cfg.path_check)
     print(f"path check passed: lowest point stays {MM_PER_M * margin:.0f} mm above the table clearance (with sag allowance)")
 
 
@@ -99,7 +92,7 @@ def output_dir(args: argparse.Namespace, hw: HardwareConfig, robot_id: str, cfg:
     """`--out`, or a new `data/pose_check/<date>_<robot>_p<gain>_<HHMMSS>/` per run."""
     if args.out:
         return resolve_project_path(args.out)
-    return experiment_dir(run_suffix(robot_id, hw.position_p_gain, datetime.now()), base=cfg.results_dir)
+    return experiment_dir(timestamped_suffix(robot_id, hw.position_p_gain, datetime.now()), base=cfg.results_dir)
 
 
 def record_settings(bus: JointBus, repo: PoseCheckRepository) -> None:

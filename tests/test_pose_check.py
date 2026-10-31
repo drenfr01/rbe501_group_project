@@ -7,13 +7,8 @@ from rbe_501_so101.config import CheckPose, HardwareConfig, PoseCheckConfig, Sim
 from rbe_501_so101.hardware.bus import FakeJointBus
 from rbe_501_so101.hardware.clock import FakeClock
 from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
-from rbe_501_so101.hardware.pose_check import (
-    PoseCheckRepository,
-    PoseCheckRunner,
-    plan_path,
-    preflight,
-    segment_points,
-)
+from rbe_501_so101.hardware.path_safety import plan_path, preflight, segment_points
+from rbe_501_so101.hardware.pose_check import PoseCheckRepository, PoseCheckRunner
 from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
 
 SIM = SimConfig()
@@ -56,20 +51,20 @@ def test_plan_returns_to_the_start():
 
 def test_preflight_passes_the_configured_poses_from_sim_zero(safety):
     poses = tuple(_q(p.sim_deg) for p in PoseCheckConfig().poses)
-    assert preflight(safety, plan_path(_q((0.0,) * 5), poses), PoseCheckConfig()) > 0.0
+    assert preflight(safety, plan_path(_q((0.0,) * 5), poses), PoseCheckConfig().path_check) > 0.0
 
 
 def test_preflight_refuses_a_pose_inside_the_table(safety):
     path = plan_path(_q((0.0,) * 5), (_q(INTO_TABLE.sim_deg),))
     with pytest.raises(SafetyAbort, match="table"):
-        preflight(safety, path, PoseCheckConfig())
+        preflight(safety, path, PoseCheckConfig().path_check)
 
 
 def test_preflight_tolerates_a_low_start_but_not_going_lower(safety):
     low_start = _q((0.0, 60.0, 0.0, 0.0, 0.0))
-    preflight(safety, plan_path(low_start, (_q((0.0,) * 5),)), PoseCheckConfig())
+    preflight(safety, plan_path(low_start, (_q((0.0,) * 5),)), PoseCheckConfig().path_check)
     with pytest.raises(SafetyAbort):
-        preflight(safety, plan_path(low_start, (_q(INTO_TABLE.sim_deg),)), PoseCheckConfig())
+        preflight(safety, plan_path(low_start, (_q(INTO_TABLE.sim_deg),)), PoseCheckConfig().path_check)
 
 
 def test_runner_commands_the_mapped_lerobot_goal_and_keeps_the_gripper(joint_map):
