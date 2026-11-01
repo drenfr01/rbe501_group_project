@@ -58,6 +58,7 @@ def check_acceptance(results: Sequence[SweepResult], cfg: AcceptanceConfig) -> A
         _deployment_check(deploy, cfg),
         _ik_hold_check(deploy, _baseline(results, IK_HOLD, deploy)),
         _saturation_check(deploy, cfg),
+        _dither_check(deploy, cfg),
         _worst_case_check([r for r in trained if r.parameter != DEPLOYMENT], cfg),
         _integral_check(trained, results, cfg),
     )
@@ -88,6 +89,15 @@ def _saturation_check(deploy: SweepResult, cfg: AcceptanceConfig) -> tuple[bool,
     saturation = deploy.saturation_fraction or 0.0
     return saturation < cfg.max_saturation_fraction, (
         f"saturation {saturation:.1%} vs limit {cfg.max_saturation_fraction:.0%}"
+    )
+
+
+def _dither_check(deploy: SweepResult, cfg: AcceptanceConfig) -> tuple[bool, str]:
+    """Mean command change per holding step (a still hold, not dithering against friction)."""
+    if deploy.command_step_deg is None:
+        return False, "dither: command step not measured"
+    return deploy.command_step_deg <= cfg.max_command_step_deg, (
+        f"dither: command moves {deploy.command_step_deg:.2f} deg/step while holding vs limit {cfg.max_command_step_deg:.2f}"
     )
 
 

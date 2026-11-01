@@ -16,18 +16,18 @@ TRAINING = PRESETS["residual_ik_sim2real"].env
 
 
 def _result(controller: str, parameter: str, value: float, mean: float, saturation: float | None = None,
-            spread: float = 0.1) -> SweepResult:
+            spread: float = 0.1, command_step: float = 0.02) -> SweepResult:
     """One controller's result under one condition."""
     seeds = {"0": mean - spread / 2, "1": mean + spread / 2} if controller == TRAINED else {"all": mean}
-    return SweepResult(controller, parameter, value, mean, 2 * mean, seeds, saturation)
+    return SweepResult(controller, parameter, value, mean, 2 * mean, seeds, saturation, command_step)
 
 
 def _results(rl: dict[tuple[str, float], float], integral: float = 1.0, ik: float = 10.0,
-             saturation: float = 0.05) -> list[SweepResult]:
+             saturation: float = 0.05, command_step: float = 0.02) -> list[SweepResult]:
     """Trained policy at the given means, with fixed baselines under every condition."""
     out = []
     for (parameter, value), mean in rl.items():
-        out.append(_result(TRAINED, parameter, value, mean, saturation))
+        out.append(_result(TRAINED, parameter, value, mean, saturation, command_step=command_step))
         out += [_result("integral", parameter, value, integral), _result("ik_hold", parameter, value, ik),
                 _result("gravity_comp", parameter, value, 5.0)]
     return out
@@ -80,3 +80,10 @@ def test_missing_trained_results_are_refused():
     baselines = [r for r in _results(GOOD) if r.controller != TRAINED]
     with pytest.raises(ValueError, match="trained"):
         check_acceptance(baselines, CFG)
+
+
+def test_dithering_fails_even_when_accurate():
+    """A policy that moves its command every step while holding is rejected (wear, unvalidated regime)."""
+    verdict = check_acceptance(_results(GOOD, command_step=1.9), CFG)
+    assert not verdict.passed
+    assert any("dither" in r for r in verdict.reasons if r.startswith("FAIL"))

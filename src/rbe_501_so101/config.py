@@ -468,6 +468,17 @@ PRESETS["residual_ik_sim2real"] = ExperimentPreset(
 )
 
 
+# The first retrain dithered (2026-11-01). A 200k-step sweep of the smoothness
+# weight: up to 1.0 the command still reversed by ~1-2° every holding step; 3
+# stopped it (0.03°/step) at the best error (3.5 mm); 10 and above pinned the
+# elbow at the residual cap and lost accuracy.
+SIM2REAL_SMOOTHNESS_PENALTY = 3.0
+PRESETS["residual_ik_sim2real_smooth"] = replace(
+    PRESETS["residual_ik_sim2real"],
+    reward=replace(PRESETS["residual_ik_sim2real"].reward, smoothness_penalty=SIM2REAL_SMOOTHNESS_PENALTY),
+)
+
+
 @dataclass(frozen=True)
 class SafetyConfig:
     """Abort thresholds checked on every hardware control step."""
@@ -654,9 +665,16 @@ class AcceptanceConfig:
     `worst_case_max_mean_mm` under stress, and be no worse than integral
     control (plus `integral_margin_mm`) in any condition. Settling time and the
     two-sided approach test are left to the hardware repeatability runs.
+
+    `max_command_step_deg` (added 2026-11-01, before the second retrain) bounds
+    the mean command change per holding step in the deployment condition. The
+    first retrain dithered every command by the full 2° per step to break
+    static friction: that wears the servos and relies on fast-reversal servo
+    behaviour the gate never validated. 0.25° is about three encoder counts.
     """
 
     deployment_max_mean_mm: float = 2.0
+    max_command_step_deg: float = 0.25
     worst_case_max_mean_mm: float = 5.0
     max_saturation_fraction: float = 0.2
     integral_margin_mm: float = 0.0

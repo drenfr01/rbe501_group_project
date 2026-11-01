@@ -49,7 +49,7 @@ class SweepCondition:
 
 @dataclass(frozen=True)
 class SweepResult:
-    """Holding-window error of one controller under one condition (mm)."""
+    """Holding-window error of one controller under one condition (mm), and its mean command step (deg)."""
 
     controller: str
     parameter: str
@@ -58,6 +58,7 @@ class SweepResult:
     p95_mm: float
     per_seed_mean_mm: dict[str, float]
     saturation_fraction: float | None
+    command_step_deg: float | None = None
 
 
 @dataclass(frozen=True)
@@ -238,8 +239,17 @@ def _to_result(
     if cfg is not None:
         actions = np.concatenate([ep.holding_actions for eps in per_seed.values() for ep in eps])
         saturation = saturation_fraction(actions, cfg.saturation_threshold)
+    steps = [ep.holding_command_step_rad for eps in per_seed.values() for ep in eps]
+    command_step = None if None in steps else math.degrees(float(np.mean(steps)))
     return SweepResult(
-        controller, condition.parameter, condition.value, report.mean_mm, report.p95_mm, report.per_seed_mean_mm, saturation
+        controller,
+        condition.parameter,
+        condition.value,
+        report.mean_mm,
+        report.p95_mm,
+        report.per_seed_mean_mm,
+        saturation,
+        command_step,
     )
 
 

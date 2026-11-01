@@ -1,6 +1,7 @@
 """The sim2real training preset, the hardware speed cap, and the deployment condition."""
 
 import json
+from dataclasses import replace
 from math import radians
 
 import numpy as np
@@ -94,3 +95,11 @@ def test_sim2real_env_clips_commands_to_the_real_joint_window():
         assert np.all(limits.lower >= window[:, 0] - 1e-12) and np.all(limits.upper <= window[:, 1] + 1e-12)
     finally:
         env.close()
+
+
+def test_smooth_preset_only_raises_the_smoothness_penalty():
+    """`residual_ik_sim2real_smooth` is `residual_ik_sim2real` with a much larger action-change penalty."""
+    smooth = PRESETS["residual_ik_sim2real_smooth"]
+    assert smooth.reward.smoothness_penalty > 100 * SIM2REAL.reward.smoothness_penalty
+    assert smooth.task == SIM2REAL.task and smooth.env == SIM2REAL.env and smooth.sac == SIM2REAL.sac
+    assert replace(smooth.reward, smoothness_penalty=SIM2REAL.reward.smoothness_penalty) == SIM2REAL.reward

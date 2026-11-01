@@ -118,7 +118,8 @@ A retrained policy must meet all five criteria:
 2. beat IK hold by more than the spread between seeds;
 3. be saturated on less than 20% of holding steps;
 4. mean error ≤ 5 mm in every stress condition;
-5. be no worse than integral control in any condition.
+5. be no worse than integral control in any condition;
+6. (added 2026-11-01, see the [retrain result](2026-11-01_retrain_sim2real_result.md)) move its command by at most 0.25° per holding step, so no dithering.
 
 Settling time and the two-sided approach test are left to the hardware repeatability runs.
 

@@ -75,10 +75,11 @@ def table(results: list[SweepResult]) -> list[str]:
 
 
 def _cell(results: list[SweepResult], controller: str, parameter: str, value: float) -> str:
-    """'mean (p95)' for one controller and condition, plus saturation for the policy."""
+    """'mean (p95)' for one controller and condition, plus command step and (policy) saturation."""
     r = next(r for r in results if (r.controller, r.parameter, r.value) == (controller, parameter, value))
+    step = "" if r.command_step_deg is None else f", {r.command_step_deg:.2f}°/step"
     sat = "" if r.saturation_fraction is None else f", sat {r.saturation_fraction:.0%}"
-    return f"{r.mean_mm:.2f} ({r.p95_mm:.2f}{sat})"
+    return f"{r.mean_mm:.2f} ({r.p95_mm:.2f}{step}{sat})"
 
 
 def readme(args: argparse.Namespace, results: list[SweepResult], verdict: AcceptanceVerdict | None) -> str:
@@ -89,7 +90,8 @@ def readme(args: argparse.Namespace, results: list[SweepResult], verdict: Accept
     else:
         head += [f"Checkpoint `{args.model_dir}`, seeds {args.seeds}.", "",
                  f"## Verdict: {'ACCEPT' if verdict.passed else 'REJECT'}", "", *[f"- {r}" for r in verdict.reasons], ""]
-    note = "Holding-window error, mean (p95) in mm, over the same evaluation targets; sat = policy saturation."
+    note = ("Holding-window error, mean (p95) in mm, over the same evaluation targets; °/step = mean command change "
+            "per holding step; sat = policy saturation.")
     return "\n".join([*head, note, "", *table(results)]) + "\n"
 
 

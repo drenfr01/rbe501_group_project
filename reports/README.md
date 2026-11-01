@@ -11,7 +11,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
   [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
   [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md), and the
   [P = 24 sag check](findings/2026-10-31_sag_check_p24.md), and the
-  [servo model, calibrated-sim gate, and retraining setup](findings/2026-10-31_servo_model_and_gate.md).
+  [servo model, calibrated-sim gate, and retraining setup](findings/2026-10-31_servo_model_and_gate.md), and the
+  [first retrain result](findings/2026-11-01_retrain_sim2real_result.md).
 - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
 
 ## Outline and status
@@ -52,5 +53,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
    lets the calibrated sim reproduce every real direction-dependent error within 1° (12/12 rows; stiffness alone:
    3/12). In that sim the current policy holds 8.9 mm and integral control 0.8 mm, which is the bar for the retrained
    policy ([servo model and gate](findings/2026-10-31_servo_model_and_gate.md), D-03, D-08).
+10. Retrained on the calibrated sim, the policy's error falls from 8.9 to 4.0 mm, but it gets there by dithering
+   every command at the maximum rate to break static friction, an exploit of a regime the gate never validated
+   ([retrain result](findings/2026-11-01_retrain_sim2real_result.md)).
 
 ![Stiffness sweep](figures/kp_sweep.png)

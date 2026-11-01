@@ -77,3 +77,23 @@ def test_episode_stats_record_holding_actions(reach_env):
     policy = RandomPolicy(0, reach_env.layout.n_arm)
     stats = run_episode(reach_env, policy, seed=0, window=TrainConfig().holding_window_steps)
     assert stats.holding_actions.shape == (TrainConfig().holding_window_steps, reach_env.layout.n_arm)
+
+
+class ZeroPolicy:
+    """Never moves the command."""
+
+    def reset(self, target, state) -> None:
+        """Nothing to reset."""
+
+    def __call__(self, obs):
+        """Zero delta."""
+        return np.zeros(5, dtype=np.float32)
+
+
+def test_episode_stats_record_the_holding_command_step(reach_env):
+    """Mean |command change| per step over the holding window: zero for a still policy, positive for a random one."""
+    window = TrainConfig().holding_window_steps
+    still = run_episode(reach_env, ZeroPolicy(), seed=0, window=window)
+    moving = run_episode(reach_env, RandomPolicy(0, reach_env.layout.n_arm), seed=0, window=window)
+    assert still.holding_command_step_rad == pytest.approx(0.0)
+    assert moving.holding_command_step_rad > 0.0

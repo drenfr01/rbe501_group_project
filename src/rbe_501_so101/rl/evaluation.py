@@ -34,11 +34,17 @@ AlgoName = Literal["sac", "ppo"]
 
 @dataclass(frozen=True)
 class EpisodeStats:
-    """Holding-window errors (m), mean arm joint speed (rad/s), and actions for one episode."""
+    """Holding-window errors (m), mean arm joint speed (rad/s), actions, and command motion for one episode.
+
+    `holding_command_step_rad` is the mean |change| of the arm command per step
+    over the holding window: near zero for a policy that holds still, large for
+    one that dithers.
+    """
 
     holding_errors_m: np.ndarray
     mean_joint_speed: float
     holding_actions: np.ndarray | None = None
+    holding_command_step_rad: float | None = None
 
 
 @dataclass(frozen=True)
@@ -55,7 +61,7 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int) 
     """Roll out one episode. Return None if the viewer closed before truncation."""
     obs, _ = env.reset(seed=seed)
     policy.reset(env.target, env.state)
-    errors, speeds, actions, truncated = [], [], [], False
+    errors, speeds, actions, commands, truncated = [], [], [], [], False
     while not truncated:
         if not env.viewer_open:
             return None
@@ -64,7 +70,13 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int) 
         errors.append(info["distance_m"])
         speeds.append(float(np.mean(np.abs(obs[env.layout.qvel]))))
         actions.append(action)
-    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])), np.array(actions[-window:]))
+        commands.append(env.state.q_cmd[: env.layout.n_arm].copy())
+    return EpisodeStats(
+        np.array(errors[-window:]),
+        float(np.mean(speeds[-window:])),
+        np.array(actions[-window:]),
+        float(np.mean(np.abs(np.diff(commands[-window:], axis=0)))),
+    )
 
 
 def completed_episodes(stats: list[EpisodeStats | None]) -> list[EpisodeStats]:
