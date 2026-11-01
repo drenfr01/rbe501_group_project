@@ -1,0 +1,29 @@
+{
+  "script": "scripts/sim2real/analyze/robustness_sweep.py",
+  "argv": [
+    "--report-figures"
+  ],
+  "git_commit": "1fa9bba999e41c1d4c47619ffbdc5ecfbf702716",
+  "git_dirty": true,
+  "started_at": "2026-10-25T18:44:08.393062+00:00",
+  "finished_at": "2026-10-25T18:45:12.866374+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": null
+}

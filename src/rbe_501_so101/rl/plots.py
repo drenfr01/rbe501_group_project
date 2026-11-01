@@ -1,14 +1,20 @@
 """Matplotlib figures for experiment records."""
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from rbe_501_so101.config import TrainConfig  # noqa: E402
 from rbe_501_so101.rl.reporting import TrainingCurve  # noqa: E402
+
+if TYPE_CHECKING:
+    from rbe_501_so101.hardware.sag_analysis import SagAnalysis
+    from rbe_501_so101.rl.robustness import SweepResult
 
 M_TO_MM = 1000.0
 RAW_ALPHA = 0.15
@@ -55,6 +61,57 @@ def _plot_seed_means(ax: plt.Axes, rows: dict[str, dict], names: list[str], widt
         seed_means = list(rows[name]["per_seed_mean_mm"].values())
         if len(seed_means) > 1:
             ax.scatter([x - width / 2] * len(seed_means), seed_means, color="black", s=12, zorder=3)
+
+
+def plot_real_sag(analysis: "SagAnalysis", path: Path) -> None:
+    """Phase 0: mean and worst sag plus mean hysteresis per arm joint."""
+    joints = analysis.joints
+    xs = range(len(joints))
+    width = 0.27
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
+    ax.bar([x - width for x in xs], [j.mean_sag_deg for j in joints], width, label="mean sag")
+    ax.bar(list(xs), [j.max_abs_sag_deg for j in joints], width, label="max |sag|")
+    ax.bar([x + width for x in xs], [j.mean_abs_hysteresis_deg for j in joints], width, label="mean |hysteresis|")
+    cap = float(np.rad2deg(analysis.warning_fraction * analysis.residual_max_rad))
+    ax.axhline(cap, color="red", linestyle="--", label="early-warning limit")
+    ax.set_xticks(list(xs), [j.joint for j in joints], rotation=15)
+    ax.set_ylabel("degrees (LeRobot units)")
+    ax.set_title(f"Real-arm sag and hysteresis ({analysis.n_poses} poses, both approach directions)")
+    ax.grid(axis="y", alpha=0.3)
+    ax.legend()
+    _save(fig, path)
+
+
+def plot_kp_sweep(results: list["SweepResult"], measured_scales: dict[str, float], path: Path) -> None:
+    """Holding error vs. kp scale, one line per controller, Phase 0 stiffness marked."""
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
+    for controller in sorted({r.controller for r in results}):
+        points = sorted((r.value, r.mean_mm) for r in results if r.controller == controller)
+        ax.plot([p[0] for p in points], [p[1] for p in points], marker="o", label=controller)
+    for joint, scale in measured_scales.items():
+        ax.axvline(scale, color="gray", linestyle=":", linewidth=1)
+        ax.annotate(joint, (scale, ax.get_ylim()[1]), rotation=90, va="top", fontsize=7, color="gray")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("actuator kp scale (x nominal MJCF)")
+    ax.set_ylabel("mean holding error (mm)")
+    ax.set_title("Stiffness mismatch: feedback controllers stay flat, feedforward ones grow")
+    ax.grid(alpha=0.3, which="both")
+    ax.legend()
+    _save(fig, path)
+
+
+def plot_saturation(results: list["SweepResult"], path: Path) -> None:
+    """Fraction of holding steps where the policy's correction is at its cap, per kp scale."""
+    points = sorted((r.value, r.saturation_fraction) for r in results if r.saturation_fraction is not None)
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
+    ax.plot([p[0] for p in points], [100 * p[1] for p in points], marker="o")
+    ax.set_xscale("log")
+    ax.set_xlabel("actuator kp scale (x nominal MJCF)")
+    ax.set_ylabel("holding steps at the correction cap (%)")
+    ax.set_title("Policy correction headroom")
+    ax.grid(alpha=0.3, which="both")
+    _save(fig, path)
 
 
 def _save(fig: plt.Figure, path: Path) -> None:

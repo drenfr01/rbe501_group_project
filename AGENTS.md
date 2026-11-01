@@ -16,3 +16,6 @@
     - define a test, verify it fails
     - write functionality
     - verify test succeeds
+
+## Report
+- ultimately we are creating an academic paper for class around sim2real and dynamics. Add any changes / discoveries around those differences to the report/ folder

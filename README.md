@@ -57,6 +57,9 @@ report, plots) live in `experiments/`.
 | `control_long` | Same env and reward; 4 parallel envs, 2 gradient steps per step, 1M buffer |
 | `shaped` | `control_long` plus cubic action map, fine-error observation, log-distance and near-target velocity penalties, SAC target entropy −10 |
 | `residual_ik` | `shaped`, but the policy outputs a ±0.1 rad residual on an IK pose solved at reset (zero action = IK hold) |
+| `residual_ik_calibrated` | `residual_ik` on the measured actuator calibration, with dynamics randomization, encoder rounding, and a 0–1 step delay |
+| `residual_ik_sim2real` | `residual_ik` on the calibrated arm with the servo friction model, LeRobot's 10° clip, the real joint window, the hardware command rate, a ±0.2 rad residual, and randomization centred on the calibration (see [How RL training works](#how-rl-training-works)) |
+| `residual_ik_sim2real_smooth` | `residual_ik_sim2real` with a 300× stronger penalty on action changes, which stops the policy dithering against friction (current choice) |
 
 Each seed folder stores the preset in `run_config.json`, and evaluation
 rebuilds the env from it; folders without one are treated as `legacy`.
@@ -100,6 +103,147 @@ Known trade-offs for this task:
 - **Seed variance.** Results differ noticeably between seeds at 300k steps, so
   every experiment trains and reports three seeds.
 
+## How RL training works
+
+This section describes the current training setup, the `residual_ik_sim2real_smooth` preset, in plain terms.
+Every number below lives in `src/rbe_501_so101/config.py`. Why each choice was made is in
+[`reports/`](reports/README.md), especially the
+[servo model and gate finding](reports/findings/2026-10-31_servo_model_and_gate.md) and the
+[retrain result](reports/findings/2026-11-01_retrain_sim2real_result.md).
+
+### The task
+
+The arm starts each episode at a fixed home pose. A target point appears somewhere in front of it, and the policy
+has 150 control steps (33 ms each, about 5 seconds) to bring the gripper to the target and hold it there. Success is
+judged on the last 30 steps (the "holding window"). The hard part isn't reaching: plain inverse kinematics (IK) gets
+close. The hard part is the last few millimetres. Gravity makes the soft servos sag, and friction stops them short
+by a different amount depending on which way they arrived.
+
+### What the policy controls (residual on IK)
+
+At the start of each episode, an IK solver (`kinematics/ik.py`) computes the joint angles that would put the gripper
+on the target if the arm were perfectly stiff. The policy doesn't command joints from scratch. Each step it outputs
+five numbers between −1 and 1, one per arm joint, each a correction of up to ±0.2 rad on top of that IK pose. The
+joint command then moves toward "IK pose plus correction" at no more than 0.035 rad per step, which is the speed
+the real arm is run at. An all-zero action therefore reproduces plain IK, and the policy only has to learn the
+correction. This mapping is `ResidualGoalActionMapper` in `envs/actions.py`.
+
+### What the policy sees
+
+The observation (`ObservationLayout` in `envs/types.py`) holds 34 numbers:
+
+- the measured joint angles and speeds;
+- the command minus the measured angle, which shows how far the arm is sagging or sticking;
+- the previous action;
+- the gripper position and the vector from the gripper to the target;
+- that vector again, clipped to ±2 cm and scaled up so millimetre errors stay visible;
+- the IK joint goal.
+
+Everything comes from quantities the real arm also provides. Angles are rounded to encoder counts, speed is the
+change in rounded angle per step, and the gripper position is computed from the rounded angles, exactly as the
+hardware backend does.
+
+### What happens in one step
+
+The environment (`SO101ReachEnv` in `envs/reach_env.py`) passes the command through a stack of layers, each of
+which adds one real-world effect. `envs/factory.py` builds the stack.
+
+1. **Delay** (`PerturbedBackend`, `envs/perturbed_backend.py`): the command change reaches the arm 0 or 1 step late
+   (drawn once per episode), like the real USB bus.
+2. **Servo effects** (`ServoEffectsBackend`, `envs/servo_effects.py`), in this order:
+   - **Joint window.** The command is clipped to the real arm's joint range minus a safety margin.
+   - **LeRobot's clip.** The goal sent to the servo stays within 10° of where the joint currently is.
+   - **Friction.** The goal passes through a friction model: the servo's effective goal trails the command by up
+     to a friction band, so the joint stops short on whichever side it came from. The band widens with gravity
+     load. Its size per joint was measured on the real arm.
+3. **Physics** (`MujocoSo101Backend`, `envs/mujoco_backend.py`): MuJoCo runs 33 one-millisecond steps with gravity
+   on. Each joint is a position servo whose stiffness comes from the measured calibration
+   (`data/calibration/actuator_calibration.json`, applied by `envs/calibration.py`), with torque capped at the
+   servo's stall torque.
+4. **Sensing** (back through `PerturbedBackend`): the joint readings are rounded to encoder counts, as on hardware.
+
+The environment then scores the step and builds the next observation.
+
+### The reward
+
+The reward (`ReachReward` in `envs/rewards.py`) is computed every step from the distance between gripper and
+target, and is made of:
+
+- a penalty proportional to distance, scaled to centimetres so the last few centimetres still matter;
+- a sharp bonus that only pays within about 5 mm, so a sagging arm earns nothing;
+- a log-shaped penalty that is steepest at millimetre range;
+- a penalty on joint speed near the target, to reward holding still;
+- a small penalty on action size;
+- a penalty on how much the action changes from one step to the next.
+
+The last term is what the `_smooth` preset strengthens. Without it, the first retrained policy learned to shake
+every joint at full speed to break static friction. That is effective in simulation but would wear out the real
+servos.
+
+### Randomization: training on many slightly different arms
+
+Each episode draws a new version of the arm (`DynamicsRandomizationConfig` and `ServoEffectsConfig` in
+`config.py`):
+
+- joint stiffness 0.7–1.4× the measured value;
+- damping 0.7–1.3×;
+- an extra payload of 0–50 g at the gripper;
+- a friction band 0.5–1.5× the measured one;
+- a 0- or 1-step delay.
+
+The aim is a policy that corrects using what it measures, not one tuned to a single exact arm, because the real
+arm will never match the model perfectly.
+
+Targets are drawn by `ReachableTargetSampler` (`envs/targets.py`). It picks random joint angles inside the real
+arm's joint range, computes where the gripper ends up, and keeps the point only if it is at least 2.5 cm above the
+table and 12–32 cm from the base. Every target is therefore reachable on the real arm.
+
+### The learning algorithm
+
+Training uses Soft Actor-Critic (SAC) from Stable-Baselines3 (see [Why SAC](#why-sac)). `rl/training.py` sets it up:
+
+- 4 copies of the environment run side by side;
+- observations are normalized by running statistics (`VecNormalize`), which are saved with the model;
+- SAC does 2 gradient updates per environment step, from a 1M-transition replay buffer;
+- the entropy target is lowered to −10, so the policy explores less once it settles.
+
+A standard run is 1M environment steps per seed, for 3 seeds. The entry point is `scripts/train_reach.py`, which
+calls `rl/cli.py`, which loops over the seeds. Each seed's model, normalizer, training log, and full preset are
+saved by `CheckpointRepository` (`rl/checkpoints.py`) under `checkpoints/<run>/seed_<n>/`, so any checkpoint can be
+re-evaluated in exactly the environment it was trained in. Training refuses to overwrite an existing seed folder.
+
+### Where the simulator's numbers come from
+
+The stiffness and friction values aren't guesses. They come from the hardware campaign indexed in
+[`scripts/sim2real/README.md`](scripts/sim2real/README.md):
+
+1. A sag check (`scripts/sim2real/collect/sag_check.py`) holds the real arm at recorded poses, approaching each from
+   above and below.
+2. `scripts/sim2real/analyze/analyze_sag.py` fits stiffness and the friction band per joint (`hardware/sag.py`,
+   `hardware/sag_analysis.py`) and writes the calibration file.
+3. `scripts/sim2real/analyze/calibrated_sim_gate.py` replays the same real procedures on the calibrated simulator
+   (`hardware/sim_replay.py`) and checks that it reproduces the real errors within 1° (`hardware/sim_gate.py`).
+   Training only proceeds once this gate passes.
+
+### How a trained policy is judged
+
+`scripts/sim2real/analyze/acceptance.py` (logic in `rl/acceptance.py`, thresholds in `AcceptanceConfig`) evaluates
+the policy and three classical controllers in the calibrated simulator. The controllers (`rl/policies.py`) are:
+
+- **IK hold:** plain IK;
+- **gravity compensation:** IK plus a model-based sag correction;
+- **integral control:** IK plus a slow feedback loop on the joint encoders.
+
+The evaluation runs on the measured arm and under stress cases: soft and stiff joints, and extra friction. The
+policy goes on the real arm only if it meets every criterion, which were written down before training:
+
+- small holding error;
+- clearly better than IK hold;
+- rarely at its action limits;
+- no dithering;
+- acceptable error in the stress cases;
+- no worse than integral control.
+
 ## How the code flows
 
 Three layers hand control to each other on every step:
@@ -134,13 +278,8 @@ sampler (sharing the backend's model), and the reward. It is wrapped in
 
 <sub>Source: [`docs/diagrams/training_flow.mmd`](docs/diagrams/training_flow.mmd). Re-render with `python scripts/render_diagrams.py`.</sub>
 
-The reward that drives learning is computed in step 19:
-
-```text
-total = -100 * d  +  exp(-(d / 5 mm)^2)  -  0.01 * |a|^2  -  0.01 * |a - a_prev|^2
-         approach      sag-correction       action size     action jitter
-         (cm scale)    bonus (< ~1 cm)
-```
+The reward that drives learning is computed in step 19; its terms are described in
+[How RL training works](#how-rl-training-works).
 
 Truncation at 150 steps is flagged as a time limit, not a real ending, so
 SAC keeps bootstrapping value from the final state.
@@ -183,7 +322,7 @@ across a layer.
 |---|---|---|---|
 | `RobotState` | `envs/types.py` | `qpos`, `qvel`, `q_cmd`, `tcp_pos` | Backend to env, env to reward, env to policies |
 | `RewardTerms` | `envs/types.py` | `distance`, `bonus`, `action_penalty`, `smoothness_penalty`, `total` | Reward to env; each term is copied into `info` |
-| `ObservationLayout` | `envs/types.py` | Named slices and `pack()` for the 26-dim observation | The single definition used by the env, IK-hold policy, eval, and tests |
+| `ObservationLayout` | `envs/types.py` | Named slices and `pack()` for the observation (26 numbers; 34 with the residual-IK extras) | The single definition used by the env, IK-hold policy, eval, and tests |
 | `JointLimits` | `envs/types.py` | Arm joint lower and upper limits | Backend to callers |
 | `ModelIndices` | `envs/model_indices.py` | Cached MuJoCo joint, actuator, and site addresses | Shared by backend, sampler, and IK so no string lookups happen per step |
 | `SimConfig`, `ReachTaskConfig`, `RewardConfig`, `TargetSamplerConfig`, `DynamicsRandomizationConfig`, `TrainConfig` | `config.py` | Every tunable constant | Read at construction; snapshotted into each experiment's `config.json` |
@@ -224,6 +363,11 @@ uv run python scripts/test_ik.py --x 0.15 --y 0.00 --z 0.55
 uv run python scripts/test_ik.py --x 0.15 --y 0.00 --z 0.55 --headless
 uv run python scripts/diagnose_tracking.py --seconds 5
 ```
+
+Sim-to-real tools (real arm data collection and sim robustness analysis, including
+the keyboard jog tool at `scripts/sim2real/collect/jog.py`) are indexed in
+[`scripts/sim2real/README.md`](scripts/sim2real/README.md); findings are logged in
+[`reports/`](reports/README.md).
 
 IK takes all XYZ options or none; it preserves the default target when omitted.
 Actuator options accept partial overrides, retaining omitted joint defaults.

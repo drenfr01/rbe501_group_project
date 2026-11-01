@@ -8,6 +8,7 @@ import mujoco
 import numpy as np
 
 from rbe_501_so101.config import DynamicsRandomizationConfig, RenderConfig, SimConfig
+from rbe_501_so101.envs.calibration import ActuatorCalibration
 from rbe_501_so101.envs.model_indices import ModelIndices, disable_body_collisions, park_body
 from rbe_501_so101.envs.types import JointLimits, RobotState
 
@@ -62,6 +63,7 @@ class MujocoSo101Backend:
         self._ids = ModelIndices.from_model(self.model, sim_cfg)
         self._disable_parked_bodies()
         self._apply_torque_caps()
+        self._apply_calibration()
         self._nominal = NominalDynamics.capture(self.model, self._ids)
         self._limits = self._read_limits()
         self._home = np.deg2rad(np.asarray(sim_cfg.initial_deg, dtype=float))
@@ -74,6 +76,11 @@ class MujocoSo101Backend:
     def ids(self) -> ModelIndices:
         """Cached model addresses for callers that share this model."""
         return self._ids
+
+    @property
+    def command(self) -> np.ndarray:
+        """Current commanded joint angles (arm joints, then gripper), as a copy."""
+        return self._q_cmd.copy()
 
     def reset(self, rng: np.random.Generator) -> RobotState:
         """Restore (or randomize) dynamics and place the arm at the home pose."""
@@ -155,6 +162,11 @@ class MujocoSo101Backend:
         stall = self._cfg.stall_torque_nm
         self.model.jnt_actfrcrange[self._ids.joint_ids] = (-stall, stall)
         self.model.jnt_actfrclimited[self._ids.joint_ids] = 1
+
+    def _apply_calibration(self) -> None:
+        """Overlay measured stiffness and friction; randomization then scales around them."""
+        if self._cfg.calibration_path is not None:
+            ActuatorCalibration.load(self._cfg.calibration_path).apply(self.model, self._cfg)
 
     def _read_limits(self) -> JointLimits:
         """Arm joint ranges from the model."""

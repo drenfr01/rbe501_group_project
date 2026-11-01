@@ -1,0 +1,1584 @@
+diff --git a/scripts/sim2real/analyze/analyze_sag.py b/scripts/sim2real/analyze/analyze_sag.py
+new file mode 100644
+index 0000000..952eb67
+--- /dev/null
++++ b/scripts/sim2real/analyze/analyze_sag.py
+@@ -0,0 +1,81 @@
++"""Phase 0 analysis: sag, hysteresis, and fitted stiffness per joint from a saved sag session.
++
++Maps the LeRobot-degree session into sim terms with the configured `JointMap`,
++fits `sag = c * gravity_torque` per joint, and writes:
++  experiments/<date>_sag_analysis/   report.json, README.md, real_sag.png, manifest.json
++  data/calibration/actuator_calibration.json   (for `--calibration` / `SimConfig.calibration_path`)
++
++Offline only; rerun any time from saved data.
++"""
++
++import argparse
++import json
++from dataclasses import asdict
++from pathlib import Path
++
++import mujoco
++
++from rbe_501_so101.config import (
++    DEFAULT_CALIBRATION_FILE,
++    HardwareConfig,
++    ReachTaskConfig,
++    SagFitConfig,
++    SimConfig,
++    resolve_project_path,
++)
++from rbe_501_so101.hardware.joint_mapping import JointMap
++from rbe_501_so101.hardware.sag import SagRepository
++from rbe_501_so101.hardware.sag_analysis import SagAnalysis, analyze_session, calibration_from_analysis, sag_readme
++from rbe_501_so101.provenance import begin_run, experiment_dir
++from rbe_501_so101.reports import publish_figure
++from rbe_501_so101.rl.plots import plot_real_sag
++
++PLOT_NAME = "real_sag.png"
++
++
++def parse_args(argv: list[str] | None) -> argparse.Namespace:
++    """Command line."""
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    parser.add_argument("session", type=Path, help="session.json or the session folder")
++    parser.add_argument("--out", type=Path, default=None, help="experiment folder (default experiments/<date>_sag_analysis)")
++    parser.add_argument("--calibration-out", type=Path, default=Path(DEFAULT_CALIBRATION_FILE))
++    parser.add_argument("--report-figures", action="store_true", help=f"also copy {PLOT_NAME} to reports/figures/")
++    return parser.parse_args(argv)
++
++
++def analyze(session_path: Path) -> SagAnalysis:
++    """Load the session and fit it against the raw MJCF model."""
++    sim_cfg = SimConfig()
++    session = SagRepository().load_session(session_path)
++    model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
++    joint_map = JointMap.from_model(model, sim_cfg, HardwareConfig())
++    fit_cfg = SagFitConfig()
++    return analyze_session(session, joint_map, model, sim_cfg, fit_cfg, ReachTaskConfig().residual_max_rad)
++
++
++def write_outputs(analysis: SagAnalysis, out: Path, calibration_out: Path, source: str) -> Path:
++    """report.json, README, plot, and the calibration file; returns the plot path."""
++    (out / "report.json").write_text(json.dumps(asdict(analysis), indent=2))
++    calibration_from_analysis(analysis, source).save(calibration_out)
++    readme = sag_readme(analysis) + f"\nSource session: `{source}`. Calibration written to `{calibration_out}`.\n"
++    (out / "README.md").write_text(readme)
++    plot_real_sag(analysis, out / PLOT_NAME)
++    return out / PLOT_NAME
++
++
++def main(argv: list[str] | None = None) -> None:
++    """Entry point."""
++    args = parse_args(argv)
++    out = resolve_project_path(args.out) if args.out else experiment_dir(SagFitConfig().experiment_suffix)
++    manifest = begin_run(out)
++    session_path = resolve_project_path(args.session)
++    analysis = analyze(session_path)
++    plot = write_outputs(analysis, out, resolve_project_path(args.calibration_out), str(session_path))
++    if args.report_figures:
++        publish_figure(plot, PLOT_NAME)
++    manifest.finalize(out)
++    print(f"wrote {out}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/sim2real/analyze/robustness_sweep.py b/scripts/sim2real/analyze/robustness_sweep.py
+new file mode 100644
+index 0000000..ab18598
+--- /dev/null
++++ b/scripts/sim2real/analyze/robustness_sweep.py
+@@ -0,0 +1,155 @@
++"""Phase 2: does the reach policy survive the expected sim-to-real gaps, in sim?
++
++Evaluates the trained checkpoint (every seed) and the three classical
++baselines (ik_hold, gravity_comp, integral) on the same targets under:
++  - a stiffness sweep (every actuator kp scaled by the grid in RobustnessConfig);
++  - encoder rounding with 0 and 1 control-step delay, alone and in the calibrated sim;
++  - the reduced hardware command speed;
++  - the calibrated sim (Phase 0 ActuatorCalibration), if `--calibration` is given.
++Then applies the transfer-or-retrain rule to the calibrated (or, provisionally,
++nominal) sim with rounding and the longest delay, and classifies the policy as
++feedback- or feedforward-like from the stiffness sweep.
++
++Writes experiments/<date>_reach_robustness/: report.json, README.md,
++kp_sweep.png, saturation.png, manifest.json. Sim only; rerun at any time.
++"""
++
++import argparse
++from dataclasses import replace
++from pathlib import Path
++
++import mujoco
++
++from rbe_501_so101.config import (
++    EnvOptions,
++    HardwareConfig,
++    RobustnessConfig,
++    SagCheckConfig,
++    SimConfig,
++    TrainConfig,
++    resolve_project_path,
++)
++from rbe_501_so101.envs.calibration import ActuatorCalibration
++from rbe_501_so101.hardware.joint_mapping import JointMap
++from rbe_501_so101.hardware.sag import SagRepository
++from rbe_501_so101.hardware.sag_analysis import JointSagComparison, compare_sag, simulate_session
++from rbe_501_so101.provenance import begin_run, experiment_dir
++from rbe_501_so101.reports import publish_figure
++from rbe_501_so101.rl.checkpoints import CheckpointRepository
++from rbe_501_so101.rl.robustness import (
++    SweepCondition,
++    SweepResult,
++    classify_correction,
++    evaluate_condition,
++    measured_kp_scales,
++    run_sensing_sweep,
++    run_stiffness_sweep,
++    sensing_options,
++    transfer_decision,
++    working_range,
++)
++from rbe_501_so101.rl.robustness_report import RobustnessReport, robustness_readme, write_plots
++
++DEFAULT_MODEL_DIR = Path("checkpoints/reach_1m_residual_ik")
++SPEED = "speed_scale"
++CALIBRATED = "calibrated"
++
++
++def parse_args(argv: list[str] | None) -> argparse.Namespace:
++    """Command line."""
++    cfg = RobustnessConfig()
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL_DIR)
++    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
++    parser.add_argument("--episodes", type=int, default=cfg.episodes_per_point, help="episodes per condition")
++    parser.add_argument("--kp-scales", type=float, nargs="+", default=list(cfg.kp_scales))
++    parser.add_argument("--calibration", type=Path, default=None, help="Phase 0 ActuatorCalibration JSON")
++    parser.add_argument("--session", type=Path, default=None, help="Phase 0 sag session, for the calibrated-sim check")
++    parser.add_argument("--speed-scale", type=float, default=HardwareConfig().speed_scale)
++    parser.add_argument("--out", type=Path, default=None)
++    parser.add_argument("--report-figures", action="store_true", help="also copy the plots to reports/figures/")
++    return parser.parse_args(argv)
++
++
++def calibrated_options(calibration: Path | None) -> EnvOptions:
++    """Env options with the calibration file, or the nominal (placeholder) sim."""
++    return EnvOptions(calibration_path=str(calibration)) if calibration else EnvOptions()
++
++
++def decision_condition(base: EnvOptions, cfg: RobustnessConfig) -> SweepCondition:
++    """Calibrated (or nominal) sim with encoder rounding and the longest configured delay."""
++    delay = max(cfg.delay_steps)
++    return SweepCondition("delay_steps", delay, sensing_options(delay, cfg, base))
++
++
++def speed_results(
++    repo: CheckpointRepository, seeds: tuple[int, ...], condition: SweepCondition, speed: float, cfg: RobustnessConfig
++) -> list[SweepResult]:
++    """The decision condition at full and at hardware command speed."""
++    conditions = [replace(condition, parameter=SPEED, value=s, speed_scale=s) for s in sorted({1.0, speed})]
++    return [r for c in conditions for r in evaluate_condition(repo, seeds, c, cfg)]
++
++
++def sag_comparison(session: Path | None, calibration: Path | None) -> list[JointSagComparison]:
++    """Calibrated sim run through the Phase 0 procedure at the real poses, against the real sag."""
++    if session is None or calibration is None:
++        return []
++    sim_cfg = SimConfig(calibration_path=calibration)
++    real = SagRepository().load_session(session)
++    model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
++    joint_map = JointMap.from_model(model, sim_cfg, HardwareConfig())
++    sim = simulate_session(real, sim_cfg, joint_map, SagCheckConfig(), RobustnessConfig().quantization_rad)
++    return list(compare_sag(real, sim, sim_cfg.arm_joints))
++
++
++def kp_marks(calibration: Path | None) -> dict[str, float]:
++    """Measured / MJCF stiffness per calibrated joint."""
++    if calibration is None:
++        return {}
++    sim_cfg = SimConfig()
++    model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
++    nominal = model.actuator_gainprm[[model.actuator(j + sim_cfg.actuator_suffix).id for j in sim_cfg.arm_joints], 0]
++    return measured_kp_scales(ActuatorCalibration.load(calibration), nominal, sim_cfg.arm_joints)
++
++
++def build_report(args: argparse.Namespace, cfg: RobustnessConfig) -> RobustnessReport:
++    """Run every sweep and draw the verdicts."""
++    repo = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig())
++    seeds, cal = tuple(args.seeds), resolve_project_path(args.calibration) if args.calibration else None
++    base = calibrated_options(cal)
++    stiffness = run_stiffness_sweep(repo, seeds, cfg)
++    sensing = run_sensing_sweep(repo, seeds, cfg)
++    sensing_cal = run_sensing_sweep(repo, seeds, cfg, base=base) if cal else []
++    calibrated = evaluate_condition(repo, seeds, SweepCondition(CALIBRATED, 1.0, base), cfg) if cal else []
++    decide = decision_condition(base, cfg)
++    decision_results = [r for r in (sensing_cal or sensing) if r.value == decide.value]
++    label = f"{'calibrated' if cal else 'nominal (placeholder kp)'} sim, encoder rounding, {decide.value:g}-step delay"
++    return RobustnessReport(
++        model_dir=str(args.model_dir), seeds=seeds, calibration_path=str(cal) if cal else None,
++        stiffness=stiffness, sensing=sensing, sensing_calibrated=sensing_cal,
++        speed=speed_results(repo, seeds, decide, args.speed_scale, cfg), calibrated=calibrated,
++        decision_condition=label, decision=transfer_decision(decision_results, cfg),
++        correction=classify_correction(stiffness), working_range=working_range(stiffness, cfg),
++        measured_kp_scales=kp_marks(cal),
++        sag_comparison=sag_comparison(resolve_project_path(args.session) if args.session else None, cal),
++    )
++
++
++def main(argv: list[str] | None = None) -> None:
++    """Entry point."""
++    args = parse_args(argv)
++    cfg = replace(RobustnessConfig(), episodes_per_point=args.episodes, kp_scales=tuple(args.kp_scales))
++    out = resolve_project_path(args.out) if args.out else experiment_dir(cfg.experiment_suffix)
++    manifest = begin_run(out)
++    report = build_report(args, cfg)
++    (out / "report.json").write_text(report.to_json())
++    (out / "README.md").write_text(robustness_readme(report))
++    for plot in write_plots(report, out):
++        if args.report_figures:
++            publish_figure(plot, plot.name)
++    manifest.finalize(out)
++    print(f"verdict: {'TRANSFER' if report.decision.transfer else 'RETRAIN'}; correction: {report.correction.kind} -> {out}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/jog.py b/scripts/sim2real/collect/jog.py
+similarity index 100%
+rename from scripts/jog.py
+rename to scripts/sim2real/collect/jog.py
+diff --git a/scripts/sim2real/collect/mirror_arm.py b/scripts/sim2real/collect/mirror_arm.py
+new file mode 100644
+index 0000000..c385b59
+--- /dev/null
++++ b/scripts/sim2real/collect/mirror_arm.py
+@@ -0,0 +1,116 @@
++"""Phase 1 mirror tool (and the Phase 3 dry run): the MuJoCo arm follows the real arm.
++
++Connects with calibrate=False and turns torque off, so the arm moves freely by
++hand; support it before starting. A 30 Hz loop maps LeRobot readings to sim
++angles with the configured `JointMap` and shows them in the passive viewer,
++with a table of LeRobot and sim degrees and the lowest monitored point above
++the table (what `SafetyMonitor` would see).
++
++Keys:
++  r   record the current pose with a reference note (e.g. "upper arm level")
++  q   quit
++
++Readings go to data/joint_mapping/<date>_<robot_id>/references.json.
++"""
++
++import argparse
++import time
++from dataclasses import replace
++from pathlib import Path
++
++import mujoco
++import mujoco.viewer
++import numpy as np
++
++from rbe_501_so101.config import HardwareConfig, MirrorConfig, SimConfig, resolve_project_path
++from rbe_501_so101.envs.model_indices import ModelIndices, table_clearance_z
++from rbe_501_so101.hardware.bus import LeRobotJointBus
++from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
++from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
++from rbe_501_so101.hardware.references import ReferenceReading, ReferenceRepository
++from rbe_501_so101.hardware.safety import SafetyMonitor
++from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tree
++
++RECORD_KEY = "r"
++
++
++class Mirror:
++    """Model, viewer state, and mapping for one mirror session."""
++
++    def __init__(self, sim_cfg: SimConfig, hw: HardwareConfig) -> None:
++        self.model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
++        self.data = mujoco.MjData(self.model)
++        self.ids = ModelIndices.from_model(self.model, sim_cfg)
++        self.joint_map = JointMap.from_model(self.model, sim_cfg, hw)
++        self.safety = SafetyMonitor.from_model(self.model, sim_cfg)
++        self.table_z = table_clearance_z(self.model, sim_cfg.table_top_geom, 0.0)
++
++    def show(self, reading: dict[str, float]) -> np.ndarray:
++        """Write the mapped pose into the model and return sim radians."""
++        q = self.joint_map.to_sim(reading)
++        self.data.qpos[self.ids.qpos_adr] = q
++        mujoco.mj_kinematics(self.model, self.data)
++        return q
++
++    def table(self, reading: dict[str, float], q: np.ndarray, n_saved: int) -> list[str]:
++        """Per-joint LeRobot vs sim degrees, plus table clearance."""
++        clearance_mm = 1000.0 * (self.safety.lowest_point_z(q) - self.table_z)
++        lines = [f"references saved: {n_saved}   clearance {clearance_mm:7.1f} mm   [{RECORD_KEY}] record  [{ABORT_KEY}] quit"]
++        lines.append(f"  {'joint':15s} {'lerobot':>9s} {'sim deg':>9s}")
++        for name, sim_deg in zip(self.joint_map.joints, np.rad2deg(q), strict=True):
++            lines.append(f"  {name:15s} {reading[pos_key(name)]:9.2f} {sim_deg:9.2f}")
++        return lines
++
++
++def parse_args(argv: list[str] | None) -> argparse.Namespace:
++    """Command line."""
++    hw = HardwareConfig()
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    parser.add_argument("--port", default=hw.port)
++    parser.add_argument("--robot-id", default=hw.robot_id)
++    parser.add_argument("--out", type=Path, default=None, help="folder for references.json")
++    parser.add_argument("--allow-dirty", action="store_true")
++    return parser.parse_args(argv)
++
++
++def record(mirror: Mirror, repo: ReferenceRepository, keys: TerminalKeys, reading: dict[str, float], q: np.ndarray) -> None:
++    """Ask for a reference note and append the reading."""
++    note = keys.prompt("\nreference note: ")
++    repo.append(ReferenceReading(note, dict(reading), tuple(float(v) for v in np.rad2deg(q))))
++
++
++def loop(mirror: Mirror, bus: LeRobotJointBus, repo: ReferenceRepository, period_s: float) -> None:
++    """Mirror until the viewer closes or the operator quits."""
++    with mujoco.viewer.launch_passive(mirror.model, mirror.data) as viewer, TerminalKeys() as keys:
++        first = True
++        while viewer.is_running() and (key := keys.poll(0.0)) != ABORT_KEY:
++            started = time.monotonic()
++            reading = bus.read_positions()
++            q = mirror.show(reading)
++            viewer.sync()
++            if key == RECORD_KEY:
++                record(mirror, repo, keys, reading, q)
++                first = True
++            redraw(mirror.table(reading, q, len(repo.load())), first)
++            first = False
++            time.sleep(max(0.0, period_s - (time.monotonic() - started)))
++
++
++def main(argv: list[str] | None = None) -> None:
++    """Entry point; torque stays off for the whole session."""
++    args = parse_args(argv)
++    require_clean_tree(args.allow_dirty)
++    hw, cfg = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id), MirrorConfig()
++    out = resolve_project_path(args.out) if args.out else experiment_dir(hw.robot_id, base=cfg.references_dir)
++    manifest = begin_run(out, hw.robot_id)
++    bus = LeRobotJointBus.connect(hw, calibrate=False)
++    bus.set_torque(False)
++    try:
++        loop(Mirror(SimConfig(), hw), bus, ReferenceRepository(out / cfg.references_filename), 1.0 / cfg.loop_hz)
++    finally:
++        bus.close()
++    manifest.finalize(out)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/sim2real/collect/run_policy_real.py b/scripts/sim2real/collect/run_policy_real.py
+new file mode 100644
+index 0000000..2c20904
+--- /dev/null
++++ b/scripts/sim2real/collect/run_policy_real.py
+@@ -0,0 +1,171 @@
++"""Phase 3: run one controller on the real SO-101 over a fixed target list.
++
++Controllers: ik_hold, gravity_comp, integral (classical baselines in delta
++mode) or trained (a checkpoint, VecNormalize statistics frozen). Targets are
++sim world points (robot_mount assumed where the MJCF puts it). Every episode
++is logged per step (states, actions, motor status, encoder-based error).
++
++  fixed set:      --targets data/targets/reach_fixed.json   --repeats 1
++  repeatability:  --targets data/targets/reach_repeat.json  --repeats 10
++
++Press `q` between steps for a software abort (the arm holds, then ramps to
++rest). The physical power switch is the e-stop; keep it within reach.
++`--sim` runs the same stack on MuJoCo through the sim bus (with
++`--calibration` applied to the sim arm too) as a dry run / prediction.
++
++Writes experiments/<date>_real_reach/<controller>_<robot_id>_<HHMMSS>/.
++"""
++
++import argparse
++import contextlib
++import sys
++from dataclasses import replace
++from datetime import datetime
++from pathlib import Path
++
++from rbe_501_so101.config import (
++    PRESETS,
++    ExperimentPreset,
++    HardwareConfig,
++    RealTrialConfig,
++    SimConfig,
++    TrainConfig,
++    resolve_project_path,
++)
++from rbe_501_so101.envs.calibration import ActuatorCalibration
++from rbe_501_so101.envs.reach_env import SO101ReachEnv, task_home_deg
++from rbe_501_so101.envs.targets import SequenceTargetSampler
++from rbe_501_so101.envs.types import ObservationLayout
++from rbe_501_so101.hardware.operator import KeySource, OperatorAbortPolicy, ScriptedKeys, TerminalKeys
++from rbe_501_so101.hardware.safety import SafetyAbort
++from rbe_501_so101.hardware.session import build_real_backend, open_bus, robot_id_for
++from rbe_501_so101.hardware.trials import (
++    EpisodeRecord,
++    ScheduledTrial,
++    TrialRepository,
++    load_targets,
++    run_logged_episode,
++    summarize_trials,
++    trial_readme,
++    trial_schedule,
++)
++from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tree
++from rbe_501_so101.rl.checkpoints import CheckpointRepository
++from rbe_501_so101.rl.evaluation import load_trained_policy
++from rbe_501_so101.rl.policies import BASELINE_NAMES, EvalPolicy, make_baseline
++from rbe_501_so101.rl.robustness import TRAINED, baseline_task, slowed_preset
++
++DEFAULT_PRESET = "residual_ik"
++
++
++def parse_args(argv: list[str] | None) -> argparse.Namespace:
++    """Command line."""
++    hw, trials = HardwareConfig(), RealTrialConfig()
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    parser.add_argument("--policy", choices=(*BASELINE_NAMES, TRAINED), required=True)
++    parser.add_argument("--model-dir", type=Path, default=None, help="checkpoint folder (required for trained)")
++    parser.add_argument("--seed", type=int, default=0, help="checkpoint seed")
++    parser.add_argument("--calibration", type=Path, default=None, help="ActuatorCalibration JSON")
++    parser.add_argument("--targets", type=Path, default=trials.fixed_targets_path)
++    parser.add_argument("--repeats", type=int, default=1)
++    parser.add_argument("--speed-scale", type=float, default=hw.speed_scale, help="scales the command rate limit")
++    parser.add_argument("--port", default=hw.port)
++    parser.add_argument("--robot-id", default=hw.robot_id)
++    parser.add_argument("--out", type=Path, default=None)
++    parser.add_argument("--sim", action="store_true", help="dry run on the MuJoCo arm")
++    parser.add_argument("--allow-dirty", action="store_true")
++    return parser.parse_args(argv)
++
++
++def load_preset(args: argparse.Namespace) -> ExperimentPreset:
++    """Checkpoint preset (trained) or the default preset, at the requested speed; delta mode for baselines."""
++    if args.policy == TRAINED:
++        preset = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig()).load_preset(args.seed)
++    else:
++        preset = PRESETS[DEFAULT_PRESET]
++    preset = slowed_preset(preset, args.speed_scale)
++    return preset if args.policy == TRAINED else replace(preset, task=baseline_task(preset.task))
++
++
++def build_policy(args: argparse.Namespace, preset: ExperimentPreset, env: SO101ReachEnv) -> EvalPolicy:
++    """The selected controller, with stiffness from the calibration file when given."""
++    if args.policy == TRAINED:
++        repo = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig())
++        return load_trained_policy(repo, args.seed, TrainConfig().algo)
++    calibration = ActuatorCalibration.load(resolve_project_path(args.calibration)) if args.calibration else None
++    layout = ObservationLayout(n_arm=env.layout.n_arm)
++    return make_baseline(args.policy, SimConfig(), preset.task, layout, calibration)
++
++
++def run_trials(
++    env: SO101ReachEnv, policy: EvalPolicy, schedule: tuple[ScheduledTrial, ...], repo: TrialRepository, name: str
++) -> tuple[list[EpisodeRecord], str | None]:
++    """Run the schedule, saving each episode; stop at the first safety abort."""
++    records: list[EpisodeRecord] = []
++    for k, trial in enumerate(schedule):
++        try:
++            record = run_logged_episode(env, policy, name, trial.target_index, trial.repeat, seed=k)
++        except SafetyAbort as abort:
++            return records, str(abort)
++        repo.save_episode(record)
++        records.append(record)
++        print(f"target {trial.target_index} repeat {trial.repeat}: final error {1000 * record.steps[-1].error_m:.2f} mm")
++    return records, None
++
++
++def output_dir(args: argparse.Namespace, robot_id: str) -> Path:
++    """Explicit `--out`, or a timestamped folder under the dated experiment."""
++    if args.out:
++        return resolve_project_path(args.out)
++    stamp = datetime.now().strftime("%H%M%S")
++    return experiment_dir(RealTrialConfig().experiment_suffix) / f"{args.policy}_{robot_id}_{stamp}"
++
++
++def key_source(sim: bool) -> contextlib.AbstractContextManager[KeySource]:
++    """Terminal keys on hardware with a TTY; no keys in sim or without a terminal."""
++    if sim or not sys.stdin.isatty():
++        return contextlib.nullcontext(ScriptedKeys())
++    return TerminalKeys()
++
++
++def session(args: argparse.Namespace, hw: HardwareConfig, out: Path) -> tuple[list[EpisodeRecord], str | None]:
++    """Build the real stack, run the schedule under the operator abort, and always close (ramp to rest)."""
++    preset = load_preset(args)
++    sim_cfg = SimConfig(calibration_path=resolve_project_path(args.calibration) if args.calibration else None)
++    bus, clock = open_bus(args.sim, hw, sim_cfg)
++    backend = build_real_backend(bus, clock, hw, home_deg=task_home_deg(SimConfig(), preset.task))
++    schedule = trial_schedule(load_targets(resolve_project_path(args.targets)), args.repeats)
++    sampler = SequenceTargetSampler(tuple(t.target for t in schedule))
++    env = SO101ReachEnv(backend=backend, sampler=sampler, task_cfg=preset.task, reward_cfg=preset.reward)
++    try:
++        policy = build_policy(args, preset, env)
++        with key_source(args.sim) as keys:
++            return run_trials(env, OperatorAbortPolicy(policy, keys), schedule, TrialRepository(out), args.policy)
++    finally:
++        env.close()
++
++
++def main(argv: list[str] | None = None) -> None:
++    """Entry point."""
++    args = parse_args(argv)
++    if args.policy == TRAINED and args.model_dir is None:
++        sys.exit("--policy trained needs --model-dir")
++    require_clean_tree(args.allow_dirty)
++    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id)
++    robot_id = robot_id_for(args.sim, hw)
++    out = output_dir(args, robot_id)
++    manifest = begin_run(out, robot_id)
++    records, aborted = session(args, hw, out)
++    if records:
++        summary = summarize_trials(records, TrainConfig().holding_window_steps)
++        TrialRepository(out).save_summary(summary)
++        context = f"Robot `{robot_id}`, speed scale {args.speed_scale}, calibration `{args.calibration}`."
++        (out / "README.md").write_text(trial_readme(summary, aborted, context))
++        print(f"mean {summary.mean_error_mm:.2f} mm, p95 {summary.p95_error_mm:.2f} mm -> {out}")
++    if aborted:
++        print(f"aborted: {aborted}")
++    manifest.finalize(out)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/sim2real/collect/sag_check.py b/scripts/sim2real/collect/sag_check.py
+new file mode 100644
+index 0000000..435030d
+--- /dev/null
++++ b/scripts/sim2real/collect/sag_check.py
+@@ -0,0 +1,115 @@
++"""Phase 0 real sag check for the SO-101 follower.
++
++Subcommands:
++  record-poses  torque off; move the arm by hand and press `r` to save the
++                current pose to the poses file, `q` to finish.
++  run           approach every saved pose from above and below, settle, and
++                average readings. Writes data/sag_check/<date>_<robot_id>/.
++
++Keep the power switch within reach. `--sim` runs `run` against MuJoCo
++through the same bus interface (robot id "sim") as a dry run.
++"""
++
++import argparse
++import sys
++from dataclasses import replace
++from pathlib import Path
++
++from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SimConfig, resolve_project_path
++from rbe_501_so101.hardware.bus import LeRobotJointBus
++from rbe_501_so101.hardware.joint_mapping import pos_key
++from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
++from rbe_501_so101.hardware.sag import RecordedPose, SagRepository
++from rbe_501_so101.hardware.sag_procedure import SagCheckRunner
++from rbe_501_so101.hardware.session import open_bus, robot_id_for
++from rbe_501_so101.provenance import begin_run, require_clean_tree
++
++RECORD_KEY = "r"
++POLL_S = 0.1
++
++
++def parse_args(argv: list[str] | None) -> argparse.Namespace:
++    """Command line for both subcommands."""
++    hw = HardwareConfig()
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    parser.add_argument("command", choices=("record-poses", "run"))
++    parser.add_argument("--port", default=hw.port)
++    parser.add_argument("--robot-id", default=hw.robot_id)
++    parser.add_argument("--poses", type=Path, default=SagCheckConfig().poses_path, help="pose list JSON")
++    parser.add_argument("--out", type=Path, default=None, help="session folder (default data/sag_check/<date>_<id>)")
++    parser.add_argument("--allow-dirty", action="store_true", help="run even with uncommitted changes")
++    parser.add_argument("--sim", action="store_true", help="dry-run `run` on the MuJoCo arm")
++    return parser.parse_args(argv)
++
++
++def joints() -> tuple[str, ...]:
++    """Session joint order: arm joints, then the gripper."""
++    sim = SimConfig()
++    return (*sim.arm_joints, sim.gripper_joint)
++
++
++def record_poses(repo: SagRepository, hw: HardwareConfig) -> None:
++    """Torque off; save a pose per keypress until the operator quits."""
++    bus = LeRobotJointBus.connect(hw)
++    bus.set_torque(False)
++    poses: list[RecordedPose] = []
++    try:
++        with TerminalKeys() as keys:
++            poses = _record_loop(bus, keys)
++    finally:
++        bus.close()
++    print(f"saved {len(poses)} poses to {repo.save_poses(joints(), tuple(poses))}")
++
++
++def _record_loop(bus: LeRobotJointBus, keys: TerminalKeys) -> list[RecordedPose]:
++    """Show live readings; `r` appends the current pose, `q` stops."""
++    poses: list[RecordedPose] = []
++    first = True
++    while (key := keys.poll(POLL_S)) != ABORT_KEY:
++        reading = bus.read_positions()
++        values = tuple(round(reading[pos_key(j)], 2) for j in joints())
++        if key == RECORD_KEY:
++            poses.append(RecordedPose(len(poses), values))
++        lines = [f"poses saved: {len(poses)}   [{RECORD_KEY}] record  [{ABORT_KEY}] finish"]
++        lines += [f"  {j:15s} {v:8.2f}" for j, v in zip(joints(), values, strict=True)]
++        redraw(lines, first)
++        first = False
++    return poses
++
++
++def run_session(repo: SagRepository, args: argparse.Namespace, hw: HardwareConfig) -> None:
++    """Run every pose from both sides, save the session, and ramp back to the start pose."""
++    pose_joints, poses = repo.load_poses()
++    if pose_joints != joints():
++        sys.exit(f"pose file joints {pose_joints} do not match {joints()}")
++    robot_id = robot_id_for(args.sim, hw)
++    out = resolve_project_path(args.out) if args.out else repo.session_dir(robot_id)
++    manifest = begin_run(out, robot_id)
++    bus, clock = open_bus(args.sim, hw)
++    runner = SagCheckRunner(bus, clock, SagCheckConfig(), joints())
++    rest = bus.read_positions()
++    try:
++        session = runner.session(robot_id, poses)
++        print(f"session saved to {repo.save_session(session, out)}")
++    finally:
++        runner.finish(rest)
++        bus.close()
++    manifest.finalize(out)
++
++
++def main(argv: list[str] | None = None) -> None:
++    """Entry point; refuses a dirty tree before touching the arm."""
++    args = parse_args(argv)
++    require_clean_tree(args.allow_dirty)
++    hw = replace(HardwareConfig(), port=args.port, robot_id=args.robot_id)
++    repo = SagRepository(replace(SagCheckConfig(), poses_path=resolve_project_path(args.poses)))
++    if args.command == "record-poses":
++        if args.sim:
++            sys.exit("record-poses needs the real arm (poses are jogged by hand)")
++        record_poses(repo, hw)
++        return
++    run_session(repo, args, hw)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/src/rbe_501_so101/config.py b/src/rbe_501_so101/config.py
+index fd22259..91cd095 100644
+--- a/src/rbe_501_so101/config.py
++++ b/src/rbe_501_so101/config.py
+@@ -1,13 +1,17 @@
+ """Central configuration: every tunable constant for simulation, tasks, and training."""
+ 
+ from dataclasses import asdict, dataclass, field
+-from math import radians
++from math import pi, radians
+ from pathlib import Path
+ from typing import Any, Literal, Self
+ 
+ PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ MODELS_DIR = PROJECT_ROOT / "models"
+ CHECKPOINTS_DIR = PROJECT_ROOT / "checkpoints"
++DATA_DIR = PROJECT_ROOT / "data"
++EXPERIMENTS_DIR = PROJECT_ROOT / "experiments"
++REPORTS_DIR = PROJECT_ROOT / "reports"
++ENCODER_COUNTS_PER_REV = 4096
+ 
+ 
+ @dataclass(frozen=True)
+@@ -37,6 +41,7 @@ class SimConfig:
+     table_body: str = "table_frame"
+     table_top_geom: str = "table_top"
+     parked_bodies: tuple[str, ...] = ("cube",)
++    calibration_path: Path | None = None
+ 
+     @property
+     def control_dt(self) -> float:
+@@ -203,6 +208,50 @@ class SacTuning:
+     norm_reward: bool = False
+ 
+ 
++@dataclass(frozen=True)
++class PerturbationConfig:
++    """Sensing and timing effects applied around a simulated backend.
++
++    With `randomize_delay`, each episode draws its delay uniformly from
++    `0..delay_steps` instead of using `delay_steps` exactly.
++    """
++
++    delay_steps: int = 0
++    quantization_rad: float = 0.0
++    randomize_delay: bool = False
++
++    @property
++    def active(self) -> bool:
++        """True if any perturbation would change what the policy sees."""
++        return self.delay_steps > 0 or self.quantization_rad > 0.0
++
++
++ENCODER_QUANTIZATION_RAD = 2 * pi / ENCODER_COUNTS_PER_REV
++
++
++@dataclass(frozen=True)
++class EnvOptions:
++    """Simulator options a preset (or an evaluation) builds the reach env with.
++
++    `calibration_path` is stored as a string so presets stay JSON-serializable.
++    `randomization.enabled` forces randomization on even without the CLI flag.
++    """
++
++    calibration_path: str | None = None
++    perturbation: PerturbationConfig = field(default_factory=PerturbationConfig)
++    randomization: DynamicsRandomizationConfig = field(default_factory=DynamicsRandomizationConfig)
++
++    @classmethod
++    def from_dict(cls, data: dict[str, Any]) -> Self:
++        """Inverse of `asdict`, restoring tuples that JSON turned into lists."""
++        rand = {k: tuple(v) if isinstance(v, list) else v for k, v in data["randomization"].items()}
++        return cls(
++            calibration_path=data["calibration_path"],
++            perturbation=PerturbationConfig(**data["perturbation"]),
++            randomization=DynamicsRandomizationConfig(**rand),
++        )
++
++
+ @dataclass(frozen=True)
+ class ExperimentPreset:
+     """Everything that defines a training variant; saved next to each checkpoint."""
+@@ -210,6 +259,7 @@ class ExperimentPreset:
+     task: ReachTaskConfig = field(default_factory=ReachTaskConfig)
+     reward: RewardConfig = field(default_factory=RewardConfig)
+     sac: SacTuning = field(default_factory=SacTuning)
++    env: EnvOptions = field(default_factory=EnvOptions)
+ 
+     def to_dict(self) -> dict[str, Any]:
+         """JSON-serializable nested dictionary."""
+@@ -217,11 +267,13 @@ class ExperimentPreset:
+ 
+     @classmethod
+     def from_dict(cls, data: dict[str, Any]) -> Self:
+-        """Inverse of `to_dict`."""
++        """Inverse of `to_dict`; run configs saved before `env` existed get the defaults."""
++        env = EnvOptions.from_dict(data["env"]) if "env" in data else EnvOptions()
+         return cls(
+             task=ReachTaskConfig(**data["task"]),
+             reward=RewardConfig(**data["reward"]),
+             sac=SacTuning(**data["sac"]),
++            env=env,
+         )
+ 
+ 
+@@ -244,3 +296,160 @@ PRESETS: dict[str, ExperimentPreset] = {
+         sac=LOW_ENTROPY_SAC,
+     ),
+ }
++
++CALIBRATION_DIR = DATA_DIR / "calibration"
++DEFAULT_CALIBRATION_FILE = "data/calibration/actuator_calibration.json"
++CALIBRATED_RANDOMIZATION = DynamicsRandomizationConfig(enabled=True)
++CALIBRATED_PERTURBATION = PerturbationConfig(
++    delay_steps=1, quantization_rad=ENCODER_QUANTIZATION_RAD, randomize_delay=True
++)
++PRESETS["residual_ik_calibrated"] = ExperimentPreset(
++    task=PRESETS["residual_ik"].task,
++    reward=PRESETS["residual_ik"].reward,
++    sac=PRESETS["residual_ik"].sac,
++    env=EnvOptions(
++        calibration_path=DEFAULT_CALIBRATION_FILE,
++        perturbation=CALIBRATED_PERTURBATION,
++        randomization=CALIBRATED_RANDOMIZATION,
++    ),
++)
++
++
++def resolve_project_path(path: str | Path) -> Path:
++    """Absolute path; relative paths are taken from the project root."""
++    path = Path(path)
++    return path if path.is_absolute() else PROJECT_ROOT / path
++
++
++@dataclass(frozen=True)
++class ProvenanceConfig:
++    """Run-manifest file names and the packages whose versions are recorded."""
++
++    manifest_filename: str = "manifest.json"
++    patch_filename: str = "uncommitted.patch"
++    packages: tuple[str, ...] = ("rbe_501_so101", "mujoco", "lerobot", "torch")
++
++
++@dataclass(frozen=True)
++class JointMappingEntry:
++    """How one LeRobot joint reading maps onto the matching sim joint."""
++
++    sign: float = 1.0
++    offset_rad: float = 0.0
++
++
++@dataclass(frozen=True)
++class HardwareConfig:
++    """Physical SO-101 connection, unit mapping, and motion limits.
++
++    `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
++    before torque is cut. Replace it with a pose where the arm is supported
++    once the Phase 1 mapping is known.
++    """
++
++    port: str = "/dev/so101_follower"
++    robot_id: str = "rbe501_follower"
++    max_relative_target_deg: float = 10.0
++    speed_scale: float = 0.5
++    home_ramp_s: float = 3.0
++    settle_s: float = 1.0
++    limit_margin_rad: float = 0.15
++    joint_map: tuple[JointMappingEntry, ...] = tuple(JointMappingEntry() for _ in range(5))
++    gripper_percent_range: tuple[float, float] = (0.0, 100.0)
++    mapping_tolerance_deg: float = 0.5
++    rest_deg: tuple[float, ...] = (0.0, -20.0, 40.0, 15.0, 0.0, 40.0)
++    rest_ramp_s: float = 3.0
++    lerobot_degrees_per_count: float = 360.0 / 4095
++
++
++@dataclass(frozen=True)
++class SafetyConfig:
++    """Abort thresholds checked on every hardware control step."""
++
++    max_temperature_c: float = 55.0
++    max_load_fraction: float = 0.8
++    max_consecutive_overruns: int = 3
++    table_clearance_m: float = 0.02
++    status_check_every_steps: int = 10
++    clearance_root_body: str = "upper_arm_link"
++
++
++@dataclass(frozen=True)
++class SagCheckConfig:
++    """Phase 0: how each recorded pose is approached and sampled.
++
++    Ramps move every joint at most `ramp_speed_deg_s`, sending a goal every
++    `ramp_period_s`.
++    """
++
++    poses_path: Path = DATA_DIR / "sag_check" / "poses" / "poses.json"
++    sessions_dir: Path = DATA_DIR / "sag_check"
++    session_filename: str = "session.json"
++    approach_offset_deg: float = 5.0
++    settle_s: float = 2.0
++    n_reads: int = 20
++    read_interval_s: float = 0.02
++    ramp_speed_deg_s: float = 30.0
++    ramp_period_s: float = 1.0 / 30.0
++
++
++@dataclass(frozen=True)
++class SagFitConfig:
++    """Stiffness fit: confidence level and when a joint counts as identifiable.
++
++    A joint is not identifiable when its gravity torque spans less than
++    `min_torque_span_nm` across the poses.
++    """
++
++    confidence: float = 0.95
++    min_torque_span_nm: float = 0.05
++    min_samples: int = 3
++    early_warning_fraction: float = 0.5
++    min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
++    experiment_suffix: str = "sag_analysis"
++
++
++@dataclass(frozen=True)
++class MirrorConfig:
++    """Phase 1 mirror tool loop rate and where reference readings are saved."""
++
++    loop_hz: float = 30.0
++    references_dir: Path = DATA_DIR / "joint_mapping"
++    references_filename: str = "references.json"
++
++
++@dataclass(frozen=True)
++class IntegralControlConfig:
++    """Model-free baseline: fraction of the remaining joint error added to the command each step.
++
++    Integration starts once the command is within `reached_tol_rad` of the IK pose.
++    """
++
++    gain: float = 0.2
++    reached_tol_rad: float = 1e-4
++
++
++@dataclass(frozen=True)
++class RobustnessConfig:
++    """Phase 2 sweep grid and the transfer-or-retrain thresholds."""
++
++    kp_scales: tuple[float, ...] = (0.3, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0)
++    delay_steps: tuple[int, ...] = (0, 1)
++    quantization_rad: float = ENCODER_QUANTIZATION_RAD
++    episodes_per_point: int = 20
++    saturation_threshold: float = 0.95
++    transfer_max_mean_m: float = 0.002
++    max_saturation_fraction: float = 0.05
++    experiment_suffix: str = "reach_robustness"
++
++
++@dataclass(frozen=True)
++class RealTrialConfig:
++    """Phase 3 output naming and the fixed repeatability protocol."""
++
++    experiment_suffix: str = "real_reach"
++    repeat_targets: int = 3
++    repeats_per_target: int = 10
++    fixed_targets_path: Path = DATA_DIR / "targets" / "reach_fixed.json"
++    repeat_targets_path: Path = DATA_DIR / "targets" / "reach_repeat.json"
++    n_fixed_targets: int = 10
+diff --git a/src/rbe_501_so101/envs/mujoco_backend.py b/src/rbe_501_so101/envs/mujoco_backend.py
+index d37e509..5c19f3e 100644
+--- a/src/rbe_501_so101/envs/mujoco_backend.py
++++ b/src/rbe_501_so101/envs/mujoco_backend.py
+@@ -8,6 +8,7 @@ import mujoco
+ import numpy as np
+ 
+ from rbe_501_so101.config import DynamicsRandomizationConfig, RenderConfig, SimConfig
++from rbe_501_so101.envs.calibration import ActuatorCalibration
+ from rbe_501_so101.envs.model_indices import ModelIndices, disable_body_collisions, park_body
+ from rbe_501_so101.envs.types import JointLimits, RobotState
+ 
+@@ -62,6 +63,7 @@ class MujocoSo101Backend:
+         self._ids = ModelIndices.from_model(self.model, sim_cfg)
+         self._disable_parked_bodies()
+         self._apply_torque_caps()
++        self._apply_calibration()
+         self._nominal = NominalDynamics.capture(self.model, self._ids)
+         self._limits = self._read_limits()
+         self._home = np.deg2rad(np.asarray(sim_cfg.initial_deg, dtype=float))
+@@ -75,6 +77,11 @@ class MujocoSo101Backend:
+         """Cached model addresses for callers that share this model."""
+         return self._ids
+ 
++    @property
++    def command(self) -> np.ndarray:
++        """Current commanded joint angles (arm joints, then gripper), as a copy."""
++        return self._q_cmd.copy()
++
+     def reset(self, rng: np.random.Generator) -> RobotState:
+         """Restore (or randomize) dynamics and place the arm at the home pose."""
+         self._restore_nominal_dynamics()
+@@ -156,6 +163,11 @@ class MujocoSo101Backend:
+         self.model.jnt_actfrcrange[self._ids.joint_ids] = (-stall, stall)
+         self.model.jnt_actfrclimited[self._ids.joint_ids] = 1
+ 
++    def _apply_calibration(self) -> None:
++        """Overlay measured stiffness and friction; randomization then scales around them."""
++        if self._cfg.calibration_path is not None:
++            ActuatorCalibration.load(self._cfg.calibration_path).apply(self.model, self._cfg)
++
+     def _read_limits(self) -> JointLimits:
+         """Arm joint ranges from the model."""
+         arm_range = self.model.jnt_range[self._ids.arm_joint_ids]
+diff --git a/src/rbe_501_so101/envs/protocols.py b/src/rbe_501_so101/envs/protocols.py
+index 9930ddb..00841f6 100644
+--- a/src/rbe_501_so101/envs/protocols.py
++++ b/src/rbe_501_so101/envs/protocols.py
+@@ -54,6 +54,14 @@ class Renderable(Protocol):
+         ...
+ 
+ 
++class ForwardKinematics(Protocol):
++    """Maps a full joint vector (arm joints, then gripper) to the gripper-site position."""
++
++    def forward(self, q: np.ndarray) -> np.ndarray:
++        """World-frame gripper-site XYZ (m)."""
++        ...
++
++
+ @runtime_checkable
+ class JointGoalSolver(Protocol):
+     """Maps a Cartesian target to arm joint angles (e.g. inverse kinematics)."""
+diff --git a/src/rbe_501_so101/envs/reach_env.py b/src/rbe_501_so101/envs/reach_env.py
+index 8929c7f..eba4857 100644
+--- a/src/rbe_501_so101/envs/reach_env.py
++++ b/src/rbe_501_so101/envs/reach_env.py
+@@ -36,6 +36,12 @@ from rbe_501_so101.kinematics import PositionIKSolver
+ OBS_BOUND = float(np.finfo(np.float32).max)
+ 
+ 
++def task_home_deg(sim_cfg: SimConfig, task_cfg: ReachTaskConfig) -> tuple[float, ...]:
++    """Home pose with the gripper at the task's hold angle (degrees)."""
++    n_arm = len(sim_cfg.arm_joints)
++    return (*sim_cfg.initial_deg[:n_arm], task_cfg.gripper_hold_deg)
++
++
+ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
+     """Reach a sampled target with the 5 arm joints while the gripper is held fixed.
+ 
+@@ -189,8 +195,7 @@ class SO101ReachEnv(gym.Env[np.ndarray, np.ndarray]):
+         self, sim_cfg: SimConfig, randomization_cfg: DynamicsRandomizationConfig
+     ) -> MujocoSo101Backend:
+         """MuJoCo backend whose home gripper angle is the task's hold angle."""
+-        n_arm = self._layout.n_arm
+-        home = (*sim_cfg.initial_deg[:n_arm], self._task.gripper_hold_deg)
++        home = task_home_deg(sim_cfg, self._task)
+         return MujocoSo101Backend(replace(sim_cfg, initial_deg=home), randomization_cfg, self.render_mode)
+ 
+     def _default_sampler(
+diff --git a/src/rbe_501_so101/envs/targets.py b/src/rbe_501_so101/envs/targets.py
+index e16bbf8..e3e466f 100644
+--- a/src/rbe_501_so101/envs/targets.py
++++ b/src/rbe_501_so101/envs/targets.py
+@@ -36,6 +36,22 @@ class ReachabilityMap:
+         np.savez_compressed(path, points=self.points, radial_m=self.radial_m, accepted=self.accepted)
+ 
+ 
++class SequenceTargetSampler:
++    """Returns fixed targets in order, cycling, ignoring the RNG (for hardware trials)."""
++
++    def __init__(self, targets: tuple[np.ndarray, ...]) -> None:
++        if not targets:
++            raise ValueError("need at least one target")
++        self._targets = tuple(np.asarray(t, dtype=float) for t in targets)
++        self._index = 0
++
++    def sample(self, rng: np.random.Generator) -> np.ndarray:
++        """Next target in the sequence."""
++        target = self._targets[self._index % len(self._targets)]
++        self._index += 1
++        return target.copy()
++
++
+ class ReachableTargetSampler:
+     """Samples targets from random arm configurations via forward kinematics.
+ 
+diff --git a/src/rbe_501_so101/rl/cli.py b/src/rbe_501_so101/rl/cli.py
+index f3399d7..921593f 100644
+--- a/src/rbe_501_so101/rl/cli.py
++++ b/src/rbe_501_so101/rl/cli.py
+@@ -8,7 +8,7 @@ from typing import Literal
+ 
+ from rbe_501_so101.config import PRESETS, TrainConfig
+ from rbe_501_so101.rl.checkpoints import LEGACY_PRESET, CheckpointRepository
+-from rbe_501_so101.rl.evaluation import run_evaluation
++from rbe_501_so101.rl.evaluation import EvalOverrides, run_evaluation
+ from rbe_501_so101.rl.training import ALGORITHMS, resolve_device, train_seed
+ 
+ AlgoName = Literal["sac", "ppo"]
+@@ -28,6 +28,7 @@ class RunSettings:
+     render: bool
+     cpu: bool
+     preset: str
++    overrides: EvalOverrides = EvalOverrides()
+ 
+ 
+ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
+@@ -48,6 +49,8 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
+         default=LEGACY_PRESET,
+         help="training variant (evaluation reads each checkpoint's recorded preset)",
+     )
++    parser.add_argument("--calibration", type=Path, default=None, help="evaluate with this actuator calibration file")
++    parser.add_argument("--perturb", action="store_true", help="evaluate with encoder rounding and a 1-step delay")
+     args = parser.parse_args(argv)
+     return RunSettings(
+         algo=args.algo,
+@@ -60,6 +63,7 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
+         render=args.render,
+         cpu=args.cpu,
+         preset=args.preset,
++        overrides=EvalOverrides(calibration_path=args.calibration, perturb=args.perturb),
+     )
+ 
+ 
+@@ -97,4 +101,5 @@ def _evaluation_report(settings: RunSettings, cfg: TrainConfig) -> dict:
+         settings.num_episodes,
+         cfg,
+         settings.render,
++        settings.overrides,
+     )
+diff --git a/src/rbe_501_so101/rl/evaluation.py b/src/rbe_501_so101/rl/evaluation.py
+index 021d734..2bea475 100644
+--- a/src/rbe_501_so101/rl/evaluation.py
++++ b/src/rbe_501_so101/rl/evaluation.py
+@@ -1,14 +1,25 @@
+ """Evaluate trained reach policies against random and IK-hold baselines."""
+ 
+-from dataclasses import asdict, dataclass
++from dataclasses import asdict, dataclass, replace
+ from pathlib import Path
+ from typing import Literal
+ 
+ import numpy as np
+ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+ 
+-from rbe_501_so101.config import ExperimentPreset, IKConfig, ReachTaskConfig, SimConfig, TrainConfig
++from rbe_501_so101.config import (
++    PRESETS,
++    EnvOptions,
++    ExperimentPreset,
++    IKConfig,
++    PerturbationConfig,
++    ReachTaskConfig,
++    RobustnessConfig,
++    SimConfig,
++    TrainConfig,
++)
+ from rbe_501_so101.envs import SO101ReachEnv
++from rbe_501_so101.envs.factory import make_reach_env
+ from rbe_501_so101.envs.mujoco_backend import RenderMode
+ from rbe_501_so101.envs.types import ObservationLayout
+ from rbe_501_so101.kinematics import PositionIKSolver
+@@ -23,10 +34,11 @@ AlgoName = Literal["sac", "ppo"]
+ 
+ @dataclass(frozen=True)
+ class EpisodeStats:
+-    """Holding-window errors (m) and mean arm joint speed (rad/s) for one episode."""
++    """Holding-window errors (m), mean arm joint speed (rad/s), and actions for one episode."""
+ 
+     holding_errors_m: np.ndarray
+     mean_joint_speed: float
++    holding_actions: np.ndarray | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -43,14 +55,16 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int)
+     """Roll out one episode. Return None if the viewer closed before truncation."""
+     obs, _ = env.reset(seed=seed)
+     policy.reset(env.target, env.state)
+-    errors, speeds, truncated = [], [], False
++    errors, speeds, actions, truncated = [], [], [], False
+     while not truncated:
+         if not env.viewer_open:
+             return None
+-        obs, _, _, truncated, info = env.step(policy(obs))
++        action = np.asarray(policy(obs), dtype=float)
++        obs, _, _, truncated, info = env.step(action)
+         errors.append(info["distance_m"])
+         speeds.append(float(np.mean(np.abs(obs[env.layout.qvel]))))
+-    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])))
++        actions.append(action)
++    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])), np.array(actions[-window:]))
+ 
+ 
+ def completed_episodes(stats: list[EpisodeStats | None]) -> list[EpisodeStats]:
+@@ -81,15 +95,13 @@ def summarize(per_seed: dict[str, list[EpisodeStats]]) -> PolicyReport:
+ 
+ 
+ def make_eval_env(
+-    preset: ExperimentPreset, randomize: bool, render_mode: RenderMode | None = None
++    preset: ExperimentPreset,
++    randomize: bool,
++    render_mode: RenderMode | None = None,
++    options: EnvOptions | None = None,
+ ) -> SO101ReachEnv:
+-    """Unwrapped reach env built exactly as the preset's training env was."""
+-    return SO101ReachEnv(
+-        render_mode=render_mode,
+-        task_cfg=preset.task,
+-        reward_cfg=preset.reward,
+-        randomize_dynamics=randomize,
+-    )
++    """Unwrapped reach env built as the preset's training env was, unless `options` override it."""
++    return make_reach_env(preset, randomize, render_mode, options)
+ 
+ 
+ def load_trained_policy(repo: CheckpointRepository, seed: int, algo: AlgoName) -> TrainedPolicy:
+@@ -101,6 +113,29 @@ def load_trained_policy(repo: CheckpointRepository, seed: int, algo: AlgoName) -
+     return TrainedPolicy(model, normalizer, venv)
+ 
+ 
++@dataclass(frozen=True)
++class EvalOverrides:
++    """CLI evaluation overrides layered on each checkpoint's own env options.
++
++    `perturb` adds encoder rounding and the largest delay in `RobustnessConfig`.
++    """
++
++    calibration_path: Path | None = None
++    perturb: bool = False
++
++    def apply(self, base: EnvOptions, robustness: RobustnessConfig = RobustnessConfig()) -> EnvOptions:
++        """Base options with the requested calibration and perturbation."""
++        options = base
++        if self.calibration_path is not None:
++            options = replace(options, calibration_path=str(self.calibration_path))
++        if self.perturb:
++            perturbation = PerturbationConfig(
++                delay_steps=max(robustness.delay_steps), quantization_rad=robustness.quantization_rad
++            )
++            options = replace(options, perturbation=perturbation)
++        return options
++
++
+ def evaluate_seed(
+     repo: CheckpointRepository,
+     seed: int,
+@@ -109,10 +144,12 @@ def evaluate_seed(
+     cfg: TrainConfig,
+     randomize: bool,
+     render: bool,
++    overrides: EvalOverrides = EvalOverrides(),
+ ) -> list[EpisodeStats]:
+     """Evaluate one seed in an env rebuilt from that seed's recorded preset."""
+     render_mode: RenderMode | None = "human" if render and not randomize else None
+-    env = make_eval_env(repo.load_preset(seed), randomize, render_mode)
++    preset = repo.load_preset(seed)
++    env = make_eval_env(preset, randomize, render_mode, overrides.apply(preset.env))
+     policy = load_trained_policy(repo, seed, algo)
+     try:
+         return evaluate(env, policy, num_episodes, cfg)
+@@ -129,17 +166,20 @@ def evaluate_trained(
+     cfg: TrainConfig,
+     randomize: bool,
+     render: bool,
++    overrides: EvalOverrides = EvalOverrides(),
+ ) -> PolicyReport:
+     """Evaluate every seed's checkpoint on nominal or randomized dynamics."""
+     repo = CheckpointRepository(model_dir, cfg)
+-    per_seed = {str(s): evaluate_seed(repo, s, algo, num_episodes, cfg, randomize, render) for s in seeds}
++    per_seed = {str(s): evaluate_seed(repo, s, algo, num_episodes, cfg, randomize, render, overrides) for s in seeds}
+     return summarize(per_seed)
+ 
+ 
+-def evaluate_baselines(num_episodes: int, cfg: TrainConfig) -> dict[str, PolicyReport]:
++def evaluate_baselines(
++    num_episodes: int, cfg: TrainConfig, overrides: EvalOverrides = EvalOverrides()
++) -> dict[str, PolicyReport]:
+     """Random and IK-hold baselines on the same targets as the trained policy."""
+     sim_cfg = SimConfig()
+-    env = SO101ReachEnv()
++    env = make_reach_env(PRESETS["legacy"], randomize=False, options=overrides.apply(EnvOptions()))
+     layout = ObservationLayout(n_arm=len(sim_cfg.arm_joints))
+     solver = PositionIKSolver.from_config(sim_cfg, IKConfig())
+     baselines: dict[str, EvalPolicy] = {
+@@ -171,12 +211,14 @@ def run_evaluation(
+     num_episodes: int,
+     cfg: TrainConfig,
+     render: bool,
++    overrides: EvalOverrides = EvalOverrides(),
+ ) -> dict:
+     """Evaluate trained policies and baselines and assemble the JSON report."""
+-    nominal = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, randomize=False, render=render)
+-    randomized = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, randomize=True, render=False)
+-    baselines = evaluate_baselines(num_episodes, cfg)
++    nominal = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, False, render, overrides)
++    randomized = evaluate_trained(seeds, algo, model_dir, num_episodes, cfg, True, False, overrides)
++    baselines = evaluate_baselines(num_episodes, cfg, overrides)
+     return {
++        "overrides": {"calibration_path": str(overrides.calibration_path), "perturb": overrides.perturb},
+         "trained_nominal": asdict(nominal),
+         "trained_randomized_dynamics": asdict(randomized),
+         "baselines": {name: asdict(report) for name, report in baselines.items()},
+diff --git a/src/rbe_501_so101/rl/plots.py b/src/rbe_501_so101/rl/plots.py
+index 8c5776f..ce4cec3 100644
+--- a/src/rbe_501_so101/rl/plots.py
++++ b/src/rbe_501_so101/rl/plots.py
+@@ -1,8 +1,10 @@
+ """Matplotlib figures for experiment records."""
+ 
+ from pathlib import Path
++from typing import TYPE_CHECKING
+ 
+ import matplotlib
++import numpy as np
+ 
+ matplotlib.use("Agg")
+ import matplotlib.pyplot as plt  # noqa: E402
+@@ -10,6 +12,10 @@ import matplotlib.pyplot as plt  # noqa: E402
+ from rbe_501_so101.config import TrainConfig  # noqa: E402
+ from rbe_501_so101.rl.reporting import TrainingCurve  # noqa: E402
+ 
++if TYPE_CHECKING:
++    from rbe_501_so101.hardware.sag_analysis import SagAnalysis
++    from rbe_501_so101.rl.robustness import SweepResult
++
+ M_TO_MM = 1000.0
+ RAW_ALPHA = 0.15
+ FIG_SIZE = (9, 5)
+@@ -57,6 +63,57 @@ def _plot_seed_means(ax: plt.Axes, rows: dict[str, dict], names: list[str], widt
+             ax.scatter([x - width / 2] * len(seed_means), seed_means, color="black", s=12, zorder=3)
+ 
+ 
++def plot_real_sag(analysis: "SagAnalysis", path: Path) -> None:
++    """Phase 0: mean and worst sag plus mean hysteresis per arm joint."""
++    joints = analysis.joints
++    xs = range(len(joints))
++    width = 0.27
++    fig, ax = plt.subplots(figsize=FIG_SIZE)
++    ax.bar([x - width for x in xs], [j.mean_sag_deg for j in joints], width, label="mean sag")
++    ax.bar(list(xs), [j.max_abs_sag_deg for j in joints], width, label="max |sag|")
++    ax.bar([x + width for x in xs], [j.mean_abs_hysteresis_deg for j in joints], width, label="mean |hysteresis|")
++    cap = float(np.rad2deg(analysis.warning_fraction * analysis.residual_max_rad))
++    ax.axhline(cap, color="red", linestyle="--", label="early-warning limit")
++    ax.set_xticks(list(xs), [j.joint for j in joints], rotation=15)
++    ax.set_ylabel("degrees (LeRobot units)")
++    ax.set_title(f"Real-arm sag and hysteresis ({analysis.n_poses} poses, both approach directions)")
++    ax.grid(axis="y", alpha=0.3)
++    ax.legend()
++    _save(fig, path)
++
++
++def plot_kp_sweep(results: list["SweepResult"], measured_scales: dict[str, float], path: Path) -> None:
++    """Holding error vs. kp scale, one line per controller, Phase 0 stiffness marked."""
++    fig, ax = plt.subplots(figsize=FIG_SIZE)
++    for controller in sorted({r.controller for r in results}):
++        points = sorted((r.value, r.mean_mm) for r in results if r.controller == controller)
++        ax.plot([p[0] for p in points], [p[1] for p in points], marker="o", label=controller)
++    for joint, scale in measured_scales.items():
++        ax.axvline(scale, color="gray", linestyle=":", linewidth=1)
++        ax.annotate(joint, (scale, ax.get_ylim()[1]), rotation=90, va="top", fontsize=7, color="gray")
++    ax.set_xscale("log")
++    ax.set_yscale("log")
++    ax.set_xlabel("actuator kp scale (x nominal MJCF)")
++    ax.set_ylabel("mean holding error (mm)")
++    ax.set_title("Stiffness mismatch: feedback controllers stay flat, feedforward ones grow")
++    ax.grid(alpha=0.3, which="both")
++    ax.legend()
++    _save(fig, path)
++
++
++def plot_saturation(results: list["SweepResult"], path: Path) -> None:
++    """Fraction of holding steps where the policy's correction is at its cap, per kp scale."""
++    points = sorted((r.value, r.saturation_fraction) for r in results if r.saturation_fraction is not None)
++    fig, ax = plt.subplots(figsize=FIG_SIZE)
++    ax.plot([p[0] for p in points], [100 * p[1] for p in points], marker="o")
++    ax.set_xscale("log")
++    ax.set_xlabel("actuator kp scale (x nominal MJCF)")
++    ax.set_ylabel("holding steps at the correction cap (%)")
++    ax.set_title("Policy correction headroom")
++    ax.grid(alpha=0.3, which="both")
++    _save(fig, path)
++
++
+ def _save(fig: plt.Figure, path: Path) -> None:
+     """Write a figure to disk and release it."""
+     fig.tight_layout()
+diff --git a/src/rbe_501_so101/rl/policies.py b/src/rbe_501_so101/rl/policies.py
+index b5dab4e..94ecc78 100644
+--- a/src/rbe_501_so101/rl/policies.py
++++ b/src/rbe_501_so101/rl/policies.py
+@@ -1,14 +1,21 @@
+-"""Evaluation policies: trained checkpoint, random actions, and IK-hold."""
++"""Evaluation policies: trained checkpoint, random actions, and classical baselines.
+ 
+-from typing import Protocol
++The classical baselines (IK hold, gravity compensation, joint integral) all
++emit delta-mode actions with the same rate limit, so they must run in a
++`action_mode="delta"` env.
++"""
++
++from typing import Literal, Protocol
+ 
+ import numpy as np
+ from stable_baselines3.common.base_class import BaseAlgorithm
+ from stable_baselines3.common.vec_env import VecEnv, VecNormalize
+ 
+-from rbe_501_so101.config import ReachTaskConfig
++from rbe_501_so101.config import IKConfig, IntegralControlConfig, ReachTaskConfig, SimConfig
++from rbe_501_so101.envs.calibration import ActuatorCalibration
+ from rbe_501_so101.envs.types import ObservationLayout, RobotState
+ from rbe_501_so101.kinematics import PositionIKSolver
++from rbe_501_so101.kinematics.gravity import GravityTorqueModel
+ 
+ 
+ class EvalPolicy(Protocol):
+@@ -79,5 +86,121 @@ class IKHoldPolicy:
+ 
+     def __call__(self, obs: np.ndarray) -> np.ndarray:
+         """Rate-limited step of the command toward the IK pose."""
+-        q_cmd = obs[self._layout.qpos] + obs[self._layout.cmd_err]
+-        return np.clip((self._q_goal - q_cmd) / self._delta_max, -1.0, 1.0).astype(np.float32)
++        return rate_limited_action(self._q_goal, commanded(obs, self._layout), self._delta_max)
++
++
++class GravityCompPolicy:
++    """Feedforward: hold `q_ik + clip(tau_g(q_ik) / kp, ±residual_max)`.
++
++    The gravity torque at the IK pose is the torque needed to hold the pose we
++    want, so no iteration is needed. `kp` defaults to the gravity model's own
++    actuator stiffness; pass measured values to use a calibration.
++    """
++
++    def __init__(
++        self,
++        solver: PositionIKSolver,
++        task: ReachTaskConfig,
++        layout: ObservationLayout,
++        gravity: GravityTorqueModel,
++        kp: np.ndarray | None = None,
++    ) -> None:
++        self._solver = solver
++        self._gravity = gravity
++        self._kp = gravity.actuator_kp() if kp is None else np.asarray(kp, dtype=float)
++        self._delta_max = task.delta_q_max_rad
++        self._residual_max = task.residual_max_rad
++        self._layout = layout
++        self._q_goal = np.zeros(layout.n_arm)
++
++    def reset(self, target: np.ndarray, state: RobotState) -> None:
++        """Solve IK and add the predicted sag at that pose."""
++        q_ik = self._solver.solve(target, state.q_cmd).q
++        correction = np.clip(self._gravity.torque(q_ik) / self._kp, -self._residual_max, self._residual_max)
++        self._q_goal = q_ik[: self._layout.n_arm] + correction
++
++    def __call__(self, obs: np.ndarray) -> np.ndarray:
++        """Rate-limited step of the command toward the compensated pose."""
++        return rate_limited_action(self._q_goal, commanded(obs, self._layout), self._delta_max)
++
++
++class JointIntegralPolicy:
++    """Model-free feedback: integrate each joint's remaining error into its command.
++
++    Once the command reaches the IK pose, each step adds `gain * (q_ik - q)`
++    to a correction `z` clipped to ±residual_max, and drives the command
++    toward `q_ik + z`. Only measured joint angles are used.
++    """
++
++    def __init__(
++        self,
++        solver: PositionIKSolver,
++        task: ReachTaskConfig,
++        layout: ObservationLayout,
++        cfg: IntegralControlConfig = IntegralControlConfig(),
++    ) -> None:
++        self._solver = solver
++        self._cfg = cfg
++        self._delta_max = task.delta_q_max_rad
++        self._residual_max = task.residual_max_rad
++        self._layout = layout
++        self._q_ik = np.zeros(layout.n_arm)
++        self._z = np.zeros(layout.n_arm)
++        self._integrating = False
++
++    @property
++    def correction(self) -> np.ndarray:
++        """Current integral correction (rad), a copy."""
++        return self._z.copy()
++
++    def reset(self, target: np.ndarray, state: RobotState) -> None:
++        """Solve IK and zero the correction."""
++        self._q_ik = self._solver.solve(target, state.q_cmd).q[: self._layout.n_arm]
++        self._z = np.zeros(self._layout.n_arm)
++        self._integrating = False
++
++    def __call__(self, obs: np.ndarray) -> np.ndarray:
++        """Integrate (once the IK pose is commanded) and step toward the corrected pose."""
++        q_cmd = commanded(obs, self._layout)
++        if not self._integrating:
++            self._integrating = bool(np.all(np.abs(self._q_ik - q_cmd) < self._cfg.reached_tol_rad))
++        if self._integrating:
++            error = self._q_ik - obs[self._layout.qpos]
++            self._z = np.clip(self._z + self._cfg.gain * error, -self._residual_max, self._residual_max)
++        return rate_limited_action(self._q_ik + self._z, q_cmd, self._delta_max)
++
++
++BaselineName = Literal["ik_hold", "gravity_comp", "integral"]
++BASELINE_NAMES: tuple[BaselineName, ...] = ("ik_hold", "gravity_comp", "integral")
++
++
++def make_baseline(
++    name: str,
++    sim_cfg: SimConfig,
++    task: ReachTaskConfig,
++    layout: ObservationLayout,
++    calibration: ActuatorCalibration | None = None,
++    integral: IntegralControlConfig = IntegralControlConfig(),
++) -> EvalPolicy:
++    """Build a classical controller by name, each with its own nominal model copy."""
++    solver = PositionIKSolver.from_config(sim_cfg, IKConfig())
++    match name:
++        case "ik_hold":
++            return IKHoldPolicy(solver, task, layout)
++        case "gravity_comp":
++            gravity = GravityTorqueModel.from_config(sim_cfg)
++            kp = None if calibration is None else calibration.kp_for(sim_cfg.arm_joints, gravity.actuator_kp())
++            return GravityCompPolicy(solver, task, layout, gravity, kp)
++        case "integral":
++            return JointIntegralPolicy(solver, task, layout, integral)
++    raise ValueError(f"unknown baseline {name!r}; choose from {BASELINE_NAMES}")
++
++
++def commanded(obs: np.ndarray, layout: ObservationLayout) -> np.ndarray:
++    """Commanded arm angles recovered from the observation (`q + (q_cmd - q)`)."""
++    return obs[layout.qpos] + obs[layout.cmd_err]
++
++
++def rate_limited_action(goal: np.ndarray, q_cmd: np.ndarray, delta_max: float) -> np.ndarray:
++    """Delta-mode action that moves the command toward `goal` by at most `delta_max`."""
++    return np.clip((goal - q_cmd) / delta_max, -1.0, 1.0).astype(np.float32)
+diff --git a/src/rbe_501_so101/rl/training.py b/src/rbe_501_so101/rl/training.py
+index 40219b1..cab809e 100644
+--- a/src/rbe_501_so101/rl/training.py
++++ b/src/rbe_501_so101/rl/training.py
+@@ -12,6 +12,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecMonitor, VecNormali
+ 
+ from rbe_501_so101.config import PRESETS, ExperimentPreset, SacTuning, TrainConfig
+ from rbe_501_so101.envs import REACH_ENV_ID
++from rbe_501_so101.envs.factory import reach_env_kwargs
+ from rbe_501_so101.rl.checkpoints import CheckpointRepository
+ 
+ ALGORITHMS: dict[str, type[BaseAlgorithm]] = {"sac": SAC, "ppo": PPO}
+@@ -34,10 +35,10 @@ def resolve_device(prefer_gpu: bool = True) -> str:
+ 
+ 
+ def make_env_factory(randomize: bool, preset: ExperimentPreset = PRESETS["legacy"]) -> Callable[[], gym.Env]:
+-    """Return a thunk creating a reach env configured by `preset`."""
++    """Return a thunk creating a reach env configured by `preset` (including its env options)."""
+ 
+     def factory() -> gym.Env:
+-        return gym.make(REACH_ENV_ID, randomize_dynamics=randomize, task_cfg=preset.task, reward_cfg=preset.reward)
++        return gym.make(REACH_ENV_ID, **reach_env_kwargs(preset, randomize))
+ 
+     return factory
+ 
+diff --git a/tests/test_evaluation.py b/tests/test_evaluation.py
+index 7057ff5..7fbe444 100644
+--- a/tests/test_evaluation.py
++++ b/tests/test_evaluation.py
+@@ -3,9 +3,18 @@
+ import numpy as np
+ import pytest
+ 
+-from rbe_501_so101.config import TrainConfig
++from rbe_501_so101.config import EnvOptions, RobustnessConfig, TrainConfig
+ from rbe_501_so101.rl.cli import parse_args
+-from rbe_501_so101.rl.evaluation import EpisodeStats, PolicyReport, completed_episodes, passes, summarize
++from rbe_501_so101.rl.evaluation import (
++    EpisodeStats,
++    EvalOverrides,
++    PolicyReport,
++    completed_episodes,
++    passes,
++    run_episode,
++    summarize,
++)
++from rbe_501_so101.rl.policies import RandomPolicy
+ 
+ 
+ def _episode(error_m: float, speed: float = 0.01) -> EpisodeStats:
+@@ -47,3 +56,24 @@ def test_parse_args_returns_run_settings_not_namespace():
+ def test_parse_args_cpu_flag():
+     settings = parse_args(TrainConfig(), ["--cpu"])
+     assert settings.cpu is True
++
++
++def test_parse_args_calibration_and_perturb_flags(tmp_path):
++    settings = parse_args(TrainConfig(), ["--eval", "--calibration", str(tmp_path / "c.json"), "--perturb"])
++    assert settings.overrides == EvalOverrides(calibration_path=tmp_path / "c.json", perturb=True)
++    assert parse_args(TrainConfig(), ["--eval"]).overrides == EvalOverrides()
++
++
++def test_eval_overrides_layer_on_preset_options(tmp_path):
++    base = EnvOptions()
++    assert EvalOverrides().apply(base) == base
++    applied = EvalOverrides(calibration_path=tmp_path / "c.json", perturb=True).apply(base)
++    assert applied.calibration_path == str(tmp_path / "c.json")
++    assert applied.perturbation.delay_steps == max(RobustnessConfig().delay_steps)
++    assert applied.perturbation.quantization_rad == RobustnessConfig().quantization_rad
++
++
++def test_episode_stats_record_holding_actions(reach_env):
++    policy = RandomPolicy(0, reach_env.layout.n_arm)
++    stats = run_episode(reach_env, policy, seed=0, window=TrainConfig().holding_window_steps)
++    assert stats.holding_actions.shape == (TrainConfig().holding_window_steps, reach_env.layout.n_arm)

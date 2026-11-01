@@ -46,6 +46,7 @@ python -m pip install "lerobot[feetech,core_scripts,training]"
 
 echo "==> Installing this repo (editable)..."
 python -m pip install -e .
+python -m pip install --group dev
 
 echo "==> Smoke tests..."
 python -c "import mujoco; print('mujoco', mujoco.__version__)"

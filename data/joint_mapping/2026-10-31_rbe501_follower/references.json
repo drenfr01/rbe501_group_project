@@ -1,0 +1,162 @@
+[
+  {
+    "note": "pan: arm rotated as far left as possible, shoulder_lift up around 10% by eye",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -77.84615384615384,
+      "shoulder_lift.pos": -60.79120879120879,
+      "elbow_flex.pos": 97.18681318681318,
+      "wrist_flex.pos": 13.45054945054945,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -77.84615384615384,
+      -60.791208791208796,
+      97.18681318681318,
+      13.450549450549453,
+      8.571428571428571,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:09:58.397820+00:00"
+  },
+  {
+    "note": "pan: straight ahead in neural, shoulder_lift parallel to table, elbow vertical",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -1.5384615384615385,
+      "shoulder_lift.pos": -63.78021978021978,
+      "elbow_flex.pos": 14.021978021978022,
+      "wrist_flex.pos": 13.45054945054945,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -1.5384615384615385,
+      -63.78021978021979,
+      14.021978021978022,
+      13.450549450549453,
+      8.571428571428571,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:11:34.282859+00:00"
+  },
+  {
+    "note": "pan: arm pointing staright forward, lift: verticaLlyup, elbow: horizontal parallel to table",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -1.3626373626373627,
+      "shoulder_lift.pos": 27.736263736263737,
+      "elbow_flex.pos": 5.230769230769231,
+      "wrist_flex.pos": 13.362637362637363,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -1.3626373626373627,
+      27.736263736263737,
+      5.230769230769231,
+      13.362637362637363,
+      8.571428571428571,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:12:50.266818+00:00"
+  },
+  {
+    "note": "pan: straight forward lift: parallel to table, elbow: vertically up, wrist: parallel with table forward",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -1.5384615384615385,
+      "shoulder_lift.pos": -71.6043956043956,
+      "elbow_flex.pos": 9.010989010989011,
+      "wrist_flex.pos": 90.54945054945055,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -1.5384615384615385,
+      -71.6043956043956,
+      9.010989010989011,
+      90.54945054945055,
+      8.571428571428571,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:13:54.595065+00:00"
+  },
+  {
+    "note": "unknown",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -1.5384615384615385,
+      "shoulder_lift.pos": -71.6043956043956,
+      "elbow_flex.pos": 9.010989010989011,
+      "wrist_flex.pos": 90.54945054945055,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -1.5384615384615385,
+      -71.6043956043956,
+      9.010989010989011,
+      90.54945054945055,
+      8.571428571428571,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:14:15.824836+00:00"
+  },
+  {
+    "note": "pan: straight forward, lift: vertically straight perpendicular to table, elbow: horizontal parallel to table, wrist: vertically downwards perpendicular and towards table",
+    "lerobot_deg": {
+      "shoulder_pan.pos": -1.5384615384615385,
+      "shoulder_lift.pos": 26.505494505494507,
+      "elbow_flex.pos": -1.4505494505494505,
+      "wrist_flex.pos": 90.37362637362638,
+      "wrist_roll.pos": 8.395604395604396,
+      "gripper.pos": 0.333555703802535
+    },
+    "sim_deg": [
+      -1.5384615384615385,
+      26.505494505494507,
+      -1.4505494505494505,
+      90.37362637362638,
+      8.395604395604396,
+      -9.633092854324758
+    ],
+    "recorded_at": "2026-10-31T15:15:00.833329+00:00"
+  },
+  {
+    "note": "pan: rotated maximum to the right, lift: parallel to table, flex: sitting on top of shoulder parallel to table, wrist flex: 75 degrees down towards table",
+    "lerobot_deg": {
+      "shoulder_pan.pos": 110.10989010989012,
+      "shoulder_lift.pos": -73.01098901098901,
+      "elbow_flex.pos": 97.27472527472527,
+      "wrist_flex.pos": 64.26373626373626,
+      "wrist_roll.pos": 8.571428571428571,
+      "gripper.pos": 0.26684456304202797
+    },
+    "sim_deg": [
+      110.10989010989012,
+      -73.01098901098901,
+      97.27472527472527,
+      64.26373626373626,
+      8.571428571428571,
+      -9.706475140611168
+    ],
+    "recorded_at": "2026-10-31T15:16:48.452449+00:00"
+  },
+  {
+    "note": "pan: rotated maximum to right, lift: parllel to table, elbow_flex: sitting on top of shoulder, wrist flex: parallel to table. Mujoco showing angled downwards",
+    "lerobot_deg": {
+      "shoulder_pan.pos": 109.58241758241758,
+      "shoulder_lift.pos": -77.23076923076923,
+      "elbow_flex.pos": 97.53846153846153,
+      "wrist_flex.pos": 7.208791208791209,
+      "wrist_roll.pos": 8.483516483516484,
+      "gripper.pos": 0.26684456304202797
+    },
+    "sim_deg": [
+      109.58241758241758,
+      -77.23076923076924,
+      97.53846153846153,
+      7.20879120879121,
+      8.483516483516484,
+      -9.706475140611168
+    ],
+    "recorded_at": "2026-10-31T15:18:23.614808+00:00"
+  }
+]
