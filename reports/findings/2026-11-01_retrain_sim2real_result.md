@@ -73,3 +73,42 @@ few millimetres as unresolved.
 `AcceptanceConfig` gains a sixth criterion, added before the second retrain: the mean command change per holding
 step must be at most 0.25° (about three encoder counts). The dithering policy moves 1.92°/step. Integral control
 moves 0.01°/step, and IK hold and gravity compensation move 0.00.
+
+## Second full retrain: `residual_ik_sim2real_smooth` (commit `c8baf43`, 3 seeds × 1M steps)
+
+Calibrated sim, mean (p95) holding error in mm, 20 episodes per condition
+(`experiments/2026-11-01_acceptance_reach_1m_residual_ik_sim2real_smooth/`):
+
+| condition | smooth retrain | first retrain | IK hold | gravity comp | integral |
+|---|---|---|---|---|---|
+| deployment | **1.76** (4.56), 0.05°/step | 3.96, 1.92°/step | 20.41 | 12.42 | 0.80 |
+| kp 0.7× | 2.74 (7.66) | 5.89 | 28.14 | 14.22 | 0.81 |
+| kp 1.4× | 4.08 (9.48) | 7.49 | 15.97 | 12.99 | 0.81 |
+| friction band 1.5× | 2.28 (5.30) | 4.35 | 23.34 | 18.34 | 0.81 |
+
+The verdict is **REJECT on 2 of 6 criteria**. It passes four:
+
+- deployment error 1.76 mm, against a 2 mm limit;
+- beats IK hold by 18.7 mm, against a seed spread of 0.34 mm;
+- no dithering, at 0.05°/step;
+- worst stress case 4.08 mm, against a 5 mm limit.
+
+It fails two:
+
+- **Saturation, 23.5% against a 20% limit.** All of it is wrist roll, which is pinned at its ±0.2 rad residual limit
+  in seeds 0 and 2 (25% and 46% of holding steps). Seed 1 has none, and every other joint is at 0%. A pinned roll
+  correction moves the gripper by at most about 1.6 mm (the gripper site sits 8 mm off the roll axis), and it is
+  constant, not chatter. So this failure reflects how the criterion counts saturation (any joint), not a control
+  problem. The criterion is left unchanged, because it was fixed before the run.
+- **No worse than integral control: it is worse in every condition** (1.76 against 0.80 mm at deployment).
+
+What this shows:
+
+1. The smoothness penalty fixed the dithering without costing accuracy. Error fell from 3.96 to 1.76 mm, so the
+   accuracy of the first retrain didn't actually depend on dithering.
+2. The policy is the first learned controller to meet the 2 mm deployment limit in the calibrated sim, and it stays
+   within 5 mm across the stiffness and friction range. That is a feedback-like robustness the original policy
+   (D-08) did not have.
+3. Integral feedback is still about 2× more accurate in sim, so the paper's comparison is between a learned
+   corrector and a simple integrator. Which is better on the real arm (settling, behaviour under real friction) is
+   the open question for Phase 3.

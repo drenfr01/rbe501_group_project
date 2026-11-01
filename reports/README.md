@@ -56,5 +56,9 @@ Working outline of the class paper on sim2real and dynamics, with the status of 
 10. Retrained on the calibrated sim, the policy's error falls from 8.9 to 4.0 mm, but it gets there by dithering
    every command at the maximum rate to break static friction, an exploit of a regime the gate never validated
    ([retrain result](findings/2026-11-01_retrain_sim2real_result.md)).
+11. A 300× stronger penalty on action changes removes the dithering and improves accuracy: 1.76 mm at deployment,
+   at most 4.1 mm under stiffness and friction stress, and no measurable chatter. It is the first learned controller
+   within the 2 mm limit, but integral control is still at 0.8 mm
+   ([retrain result](findings/2026-11-01_retrain_sim2real_result.md)).
 
 ![Stiffness sweep](figures/kp_sweep.png)
