@@ -12,6 +12,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecMonitor, VecNormali
 
 from rbe_501_so101.config import PRESETS, ExperimentPreset, SacTuning, TrainConfig
 from rbe_501_so101.envs import REACH_ENV_ID
+from rbe_501_so101.rl.checkpoint import PeriodicCheckpoint, TrainingCheckpoint
 from rbe_501_so101.rl.checkpoints import CheckpointRepository
 
 ALGORITHMS: dict[str, type[BaseAlgorithm]] = {"sac": SAC, "ppo": PPO}
@@ -108,3 +109,56 @@ def train_seed(
     env.save(str(repo.normalizer_path(seed)))
     env.close()
     return repo.seed_dir(seed)
+
+
+def train_with_factory(
+    seed: int,
+    factory: Callable[[], gym.Env],
+    *,
+    algo: AlgoName,
+    timesteps: int,
+    seed_dir: Path,
+    cfg: TrainConfig,
+    device: str = "cuda",
+) -> Path:
+    """Train or resume one seed up to `timesteps` total steps."""
+    seed_dir.mkdir(parents=True, exist_ok=True)
+    checkpoint = TrainingCheckpoint.in_dir(seed_dir, cfg)
+    model, env = _resume_or_build(checkpoint, factory, algo, seed, cfg, device)
+    remaining = timesteps - model.num_timesteps
+    if remaining > 0:
+        _learn(model, env, checkpoint, remaining, cfg)
+        model.save(seed_dir / cfg.model_filename)
+        env.save(str(seed_dir / cfg.vecnormalize_filename))
+    else:
+        print(f"{seed_dir} already has {model.num_timesteps} of {timesteps} timesteps; nothing to train")
+    env.close()
+    return seed_dir
+
+
+def _resume_or_build(
+    checkpoint: TrainingCheckpoint,
+    factory: Callable[[], gym.Env],
+    algo: AlgoName,
+    seed: int,
+    cfg: TrainConfig,
+    device: str,
+) -> tuple[BaseAlgorithm, VecNormalize]:
+    """Load the checkpointed model and normalizer, or build fresh ones."""
+    venv = DummyVecEnv([factory])
+    venv.seed(seed)
+    if checkpoint.exists():
+        model, env = checkpoint.load(ALGORITHMS[algo], venv, device)
+        print(f"Resuming from {checkpoint.root} at {model.num_timesteps} timesteps")
+        return model, env
+    env = VecNormalize(venv, norm_obs=True, norm_reward=False, gamma=cfg.gamma)
+    return build_model(algo, env, seed, cfg, device=device), env
+
+
+def _learn(model: BaseAlgorithm, env: VecNormalize, checkpoint: TrainingCheckpoint, steps: int, cfg: TrainConfig) -> None:
+    """Train for `steps` and save a final checkpoint."""
+    callback = PeriodicCheckpoint(checkpoint, env, cfg.checkpoint_freq_steps)
+    try:
+        model.learn(total_timesteps=steps, reset_num_timesteps=False, callback=callback)
+    finally:
+        callback.save_if_new()

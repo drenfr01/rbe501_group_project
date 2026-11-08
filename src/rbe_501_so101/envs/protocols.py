@@ -4,7 +4,7 @@ from typing import Protocol, runtime_checkable
 
 import numpy as np
 
-from rbe_501_so101.envs.types import JointLimits, RewardTerms, RobotState
+from rbe_501_so101.envs.types import GraspState, JointLimits, PickLiftRewardTerms, RewardTerms, RobotState
 
 
 @runtime_checkable
@@ -94,4 +94,41 @@ class RewardFunction(Protocol):
         prev_action: np.ndarray,
     ) -> RewardTerms:
         """Return the decomposed reward for one step."""
+        ...
+
+
+@runtime_checkable
+class GraspBackend(RobotBackend, Protocol):
+    """A robot backend that can also place an object, drive the gripper, and sense the grasp."""
+
+    def place_object(self, p_s: np.ndarray, yaw_rad: float, mass_kg: float) -> None:
+        """Put the object at rest at p_s with the given yaw and mass."""
+        ...
+
+    def apply_gripper_delta(self, delta_rad: float) -> None:
+        """Add a relative change to the commanded gripper angle."""
+        ...
+
+    def grasp_state(self) -> GraspState:
+        """Robot, pinch point, object, and whether both finger pads touch the object."""
+        ...
+
+
+class ObjectPlacer(Protocol):
+    """Chooses where the object starts each episode."""
+
+    def sample(self, rng: np.random.Generator) -> tuple[np.ndarray, float]:
+        """Return the object center p_s (m) and yaw (rad)."""
+        ...
+
+
+class PickLiftRewardFunction(Protocol):
+    """Computes pick-and-lift reward terms from the grasp state and action."""
+
+    def __call__(self, state: GraspState, action: np.ndarray) -> PickLiftRewardTerms:
+        """Return the decomposed reward for one step."""
+        ...
+
+    def is_success(self, state: GraspState) -> bool:
+        """True when the task counts as accomplished in this state."""
         ...

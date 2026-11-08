@@ -215,6 +215,9 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Reinforcement Learning Checkpoints & Logs
-checkpoints/
+/checkpoints/*
+!/checkpoints/pick-lift\ checkpoint/
 *.monitor.csv
+!/checkpoints/pick-lift\ checkpoint/pick_lift_fixed_10g_25mm/seed_0/train.monitor.csv
+!/checkpoints/pick-lift\ checkpoint/pick_lift_random_5_20g_25mm/seed_0/train.monitor.csv
 logs/
