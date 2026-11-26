@@ -1,0 +1,8 @@
+{
+  "passed_stability_gate": true,
+  "known_regressions_pass": true,
+  "additional_failure_cases": [],
+  "useful_benefit_established": false,
+  "start_full_training": false,
+  "reason": "A short stability pilot does not establish useful improvement over the scripted reference."
+}

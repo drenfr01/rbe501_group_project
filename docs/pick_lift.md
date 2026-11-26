@@ -135,3 +135,14 @@ then reduces pre-close cube movement below 0.16 mm on its fresh batch, without
 observed table contact. It achieves 79/80 arm-effect lifts versus both references'
 80/80, and known 5 g retention failures remain. It is an opt-in trajectory
 prototype, not a promoted controller or a new trained policy.
+
+The [closing endpoint check](../reports/findings/2026-11-26_gripper_closing.md)
+then validates Cartesian acquisition with a 0-degree closing endpoint: 160/160
+fresh scripted lifts and 24/24 known regressions pass in simulation.
+
+The [fresh Cartesian/zero-closing SAC pilot](../reports/findings/2026-11-26_cartesian_zero_rl_pilot.md)
+serializes that setup in a separate v3 preset and trains 10k transitions on CUDA.
+Its saved policy matches the script at 160/160 fresh lifts and passes 24/24 known
+regressions. This passes stability, but establishes no useful RL improvement yet.
+The findings contain replay commands and local checkpoint locations; binaries
+are not included in Git. Default presets and earlier policies remain unchanged.
