@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "preset": {
+    "name": "calibrated_outer_wrist_v1",
+    "motion": {
+      "name": "outer_wrist",
+      "gravity_feedforward": true,
+      "radial_jaw_alignment": true,
+      "grasp_height_m": -0.004,
+      "upright_lift": false,
+      "lift_reference": "cube",
+      "correction_limit_rad": 0.1,
+      "yaw_rounds": 3,
+      "yaw_probe_rad": 0.001,
+      "minimum_yaw_derivative": 0.1,
+      "wrist_seed_offset_rad": 0.0,
+      "opposite_wrist_radius_m": 0.21
+    },
+    "mass": {
+      "mode": "random",
+      "fixed_kg": 0.01,
+      "range_kg": [
+        0.005,
+        0.02
+      ]
+    },
+    "residual": {
+      "scale": 0.5
+    },
+    "arm_effects": true,
+    "stable_steps": 5,
+    "calibration_file": "data/calibration/actuator_calibration.json"
+  },
+  "snapshot": {
+    "preset": {
+      "name": "calibrated_outer_wrist_v1",
+      "motion": {
+        "name": "outer_wrist",
+        "gravity_feedforward": true,
+        "radial_jaw_alignment": true,
+        "grasp_height_m": -0.004,
+        "upright_lift": false,
+        "lift_reference": "cube",
+        "correction_limit_rad": 0.1,
+        "yaw_rounds": 3,
+        "yaw_probe_rad": 0.001,
+        "minimum_yaw_derivative": 0.1,
+        "wrist_seed_offset_rad": 0.0,
+        "opposite_wrist_radius_m": 0.21
+      },
+      "mass": {
+        "mode": "random",
+        "fixed_kg": 0.01,
+        "range_kg": [
+          0.005,
+          0.02
+        ]
+      },
+      "residual": {
+        "scale": 0.5
+      },
+      "arm_effects": true,
+      "stable_steps": 5,
+      "calibration_file": "data/calibration/actuator_calibration.json"
+    },
+    "environment": {
+      "sim": {
+        "model_path": "models/so101/so101.xml",
+        "timestep_s": 0.001,
+        "n_substeps": 33,
+        "initial_deg": [
+          0.0,
+          -20.0,
+          40.0,
+          15.0,
+          0.0,
+          45.0
+        ],
+        "stall_torque_nm": 2.9,
+        "arm_joints": [
+          "shoulder_pan",
+          "shoulder_lift",
+          "elbow_flex",
+          "wrist_flex",
+          "wrist_roll"
+        ],
+        "gripper_joint": "gripper",
+        "actuator_suffix": "_motor",
+        "tcp_site": "gripper_site",
+        "target_mocap_body": "reach_target",
+        "target_site": "reach_target_site",
+        "payload_body": "gripper_link",
+        "radial_axis_joint": "shoulder_pan",
+        "robot_root_body": "robot_mount",
+        "table_body": "table_frame",
+        "table_top_geom": "table_top",
+        "parked_bodies": [],
+        "calibration_path": "data/calibration/actuator_calibration.json"
+      },
+      "task": {
+        "delta_q_max_rad": 0.07,
+        "delta_gripper_max_rad": 0.1,
+        "max_episode_steps": 200,
+        "lift_success_m": 0.04
+      },
+      "gripper": {
+        "fixed_jaw_mesh": "wrist_roll_follower_so101_v1",
+        "moving_jaw_mesh": "moving_jaw_so101_v1",
+        "fixed_pad_cutoff_m": -0.058,
+        "moving_pad_cutoff_m": -0.048,
+        "pad_friction": [
+          1.5,
+          0.01,
+          0.001
+        ],
+        "pad_solref": [
+          0.005,
+          1.0
+        ],
+        "pad_solimp": [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        "pinch_clearance_m": 0.004,
+        "open_deg": 45.0,
+        "close_deg": -10.0
+      },
+      "object": {
+        "body": "cube",
+        "geom": "cube_geom",
+        "side_m": 0.025
+      },
+      "contact": {
+        "elliptic_cone": true,
+        "impratio": 10.0
+      },
+      "placement": {
+        "radial_min_m": 0.14,
+        "radial_max_m": 0.22,
+        "azimuth_max_deg": 40.0
+      },
+      "reward": {
+        "reach_scale_per_m": 10.0,
+        "grasp_bonus": 0.25,
+        "lift_weight": 1.0,
+        "success_bonus": 1.0,
+        "action_penalty": 0.01
+      },
+      "mass": {
+        "mode": "random",
+        "fixed_kg": 0.01,
+        "range_kg": [
+          0.005,
+          0.02
+        ]
+      }
+    },
+    "scripted": {
+      "pregrasp_height_m": 0.05,
+      "grasp_height_m": 0.0,
+      "lift_height_m": 0.07,
+      "approach_steps": 40,
+      "descend_steps": 30,
+      "close_steps": 30,
+      "arm_rate_rad": 0.07,
+      "close_rate_rad": 0.05,
+      "lift_rate_rad": 0.02
+    },
+    "servo": {
+      "stiction": true,
+      "stiction_scale_range": [
+        1.0,
+        1.0
+      ],
+      "stiction_transition_ratio": 1.5,
+      "relative_clip_rad": 0.17453292519943295
+    },
+    "sensing": {
+      "delay_steps": 1,
+      "quantization_rad": 0.0015339807878856412,
+      "randomize_delay": false
+    },
+    "effects_rng_seed": 0,
+    "wrapper_order": [
+      "residual",
+      "contact_audit",
+      "guard",
+      "raw"
+    ]
+  },
+  "training": {
+    "algo": "sac",
+    "timesteps": 10000,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "learning_rate": 0.0003,
+    "batch_size": 256,
+    "gamma": 0.98,
+    "model_dir": "checkpoints/reach",
+    "eval_episodes": 20,
+    "eval_seed_offset": 10000,
+    "holding_window_steps": 30,
+    "success_mean_m": 0.005,
+    "success_p95_m": 0.01,
+    "holding_joint_speed_max_rad_s": 0.05,
+    "model_filename": "model.zip",
+    "vecnormalize_filename": "vecnormalize.pkl",
+    "checkpoint_freq_steps": 5000,
+    "checkpoint_dirname": "checkpoint",
+    "checkpoint_log_filename": "checkpoint_log.json",
+    "replay_buffer_filename": "replay_buffer.pkl",
+    "run_config_filename": "run_config.json",
+    "monitor_stem": "train"
+  },
+  "seed": 0,
+  "steps": 10000,
+  "input_sha256": {
+    "models/so101/so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+    "data/calibration/actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c"
+  }
+}

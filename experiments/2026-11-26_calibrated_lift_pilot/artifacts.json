@@ -1,0 +1,20 @@
+{
+  "seed_dir": "checkpoints\\calibrated_outer_wrist_pilot\\seed_0",
+  "sha256": {
+    "checkpoint_log.json": "91e22720618587aa5ff28f7ca742bc0d5cd5b6fa8788bfe1533440a9fca48aba",
+    "model.zip": "58319a853f35bb7b6f52c8f628c229dfac7de54cd1336607e5cff64143542544",
+    "train.monitor.csv": "a57518ca3760331e41b997b80ef1ad13fc8510f56ec062dd1ef389c81608616a",
+    "vecnormalize.pkl": "c7af477533bb6c75c3d2b069388b39d0e2e777430b83cd5dba6cfe96e8dbf3fd",
+    "checkpoint\\model.zip": "4153ec12fce5f71a51bb83801f676272d639f8baa77446111529d482fd54aa03",
+    "checkpoint\\replay_buffer.pkl": "3fc0497d1fb7c1fc8a05e3e3e995b552adfc51077126d803ba606131b623b228",
+    "checkpoint\\vecnormalize.pkl": "c7af477533bb6c75c3d2b069388b39d0e2e777430b83cd5dba6cfe96e8dbf3fd"
+  },
+  "timesteps": 10000,
+  "device": "cuda",
+  "learning_starts": 100,
+  "batch_size": 256,
+  "buffer_size": 300000,
+  "gradient_steps": 1,
+  "train_freq": "TrainFreq(frequency=1, unit=<TrainFrequencyUnit.STEP: 'step'>)",
+  "policy": "SACPolicy(\n  (actor): Actor(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (latent_pi): Sequential(\n      (0): Linear(in_features=33, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n    )\n    (mu): Linear(in_features=256, out_features=6, bias=True)\n    (log_std): Linear(in_features=256, out_features=6, bias=True)\n  )\n  (critic): ContinuousCritic(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (qf0): Sequential(\n      (0): Linear(in_features=39, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n    (qf1): Sequential(\n      (0): Linear(in_features=39, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n  )\n  (critic_target): ContinuousCritic(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (qf0): Sequential(\n      (0): Linear(in_features=39, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n    (qf1): Sequential(\n      (0): Linear(in_features=39, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n  )\n)"
+}

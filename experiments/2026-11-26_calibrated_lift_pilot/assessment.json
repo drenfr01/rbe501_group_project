@@ -1,0 +1,5 @@
+{
+  "passed_pilot_gate": false,
+  "start_full_training": false,
+  "gate": "Each mass >=95% success, <=5% sampled table-contact episodes, no warnings"
+}

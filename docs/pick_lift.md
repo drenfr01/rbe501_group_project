@@ -96,3 +96,9 @@ document the opt-in `--motion-variant outer_wrist` candidate: 200/200 scripted
 lifts with stiffness alone and 199/200 with arm effects on fresh placements,
 with no sampled table contacts. It passes the observed simulation gate; training
 defaults and saved policies are unchanged.
+
+The [calibrated SAC pilot](../reports/findings/2026-11-26_calibrated_lift_pilot.md)
+adds a separate serialized training preset and a 10k-transition fresh-policy test.
+It failed held-out evaluation (29/80 lifts versus scripted 79/80, with table
+contacts), so its weights are not promoted. The report includes the dedicated
+training/replay commands and locations of the local checkpoint companions.
