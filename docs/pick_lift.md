@@ -44,3 +44,21 @@ allow a held cube to stay between the jaws. The source model remains unchanged.
 The simulated motor gains are placeholders, so these results do not measure
 real SO-101 payload limits. The simulation currently assumes fixed contact
 settings; verify that their friction matches the printed material.
+
+## Calibration integration boundary
+
+Merging the reaching calibration code does not change existing pick-and-lift
+checkpoints or their default dynamics. Calibrated reaching presets construct
+the measured-stiffness backend and their configured servo/friction and sensing
+wrappers through `envs/factory.py`.
+
+For a controlled pick-and-lift stiffness experiment, Python callers can set
+`PickLiftConfig.sim.calibration_path` to the measured actuator JSON. The shared
+backend applies those gains to the compiled grasp model before capturing its
+nominal dynamics, so resets preserve them. This does **not** enable the reaching
+servo-effects wrappers or calibrate the moving gripper, contact friction, or
+payload response. Existing pick-and-lift CLI commands retain their original
+dynamics; a fully calibrated manipulation preset needs separate validation.
+
+See `reports/findings/2026-11-26_calibration_pick_lift_integration.md` for the
+integration checks and the small original-versus-measured-stiffness comparison.

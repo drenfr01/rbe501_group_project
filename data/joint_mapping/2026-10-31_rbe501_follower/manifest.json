@@ -1,0 +1,27 @@
+{
+  "script": "scripts/sim2real/collect/mirror_arm.py",
+  "argv": [],
+  "git_commit": "c5954a4ca7dd8a45221fe40915650d046eb2bf41",
+  "git_dirty": false,
+  "started_at": "2026-10-31T15:07:37.659038+00:00",
+  "finished_at": "2026-10-31T15:18:25.800599+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": "rbe501_follower"
+}
