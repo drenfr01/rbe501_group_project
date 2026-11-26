@@ -1,0 +1,16 @@
+{
+  "tuning_episodes": 240,
+  "heldout_episodes": 720,
+  "guard_verified": true,
+  "guard_abort_step": 125,
+  "candidate_clearance_m": 0.0,
+  "promote_to_defaults": false,
+  "ready_for_training": false,
+  "reasons": [
+    "Clearance increases reduced grasp acquisition",
+    "Grasp guard did not improve held-out success",
+    "Frequent table contacts remain",
+    "Additional arm effects degrade existing policy performance",
+    "Gripper/contact/object-sensing calibration and hardware validation are missing"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "selected": {
+    "name": "guarded_stiffness_candidate",
+    "clearance_m": 0.0,
+    "gated": true,
+    "arm_effects": false,
+    "stable_contact_steps": 5
+  },
+  "arm_effects_stress": {
+    "name": "guarded_arm_effects_candidate",
+    "clearance_m": 0.0,
+    "gated": true,
+    "arm_effects": true,
+    "stable_contact_steps": 5
+  },
+  "input_sha256": {
+    "models\\so101\\so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+    "data\\calibration\\actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\run_info.json": "6d89d9e0125d7813b95d6a882fbe36079e06b6f0b8ce3b2d5f9c5a3662157afa",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\model.zip": "60846e9851621894f44666c1f3981800c26b39c0bda834561ad45607265333be",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\vecnormalize.pkl": "89d6190e0ba096130e01389d0de7319694ab1b023eba92bd808045e8779fa07e",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\run_info.json": "e404b79e78bf813ed01484d88c65d9674acf1edaa396f4e06953c9e509a6a4fe",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\model.zip": "9fe4c84d061f2610063e036e9469427ca9a5f286bf9a3dd662f1516259ae8675",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\vecnormalize.pkl": "5150b535e9980bfc179b58b85d271552d78f82d2eba90af977e0b638808a5c46"
+  },
+  "tuning_seeds": [
+    40000,
+    40009
+  ],
+  "heldout_seeds": [
+    50000,
+    50019
+  ],
+  "scope": "Simulation experiment; not hardware-calibrated manipulation approval",
+  "selection": "Among guarded settings with >=95% success if any, minimize table-contact episodes; otherwise exploratory only"
+}

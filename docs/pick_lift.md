@@ -62,3 +62,22 @@ dynamics; a fully calibrated manipulation preset needs separate validation.
 
 See `reports/findings/2026-11-26_calibration_pick_lift_integration.md` for the
 integration checks and the small original-versus-measured-stiffness comparison.
+
+## Experimental guarded setup validation
+
+The opt-in validation below compares a stable-contact lift guard, 0–8 mm grasp
+waypoint offsets, and manipulation access to the existing arm servo/sensing
+wrappers. It does not change any default controller or checkpoint. Its frozen
+candidate is **not approved for retraining or hardware deployment**: held-out
+tests still find table contact and grasp loss.
+
+```powershell
+uv run --locked python -m scripts.sim2real.analyze.validate_pick_lift_setup --out experiments/guarded_setup_repeat
+uv run --locked python -m scripts.sim2real.analyze.replay_pick_lift --controller random_5_20g --mass-kg 0.005 --placement-seed 20008 --calibrated --guarded --viewer --out experiments/guarded_drop_viewer
+```
+
+Output directories must be new. Add `--arm-effects` to the replay to stress the
+controller with arm stiction, clipping, fixed delay, and encoder quantization.
+This is not a hardware-calibrated gripper/contact/perception model. The guard
+uses simulation contact truth, and cannot catch a cube after it has slipped.
+See `reports/findings/2026-11-26_guarded_pick_lift_validation.md`.

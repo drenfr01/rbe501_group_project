@@ -82,6 +82,7 @@ def snapshot(raw, info: dict, step: int, action: np.ndarray) -> dict:
         "joint_error_deg": np.rad2deg(state.robot.q_cmd - state.robot.qpos).tolist(),
         "policy_action": action.tolist(), "contacts": contacts,
         "warnings": raw.backend.has_warnings(),
+        "lift_released": info.get("lift_released"), "grasp_abort": info.get("grasp_abort"),
     }
 
 
@@ -123,18 +124,28 @@ def rollout(env, policy, seed: int, output: Path, frames: bool, viewer: bool) ->
 
 
 def replay(controller: str, mass: float, seed: int, calibrated: bool, output: Path,
-           frames: bool = False, viewer: bool = False) -> dict:
+           frames: bool = False, viewer: bool = False, guarded: bool = False,
+           arm_effects: bool = False, clearance_m: float = 0.0) -> dict:
     """Write a new trace directory while leaving every input artifact unchanged."""
     output.mkdir(parents=True, exist_ok=False)
     config = make_config(mass, calibrated)
-    env, policy = build_condition(config, controller, "human" if viewer else None)
+    if guarded or arm_effects or clearance_m:
+        if not calibrated:
+            raise ValueError("Experimental guard/clearance/arm-effect replays require --calibrated")
+        from scripts.sim2real.analyze.validate_pick_lift_setup import Setup, build
+        setup = Setup("replay", clearance_m, guarded, arm_effects)
+        env, policy = build(setup, controller, mass, "human" if viewer else None)
+    else:
+        env, policy = build_condition(config, controller, "human" if viewer else None)
     try:
         trace = rollout(env, policy, seed, output, frames, viewer)
     finally:
         env.close()
         getattr(policy, "close", lambda: None)()
     result = {"controller": controller, "mass_kg": mass, "placement_seed": seed,
-              "calibrated_stiffness_only": calibrated, "events": transition_events(trace), "trace": trace}
+              "calibrated_stiffness_only": calibrated and not arm_effects,
+              "guarded": guarded, "arm_effects": arm_effects, "clearance_m": clearance_m,
+              "events": transition_events(trace), "trace": trace}
     (output / "trace.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"{output}: final success={trace[-1]['success']}, lift={trace[-1]['lift_m']*100:.2f} cm", flush=True)
     return result
@@ -148,7 +159,13 @@ if __name__ == "__main__":
     parser.add_argument("--calibrated", action="store_true")
     parser.add_argument("--frames", action="store_true")
     parser.add_argument("--viewer", action="store_true")
+    parser.add_argument("--guarded", action="store_true", help="Require stable grasp before lift; stop arm commands on loss")
+    parser.add_argument("--arm-effects", action="store_true", help="Experimental measured arm servo/sensing effects")
+    parser.add_argument("--clearance-mm", type=float, default=0.0, help="Experimental grasp waypoint offset; frozen candidate uses 0")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
+    if (args.guarded or args.arm_effects or args.clearance_mm) and not args.calibrated:
+        parser.error("--guarded, --arm-effects, and --clearance-mm require --calibrated")
     torch.set_num_threads(1)
-    replay(args.controller, args.mass_kg, args.placement_seed, args.calibrated, args.out, args.frames, args.viewer)
+    replay(args.controller, args.mass_kg, args.placement_seed, args.calibrated, args.out, args.frames, args.viewer,
+           args.guarded, args.arm_effects, args.clearance_mm / 1000)

@@ -1,0 +1,183 @@
+{
+  "python": "3.12.15 (main, Oct  1 2026, 21:00:48) [MSC v.1944 64 bit (AMD64)]",
+  "git_base": "1f5b1fb13208789ebfb14aed878d020be7be76c8",
+  "command": "python -m scripts.sim2real.analyze.validate_pick_lift_setup --out experiments/2026-11-26_guarded_pick_lift_validation",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "script_sha256": {
+    "src/rbe_501_so101/control/guarded_pick_lift.py": "65049cc9d361c7cead56356eba6b50a92ee52b32e03ca327d9310efc1540dedd",
+    "src/rbe_501_so101/envs/grasp_servo_backend.py": "8109b4cf5325bc46312ff38d8048740d5586404517ec7334eb16500049b4cee0",
+    "scripts/sim2real/analyze/validate_pick_lift_setup.py": "3723457a4322f6a15325b2c1d79aadbe9420f032e98ecab8f7a2db80521e5ffa",
+    "src/rbe_501_so101/config.py": "c3168d8ec48b0abf5700e5f64195c48626c77462ce7ad5812954a0e6dc7b05e3"
+  },
+  "physical_config_example_10g": {
+    "sim": {
+      "model_path": "C:\\Users\\halay\\Desktop\\SO101\\models\\so101\\so101.xml",
+      "timestep_s": 0.001,
+      "n_substeps": 33,
+      "initial_deg": [
+        0.0,
+        -20.0,
+        40.0,
+        15.0,
+        0.0,
+        45.0
+      ],
+      "stall_torque_nm": 2.9,
+      "arm_joints": [
+        "shoulder_pan",
+        "shoulder_lift",
+        "elbow_flex",
+        "wrist_flex",
+        "wrist_roll"
+      ],
+      "gripper_joint": "gripper",
+      "actuator_suffix": "_motor",
+      "tcp_site": "gripper_site",
+      "target_mocap_body": "reach_target",
+      "target_site": "reach_target_site",
+      "payload_body": "gripper_link",
+      "radial_axis_joint": "shoulder_pan",
+      "robot_root_body": "robot_mount",
+      "table_body": "table_frame",
+      "table_top_geom": "table_top",
+      "parked_bodies": [],
+      "calibration_path": "C:\\Users\\halay\\Desktop\\SO101\\data\\calibration\\actuator_calibration.json"
+    },
+    "task": {
+      "delta_q_max_rad": 0.07,
+      "delta_gripper_max_rad": 0.1,
+      "max_episode_steps": 200,
+      "lift_success_m": 0.04
+    },
+    "gripper": {
+      "fixed_jaw_mesh": "wrist_roll_follower_so101_v1",
+      "moving_jaw_mesh": "moving_jaw_so101_v1",
+      "fixed_pad_cutoff_m": -0.058,
+      "moving_pad_cutoff_m": -0.048,
+      "pad_friction": [
+        1.5,
+        0.01,
+        0.001
+      ],
+      "pad_solref": [
+        0.005,
+        1.0
+      ],
+      "pad_solimp": [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      "pinch_clearance_m": 0.004,
+      "open_deg": 45.0,
+      "close_deg": -10.0
+    },
+    "object": {
+      "body": "cube",
+      "geom": "cube_geom",
+      "side_m": 0.025
+    },
+    "contact": {
+      "elliptic_cone": true,
+      "impratio": 10.0
+    },
+    "placement": {
+      "radial_min_m": 0.14,
+      "radial_max_m": 0.22,
+      "azimuth_max_deg": 40.0
+    },
+    "reward": {
+      "reach_scale_per_m": 10.0,
+      "grasp_bonus": 0.25,
+      "lift_weight": 1.0,
+      "success_bonus": 1.0,
+      "action_penalty": 0.01
+    },
+    "mass": {
+      "mode": "fixed",
+      "fixed_kg": 0.01,
+      "range_kg": [
+        0.005,
+        0.02
+      ]
+    }
+  },
+  "arm_servo": {
+    "stiction": true,
+    "stiction_scale_range": [
+      1.0,
+      1.0
+    ],
+    "stiction_transition_ratio": 1.5,
+    "relative_clip_rad": 0.17453292519943295
+  },
+  "sensing": {
+    "delay_steps": 1,
+    "quantization_rad": 0.0015339807878856412,
+    "randomize_delay": false
+  },
+  "excluded": [
+    "moving-gripper calibration",
+    "gripper command delay",
+    "real joint-window constraints",
+    "payload-dependent stiction fit",
+    "object perception noise",
+    "hardware validation"
+  ],
+  "grasp_gate": "5 consecutive two-pad contact samples; privileged MuJoCo contact state; arm hold after loss; no retries",
+  "frozen_before_holdout": {
+    "selected": {
+      "name": "guarded_stiffness_candidate",
+      "clearance_m": 0.0,
+      "gated": true,
+      "arm_effects": false,
+      "stable_contact_steps": 5
+    },
+    "arm_effects_stress": {
+      "name": "guarded_arm_effects_candidate",
+      "clearance_m": 0.0,
+      "gated": true,
+      "arm_effects": true,
+      "stable_contact_steps": 5
+    },
+    "input_sha256": {
+      "models\\so101\\so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+      "data\\calibration\\actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\run_info.json": "6d89d9e0125d7813b95d6a882fbe36079e06b6f0b8ce3b2d5f9c5a3662157afa",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\model.zip": "60846e9851621894f44666c1f3981800c26b39c0bda834561ad45607265333be",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\vecnormalize.pkl": "89d6190e0ba096130e01389d0de7319694ab1b023eba92bd808045e8779fa07e",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\run_info.json": "e404b79e78bf813ed01484d88c65d9674acf1edaa396f4e06953c9e509a6a4fe",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\model.zip": "9fe4c84d061f2610063e036e9469427ca9a5f286bf9a3dd662f1516259ae8675",
+      "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\vecnormalize.pkl": "5150b535e9980bfc179b58b85d271552d78f82d2eba90af977e0b638808a5c46"
+    },
+    "tuning_seeds": [
+      40000,
+      40009
+    ],
+    "heldout_seeds": [
+      50000,
+      50019
+    ],
+    "scope": "Simulation experiment; not hardware-calibrated manipulation approval",
+    "selection": "Among guarded settings with >=95% success if any, minimize table-contact episodes; otherwise exploratory only"
+  },
+  "final_script_sha256": {
+    "src/rbe_501_so101/control/guarded_pick_lift.py": "65049cc9d361c7cead56356eba6b50a92ee52b32e03ca327d9310efc1540dedd",
+    "src/rbe_501_so101/envs/grasp_servo_backend.py": "b4f691571ad4069120c2650ee60c18f95157d790dc6a0e56bf348964518f5b44",
+    "scripts/sim2real/analyze/validate_pick_lift_setup.py": "c3bd674d727a48cd7863dee822e30c33dbbbe0c495eb0ba473f5a23f5124a3a5",
+    "src/rbe_501_so101/config.py": "c3168d8ec48b0abf5700e5f64195c48626c77462ce7ad5812954a0e6dc7b05e3"
+  },
+  "post_hardening_reproductions": 18,
+  "final_test_result": {
+    "passed": 370,
+    "skipped": 1
+  }
+}
