@@ -1,0 +1,4482 @@
+[
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.009817184479527397,
+    "adjusted_pinch_difference_mm": 0.013829701336308111
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.00028787465617169383,
+    "adjusted_pinch_difference_mm": -0.0018126390082859557
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.0019421686302739105,
+    "adjusted_pinch_difference_mm": 0.0017901384071383128
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.016646089061593372,
+    "adjusted_pinch_difference_mm": 0.013492279409659056
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.011818330468283622,
+    "adjusted_pinch_difference_mm": 0.017194579571338128
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.015333548855019086,
+    "adjusted_pinch_difference_mm": 0.06401187946107555
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.007586324566860703,
+    "adjusted_pinch_difference_mm": 0.009783366677758473
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.019883294186561817,
+    "adjusted_pinch_difference_mm": 0.022286007121942324
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0007121652251104171,
+    "adjusted_pinch_difference_mm": -0.04250747967029281
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.013314172103194355,
+    "adjusted_pinch_difference_mm": 0.01747925691783412
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.00027498132632020056,
+    "adjusted_pinch_difference_mm": 0.011025161608534147
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0033531204301991413,
+    "adjusted_pinch_difference_mm": 6.572636557836454e-05
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.005319363290233636,
+    "adjusted_pinch_difference_mm": 0.011186504411540864
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.0032156661279971743,
+    "adjusted_pinch_difference_mm": 0.031231675105210924
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.004483612003820692,
+    "adjusted_pinch_difference_mm": 0.004213184535628945
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.02448452171743129,
+    "adjusted_pinch_difference_mm": 0.034913859571389476
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0019020021111109953,
+    "adjusted_pinch_difference_mm": 0.021736166176632158
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.02306185913168396,
+    "adjusted_pinch_difference_mm": -0.0015202717162312804
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.004845833992872667,
+    "adjusted_pinch_difference_mm": 0.03740617294437146
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.022863313625960474,
+    "adjusted_pinch_difference_mm": 0.0038048015716445143
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.007350287027400648,
+    "adjusted_pinch_difference_mm": 0.009895597433174953
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0021875728645299186,
+    "adjusted_pinch_difference_mm": 0.007831048769487464
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.03173870778880927,
+    "adjusted_pinch_difference_mm": 0.037394340387930596
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0011518046787273306,
+    "adjusted_pinch_difference_mm": -0.0021115698624173153
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.014987037642968881,
+    "adjusted_pinch_difference_mm": 0.03476313569930782
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.03672935658362553,
+    "adjusted_pinch_difference_mm": 0.07574969167496604
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.004417173889513237,
+    "adjusted_pinch_difference_mm": 0.0501337386968369
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.018406220451739508,
+    "adjusted_pinch_difference_mm": 0.02017253593225198
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.01218017735048782,
+    "adjusted_pinch_difference_mm": 0.013965721651676706
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.013363029072859911,
+    "adjusted_pinch_difference_mm": 0.021620381699724772
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.006935030690747412,
+    "adjusted_pinch_difference_mm": 0.016612992319077625
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0030018907998036193,
+    "adjusted_pinch_difference_mm": 0.007297806530716192
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.024368894531676843,
+    "adjusted_pinch_difference_mm": 0.02918412381694403
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.013492546326587807,
+    "adjusted_pinch_difference_mm": 0.01821234451829104
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.00961169513045812,
+    "adjusted_pinch_difference_mm": 0.015910715458535486
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": -0.008989434700844623,
+    "adjusted_pinch_difference_mm": 0.026321932350140465
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.0036164788297922135,
+    "adjusted_pinch_difference_mm": 0.05304471664239491
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.013092184149201824,
+    "adjusted_pinch_difference_mm": 0.02918968057125418
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.02213909241791373,
+    "adjusted_pinch_difference_mm": 0.06496961784478848
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+x",
+    "adjusted_cube_difference_mm": 0.014594467791999577,
+    "adjusted_pinch_difference_mm": 0.06425738592889019
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.0070909099094059735,
+    "adjusted_pinch_difference_mm": 0.009880179313410915
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.019687295284385897,
+    "adjusted_pinch_difference_mm": 0.019020646225495607
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.0012752698553829545,
+    "adjusted_pinch_difference_mm": 0.0013907844214450168
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.00030346726838983984,
+    "adjusted_pinch_difference_mm": 3.423781434522071e-05
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.03779989931935002,
+    "adjusted_pinch_difference_mm": 0.04208066019432717
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.03452917096431268,
+    "adjusted_pinch_difference_mm": 0.037165701531616184
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.04011195066878198,
+    "adjusted_pinch_difference_mm": 0.06895918945723926
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.022689797427682235,
+    "adjusted_pinch_difference_mm": 0.030712529550560443
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.019104686795621162,
+    "adjusted_pinch_difference_mm": -0.041263629798458296
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.03768668313948753,
+    "adjusted_pinch_difference_mm": 0.04070421492249239
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.02044077156345342,
+    "adjusted_pinch_difference_mm": 0.03953887543789368
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.0019209799188612542,
+    "adjusted_pinch_difference_mm": 0.008535331610710767
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.017707862533419577,
+    "adjusted_pinch_difference_mm": 0.019721057556919205
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.006897567697627061,
+    "adjusted_pinch_difference_mm": -0.004283086989180973
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.005207617339174075,
+    "adjusted_pinch_difference_mm": 0.017623631032661815
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.011285538498140957,
+    "adjusted_pinch_difference_mm": 0.010630112523687943
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.004667381781970362,
+    "adjusted_pinch_difference_mm": 0.012740953414752407
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.02760864616353051,
+    "adjusted_pinch_difference_mm": -0.03047400483960166
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.0012065150217686615,
+    "adjusted_pinch_difference_mm": 0.010547534150935147
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.0136114867212829,
+    "adjusted_pinch_difference_mm": -0.0193106788984225
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.00611263985296101,
+    "adjusted_pinch_difference_mm": 0.012925564565636566
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.01244576045884338,
+    "adjusted_pinch_difference_mm": 0.02642066460055451
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.010489963492670895,
+    "adjusted_pinch_difference_mm": 0.013801291272937985
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.012932039629061531,
+    "adjusted_pinch_difference_mm": -0.00972596564257543
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.008172761307707277,
+    "adjusted_pinch_difference_mm": 0.00839327550618886
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.014560878174231573,
+    "adjusted_pinch_difference_mm": 0.04070860499131744
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.01740137146510712,
+    "adjusted_pinch_difference_mm": 0.024189111802378135
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.03185501566052412,
+    "adjusted_pinch_difference_mm": 0.03507260582499812
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.009134910841449517,
+    "adjusted_pinch_difference_mm": 0.02574442203229352
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.02161225570943559,
+    "adjusted_pinch_difference_mm": 0.04792126390563146
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.0034666727856533797,
+    "adjusted_pinch_difference_mm": 0.012374966033724632
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.001503751213995319,
+    "adjusted_pinch_difference_mm": 0.006922376938147378
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.07524544141434131,
+    "adjusted_pinch_difference_mm": 0.08995877408762554
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": -0.004257604910364199,
+    "adjusted_pinch_difference_mm": 0.02361624022897017
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.01202835699614413,
+    "adjusted_pinch_difference_mm": 0.022085790411166494
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.008748447748050503,
+    "adjusted_pinch_difference_mm": 0.03641408203460662
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.0026896929436072137,
+    "adjusted_pinch_difference_mm": 0.008676698715759334
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.009475894327809764,
+    "adjusted_pinch_difference_mm": 0.025719440102739216
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.0031434127977993387,
+    "adjusted_pinch_difference_mm": 0.006102444479110903
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-x",
+    "adjusted_cube_difference_mm": 0.01448611406732181,
+    "adjusted_pinch_difference_mm": 0.061889795237103404
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.01079486813200492,
+    "adjusted_pinch_difference_mm": 0.015395796677364558
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -5.6173746410648207e-05,
+    "adjusted_pinch_difference_mm": 0.0002399096809369666
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.031899974008661736,
+    "adjusted_pinch_difference_mm": 0.04290420848839112
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.013653297224317795,
+    "adjusted_pinch_difference_mm": 0.014944348712969024
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.0005635535622552368,
+    "adjusted_pinch_difference_mm": 0.0007931000053978717
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.02318993047751905,
+    "adjusted_pinch_difference_mm": 0.05922802045832477
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.029160935008143707,
+    "adjusted_pinch_difference_mm": 0.04782139490917588
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.014536429241644888,
+    "adjusted_pinch_difference_mm": 0.03878173501840119
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.02242518292123713,
+    "adjusted_pinch_difference_mm": -0.07423892226592868
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.012588656833374068,
+    "adjusted_pinch_difference_mm": 0.04607470865224686
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.005170415965341624,
+    "adjusted_pinch_difference_mm": 0.0040564855711051895
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.008331887052141607,
+    "adjusted_pinch_difference_mm": 0.017131873845201488
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.03264649865687222,
+    "adjusted_pinch_difference_mm": 0.031417280085341004
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.0010751257223513555,
+    "adjusted_pinch_difference_mm": 0.011212475141537665
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.011218283627059566,
+    "adjusted_pinch_difference_mm": 0.035739680497858035
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.020437162312967716,
+    "adjusted_pinch_difference_mm": 0.02285039854506592
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.001478564051379333,
+    "adjusted_pinch_difference_mm": 0.024712358783819145
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.033448366655780354,
+    "adjusted_pinch_difference_mm": -0.015485538171555475
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.009791306360622198,
+    "adjusted_pinch_difference_mm": 0.017867212260244802
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.026089535373255063,
+    "adjusted_pinch_difference_mm": -0.018197233770959408
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.010423136527831223,
+    "adjusted_pinch_difference_mm": 0.012445957733802934
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.0003701087213013321,
+    "adjusted_pinch_difference_mm": 0.016027373543823928
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.027986676262058252,
+    "adjusted_pinch_difference_mm": 0.032284986788820205
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.006042321811376539,
+    "adjusted_pinch_difference_mm": -0.006611099764968507
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.02496605271271407,
+    "adjusted_pinch_difference_mm": 0.036186583142183315
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.02721342005067029,
+    "adjusted_pinch_difference_mm": 0.04426737830835013
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -2.1165050177629485e-05,
+    "adjusted_pinch_difference_mm": 0.04506790020114614
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.025113241661163688,
+    "adjusted_pinch_difference_mm": 0.036191301241092995
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.011014267714811843,
+    "adjusted_pinch_difference_mm": 0.05959537069274756
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.002804531658453513,
+    "adjusted_pinch_difference_mm": 0.006080248882190537
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.004600821149250367,
+    "adjusted_pinch_difference_mm": 0.008920317526320887
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.0017450336110463316,
+    "adjusted_pinch_difference_mm": 0.014593357017434848
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.025451915052658147,
+    "adjusted_pinch_difference_mm": 0.030089714853898785
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.015507440626574942,
+    "adjusted_pinch_difference_mm": 0.01764592109996512
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.003261038248850545,
+    "adjusted_pinch_difference_mm": 0.03717076788642467
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.006099398781700294,
+    "adjusted_pinch_difference_mm": 0.09852375601727599
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": -0.0038007432354099646,
+    "adjusted_pinch_difference_mm": 0.04808371144066713
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.009640353889327546,
+    "adjusted_pinch_difference_mm": 0.04894780190387985
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.0018508561441323845,
+    "adjusted_pinch_difference_mm": 0.05150793800105368
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_+y",
+    "adjusted_cube_difference_mm": 0.009067575515532944,
+    "adjusted_pinch_difference_mm": 0.024571038092665146
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.011224113282509052,
+    "adjusted_pinch_difference_mm": 0.015540495885966213
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.005151901029400774,
+    "adjusted_pinch_difference_mm": 0.013756155987164561
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.028618508503528706,
+    "adjusted_pinch_difference_mm": 0.03440470901952407
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.019992292712151333,
+    "adjusted_pinch_difference_mm": 0.01800330918307159
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.025672557415424457,
+    "adjusted_pinch_difference_mm": 0.036531056277835094
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.01361043821940866,
+    "adjusted_pinch_difference_mm": 0.02399175704442855
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.011155289385779366,
+    "adjusted_pinch_difference_mm": 0.05836462029124269
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.0167519270438512,
+    "adjusted_pinch_difference_mm": 0.04690846732857944
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.005796826540040434,
+    "adjusted_pinch_difference_mm": -0.05281363201482218
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.017514503924344393,
+    "adjusted_pinch_difference_mm": 0.04582204617295592
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.011690895620885655,
+    "adjusted_pinch_difference_mm": 0.016270761252939102
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.007116238144190351,
+    "adjusted_pinch_difference_mm": 0.016110954285525784
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.04064343514899496,
+    "adjusted_pinch_difference_mm": 0.043074079713447705
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.0076096893537784815,
+    "adjusted_pinch_difference_mm": 0.005585717887224997
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.004558124930974045,
+    "adjusted_pinch_difference_mm": 0.021620474393280603
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.0006206151647455138,
+    "adjusted_pinch_difference_mm": 0.01756916248048669
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.001607779600998227,
+    "adjusted_pinch_difference_mm": 0.0005350821594120135
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.013966757178507927,
+    "adjusted_pinch_difference_mm": -0.003694642831624873
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.020028658431449214,
+    "adjusted_pinch_difference_mm": 0.020822155129558973
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.0014727133138701942,
+    "adjusted_pinch_difference_mm": 0.0006613902097779892
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.01653129801066705,
+    "adjusted_pinch_difference_mm": 0.014628244148703597
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.001458525071348693,
+    "adjusted_pinch_difference_mm": 0.01608265437878537
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.027283508865805328,
+    "adjusted_pinch_difference_mm": 0.029818186114205066
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.016957243294620117,
+    "adjusted_pinch_difference_mm": -0.01714192420647351
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.012263594698376568,
+    "adjusted_pinch_difference_mm": 0.04217236128592017
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.03439202526982621,
+    "adjusted_pinch_difference_mm": 0.11468362737270461
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.012600615124991443,
+    "adjusted_pinch_difference_mm": 0.01589968484829969
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.01029867247709021,
+    "adjusted_pinch_difference_mm": 0.02673555835991664
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.011149750256237323,
+    "adjusted_pinch_difference_mm": 0.048510780914482854
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.003839863292894541,
+    "adjusted_pinch_difference_mm": 0.03989128342129143
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.012502887416578568,
+    "adjusted_pinch_difference_mm": 0.022761971885973304
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.0005000649541802571,
+    "adjusted_pinch_difference_mm": 8.295094244106159e-05
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.02953069378500983,
+    "adjusted_pinch_difference_mm": 0.03191580105535889
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.021528821081769456,
+    "adjusted_pinch_difference_mm": 0.02824284784832562
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.003179458478575592,
+    "adjusted_pinch_difference_mm": 0.03782490893054517
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": -0.007271200777542841,
+    "adjusted_pinch_difference_mm": 0.031169567311558264
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.009694199637606926,
+    "adjusted_pinch_difference_mm": 0.01544893004779431
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.02206479515649784,
+    "adjusted_pinch_difference_mm": 0.07190357921938197
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.009720024392122772,
+    "adjusted_pinch_difference_mm": 0.044411411112021966
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.1N_-y",
+    "adjusted_cube_difference_mm": 0.00683786674977066,
+    "adjusted_pinch_difference_mm": 0.054585130352964646
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.03296754796365692,
+    "adjusted_pinch_difference_mm": 0.035823334147918294
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.001928547499762956,
+    "adjusted_pinch_difference_mm": 0.003032446371423256
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.08457140889018949,
+    "adjusted_pinch_difference_mm": 0.10948570692653037
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.03326318922577376,
+    "adjusted_pinch_difference_mm": 0.03426827258253054
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.020177588299737703,
+    "adjusted_pinch_difference_mm": 0.02459157828945928
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.0283471479789989,
+    "adjusted_pinch_difference_mm": 0.036185027147869024
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.026164908016527877,
+    "adjusted_pinch_difference_mm": 0.0372834957423958
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.04350526581239189,
+    "adjusted_pinch_difference_mm": 0.047707524903194444
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.04307776897879528,
+    "adjusted_pinch_difference_mm": 0.007807604419856351
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.02350243225479154,
+    "adjusted_pinch_difference_mm": 0.057915440239957115
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.011362500446758295,
+    "adjusted_pinch_difference_mm": 0.011816980534656902
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.018858707366600336,
+    "adjusted_pinch_difference_mm": 0.02145936169375988
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.041536596491451305,
+    "adjusted_pinch_difference_mm": 0.04474450141957108
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.017498350874326496,
+    "adjusted_pinch_difference_mm": 0.023912838392720438
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.003137494289719517,
+    "adjusted_pinch_difference_mm": 0.025751776957529945
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.051754441682004576,
+    "adjusted_pinch_difference_mm": 0.08096368778448138
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.008560612757313374,
+    "adjusted_pinch_difference_mm": 0.03113999579351951
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.07286078634635709,
+    "adjusted_pinch_difference_mm": 0.07497531750188813
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.00743660704080773,
+    "adjusted_pinch_difference_mm": 0.0402028990005099
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.004639484914705422,
+    "adjusted_pinch_difference_mm": -0.008607242621114133
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.008894156493628347,
+    "adjusted_pinch_difference_mm": 0.01051439495545457
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.0059040878050327095,
+    "adjusted_pinch_difference_mm": 0.011821598805863908
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.05680650404941712,
+    "adjusted_pinch_difference_mm": 0.06477059737994895
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.022830016936014497,
+    "adjusted_pinch_difference_mm": -0.02274155741926452
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.017613178252619155,
+    "adjusted_pinch_difference_mm": 0.051694131068564485
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.037693614172859324,
+    "adjusted_pinch_difference_mm": 0.10607668622851578
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.01941382356394583,
+    "adjusted_pinch_difference_mm": 0.06306635640040764
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.08191279432888005,
+    "adjusted_pinch_difference_mm": 0.1023166986682504
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.017628016938748492,
+    "adjusted_pinch_difference_mm": 0.04990617558840944
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.01735800206165733,
+    "adjusted_pinch_difference_mm": 0.021979415739303017
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.013112914350484839,
+    "adjusted_pinch_difference_mm": 0.024308429777144133
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.004503452985975043,
+    "adjusted_pinch_difference_mm": 0.01895696700193475
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.03336575999780467,
+    "adjusted_pinch_difference_mm": 0.04149133432556429
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.014994562741753814,
+    "adjusted_pinch_difference_mm": 0.01996412813154203
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.00560006843704991,
+    "adjusted_pinch_difference_mm": 0.041979866702200476
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": -0.005210748627922146,
+    "adjusted_pinch_difference_mm": 0.02777095605593455
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.016388276779160882,
+    "adjusted_pinch_difference_mm": 0.05668372104900303
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.022259016749582805,
+    "adjusted_pinch_difference_mm": 0.03191471403437801
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.029871820104794555,
+    "adjusted_pinch_difference_mm": 0.11319425638047916
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+x",
+    "adjusted_cube_difference_mm": 0.014707251429069368,
+    "adjusted_pinch_difference_mm": 0.03264117691724936
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.013792704900239039,
+    "adjusted_pinch_difference_mm": 0.014647729498730866
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.022535099552692617,
+    "adjusted_pinch_difference_mm": 0.025761591584382366
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.029784664456785792,
+    "adjusted_pinch_difference_mm": 0.01959927451767904
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.015027961117738103,
+    "adjusted_pinch_difference_mm": 0.03683979176307729
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.051234946000390524,
+    "adjusted_pinch_difference_mm": 0.05295275614728075
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.035850274636369694,
+    "adjusted_pinch_difference_mm": 0.08794970631374381
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.03257762817976645,
+    "adjusted_pinch_difference_mm": 0.041346527102090476
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.03721569030664579,
+    "adjusted_pinch_difference_mm": 0.047495175225138395
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.057151474510803435,
+    "adjusted_pinch_difference_mm": -0.11624380905482364
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.0397249602905172,
+    "adjusted_pinch_difference_mm": 0.06056661045726709
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.028762820449284132,
+    "adjusted_pinch_difference_mm": 0.03442387144097412
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.00034675438538459,
+    "adjusted_pinch_difference_mm": 0.009862677867012698
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.02326128851559875,
+    "adjusted_pinch_difference_mm": 0.032384587378401844
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.0066751942380332,
+    "adjusted_pinch_difference_mm": 0.013080049778515573
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.03400309316011743,
+    "adjusted_pinch_difference_mm": 0.05981789393340646
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.022101098510572015,
+    "adjusted_pinch_difference_mm": 0.028709702410318005
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.0045285485919274865,
+    "adjusted_pinch_difference_mm": 0.030002921491723806
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.00469652662297404,
+    "adjusted_pinch_difference_mm": 0.007545444783474303
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": -0.027304150686570106,
+    "adjusted_pinch_difference_mm": 0.02884039893824979
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.022232496931572004,
+    "adjusted_pinch_difference_mm": -0.014041110324833137
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.014308462173281411,
+    "adjusted_pinch_difference_mm": 0.012884880753537845
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.01532042046959442,
+    "adjusted_pinch_difference_mm": 0.024736378278929272
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.02068691509115045,
+    "adjusted_pinch_difference_mm": 0.022884539996381778
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.023296139099010293,
+    "adjusted_pinch_difference_mm": -0.019039035396998916
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.024327211228376056,
+    "adjusted_pinch_difference_mm": 0.05561789628842462
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.03388782926559297,
+    "adjusted_pinch_difference_mm": 0.055566833428841444
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.009494192550421554,
+    "adjusted_pinch_difference_mm": 0.06598170969168425
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.02123047748373158,
+    "adjusted_pinch_difference_mm": 0.045327284946276414
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.019355160872794708,
+    "adjusted_pinch_difference_mm": 0.041215980562736725
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.019474777050254743,
+    "adjusted_pinch_difference_mm": 0.07852511467160288
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.02139193611478185,
+    "adjusted_pinch_difference_mm": 0.029232093786058073
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.010938031548738292,
+    "adjusted_pinch_difference_mm": 0.02250375413183048
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.06746589603368325,
+    "adjusted_pinch_difference_mm": 0.08054736972250402
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.025056931773435487,
+    "adjusted_pinch_difference_mm": 0.008460352475047197
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.016606538804646853,
+    "adjusted_pinch_difference_mm": 0.05926089987881992
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.025808441979013996,
+    "adjusted_pinch_difference_mm": 0.10850596444318958
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.002886429922417444,
+    "adjusted_pinch_difference_mm": 0.0601377110675053
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.018537136386407693,
+    "adjusted_pinch_difference_mm": 0.038955703288804086
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.013993898531899585,
+    "adjusted_pinch_difference_mm": 0.07915793128496447
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-x",
+    "adjusted_cube_difference_mm": 0.013254401790546377,
+    "adjusted_pinch_difference_mm": 0.07066351916330699
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.02062563588756483,
+    "adjusted_pinch_difference_mm": 0.031240109744107982
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.0041558075226815205,
+    "adjusted_pinch_difference_mm": 0.012642993677394831
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.029624326970306147,
+    "adjusted_pinch_difference_mm": 0.03931174908547329
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.009269640281720115,
+    "adjusted_pinch_difference_mm": 0.009778102255497013
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.01861543385631448,
+    "adjusted_pinch_difference_mm": 0.03867896247226321
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.033272436749972156,
+    "adjusted_pinch_difference_mm": 0.06991564952787528
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.04742143169491425,
+    "adjusted_pinch_difference_mm": 0.05540118643277084
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.03788168171916395,
+    "adjusted_pinch_difference_mm": 0.04276622256332658
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.020951280478456957,
+    "adjusted_pinch_difference_mm": -0.07110336025831192
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.034409340516641684,
+    "adjusted_pinch_difference_mm": 0.07999846306517529
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.015622033017230808,
+    "adjusted_pinch_difference_mm": 0.020118281851383465
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.006211717174627873,
+    "adjusted_pinch_difference_mm": 0.015866690486961477
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.03618365006111224,
+    "adjusted_pinch_difference_mm": 0.04811999456730234
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.008862170785736145,
+    "adjusted_pinch_difference_mm": 0.0372138494477142
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.01290332741256825,
+    "adjusted_pinch_difference_mm": 0.04182729786357827
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.05971591004929053,
+    "adjusted_pinch_difference_mm": 0.0857310416295626
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.01109878515780624,
+    "adjusted_pinch_difference_mm": 0.04934288088617192
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.029161140269311187,
+    "adjusted_pinch_difference_mm": 0.037454309735744554
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.022008428839133842,
+    "adjusted_pinch_difference_mm": 0.0680288672835767
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.05629284927083608,
+    "adjusted_pinch_difference_mm": 0.03879783181189996
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.013010051364492847,
+    "adjusted_pinch_difference_mm": 0.017424780906282203
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 4.650203552891696e-05,
+    "adjusted_pinch_difference_mm": 0.015330389179663296
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.07427417375517686,
+    "adjusted_pinch_difference_mm": 0.08769525252344645
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.0015176837800918719,
+    "adjusted_pinch_difference_mm": 0.0006584608766649
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.008930829479252056,
+    "adjusted_pinch_difference_mm": 0.0582152075575182
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.007413053184704754,
+    "adjusted_pinch_difference_mm": 0.07316603920485586
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.017797803329649975,
+    "adjusted_pinch_difference_mm": 0.07516284671999933
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.025469901103313874,
+    "adjusted_pinch_difference_mm": 0.04568665412617926
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.010259313968923711,
+    "adjusted_pinch_difference_mm": 0.08049519083485535
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.022561225485318748,
+    "adjusted_pinch_difference_mm": 0.02865755764185602
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.012411741182906832,
+    "adjusted_pinch_difference_mm": 0.022374038294319224
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.001359632731282756,
+    "adjusted_pinch_difference_mm": 0.022551921458075483
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.05002432243268656,
+    "adjusted_pinch_difference_mm": 0.06274072153474032
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": -0.011936775761665297,
+    "adjusted_pinch_difference_mm": 0.019355976354952162
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.005881152616312502,
+    "adjusted_pinch_difference_mm": 0.03228300882824045
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.011502523566754075,
+    "adjusted_pinch_difference_mm": 0.10602357154054569
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.0007894102013721316,
+    "adjusted_pinch_difference_mm": 0.08616419034045947
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.018490314996626345,
+    "adjusted_pinch_difference_mm": 0.09045309301319518
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.026038618249481282,
+    "adjusted_pinch_difference_mm": 0.1347777773821173
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_+y",
+    "adjusted_cube_difference_mm": 0.016786896104201643,
+    "adjusted_pinch_difference_mm": 0.03201885830638051
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.01112577130915371,
+    "adjusted_pinch_difference_mm": 0.01578453152000281
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.006108713765203999,
+    "adjusted_pinch_difference_mm": 0.034437729100303245
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.05442994224656572,
+    "adjusted_pinch_difference_mm": 0.08259546941621662
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.033987953383791125,
+    "adjusted_pinch_difference_mm": 0.03563836260389717
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.04575400898453669,
+    "adjusted_pinch_difference_mm": 0.06039580086218972
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.021484083602531623,
+    "adjusted_pinch_difference_mm": 0.0658818556886487
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.02001263522925878,
+    "adjusted_pinch_difference_mm": 0.04315310804439733
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.03441438122959439,
+    "adjusted_pinch_difference_mm": 0.09373664991651415
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.012441855512360378,
+    "adjusted_pinch_difference_mm": -0.017890482656818522
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.02275641284671831,
+    "adjusted_pinch_difference_mm": 0.030768506553438872
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.015856862308777864,
+    "adjusted_pinch_difference_mm": 0.02428350940555827
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.005094042566510748,
+    "adjusted_pinch_difference_mm": 0.015705953949355506
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.07529309900443668,
+    "adjusted_pinch_difference_mm": 0.07507205314425494
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.015357432562428386,
+    "adjusted_pinch_difference_mm": 0.007409373427115746
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.04866831298213739,
+    "adjusted_pinch_difference_mm": 0.08856876730310875
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.0017670187160720163,
+    "adjusted_pinch_difference_mm": 0.014583899781768899
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.005817134722682096,
+    "adjusted_pinch_difference_mm": 0.03539539605373066
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.04419133185621263,
+    "adjusted_pinch_difference_mm": 0.07346852496912933
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.008892588645195931,
+    "adjusted_pinch_difference_mm": 0.028585287010186883
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.07012763938600033,
+    "adjusted_pinch_difference_mm": 0.07308611859370175
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.009586949066362094,
+    "adjusted_pinch_difference_mm": 0.014378386079672964
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.0005395907639331177,
+    "adjusted_pinch_difference_mm": 0.024889324480802274
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.059441560289375084,
+    "adjusted_pinch_difference_mm": 0.06392135656327126
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.024491014265668243,
+    "adjusted_pinch_difference_mm": -0.02107183671103618
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.017360733361192315,
+    "adjusted_pinch_difference_mm": 0.0517989163839217
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.01688628127338565,
+    "adjusted_pinch_difference_mm": 0.09341522765355902
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.010139954695864872,
+    "adjusted_pinch_difference_mm": 0.0529427387139364
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.062035289669949756,
+    "adjusted_pinch_difference_mm": 0.09146720716429524
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.02011239827753669,
+    "adjusted_pinch_difference_mm": 0.09449515927719054
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.017154116722150614,
+    "adjusted_pinch_difference_mm": 0.0777027743902256
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.01979908447555745,
+    "adjusted_pinch_difference_mm": 0.028266439831108797
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.0007062559400125568,
+    "adjusted_pinch_difference_mm": 0.013272066752107535
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.07121351433881834,
+    "adjusted_pinch_difference_mm": 0.07936962501595109
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.0021138042236821253,
+    "adjusted_pinch_difference_mm": 0.020742733681849874
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.0038577111163264344,
+    "adjusted_pinch_difference_mm": 0.05281237302704281
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": -0.003133140287672531,
+    "adjusted_pinch_difference_mm": 0.0068462400669020845
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.006446156759184973,
+    "adjusted_pinch_difference_mm": 0.054019629129649825
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.022719909633874213,
+    "adjusted_pinch_difference_mm": 0.05535818096294744
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.02221010815992075,
+    "adjusted_pinch_difference_mm": 0.10677415125915375
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.2N_-y",
+    "adjusted_cube_difference_mm": 0.018409348679953808,
+    "adjusted_pinch_difference_mm": 0.08809514787371389
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.050878443408394036,
+    "adjusted_pinch_difference_mm": 0.057818552377080626
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.007622129107050346,
+    "adjusted_pinch_difference_mm": 0.006893576526475037
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.07705292905760563,
+    "adjusted_pinch_difference_mm": 0.10431362743672092
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.020461218349039828,
+    "adjusted_pinch_difference_mm": 0.016003134723112794
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.04147458829755413,
+    "adjusted_pinch_difference_mm": 0.08708796616333694
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.024798103910822378,
+    "adjusted_pinch_difference_mm": 0.07109962247956275
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.020368061387302572,
+    "adjusted_pinch_difference_mm": 0.1163028577661178
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.031291423678999064,
+    "adjusted_pinch_difference_mm": 0.10874486523802135
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.011607648043464258,
+    "adjusted_pinch_difference_mm": -0.04504292663018182
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.054321350636523824,
+    "adjusted_pinch_difference_mm": 0.07432501125511727
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.012549965951492159,
+    "adjusted_pinch_difference_mm": 0.015079424063274924
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.014000648960727446,
+    "adjusted_pinch_difference_mm": 0.02433418525231768
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.0642078327694714,
+    "adjusted_pinch_difference_mm": 0.07462977304560545
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.013074987173018693,
+    "adjusted_pinch_difference_mm": 0.028383246953669387
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.010268362403565129,
+    "adjusted_pinch_difference_mm": 0.05202159508044547
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.01829682733492921,
+    "adjusted_pinch_difference_mm": 0.07666364519060756
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": -0.01653245145459334,
+    "adjusted_pinch_difference_mm": 0.04359398691259671
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.01924914267441588,
+    "adjusted_pinch_difference_mm": 0.03291386666138423
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.005868440415382953,
+    "adjusted_pinch_difference_mm": 0.07833819696911916
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.052154746412605396,
+    "adjusted_pinch_difference_mm": 0.06710971530223231
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.008834073660565378,
+    "adjusted_pinch_difference_mm": 0.006913298326521094
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.0034940410332479077,
+    "adjusted_pinch_difference_mm": 0.019095057925826033
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.10134725685592366,
+    "adjusted_pinch_difference_mm": 0.11289088581104831
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.04814273071270936,
+    "adjusted_pinch_difference_mm": -0.04349656331508674
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.019003709858989526,
+    "adjusted_pinch_difference_mm": 0.04239681795894622
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.018142876316478262,
+    "adjusted_pinch_difference_mm": 0.06563608938916378
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.019325630476144273,
+    "adjusted_pinch_difference_mm": 0.07114999756535172
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.05888177860730276,
+    "adjusted_pinch_difference_mm": 0.1002483515866095
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.021676649701486583,
+    "adjusted_pinch_difference_mm": 0.09252651949658838
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.03014746591710965,
+    "adjusted_pinch_difference_mm": 0.04988627754524809
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.02952199852446935,
+    "adjusted_pinch_difference_mm": 0.046755547199665896
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.015623936903042368,
+    "adjusted_pinch_difference_mm": 0.02415742394339368
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.08919155282411795,
+    "adjusted_pinch_difference_mm": 0.10467432491385845
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.002631440408719543,
+    "adjusted_pinch_difference_mm": 0.023100117258753213
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.018343220108920588,
+    "adjusted_pinch_difference_mm": 0.051276578903965024
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.0013780282000001587,
+    "adjusted_pinch_difference_mm": 0.061499679512158685
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.024799062430246654,
+    "adjusted_pinch_difference_mm": 0.06811049832663212
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.026971485310501198,
+    "adjusted_pinch_difference_mm": 0.03773961331528844
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.020423546514949098,
+    "adjusted_pinch_difference_mm": 0.07889023742233056
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+x",
+    "adjusted_cube_difference_mm": 0.010247549056730032,
+    "adjusted_pinch_difference_mm": 0.06005239350694323
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.03048378887295411,
+    "adjusted_pinch_difference_mm": 0.033762091032071444
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.024961268134305437,
+    "adjusted_pinch_difference_mm": 0.03342338571306987
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.0713891278816906,
+    "adjusted_pinch_difference_mm": 0.06779068758438994
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.008965505405151813,
+    "adjusted_pinch_difference_mm": 0.00472138392718477
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.0492620550351473,
+    "adjusted_pinch_difference_mm": 0.058833429627031045
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.0407521509619988,
+    "adjusted_pinch_difference_mm": 0.09493498028639138
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.026792259767315474,
+    "adjusted_pinch_difference_mm": 0.06476957553047735
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.02981732867334247,
+    "adjusted_pinch_difference_mm": 0.08524433610517726
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.004401346129413175,
+    "adjusted_pinch_difference_mm": -0.05312491783993698
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.06512905003433556,
+    "adjusted_pinch_difference_mm": 0.09143653760750917
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.027181710203152798,
+    "adjusted_pinch_difference_mm": 0.03601018108867066
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.016287680766772672,
+    "adjusted_pinch_difference_mm": 0.026376318323163672
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.048971723230915115,
+    "adjusted_pinch_difference_mm": 0.05638228185287181
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.001024635892115544,
+    "adjusted_pinch_difference_mm": 0.02905203885468916
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.0283832546427992,
+    "adjusted_pinch_difference_mm": 0.05094515168737209
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.03953681098839115,
+    "adjusted_pinch_difference_mm": 0.04254385630888436
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.007090632173795075,
+    "adjusted_pinch_difference_mm": 0.03120273986782396
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.053705247282444885,
+    "adjusted_pinch_difference_mm": 0.06718178596841921
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.010860937192426756,
+    "adjusted_pinch_difference_mm": 0.0595846750281242
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.07551455640288526,
+    "adjusted_pinch_difference_mm": 0.08182426553372406
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.03212267429577781,
+    "adjusted_pinch_difference_mm": 0.04246245823332763
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.01852445011200604,
+    "adjusted_pinch_difference_mm": 0.028660331251578592
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.07376989380002164,
+    "adjusted_pinch_difference_mm": 0.08295795686175753
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.029062459276134378,
+    "adjusted_pinch_difference_mm": -0.021938349641053373
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.014956400193298747,
+    "adjusted_pinch_difference_mm": 0.04981721185495899
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.04769486663462352,
+    "adjusted_pinch_difference_mm": 0.11112916164605387
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.025777024766224954,
+    "adjusted_pinch_difference_mm": 0.03626457275583697
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.05512144380675438,
+    "adjusted_pinch_difference_mm": 0.0633254775602457
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.016612441626997043,
+    "adjusted_pinch_difference_mm": 0.0992085766266417
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.02290293519136949,
+    "adjusted_pinch_difference_mm": 0.105970349524397
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.02843703449940721,
+    "adjusted_pinch_difference_mm": 0.045261921115637344
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.015234734640737102,
+    "adjusted_pinch_difference_mm": 0.025530487383760382
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.10365126037109723,
+    "adjusted_pinch_difference_mm": 0.1232154859157745
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": -0.016157096843670393,
+    "adjusted_pinch_difference_mm": 0.04399124913913205
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.018684863725141887,
+    "adjusted_pinch_difference_mm": 0.04670231403049915
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.006432917621210454,
+    "adjusted_pinch_difference_mm": 0.08396340460362002
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.013961498047377618,
+    "adjusted_pinch_difference_mm": 0.03194462563896775
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.03293912695293544,
+    "adjusted_pinch_difference_mm": 0.060524560058655946
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.025019805645769888,
+    "adjusted_pinch_difference_mm": 0.12128370645592619
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-x",
+    "adjusted_cube_difference_mm": 0.017292476403435397,
+    "adjusted_pinch_difference_mm": 0.08550274822798867
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.017675567402683834,
+    "adjusted_pinch_difference_mm": 0.02826633945313162
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.00465252930138621,
+    "adjusted_pinch_difference_mm": 0.0267839511865821
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.05338064976280649,
+    "adjusted_pinch_difference_mm": 0.07423057022893459
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.0425764236354198,
+    "adjusted_pinch_difference_mm": 0.06066465017324498
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.03634660025887787,
+    "adjusted_pinch_difference_mm": 0.06348267780604229
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.04396063820946933,
+    "adjusted_pinch_difference_mm": 0.07285527482734387
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.04731117566255644,
+    "adjusted_pinch_difference_mm": 0.07601103836115432
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.03767521099399118,
+    "adjusted_pinch_difference_mm": 0.05129444181946729
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.044702819057521104,
+    "adjusted_pinch_difference_mm": -0.10203248650774933
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.047794338781547596,
+    "adjusted_pinch_difference_mm": 0.06772403339066033
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.034275843689921204,
+    "adjusted_pinch_difference_mm": 0.031287583453603676
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.009115389149207592,
+    "adjusted_pinch_difference_mm": 0.027081450347385426
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.03732393609610973,
+    "adjusted_pinch_difference_mm": 0.04413108893286319
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.00476861429888209,
+    "adjusted_pinch_difference_mm": 0.022059288846358494
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.014656873370328505,
+    "adjusted_pinch_difference_mm": 0.05550537255732044
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.05099873500590152,
+    "adjusted_pinch_difference_mm": 0.08547909247788107
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.016680808857381046,
+    "adjusted_pinch_difference_mm": 0.0636117404701567
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.04622568787560541,
+    "adjusted_pinch_difference_mm": 0.04310745520358634
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.000902776418430784,
+    "adjusted_pinch_difference_mm": 0.041062346866614065
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.0100049161678408,
+    "adjusted_pinch_difference_mm": 0.012007526631316929
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.013793139337823113,
+    "adjusted_pinch_difference_mm": 0.020026542190254393
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.0010057386675320634,
+    "adjusted_pinch_difference_mm": 0.024003109249179925
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.05292507615771269,
+    "adjusted_pinch_difference_mm": 0.06440621846676539
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.013857677300817883,
+    "adjusted_pinch_difference_mm": -0.014339546984117282
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.02741701261953794,
+    "adjusted_pinch_difference_mm": 0.06150068079631196
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.028798705630629362,
+    "adjusted_pinch_difference_mm": 0.09420905504066909
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.007763418921229559,
+    "adjusted_pinch_difference_mm": 0.06739616742176235
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.07062787513236557,
+    "adjusted_pinch_difference_mm": 0.10200572755034641
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.025047037457131993,
+    "adjusted_pinch_difference_mm": 0.12447714768845476
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.016156585532995482,
+    "adjusted_pinch_difference_mm": 0.05782840110564528
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.01520797956378328,
+    "adjusted_pinch_difference_mm": 0.025217970702110317
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.003335485366971591,
+    "adjusted_pinch_difference_mm": 0.0404787104854269
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.0615952529732543,
+    "adjusted_pinch_difference_mm": 0.07990287151697228
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": -0.006693503478443663,
+    "adjusted_pinch_difference_mm": 0.021298120886538915
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.013454684619334634,
+    "adjusted_pinch_difference_mm": 0.06364672822348202
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.016807306427098823,
+    "adjusted_pinch_difference_mm": 0.0806476545315079
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.010088965901279279,
+    "adjusted_pinch_difference_mm": 0.06571672753749988
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.03418487490796113,
+    "adjusted_pinch_difference_mm": 0.0728184724820393
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.014908989605988243,
+    "adjusted_pinch_difference_mm": 0.08626639258217825
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_+y",
+    "adjusted_cube_difference_mm": 0.019480294053317693,
+    "adjusted_pinch_difference_mm": 0.07992202421125448
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.020390484965605415,
+    "adjusted_pinch_difference_mm": 0.0305931263739629
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.0062060710488486825,
+    "adjusted_pinch_difference_mm": 0.03593814371321028
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.06547127007877018,
+    "adjusted_pinch_difference_mm": 0.08660749854108533
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.050316765556859155,
+    "adjusted_pinch_difference_mm": 0.05418116249405936
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.05394931740859904,
+    "adjusted_pinch_difference_mm": 0.06921782599118287
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.02929714720202392,
+    "adjusted_pinch_difference_mm": 0.062176559710391974
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.026082455126892223,
+    "adjusted_pinch_difference_mm": 0.06786971147157769
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.02871583066338368,
+    "adjusted_pinch_difference_mm": 0.07427136024625196
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.03190265979971779,
+    "adjusted_pinch_difference_mm": -0.08955318433314517
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.028462249822088503,
+    "adjusted_pinch_difference_mm": 0.047452480565118894
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.026213984924495393,
+    "adjusted_pinch_difference_mm": 0.03819552040122865
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.011436374116233133,
+    "adjusted_pinch_difference_mm": 0.02311918086703453
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.05909122397715827,
+    "adjusted_pinch_difference_mm": 0.04928919691748543
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.005402551627687657,
+    "adjusted_pinch_difference_mm": 0.020408598473849154
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.020870770392522386,
+    "adjusted_pinch_difference_mm": 0.04602633454886688
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.025692885606712318,
+    "adjusted_pinch_difference_mm": 0.06190633926452952
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.02132543771912898,
+    "adjusted_pinch_difference_mm": 0.04029877058870173
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.04360718157744661,
+    "adjusted_pinch_difference_mm": 0.057317750622522354
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.01161235493250079,
+    "adjusted_pinch_difference_mm": 0.03295382420525157
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.024384176384792927,
+    "adjusted_pinch_difference_mm": 0.027443741011360687
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.01181640470737333,
+    "adjusted_pinch_difference_mm": 0.026438909616682892
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.0012737951566146322,
+    "adjusted_pinch_difference_mm": 0.02918860359242166
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.0713093342062458,
+    "adjusted_pinch_difference_mm": 0.07360594432487179
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.01554603202455973,
+    "adjusted_pinch_difference_mm": -0.005604150235828883
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.020035151609159252,
+    "adjusted_pinch_difference_mm": 0.06923101367335444
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.04226660293896628,
+    "adjusted_pinch_difference_mm": 0.11191549395982671
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.012096674543884134,
+    "adjusted_pinch_difference_mm": 0.06462369490070104
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.030780839536649618,
+    "adjusted_pinch_difference_mm": 0.05979874164084014
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.0333296887277042,
+    "adjusted_pinch_difference_mm": 0.08270162273414386
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.026230052112702074,
+    "adjusted_pinch_difference_mm": 0.09280684684332625
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.01690850416350015,
+    "adjusted_pinch_difference_mm": 0.025539591969354725
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.001387718404423588,
+    "adjusted_pinch_difference_mm": 0.02222184471693899
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.06130257589853877,
+    "adjusted_pinch_difference_mm": 0.06639580948676702
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.02560293829112048,
+    "adjusted_pinch_difference_mm": 0.014283529108822544
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.012350937893863712,
+    "adjusted_pinch_difference_mm": 0.058678816831484557
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": -0.008637650010778708,
+    "adjusted_pinch_difference_mm": 0.04016018430510545
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.013744392093038293,
+    "adjusted_pinch_difference_mm": 0.03780249877192777
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.0221158085764796,
+    "adjusted_pinch_difference_mm": 0.061015349141436255
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.031148694497004525,
+    "adjusted_pinch_difference_mm": 0.10273618485241336
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.4N_-y",
+    "adjusted_cube_difference_mm": 0.026720722205056502,
+    "adjusted_pinch_difference_mm": 0.1012086860999718
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.06329110287685868,
+    "adjusted_pinch_difference_mm": 0.06736432743867524
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.02855245712424659,
+    "adjusted_pinch_difference_mm": 0.027698623100009322
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.11259323290312157,
+    "adjusted_pinch_difference_mm": 0.12885291001028762
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.023828295090853685,
+    "adjusted_pinch_difference_mm": 0.03488438107006539
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.06709043574084922,
+    "adjusted_pinch_difference_mm": 0.08835436287008112
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.05410193010276371,
+    "adjusted_pinch_difference_mm": 0.11656564046344085
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.04075805857370518,
+    "adjusted_pinch_difference_mm": 0.10596492332423749
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.05014777768894446,
+    "adjusted_pinch_difference_mm": 0.14505877419732113
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.04632247103189069,
+    "adjusted_pinch_difference_mm": -0.03623773465168246
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.044423157284797954,
+    "adjusted_pinch_difference_mm": 0.1389616930880241
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.01823749503373273,
+    "adjusted_pinch_difference_mm": 0.047523455564394655
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.023403151779074732,
+    "adjusted_pinch_difference_mm": 0.031956143896115174
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.03512252238958344,
+    "adjusted_pinch_difference_mm": 0.0408043476277411
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.017760786965912878,
+    "adjusted_pinch_difference_mm": 0.04136891311474494
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.005078056031854156,
+    "adjusted_pinch_difference_mm": 0.09062950711370417
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.07838195888188104,
+    "adjusted_pinch_difference_mm": 0.1696618788861067
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.0031947382465244145,
+    "adjusted_pinch_difference_mm": 0.07430679191161352
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.05141664531965798,
+    "adjusted_pinch_difference_mm": 0.07538317612361448
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.0668431657211789,
+    "adjusted_pinch_difference_mm": 0.18512097983186868
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.038907665837490585,
+    "adjusted_pinch_difference_mm": 0.06290157348861038
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.0249833079370837,
+    "adjusted_pinch_difference_mm": 0.027185623956751257
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.01462382532030887,
+    "adjusted_pinch_difference_mm": 0.040765725819406774
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.1070615721030484,
+    "adjusted_pinch_difference_mm": 0.12314240019566419
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.011477538348579897,
+    "adjusted_pinch_difference_mm": -0.006911080824949737
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.038250532101547496,
+    "adjusted_pinch_difference_mm": 0.11542830642469362
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.029904225607442048,
+    "adjusted_pinch_difference_mm": 0.1211942044952699
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.031569879332845885,
+    "adjusted_pinch_difference_mm": 0.10391004744166522
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.0672356319274856,
+    "adjusted_pinch_difference_mm": 0.13304957906758463
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.027361104265603953,
+    "adjusted_pinch_difference_mm": 0.13038819319181613
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.03068807878309887,
+    "adjusted_pinch_difference_mm": 0.1473531027702427
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.024425205437562825,
+    "adjusted_pinch_difference_mm": 0.0544561978325926
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.020672951956793972,
+    "adjusted_pinch_difference_mm": 0.03299865840319321
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.11021707720401847,
+    "adjusted_pinch_difference_mm": 0.12841254168299887
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": -0.031871725574381005,
+    "adjusted_pinch_difference_mm": 0.058832662847343696
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.029724570071876788,
+    "adjusted_pinch_difference_mm": 0.10315783584262038
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.012544073952507118,
+    "adjusted_pinch_difference_mm": 0.12083073534685315
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.02528094900914063,
+    "adjusted_pinch_difference_mm": 0.13302696278729065
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.03605861362692103,
+    "adjusted_pinch_difference_mm": 0.11058390597390494
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.02814494417341412,
+    "adjusted_pinch_difference_mm": 0.13055454743954947
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+x",
+    "adjusted_cube_difference_mm": 0.033141180167951645,
+    "adjusted_pinch_difference_mm": 0.16247444688395526
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.05836566489831302,
+    "adjusted_pinch_difference_mm": 0.06132014589012767
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.0341700104258677,
+    "adjusted_pinch_difference_mm": 0.03160871020884012
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.1208135817181622,
+    "adjusted_pinch_difference_mm": 0.11884516416252575
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.005372305201654326,
+    "adjusted_pinch_difference_mm": 0.07177842239581116
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.06296674428922477,
+    "adjusted_pinch_difference_mm": 0.06381495611991814
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.04709793137306528,
+    "adjusted_pinch_difference_mm": 0.10182532527114918
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.07315496611607919,
+    "adjusted_pinch_difference_mm": 0.09888256803143078
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.04530017385567331,
+    "adjusted_pinch_difference_mm": 0.1610445892668924
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.009815240063317243,
+    "adjusted_pinch_difference_mm": -0.06262904783816925
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.06377495621729051,
+    "adjusted_pinch_difference_mm": 0.13370086699105582
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.038251224463806965,
+    "adjusted_pinch_difference_mm": 0.048888747370487304
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.02078770761626117,
+    "adjusted_pinch_difference_mm": 0.040518685340624756
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.09695161407435762,
+    "adjusted_pinch_difference_mm": 0.10511122911328817
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.006974021737205849,
+    "adjusted_pinch_difference_mm": 0.05577802658166503
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.07102171246486294,
+    "adjusted_pinch_difference_mm": 0.08439418778865619
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.07516422264880536,
+    "adjusted_pinch_difference_mm": 0.07390437702529712
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.05577743597802112,
+    "adjusted_pinch_difference_mm": 0.10269100455251481
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.03579526202106012,
+    "adjusted_pinch_difference_mm": 0.04355118836513289
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.04516570600357653,
+    "adjusted_pinch_difference_mm": 0.08210287824721196
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.05807781254251823,
+    "adjusted_pinch_difference_mm": 0.08412601428580938
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.040904966131243004,
+    "adjusted_pinch_difference_mm": 0.05378728989505933
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.026529416246139248,
+    "adjusted_pinch_difference_mm": 0.037806238384360064
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.11041202147406187,
+    "adjusted_pinch_difference_mm": 0.1251356326258179
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.015156525370096485,
+    "adjusted_pinch_difference_mm": 0.025413706820551146
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.028475831904599347,
+    "adjusted_pinch_difference_mm": 0.09014362071511221
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.05340292607786823,
+    "adjusted_pinch_difference_mm": 0.15440350696054178
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.025925202172449313,
+    "adjusted_pinch_difference_mm": 0.10462476202009566
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.06974853630057859,
+    "adjusted_pinch_difference_mm": 0.11863702291247022
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.043393307393788105,
+    "adjusted_pinch_difference_mm": 0.11646862372816094
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.05571509169885963,
+    "adjusted_pinch_difference_mm": 0.1434076987561563
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.05199738826330158,
+    "adjusted_pinch_difference_mm": 0.06533611299206027
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.03271755033415219,
+    "adjusted_pinch_difference_mm": 0.046528993165580956
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.10016091425865759,
+    "adjusted_pinch_difference_mm": 0.118203265568674
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": -0.012325716282504562,
+    "adjusted_pinch_difference_mm": 0.04126353570632384
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.03140431863814136,
+    "adjusted_pinch_difference_mm": 0.13233697464535127
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.02645375269569472,
+    "adjusted_pinch_difference_mm": 0.12363848977997385
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.012931941795435276,
+    "adjusted_pinch_difference_mm": 0.10081744325171615
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.0449081571521634,
+    "adjusted_pinch_difference_mm": 0.11870887470697483
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.03860845788799183,
+    "adjusted_pinch_difference_mm": 0.10460091787808555
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-x",
+    "adjusted_cube_difference_mm": 0.0328418315971612,
+    "adjusted_pinch_difference_mm": 0.11378157865974045
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.036328780097549696,
+    "adjusted_pinch_difference_mm": 0.0520962585617897
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.008928687081071862,
+    "adjusted_pinch_difference_mm": 0.030137339504129824
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.11408283656959672,
+    "adjusted_pinch_difference_mm": 0.14659497917660425
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.01868176865568788,
+    "adjusted_pinch_difference_mm": 0.10449421040857634
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.057315922978665335,
+    "adjusted_pinch_difference_mm": 0.09550758196001403
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.05138778427419438,
+    "adjusted_pinch_difference_mm": 0.10289640372595714
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.03843109029027736,
+    "adjusted_pinch_difference_mm": 0.09788665733288253
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.07194720834514545,
+    "adjusted_pinch_difference_mm": 0.09486908182999
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.00414641474749855,
+    "adjusted_pinch_difference_mm": -0.04781023591491554
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.04364305499088439,
+    "adjusted_pinch_difference_mm": 0.07810979913855055
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.022253547222080727,
+    "adjusted_pinch_difference_mm": 0.03293333113104825
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.007557382278559233,
+    "adjusted_pinch_difference_mm": 0.03713319013091858
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.0348830589992116,
+    "adjusted_pinch_difference_mm": 0.08010593461459742
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.030639286758620488,
+    "adjusted_pinch_difference_mm": 0.046384598648608714
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.01973785449792731,
+    "adjusted_pinch_difference_mm": 0.09078915612391268
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.0676391718280796,
+    "adjusted_pinch_difference_mm": 0.10083118416143921
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.029205775705349296,
+    "adjusted_pinch_difference_mm": 0.07356387689116041
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.021940182580530015,
+    "adjusted_pinch_difference_mm": 0.03570344620516884
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.005081113853742464,
+    "adjusted_pinch_difference_mm": 0.08471154683764939
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.039002587626037505,
+    "adjusted_pinch_difference_mm": 0.04340956364795547
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.019606964839791685,
+    "adjusted_pinch_difference_mm": 0.025563272981742262
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.0010047001516656495,
+    "adjusted_pinch_difference_mm": 0.047641963710377176
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.09359499474766475,
+    "adjusted_pinch_difference_mm": 0.12149229552191043
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.05731495755533311,
+    "adjusted_pinch_difference_mm": -0.050079794250288516
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.03214235585814662,
+    "adjusted_pinch_difference_mm": 0.09635365079457864
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.027134927724050073,
+    "adjusted_pinch_difference_mm": 0.09945159778847827
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.028331753418520622,
+    "adjusted_pinch_difference_mm": 0.1056334420293161
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.05942297433239985,
+    "adjusted_pinch_difference_mm": 0.11824291688316943
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.014493941541952604,
+    "adjusted_pinch_difference_mm": 0.11150294890108611
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.025385004102223274,
+    "adjusted_pinch_difference_mm": 0.08858105657914897
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.02373605517619254,
+    "adjusted_pinch_difference_mm": 0.03937012985898802
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.0024714524219481837,
+    "adjusted_pinch_difference_mm": 0.0554141059474538
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.07145151628449681,
+    "adjusted_pinch_difference_mm": 0.10146134735800681
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": -0.002519885416732759,
+    "adjusted_pinch_difference_mm": 0.04893378030850189
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.02960493706374978,
+    "adjusted_pinch_difference_mm": 0.1275310535657702
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.009687182997188015,
+    "adjusted_pinch_difference_mm": 0.11072182535660408
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.016167253470707355,
+    "adjusted_pinch_difference_mm": 0.09919162056742617
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.03236369343177703,
+    "adjusted_pinch_difference_mm": 0.08103966232582659
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.01930220074435629,
+    "adjusted_pinch_difference_mm": 0.11506272377209166
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_+y",
+    "adjusted_cube_difference_mm": 0.03396236319122037,
+    "adjusted_pinch_difference_mm": 0.10187261400354988
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.027229679078747737,
+    "adjusted_pinch_difference_mm": 0.04008023780830156
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.0086474921477242,
+    "adjusted_pinch_difference_mm": 0.04269417634070374
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.09921814156276237,
+    "adjusted_pinch_difference_mm": 0.11044821965997294
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.05978669136813386,
+    "adjusted_pinch_difference_mm": 0.07895120750494491
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.06744582691627854,
+    "adjusted_pinch_difference_mm": 0.09141574254709167
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.026682289699588302,
+    "adjusted_pinch_difference_mm": 0.12568809649834028
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.03803094526234063,
+    "adjusted_pinch_difference_mm": 0.11898786297087367
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.03618113572157866,
+    "adjusted_pinch_difference_mm": 0.13202938492107794
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.03552329182557207,
+    "adjusted_pinch_difference_mm": -0.017669414913619938
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.005,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.035322155431747826,
+    "adjusted_pinch_difference_mm": 0.11217760390654707
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.027025848426072807,
+    "adjusted_pinch_difference_mm": 0.04805277642740175
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.00594977117229184,
+    "adjusted_pinch_difference_mm": 0.03078230219125568
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.11630018890533508,
+    "adjusted_pinch_difference_mm": 0.11578296310340461
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.047674432104621856,
+    "adjusted_pinch_difference_mm": 0.017376152956477525
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.03351711806350943,
+    "adjusted_pinch_difference_mm": 0.08567676051893258
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.04850083557122664,
+    "adjusted_pinch_difference_mm": 0.1013943116323795
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.005799828145881009,
+    "adjusted_pinch_difference_mm": 0.07780780965564763
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.02737294312204222,
+    "adjusted_pinch_difference_mm": 0.061908515602549355
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.029364346917119866,
+    "adjusted_pinch_difference_mm": 0.07784347035398474
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.01,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.012482039004680562,
+    "adjusted_pinch_difference_mm": 0.040897352256141634
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.01855240348882925,
+    "adjusted_pinch_difference_mm": 0.03704273364164956
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.0055991110998448446,
+    "adjusted_pinch_difference_mm": 0.035482534680719574
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.12424762612086249,
+    "adjusted_pinch_difference_mm": 0.12925159192274316
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.012221562038627898,
+    "adjusted_pinch_difference_mm": 0.0042516564655014424
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.054437605840307435,
+    "adjusted_pinch_difference_mm": 0.08456077862493909
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.03413323950532243,
+    "adjusted_pinch_difference_mm": 0.1116435541090057
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.029431849691949175,
+    "adjusted_pinch_difference_mm": 0.08361487360035606
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.06808588484470673,
+    "adjusted_pinch_difference_mm": 0.08332315449086038
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.04368519247605035,
+    "adjusted_pinch_difference_mm": 0.1529308495351443
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.015,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.046442735144777814,
+    "adjusted_pinch_difference_mm": 0.16486102846409326
+  },
+  {
+    "seed": 81000,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.032205495364673986,
+    "adjusted_pinch_difference_mm": 0.05330944132421645
+  },
+  {
+    "seed": 81001,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.004334398728836009,
+    "adjusted_pinch_difference_mm": 0.03587435675489608
+  },
+  {
+    "seed": 81002,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.1804940709803211,
+    "adjusted_pinch_difference_mm": 0.1875114206476711
+  },
+  {
+    "seed": 81003,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": -0.0027229219870434918,
+    "adjusted_pinch_difference_mm": 0.022709799168297497
+  },
+  {
+    "seed": 81004,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.04223409609614831,
+    "adjusted_pinch_difference_mm": 0.0906132137800058
+  },
+  {
+    "seed": 81005,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.008737126317576005,
+    "adjusted_pinch_difference_mm": 0.09109952440001917
+  },
+  {
+    "seed": 81006,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.010279622743036176,
+    "adjusted_pinch_difference_mm": 0.08531900875512838
+  },
+  {
+    "seed": 81007,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.029428995027895255,
+    "adjusted_pinch_difference_mm": 0.06185950689348245
+  },
+  {
+    "seed": 81008,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.03040960558592737,
+    "adjusted_pinch_difference_mm": 0.1426311787164653
+  },
+  {
+    "seed": 81009,
+    "mass_kg": 0.02,
+    "pulse": "0.8N_-y",
+    "adjusted_cube_difference_mm": 0.029038540531855617,
+    "adjusted_pinch_difference_mm": 0.11947921185332
+  }
+]

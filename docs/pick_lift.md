@@ -146,3 +146,11 @@ Its saved policy matches the script at 160/160 fresh lifts and passes 24/24 know
 regressions. This passes stability, but establishes no useful RL improvement yet.
 The findings contain replay commands and local checkpoint locations; binaries
 are not included in Git. Default presets and earlier policies remain unchanged.
+
+The [frozen v3 disturbance evaluation](../reports/findings/2026-11-26_cartesian_disturbance.md)
+compares this saved policy and its scripted reference on new placements with
+matched 99 ms lateral cube pushes, without training or controller changes.
+The report records retention, motion, stable recovery and the practical-benefit gate.
+Both retain 640/640 pushed holds and pass 40/40 controls; the learned policy does
+not demonstrate useful added robustness and produces more adjusted holding motion.
+Longer training is not recommended from this result alone.
