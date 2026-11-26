@@ -1,0 +1,14 @@
+{
+  "placement_clusters": 10,
+  "paired_cases": 312,
+  "mean_adjusted_difference_mm": -0.01429667630404817,
+  "ci95_mm": [
+    -0.01901159054397238,
+    -0.009647892253890455
+  ],
+  "precision_benefit_observed": true,
+  "note": "One trained seed; repeated directions/masses are clustered by placement, not independent cases.",
+  "retention_not_worse": true,
+  "table_contact_not_worse": true,
+  "benefit_established": true
+}

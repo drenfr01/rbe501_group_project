@@ -109,3 +109,9 @@ clearance/holding height. Its fresh v2 policy matches the script at 78/80 lifts
 with zero sampled table contacts; this passes the stability gate but does not
 establish an RL improvement. Use the dedicated `limited_lift_pilot` commands in
 that report. Legacy defaults and reaching policies remain unchanged.
+
+[Acquisition and holding probes](../reports/findings/2026-11-26_acquisition_holding_checks.md)
+then preserve both controllers and diagnose premature stationary-finger contact
+during the failing approach. In 720 paired holding-force episodes, both retain
+all 312 eligible disturbed holds; RL shows only a tiny simulated cube-motion
+reduction and more TCP motion. No training or controller changes were made.

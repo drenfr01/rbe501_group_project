@@ -1,0 +1,8 @@
+{
+  "statistical_scope": "Frozen paired simulation criterion met for cube tail displacement; one trained seed and ten placement clusters.",
+  "practical_significance_established": false,
+  "hardware_benefit_established": false,
+  "holding_retention_improved": false,
+  "secondary_note": "The RL gripper pinch point moves more than the script; cube and TCP metrics are distinct.",
+  "next_priority": "Investigate initial approach clearance and pre-close alignment; preserve baseline and do not launch full training."
+}
