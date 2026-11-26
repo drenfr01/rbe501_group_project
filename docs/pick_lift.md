@@ -122,3 +122,9 @@ held-out lifts from 195/200 to 198/200 and removes observed initial approach
 contacts, but still fails the pre-close cube-motion gate. Alignment correction
 variants introduce table contacts and are rejected. Defaults and weights remain
 unchanged; use only the opt-in experiment/replay commands in that report.
+
+The [Cartesian descent check](../reports/findings/2026-11-26_cartesian_descent.md)
+then reduces pre-close cube movement below 0.16 mm on its fresh batch, without
+observed table contact. It achieves 79/80 arm-effect lifts versus both references'
+80/80, and known 5 g retention failures remain. It is an opt-in trajectory
+prototype, not a promoted controller or a new trained policy.
