@@ -154,3 +154,11 @@ The report records retention, motion, stable recovery and the practical-benefit 
 Both retain 640/640 pushed holds and pass 40/40 controls; the learned policy does
 not demonstrate useful added robustness and produces more adjusted holding motion.
 Longer training is not recommended from this result alone.
+
+The [workspace and cube-yaw coverage audit](../reports/findings/2026-11-26_pick_lift_coverage.md)
+identifies a shared acquisition weakness: both controllers pass 180/180 supported
+workspace-grid cases but fail many independently rotated-cube cases, replicated
+on new placements. Cube yaw is absent from observations, and lift-only residuals
+cannot act before these acquisition aborts. This is a separate distribution-shift
+diagnostic, not a changed training preset; orientation-aware acquisition is the
+next proposed experiment before further training.

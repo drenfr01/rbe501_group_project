@@ -1,0 +1,27 @@
+{
+  "base_commit": "f9004e737226e0f5babd9f9533387b6e1e81577d",
+  "source_sha256": {
+    "scripts/sim2real/analyze/pick_lift_coverage.py": "8c2d2b5d0aa06e52e3ba7d7259928af647eaf24fddf18c06d3615b97805cbce3",
+    "tests/test_pick_lift_coverage.py": "970f79549b9897d91fac43c5cd3e9441f6420a648592c664df23321dbfe956bd"
+  },
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "training_updates": 0,
+  "matrix_episodes": 1480,
+  "additional_diagnostic_replays": 3,
+  "validation": {
+    "passed": 423,
+    "skipped": 1,
+    "seconds": 38.63
+  },
+  "discovery_command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.pick_lift_coverage --model-dir checkpoints/calibrated_cartesian_zero_v3_pilot --out experiments/2026-11-26_pick_lift_coverage",
+  "confirmation_driver": "confirm_yaw.py",
+  "diagnostic_driver": "trace_yaw.py",
+  "note": "Use runpy.run_path with run_name=__main__ from repository root for saved artifact drivers."
+}
