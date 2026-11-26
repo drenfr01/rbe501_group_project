@@ -14,6 +14,42 @@ def test_cube_yaw_error_uses_quarter_turn_symmetry():
     assert abs(quarter_turn_error(.2, 0) - .2) < 1e-12
 
 
+def test_opposite_wrist_seed_acquires_previous_failure_without_table_contact():
+    """Equivalent cube faces can have different stationary-finger clearance."""
+    from dataclasses import replace
+    from scripts.sim2real.analyze.pick_lift_motion_ablation import VARIANTS, build
+    from scripts.sim2real.analyze.pick_lift_calibration import evaluate_episode
+
+    options = replace(VARIANTS[4], name="opposite", wrist_seed_offset_rad=-np.pi)
+    env, policy, _ = build(options, True, .01, "scripted")
+    try:
+        result = evaluate_episode(env, policy, 61010)
+        assert result.final_success
+        assert result.robot_table_contact_steps == 0
+        assert not result.warnings
+    finally:
+        env.close()
+
+
+def test_adaptive_seed_keeps_inner_placement_actions_unchanged():
+    """The outer-reach rule must preserve the established inner workspace motion."""
+    from dataclasses import replace
+    from scripts.sim2real.analyze.pick_lift_motion_ablation import VARIANTS, build
+
+    env, baseline, _ = build(VARIANTS[4], False, .01, "scripted")
+    try:
+        obs, _ = env.reset(seed=61000)
+        candidate = AlignedPickLift.for_env(env, replace(VARIANTS[4], opposite_wrist_radius_m=.21))
+        baseline.reset()
+        candidate.reset()
+        for _ in range(100):
+            action = baseline(obs)
+            np.testing.assert_allclose(candidate(obs), action, atol=1e-7)
+            obs, *_ = env.step(action)
+    finally:
+        env.close()
+
+
 def test_feedforward_is_bounded_and_respects_joint_limits():
     """Gravity correction changes commanded angles, never actuator gains."""
     q = np.zeros(5)

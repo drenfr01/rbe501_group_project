@@ -8,7 +8,7 @@ TablePlacer's radial-yaw rule, not general object-pose perception. No training.
 
 import argparse
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 import numpy as np
@@ -33,6 +33,13 @@ VARIANTS = (
     MotionOptions("gravity_yaw_depth4_upright", gravity_feedforward=True, radial_jaw_alignment=True,
                   grasp_height_m=-.004, upright_lift=True),
 )
+
+
+def motion_options(name: str) -> MotionOptions:
+    """Resolve an explicit experiment name without changing the original sweep."""
+    if name == "outer_wrist":
+        return replace(VARIANTS[4], name=name, opposite_wrist_radius_m=.21)
+    return next(option for option in VARIANTS if option.name == name)
 
 
 def build(options: MotionOptions, effects: bool, mass: float, controller: str, render_mode=None):

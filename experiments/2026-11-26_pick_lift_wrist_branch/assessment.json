@@ -1,0 +1,10 @@
+{
+  "passed_heldout_gate": false,
+  "ready_for_training": false,
+  "promote_defaults": false,
+  "metrics": {
+    "worst_success": 0.93,
+    "worst_table_rate": 0.0
+  },
+  "reason": "Separate explicit training preset and short pilot still required."
+}

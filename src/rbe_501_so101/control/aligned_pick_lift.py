@@ -29,6 +29,8 @@ class MotionOptions:
     yaw_rounds: int = 3
     yaw_probe_rad: float = 0.001
     minimum_yaw_derivative: float = 0.1
+    wrist_seed_offset_rad: float = 0.0
+    opposite_wrist_radius_m: float | None = None
 
 
 def quarter_turn_error(desired: float, actual: float) -> float:
@@ -60,6 +62,7 @@ class AlignedPickLift(ScriptedPickLift):
         """Clear episode diagnostics and the initial task-specific cube bearing."""
         super().reset()
         self._desired_yaw = 0.0
+        self._desired_radius = 0.0
         self.ik_misses = 0
 
     def _enter(self, phase: Phase, obs: np.ndarray) -> PhaseTarget:
@@ -67,6 +70,7 @@ class AlignedPickLift(ScriptedPickLift):
         if phase == Phase.APPROACH:
             xy = obs[self._layout.object_pos][:2] - self._solver._pan_axis_xy
             self._desired_yaw = float(np.arctan2(xy[1], xy[0]))
+            self._desired_radius = float(np.linalg.norm(xy))
         changed_lift = self.options.upright_lift or self.options.lift_reference == "pinch"
         if phase != Phase.LIFT or not changed_lift:
             return super()._enter(phase, obs)
@@ -91,6 +95,12 @@ class AlignedPickLift(ScriptedPickLift):
 
     def _align(self, goal, q):
         """Seed the wrist toward the nearest compatible square-face direction."""
+        q = q.copy()
+        offset = self.options.wrist_seed_offset_rad
+        radius = self.options.opposite_wrist_radius_m
+        if radius is not None and self._desired_radius >= radius:
+            offset = -np.pi
+        q[-2] = np.clip(q[-2] + offset, *self._solver._arm_range[-1])
         result = self._solver.solve(goal, q, True)
         for _ in range(self.options.yaw_rounds):
             q = result.q.copy()

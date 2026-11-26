@@ -90,3 +90,9 @@ The candidate improves scripted table clearance but misses the held-out success
 gate with arm effects; default control and training presets remain unchanged.
 Use replay's `--motion-variant gravity_yaw_depth4 --calibrated --guarded` flags
 to inspect it, optionally adding `--arm-effects`. No retraining was performed.
+
+The subsequent [wrist acquisition findings](../reports/findings/2026-11-26_pick_lift_wrist_acquisition.md)
+document the opt-in `--motion-variant outer_wrist` candidate: 200/200 scripted
+lifts with stiffness alone and 199/200 with arm effects on fresh placements,
+with no sampled table contacts. It passes the observed simulation gate; training
+defaults and saved policies are unchanged.

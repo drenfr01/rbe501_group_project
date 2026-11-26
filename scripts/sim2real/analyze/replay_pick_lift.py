@@ -133,8 +133,8 @@ def replay(controller: str, mass: float, seed: int, calibrated: bool, output: Pa
     output.mkdir(parents=True, exist_ok=False)
     config = make_config(mass, calibrated)
     if motion_variant:
-        from scripts.sim2real.analyze.pick_lift_motion_ablation import VARIANTS, build
-        options = next(v for v in VARIANTS if v.name == motion_variant)
+        from scripts.sim2real.analyze.pick_lift_motion_ablation import motion_options, build
+        options = motion_options(motion_variant)
         env, policy, _ = build(options, arm_effects, mass, controller, "human" if viewer else None)
     elif guarded or arm_effects or clearance_m:
         if not calibrated:
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     parser.add_argument("--arm-effects", action="store_true", help="Experimental measured arm servo/sensing effects")
     parser.add_argument("--clearance-mm", type=float, default=0.0, help="Experimental grasp waypoint offset; frozen candidate uses 0")
     parser.add_argument("--motion-variant", choices=("baseline", "gravity_only", "yaw_only", "gravity_yaw",
-                        "gravity_yaw_depth4", "upright_lift_only", "gravity_yaw_depth4_upright"),
+                        "gravity_yaw_depth4", "upright_lift_only", "gravity_yaw_depth4_upright", "outer_wrist"),
                         help="Opt-in motion experiment; requires --calibrated --guarded and no clearance override")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
