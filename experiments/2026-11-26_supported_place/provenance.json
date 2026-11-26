@@ -1,0 +1,29 @@
+{
+  "base_commit": "f92d4e69fdd7aa9ef779c9bf637b167178555e0f",
+  "source_sha256": {
+    "src/rbe_501_so101/control/carry_place.py": "9288006a07206107e2950be3d83058b381b2e24535cdabeae01cab9c14ac2ffd",
+    "src/rbe_501_so101/control/supported_place.py": "75a2e5823f0e379fe1af089aba96afa806aca65edd195e3d151403c5ac21d67a",
+    "scripts/sim2real/analyze/carry_place_check.py": "fc999d1c95e84f1f90834902db735ddadfeee3f6988dd8b40c6addde1a68850b",
+    "tests/test_carry_place.py": "895a52382e3dab9531f204cdc441fad8e70fd9112ff4a75ead4bc81c9151948f",
+    "tests/test_supported_place.py": "61bc6fdf6e64c56daa50c895df011794287f2c824e7082a805314e2e600f5b38"
+  },
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "training_updates": 0,
+  "validation": {
+    "passed": 438,
+    "skipped": 1,
+    "seconds": 40.02
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.carry_place_check --supported --out experiments/2026-11-26_supported_place",
+  "initial_prototype_complete_successes": 34,
+  "supported_fresh_complete_successes": 59,
+  "supported_recorded_successes": 60,
+  "scope": "200 unchanged Gym pickup periods, then independent backend-level full-task diagnostic; no RL environment or policy changes."
+}

@@ -178,3 +178,11 @@ candidate table contacts and warnings are zero. This opt-in scripted oracle
 keeps the original horizon and measured/contact gates; it changes phase timing
 and guard synchronization. The targeted blocker is resolved on these sets.
 No defaults, neural policies, observations or training configurations changed.
+
+The [first complete carry/place prototype](../reports/findings/2026-11-26_carry_place.md)
+extends the unchanged pickup with carry, supported lowering, release and retreat.
+The initial transfer completes 34/60 recorded cases; a bounded touchdown variant
+repairs those to 60/60 and completes 59/60 fresh cases without sampled robot/table
+contacts or warnings. One guarded lowering timeout remains, so the per-condition
+gate fails. The full sequence is demonstrated, but is not promoted or trained.
+The report includes the complete-task viewer command; old RL tasks stay unchanged.
