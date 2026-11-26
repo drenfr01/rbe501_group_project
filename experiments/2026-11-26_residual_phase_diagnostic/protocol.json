@@ -1,0 +1,16 @@
+{
+  "weights": "checkpoints/calibrated_outer_wrist_pilot/seed_0/model.zip",
+  "placement_seeds": [
+    66000,
+    66004
+  ],
+  "masses_kg": [
+    0.005,
+    0.01,
+    0.015,
+    0.02
+  ],
+  "episodes_per_variant": 20,
+  "total_episodes": 140,
+  "purpose": "Known-placement diagnostic interventions only; no refitting. Fresh v2 holdout uses 68000-68019."
+}

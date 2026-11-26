@@ -1,0 +1,866 @@
+[
+  {
+    "summary": {
+      "dynamics": "calibrated_outer_wrist_v1",
+      "controller": "failed_v1_matched",
+      "mass_kg": 0.005,
+      "episodes": 20,
+      "success_rate": 0.4,
+      "mean_final_lift_cm": 3.3960487460678515,
+      "min_final_lift_cm": -0.14085613188052348,
+      "lost_success_episodes": 8,
+      "robot_table_contact_episodes": 17,
+      "warning_episodes": 0
+    },
+    "episodes": [
+      {
+        "placement_seed": 68000,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": true,
+        "final_lift_m": -0.00010775542021673745,
+        "max_lift_m": 0.007939507215685648,
+        "robot_table_contact_steps": 11,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68001,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.035146447411300685,
+        "max_lift_m": 0.08247437528694967,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68002,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07663351437128796,
+        "max_lift_m": 0.07973880675400558,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68003,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0027619202786050012,
+        "max_lift_m": 0.06630775659507493,
+        "robot_table_contact_steps": 65,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68004,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.002563979904448954,
+        "max_lift_m": 0.0632009490768608,
+        "robot_table_contact_steps": 65,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68005,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.000635594212732904,
+        "max_lift_m": 0.07276506987122333,
+        "robot_table_contact_steps": 52,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68006,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": true,
+        "final_lift_m": -0.00010775542021673745,
+        "max_lift_m": 0.008907915195452032,
+        "robot_table_contact_steps": 19,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68007,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07711788713412548,
+        "max_lift_m": 0.07908118384433738,
+        "robot_table_contact_steps": 13,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68008,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07708207026862401,
+        "max_lift_m": 0.08287882085901888,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68009,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.08958456361094003,
+        "max_lift_m": 0.08958456361094003,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68010,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07192788727795807,
+        "max_lift_m": 0.07192788727795807,
+        "robot_table_contact_steps": 12,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68011,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07677627955623267,
+        "max_lift_m": 0.08077474400234008,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68012,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.0014085613188052348,
+        "max_lift_m": 0.06948640163843411,
+        "robot_table_contact_steps": 37,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68013,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07431347939825017,
+        "max_lift_m": 0.07750679455036802,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68014,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.02698261264275681,
+        "max_lift_m": 0.07794439760454863,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68015,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": true,
+        "final_lift_m": -0.00010775542021673745,
+        "max_lift_m": 0.0023531407621370515,
+        "robot_table_contact_steps": 4,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68016,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.00047207881941147,
+        "max_lift_m": 0.05239170291260409,
+        "robot_table_contact_steps": 42,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68017,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": false,
+        "final_lift_m": -0.00010775542021673745,
+        "max_lift_m": 0.0061150363317324374,
+        "robot_table_contact_steps": 115,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68018,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0686530051913764,
+        "max_lift_m": 0.07498202778977403,
+        "robot_table_contact_steps": 2,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68019,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0013421697740148564,
+        "max_lift_m": 0.06468981792959083,
+        "robot_table_contact_steps": 40,
+        "warnings": false
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_outer_wrist_v1",
+      "controller": "failed_v1_matched",
+      "mass_kg": 0.01,
+      "episodes": 20,
+      "success_rate": 0.6,
+      "mean_final_lift_cm": 4.687495292710004,
+      "min_final_lift_cm": -0.16060251063423903,
+      "lost_success_episodes": 7,
+      "robot_table_contact_episodes": 17,
+      "warning_episodes": 0
+    },
+    "episodes": [
+      {
+        "placement_seed": 68000,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.08307432469466969,
+        "max_lift_m": 0.08307432469466969,
+        "robot_table_contact_steps": 11,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68001,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.04325559100312737,
+        "max_lift_m": 0.07923147863351265,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68002,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07582881300166311,
+        "max_lift_m": 0.07949518500268138,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68003,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.003926405956504175,
+        "max_lift_m": 0.06859920447939694,
+        "robot_table_contact_steps": 65,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68004,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.003534675112422614,
+        "max_lift_m": 0.06396967928168007,
+        "robot_table_contact_steps": 65,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68005,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.00014178327092945198,
+        "max_lift_m": 0.07058654384782104,
+        "robot_table_contact_steps": 45,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.10941440353037957,
+        "max_lift_m": 0.11672607674209834,
+        "robot_table_contact_steps": 1,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68007,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07373833230270177,
+        "max_lift_m": 0.07624702851135856,
+        "robot_table_contact_steps": 13,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68008,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07568088014702967,
+        "max_lift_m": 0.0773139565395139,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68009,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.09615153538219101,
+        "max_lift_m": 0.09615153538219101,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68010,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.08648289601478532,
+        "max_lift_m": 0.08648289601478532,
+        "robot_table_contact_steps": 12,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68011,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07467268958637951,
+        "max_lift_m": 0.07966715144380576,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68012,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.0016060251063423903,
+        "max_lift_m": 0.07118687522713552,
+        "robot_table_contact_steps": 34,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68013,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07407402218928749,
+        "max_lift_m": 0.07818335800850074,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68014,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.04491925275372055,
+        "max_lift_m": 0.07794794395320148,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68015,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.02739439474721861,
+        "max_lift_m": 0.06807141091719615,
+        "robot_table_contact_steps": 1,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68016,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.001423013369964532,
+        "max_lift_m": 0.05993603533322478,
+        "robot_table_contact_steps": 43,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68017,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": true,
+        "final_lift_m": -0.00010775542021673745,
+        "max_lift_m": 0.00047754278392786453,
+        "robot_table_contact_steps": 114,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68018,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06433711898818728,
+        "max_lift_m": 0.06895043199761641,
+        "robot_table_contact_steps": 2,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68019,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.001446273559257083,
+        "max_lift_m": 0.06563785192102078,
+        "robot_table_contact_steps": 68,
+        "warnings": false
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_outer_wrist_v1",
+      "controller": "failed_v1_matched",
+      "mass_kg": 0.015,
+      "episodes": 20,
+      "success_rate": 0.65,
+      "mean_final_lift_cm": 4.9873929371481545,
+      "min_final_lift_cm": -0.11848380966087979,
+      "lost_success_episodes": 7,
+      "robot_table_contact_episodes": 17,
+      "warning_episodes": 0
+    },
+    "episodes": [
+      {
+        "placement_seed": 68000,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07912295570311956,
+        "max_lift_m": 0.07912295570311956,
+        "robot_table_contact_steps": 11,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68001,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.05346137655466732,
+        "max_lift_m": 0.07707261438835156,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68002,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07398730300231215,
+        "max_lift_m": 0.07966471438348455,
+        "robot_table_contact_steps": 22,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68003,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.004317002828827132,
+        "max_lift_m": 0.06929883542017212,
+        "robot_table_contact_steps": 64,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68004,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.003957736964013803,
+        "max_lift_m": 0.06469722299781844,
+        "robot_table_contact_steps": 65,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68005,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.0003767832365025314,
+        "max_lift_m": 0.06681547499607965,
+        "robot_table_contact_steps": 44,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.11254466088067405,
+        "max_lift_m": 0.12446004472619321,
+        "robot_table_contact_steps": 3,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68007,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0721433021963509,
+        "max_lift_m": 0.07582899443640745,
+        "robot_table_contact_steps": 13,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68008,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07538137404677925,
+        "max_lift_m": 0.07796210650823487,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68009,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.09437899216725787,
+        "max_lift_m": 0.09437899216725787,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68010,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07895416416297651,
+        "max_lift_m": 0.07895416416297651,
+        "robot_table_contact_steps": 12,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68011,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07596121276507639,
+        "max_lift_m": 0.07974158539242604,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68012,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.001184838096608798,
+        "max_lift_m": 0.07002068904980308,
+        "robot_table_contact_steps": 35,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68013,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07423797169623614,
+        "max_lift_m": 0.07842299453289603,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68014,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07205677305587521,
+        "max_lift_m": 0.07762497819628655,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68015,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.04634630476251034,
+        "max_lift_m": 0.06850155502047861,
+        "robot_table_contact_steps": 1,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68016,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0011793331559976084,
+        "max_lift_m": 0.0557650930778707,
+        "robot_table_contact_steps": 50,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68017,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.01083585717120289,
+        "max_lift_m": 0.05596402711509252,
+        "robot_table_contact_steps": 1,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68018,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06860780127321653,
+        "max_lift_m": 0.06922999342644998,
+        "robot_table_contact_steps": 2,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68019,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.001566086375648812,
+        "max_lift_m": 0.06304818535650958,
+        "robot_table_contact_steps": 70,
+        "warnings": false
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_outer_wrist_v1",
+      "controller": "failed_v1_matched",
+      "mass_kg": 0.02,
+      "episodes": 20,
+      "success_rate": 0.65,
+      "mean_final_lift_cm": 5.13582462668241,
+      "min_final_lift_cm": -0.18450928125424704,
+      "lost_success_episodes": 6,
+      "robot_table_contact_episodes": 15,
+      "warning_episodes": 0
+    },
+    "episodes": [
+      {
+        "placement_seed": 68000,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.08404835627369156,
+        "max_lift_m": 0.08404835627369156,
+        "robot_table_contact_steps": 11,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68001,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.05155368234551416,
+        "max_lift_m": 0.07786282629748209,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68002,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07113979929916225,
+        "max_lift_m": 0.08012172125714201,
+        "robot_table_contact_steps": 22,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68003,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.004570250632870532,
+        "max_lift_m": 0.06869566708911612,
+        "robot_table_contact_steps": 63,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68004,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.004396482674871138,
+        "max_lift_m": 0.06622273745390972,
+        "robot_table_contact_steps": 64,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68005,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": -0.00047016494720747426,
+        "max_lift_m": 0.06762520231708569,
+        "robot_table_contact_steps": 41,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.11400592265565934,
+        "max_lift_m": 0.12595405516234137,
+        "robot_table_contact_steps": 8,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68007,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07333658167298862,
+        "max_lift_m": 0.07564032897951956,
+        "robot_table_contact_steps": 13,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68008,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0756029068836217,
+        "max_lift_m": 0.07875216912806882,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68009,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.09078213936681478,
+        "max_lift_m": 0.09078213936681478,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68010,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07919987589268507,
+        "max_lift_m": 0.07919987589268507,
+        "robot_table_contact_steps": 12,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68011,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07593947169537163,
+        "max_lift_m": 0.07959826891114818,
+        "robot_table_contact_steps": 23,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68012,
+        "final_success": false,
+        "ever_success": false,
+        "ever_grasped": true,
+        "final_lift_m": -0.0018450928125424704,
+        "max_lift_m": 0.0,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68013,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07162869443235675,
+        "max_lift_m": 0.0784458459137175,
+        "robot_table_contact_steps": 24,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68014,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07132704284583691,
+        "max_lift_m": 0.07517525943501147,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68015,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.07419468149094188,
+        "max_lift_m": 0.07419468149094188,
+        "robot_table_contact_steps": 0,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68016,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.001487913200588109,
+        "max_lift_m": 0.05606429325669959,
+        "robot_table_contact_steps": 55,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68017,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.015829507168579893,
+        "max_lift_m": 0.05545535387191203,
+        "robot_table_contact_steps": 1,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68018,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06899511599736441,
+        "max_lift_m": 0.07006050049837798,
+        "robot_table_contact_steps": 2,
+        "warnings": false
+      },
+      {
+        "placement_seed": 68019,
+        "final_success": false,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0014417585673133781,
+        "max_lift_m": 0.06402895494047944,
+        "robot_table_contact_steps": 72,
+        "warnings": false
+      }
+    ]
+  }
+]

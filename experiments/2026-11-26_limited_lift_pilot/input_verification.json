@@ -1,0 +1,16 @@
+{
+  "unchanged": true,
+  "sha256": {
+    "models\\so101\\so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+    "data\\calibration\\actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\run_info.json": "6d89d9e0125d7813b95d6a882fbe36079e06b6f0b8ce3b2d5f9c5a3662157afa",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\model.zip": "60846e9851621894f44666c1f3981800c26b39c0bda834561ad45607265333be",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\vecnormalize.pkl": "89d6190e0ba096130e01389d0de7319694ab1b023eba92bd808045e8779fa07e",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\run_info.json": "e404b79e78bf813ed01484d88c65d9674acf1edaa396f4e06953c9e509a6a4fe",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\model.zip": "9fe4c84d061f2610063e036e9469427ca9a5f286bf9a3dd662f1516259ae8675",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\vecnormalize.pkl": "5150b535e9980bfc179b58b85d271552d78f82d2eba90af977e0b638808a5c46",
+    "checkpoints\\calibrated_outer_wrist_pilot\\run_config.json": "c272705361371428825ef92e778cebbbb0e48438714848428f74ae2a55a5a080",
+    "checkpoints\\calibrated_outer_wrist_pilot\\seed_0\\model.zip": "58319a853f35bb7b6f52c8f628c229dfac7de54cd1336607e5cff64143542544",
+    "checkpoints\\calibrated_outer_wrist_pilot\\seed_0\\vecnormalize.pkl": "c7af477533bb6c75c3d2b069388b39d0e2e777430b83cd5dba6cfe96e8dbf3fd"
+  }
+}

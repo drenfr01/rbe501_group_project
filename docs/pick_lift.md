@@ -102,3 +102,10 @@ adds a separate serialized training preset and a 10k-transition fresh-policy tes
 It failed held-out evaluation (29/80 lifts versus scripted 79/80, with table
 contacts), so its weights are not promoted. The report includes the dedicated
 training/replay commands and locations of the local checkpoint companions.
+
+The subsequent [lift-only residual pilot](../reports/findings/2026-11-26_lift_only_residual_pilot.md)
+protects acquisition and the jaw, bounds lift corrections and checks nominal table
+clearance/holding height. Its fresh v2 policy matches the script at 78/80 lifts
+with zero sampled table contacts; this passes the stability gate but does not
+establish an RL improvement. Use the dedicated `limited_lift_pilot` commands in
+that report. Legacy defaults and reaching policies remain unchanged.
