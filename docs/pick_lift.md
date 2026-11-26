@@ -162,3 +162,11 @@ on new placements. Cube yaw is absent from observations, and lift-only residuals
 cannot act before these acquisition aborts. This is a separate distribution-shift
 diagnostic, not a changed training preset; orientation-aware acquisition is the
 next proposed experiment before further training.
+
+The [orientation-oracle prototype](../reports/findings/2026-11-26_oracle_acquisition.md)
+then improves independent yaw lifts from 167/280 to 268/280 with zero sampled
+candidate table contacts, but regresses nominal controls and workspace-grid cases.
+It is rejected as a replacement baseline. One traced regression reaches stable
+alignment too late for the fixed closing window; address bounded phase timing
+before changing observations, gains or training again. The old controller and
+saved policies remain unchanged.

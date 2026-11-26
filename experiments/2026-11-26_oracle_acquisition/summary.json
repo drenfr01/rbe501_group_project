@@ -1,0 +1,101 @@
+{
+  "development_workspace": {
+    "episodes": 180,
+    "successes": 152,
+    "acquisition_aborts": 28,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0,
+    "closed_diagnostics": {
+      "closure_position_error_mm": {
+        "mean": 1.9849990455642426,
+        "maximum": 3.7237449909965004
+      },
+      "closure_axis_error_deg": {
+        "mean": 2.6581444372810505,
+        "maximum": 3.0716737172519624
+      },
+      "ik_position_error_mm": {
+        "mean": 0.7524147865714421,
+        "maximum": 0.9897564104979536
+      },
+      "ik_axis_error_deg": {
+        "mean": 0.7671664438469171,
+        "maximum": 0.9837947367038697
+      }
+    }
+  },
+  "development_yaw": {
+    "episodes": 280,
+    "successes": 280,
+    "acquisition_aborts": 0,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0,
+    "closed_diagnostics": {
+      "closure_position_error_mm": {
+        "mean": 2.123285911100555,
+        "maximum": 3.3440321739883156
+      },
+      "closure_axis_error_deg": {
+        "mean": 2.191743900855477,
+        "maximum": 3.062730042004431
+      },
+      "ik_position_error_mm": {
+        "mean": 0.6696030616173037,
+        "maximum": 0.9749366121928127
+      },
+      "ik_axis_error_deg": {
+        "mean": 0.7172929128087215,
+        "maximum": 0.9888769840791302
+      }
+    }
+  },
+  "validation": {
+    "scripted": {
+      "episodes": 280,
+      "successes": 167,
+      "acquisition_aborts": 113,
+      "table_contact_episodes": 7,
+      "approach_contact_episodes": 0,
+      "warning_episodes": 0,
+      "closed_diagnostics": {
+        "closure_position_error_mm": {
+          "mean": 1.993225986104124,
+          "maximum": 4.030478538268613
+        }
+      }
+    },
+    "oracle": {
+      "episodes": 280,
+      "successes": 268,
+      "acquisition_aborts": 12,
+      "table_contact_episodes": 0,
+      "approach_contact_episodes": 0,
+      "warning_episodes": 0,
+      "closed_diagnostics": {
+        "closure_position_error_mm": {
+          "mean": 2.0407043832354654,
+          "maximum": 2.9798711823566055
+        },
+        "closure_axis_error_deg": {
+          "mean": 2.082528385670791,
+          "maximum": 3.065501814184462
+        },
+        "ik_position_error_mm": {
+          "mean": 0.725098461244467,
+          "maximum": 0.9986351773691108
+        },
+        "ik_axis_error_deg": {
+          "mean": 0.6892439850717113,
+          "maximum": 0.977945846614808
+        }
+      }
+    }
+  },
+  "preserves_development_workspace": false,
+  "promote_controller": false,
+  "start_training": false,
+  "reason": "Improves rotation handling, but fails nominal workspace preservation and independent nominal/per-yaw gates.",
+  "independent_passed_validation": false
+}

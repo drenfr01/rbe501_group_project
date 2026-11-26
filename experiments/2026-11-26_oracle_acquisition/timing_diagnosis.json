@@ -1,0 +1,2182 @@
+[
+  {
+    "controller": "baseline",
+    "step": 1,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 2,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 3,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 4,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 5,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 6,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 7,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 8,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 9,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 10,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 11,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 12,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 13,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 14,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 15,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 16,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 17,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 18,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 19,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 20,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 21,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 22,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 23,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 24,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 25,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 26,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 27,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 28,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 29,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 30,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 31,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 32,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 33,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 34,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 35,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 36,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 37,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 38,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 39,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 40,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 41,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 42,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 43,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 44,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 45,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 46,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 47,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 48,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 49,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 50,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 51,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 52,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 53,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 54,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 55,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 56,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 57,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 58,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 59,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 60,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 61,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 62,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 63,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 64,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 65,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 66,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 67,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 68,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 69,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 70,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 71,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 72,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 73,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 74,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 75,
+    "stage": "at_goal",
+    "alignment_count": 0,
+    "position_error_xyz_mm": [
+      2.5583459064364433,
+      -1.7980486154556274,
+      7.049649953842163
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 76,
+    "stage": "at_goal",
+    "alignment_count": 0,
+    "position_error_xyz_mm": [
+      2.768523059785366,
+      -1.9736438989639282,
+      5.386322736740112
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 77,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.1555921994149685,
+      -1.4625489711761475,
+      3.9409399032592773
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 78,
+    "stage": "at_goal",
+    "alignment_count": 2,
+    "position_error_xyz_mm": [
+      1.8319482915103436,
+      -1.1925995349884033,
+      2.6773810386657715
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 79,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 80,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 81,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 82,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 83,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 84,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 85,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 86,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 87,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 88,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 89,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 90,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 91,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 92,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 93,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 94,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 95,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 96,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 97,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 98,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 99,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 100,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 101,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 102,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 103,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 104,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 105,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 106,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 107,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 108,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 109,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "baseline",
+    "step": 110,
+    "stage": "at_goal",
+    "alignment_count": 3,
+    "position_error_xyz_mm": [
+      0.9340378455817699,
+      -0.845983624458313,
+      1.7987191677093506
+    ],
+    "close_started": true,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 1,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 2,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 3,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 4,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 5,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 6,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 7,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 8,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 9,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 10,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 11,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 12,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 13,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 14,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 15,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 16,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 17,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 18,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 19,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 20,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 21,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 22,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 23,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 24,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 25,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 26,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 27,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 28,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 29,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 30,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 31,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 32,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 33,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 34,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 35,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 36,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 37,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 38,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 39,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 40,
+    "stage": "initial",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 41,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 42,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 43,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 44,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 45,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 46,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 47,
+    "stage": "align_high",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 48,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 49,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 50,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 51,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 52,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 53,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 54,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 55,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 56,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 57,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 58,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 59,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 60,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 61,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 62,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 63,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 64,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 65,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 66,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 67,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 68,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 69,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 70,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 71,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 72,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 73,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 74,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 75,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 76,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 77,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 78,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 79,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 80,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 81,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 82,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 83,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 84,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 85,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 86,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 87,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 88,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 89,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 90,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 91,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 92,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 93,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 94,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 95,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 96,
+    "stage": "descend",
+    "alignment_count": 0,
+    "position_error_xyz_mm": null,
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 97,
+    "stage": "at_goal",
+    "alignment_count": 0,
+    "position_error_xyz_mm": [
+      2.7447817847132683,
+      -1.8160343170166016,
+      7.078379392623901
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 98,
+    "stage": "at_goal",
+    "alignment_count": 0,
+    "position_error_xyz_mm": [
+      2.973375376313925,
+      -1.9986778497695923,
+      5.921661853790283
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 99,
+    "stage": "at_goal",
+    "alignment_count": 0,
+    "position_error_xyz_mm": [
+      2.472927328199148,
+      -1.585051417350769,
+      4.69622015953064
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 100,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": false
+  },
+  {
+    "controller": "oracle",
+    "step": 101,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 102,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 103,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 104,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 105,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 106,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 107,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 108,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 109,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  },
+  {
+    "controller": "oracle",
+    "step": 110,
+    "stage": "at_goal",
+    "alignment_count": 1,
+    "position_error_xyz_mm": [
+      2.4561830796301365,
+      -1.5739798545837402,
+      3.6831796169281006
+    ],
+    "close_started": false,
+    "aborted": true
+  }
+]

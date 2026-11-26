@@ -1,0 +1,29 @@
+{
+  "base_commit": "e1f516d5e00135b2535f04d7e1f20771b087f1d1",
+  "source_sha256": {
+    "src/rbe_501_so101/kinematics/oracle_jaw_ik.py": "9150b78599629a303620243a001bdbbf10d3e2a8cd5c9063ddb31b40fca2c273",
+    "src/rbe_501_so101/control/oracle_acquisition.py": "b8229e417bcd911760f8cda802c1da7e1c01b26248243b541bc8ca2a85e3143c",
+    "scripts/sim2real/analyze/oracle_acquisition_check.py": "3730e798842575fb933bfb65361887902b651328d5cabd9a264a553f24545ccd",
+    "tests/test_oracle_jaw_ik.py": "2150e58f72c7f4bab27cd057dc6365bdb8b1d24126ceeaa5b05cd43129d637da",
+    "tests/test_oracle_assessment.py": "03432124c8f465dcfb328c9020911026c1abde5f61e1804db99c33675ddc2d37"
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.oracle_acquisition_check --model-dir checkpoints/calibrated_cartesian_zero_v3_pilot --out experiments/2026-11-26_oracle_acquisition",
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "new_matrix_episodes": 1020,
+  "training_updates": 0,
+  "validation": {
+    "passed": 429,
+    "skipped": 1,
+    "seconds": 37.02
+  },
+  "promote_controller": false,
+  "historical_reference": "experiments/2026-11-26_pick_lift_coverage/development equivalent recorded grid and seed82000 yaw conditions",
+  "timing_diagnosis": "Paired baseline/oracle radius .20m azimuth -40deg mass .01kg seed83000, 110 steps each; every step records stage/readiness."
+}

@@ -1,0 +1,78 @@
+{
+  "complete_pairs": true,
+  "per_yaw": [
+    {
+      "angle_deg": -45.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": -30.0,
+      "episodes": 40,
+      "successes": 32
+    },
+    {
+      "angle_deg": -15.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 0.0,
+      "episodes": 40,
+      "successes": 36
+    },
+    {
+      "angle_deg": 15.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 30.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 45.0,
+      "episodes": 40,
+      "successes": 40
+    }
+  ],
+  "successes": {
+    "scripted": 167,
+    "oracle": 268
+  },
+  "new_paired_failures": [
+    [
+      0.01,
+      "yaw0",
+      85007
+    ],
+    [
+      0.005,
+      "yaw0",
+      85007
+    ],
+    [
+      0.015,
+      "yaw0",
+      85007
+    ],
+    [
+      0.02,
+      "yaw0",
+      85007
+    ]
+  ],
+  "safe": true,
+  "nominal_pass": false,
+  "rotated_success_gain": {
+    "clusters": 10,
+    "mean": 0.4375,
+    "ci95": [
+      0.24999999999999994,
+      0.6041666666666667
+    ]
+  },
+  "passed_validation": false,
+  "start_training": false
+}
