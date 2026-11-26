@@ -125,11 +125,18 @@ def rollout(env, policy, seed: int, output: Path, frames: bool, viewer: bool) ->
 
 def replay(controller: str, mass: float, seed: int, calibrated: bool, output: Path,
            frames: bool = False, viewer: bool = False, guarded: bool = False,
-           arm_effects: bool = False, clearance_m: float = 0.0) -> dict:
+           arm_effects: bool = False, clearance_m: float = 0.0,
+           motion_variant: str | None = None) -> dict:
     """Write a new trace directory while leaving every input artifact unchanged."""
+    if motion_variant and (not calibrated or not guarded or clearance_m):
+        raise ValueError("Motion variants require calibrated and guarded operation with zero clearance override")
     output.mkdir(parents=True, exist_ok=False)
     config = make_config(mass, calibrated)
-    if guarded or arm_effects or clearance_m:
+    if motion_variant:
+        from scripts.sim2real.analyze.pick_lift_motion_ablation import VARIANTS, build
+        options = next(v for v in VARIANTS if v.name == motion_variant)
+        env, policy, _ = build(options, arm_effects, mass, controller, "human" if viewer else None)
+    elif guarded or arm_effects or clearance_m:
         if not calibrated:
             raise ValueError("Experimental guard/clearance/arm-effect replays require --calibrated")
         from scripts.sim2real.analyze.validate_pick_lift_setup import Setup, build
@@ -145,6 +152,7 @@ def replay(controller: str, mass: float, seed: int, calibrated: bool, output: Pa
     result = {"controller": controller, "mass_kg": mass, "placement_seed": seed,
               "calibrated_stiffness_only": calibrated and not arm_effects,
               "guarded": guarded, "arm_effects": arm_effects, "clearance_m": clearance_m,
+              "motion_variant": motion_variant,
               "events": transition_events(trace), "trace": trace}
     (output / "trace.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"{output}: final success={trace[-1]['success']}, lift={trace[-1]['lift_m']*100:.2f} cm", flush=True)
@@ -162,10 +170,13 @@ if __name__ == "__main__":
     parser.add_argument("--guarded", action="store_true", help="Require stable grasp before lift; stop arm commands on loss")
     parser.add_argument("--arm-effects", action="store_true", help="Experimental measured arm servo/sensing effects")
     parser.add_argument("--clearance-mm", type=float, default=0.0, help="Experimental grasp waypoint offset; frozen candidate uses 0")
+    parser.add_argument("--motion-variant", choices=("baseline", "gravity_only", "yaw_only", "gravity_yaw",
+                        "gravity_yaw_depth4", "upright_lift_only", "gravity_yaw_depth4_upright"),
+                        help="Opt-in motion experiment; requires --calibrated --guarded and no clearance override")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     if (args.guarded or args.arm_effects or args.clearance_mm) and not args.calibrated:
         parser.error("--guarded, --arm-effects, and --clearance-mm require --calibrated")
     torch.set_num_threads(1)
     replay(args.controller, args.mass_kg, args.placement_seed, args.calibrated, args.out, args.frames, args.viewer,
-           args.guarded, args.arm_effects, args.clearance_mm / 1000)
+           args.guarded, args.arm_effects, args.clearance_mm / 1000, args.motion_variant)

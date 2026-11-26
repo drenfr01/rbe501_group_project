@@ -1,0 +1,11 @@
+{
+  "passed_heldout_gate": false,
+  "ready_for_training": false,
+  "promote_defaults": false,
+  "candidate": "gravity_yaw_depth4",
+  "scripted_success_stiffness": 1.0,
+  "scripted_success_arm_effects": 0.9,
+  "required_success": 0.95,
+  "source_inputs_unchanged": true,
+  "next_action": "Investigate acquisition at seeds 61010 and 61014; validate any correction on new placements."
+}

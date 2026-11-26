@@ -81,3 +81,12 @@ controller with arm stiction, clipping, fixed delay, and encoder quantization.
 This is not a hardware-calibrated gripper/contact/perception model. The guard
 uses simulation contact truth, and cannot catch a cube after it has slipped.
 See `reports/findings/2026-11-26_guarded_pick_lift_validation.md`.
+
+## Experimental motion alignment
+
+The opt-in calibrated motion ablation and independent results are documented in
+[the motion findings](../reports/findings/2026-11-26_pick_lift_motion_ablation.md).
+The candidate improves scripted table clearance but misses the held-out success
+gate with arm effects; default control and training presets remain unchanged.
+Use replay's `--motion-variant gravity_yaw_depth4 --calibrated --guarded` flags
+to inspect it, optionally adding `--arm-effects`. No retraining was performed.
