@@ -1,0 +1,61 @@
+{
+  "complete_pairs": true,
+  "per_yaw": [
+    {
+      "angle_deg": -45.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": -30.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": -15.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 0.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 15.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 30.0,
+      "episodes": 40,
+      "successes": 40
+    },
+    {
+      "angle_deg": 45.0,
+      "episodes": 40,
+      "successes": 40
+    }
+  ],
+  "successes": {
+    "scripted": 140,
+    "timed": 280
+  },
+  "new_paired_failures": [],
+  "safe": true,
+  "nominal_pass": true,
+  "rotated_success_gain": {
+    "clusters": 10,
+    "mean": 0.5833333333333334,
+    "ci95": [
+      0.44562500000000016,
+      0.675
+    ]
+  },
+  "passed_validation": true,
+  "start_training": false,
+  "recorded_all_pass": true,
+  "recorded_safe": true,
+  "passed_combined_gate": true,
+  "scope": "Scripted oracle/timing validation, not evidence of RL improvement or hardware readiness."
+}

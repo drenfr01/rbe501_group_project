@@ -170,3 +170,11 @@ It is rejected as a replacement baseline. One traced regression reaches stable
 alignment too late for the fixed closing window; address bounded phase timing
 before changing observations, gains or training again. The old controller and
 saved policies remain unchanged.
+
+The [bounded timing repair](../reports/findings/2026-11-26_timed_oracle.md)
+then passes 460/460 recorded regressions and 280/280 fresh yaw cases, versus the
+original script's 140/280 on the same fresh set. Nominal controls are retained;
+candidate table contacts and warnings are zero. This opt-in scripted oracle
+keeps the original horizon and measured/contact gates; it changes phase timing
+and guard synchronization. The targeted blocker is resolved on these sets.
+No defaults, neural policies, observations or training configurations changed.

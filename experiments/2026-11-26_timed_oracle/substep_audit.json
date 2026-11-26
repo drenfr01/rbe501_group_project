@@ -1,0 +1,178 @@
+[
+  {
+    "case": "grid",
+    "seed": 83000,
+    "mass_kg": 0.005,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 0.04623189108963759,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "recorded_minus30",
+    "seed": 85007,
+    "mass_kg": 0.005,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 8.589962756310564e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_minus45",
+    "seed": 86000,
+    "mass_kg": 0.005,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.22817322423137e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_plus45",
+    "seed": 86000,
+    "mass_kg": 0.005,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.289059874042093e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "grid",
+    "seed": 83000,
+    "mass_kg": 0.01,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 0.025205270720795453,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "recorded_minus30",
+    "seed": 85007,
+    "mass_kg": 0.01,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 8.645404705508468e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_minus45",
+    "seed": 86000,
+    "mass_kg": 0.01,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.224742515543145e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_plus45",
+    "seed": 86000,
+    "mass_kg": 0.01,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.248161279243818e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "grid",
+    "seed": 83000,
+    "mass_kg": 0.015,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 0.017739149898110467,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "recorded_minus30",
+    "seed": 85007,
+    "mass_kg": 0.015,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 8.605406907059911e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_minus45",
+    "seed": 86000,
+    "mass_kg": 0.015,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.232302569292683e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_plus45",
+    "seed": 86000,
+    "mass_kg": 0.015,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.215189102966027e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "grid",
+    "seed": 83000,
+    "mass_kg": 0.02,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 0.013129874183702619,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "recorded_minus30",
+    "seed": 85007,
+    "mass_kg": 0.02,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 8.643951938223205e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_minus45",
+    "seed": 86000,
+    "mass_kg": 0.02,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.203700660277806e-08,
+    "success": true,
+    "warning": false
+  },
+  {
+    "case": "fresh_plus45",
+    "seed": 86000,
+    "mass_kg": 0.02,
+    "substeps": 6600,
+    "table_contact_substeps": 0,
+    "approach_cube_contact_substeps": 0,
+    "preclose_max_xy_mm": 7.265185430604142e-08,
+    "success": true,
+    "warning": false
+  }
+]
