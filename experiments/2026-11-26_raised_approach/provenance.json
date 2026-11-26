@@ -1,0 +1,16 @@
+{
+  "base_commit": "66ee1585dad82b69c22fbac944a57bda84c44b2c",
+  "exploration": "Known diagnostic placements used before freezing: strict raise threshold aborted; 25 mm measured rise permitted traverse; raising alone fixed 15 g but not 5 g; one bounded measured correction fixed known cases. Held-out seed range remains unused for tuning.",
+  "training": "None; script-only path experiment, existing v1/v2 weights not executed or modified.",
+  "tests": "397 passed, 1 optional LeRobot skipped",
+  "command": "uv run --locked python -m scripts.sim2real.analyze.raised_approach_check --out experiments/2026-11-26_raised_approach",
+  "executed_source_sha256": {
+    "src/rbe_501_so101/control/raised_approach.py": "8614f147118ef679c084c24bf2fdbaced54ff39fd0a30b6914fd47ec3e7d2f99",
+    "scripts/sim2real/analyze/raised_approach_check.py": "1b8c335b1ef87549329a0da604730e335beff68e49a087a0be7180647ca2ef64"
+  },
+  "final_source_sha256": {
+    "src/rbe_501_so101/control/raised_approach.py": "8614f147118ef679c084c24bf2fdbaced54ff39fd0a30b6914fd47ec3e7d2f99",
+    "scripts/sim2real/analyze/raised_approach_check.py": "6eea29bf9cc01e88550655ef5f8d2970ab3af71f6fd8f70a7f439f675872d355"
+  },
+  "final_source_note": "Only unused runner imports removed after the experiment; controller source and evaluated behavior unchanged."
+}

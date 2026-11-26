@@ -115,3 +115,10 @@ then preserve both controllers and diagnose premature stationary-finger contact
 during the failing approach. In 720 paired holding-force episodes, both retain
 all 312 eligible disturbed holds; RL shows only a tiny simulated cube-motion
 reduction and more TCP motion. No training or controller changes were made.
+
+The [raised-approach experiment](../reports/findings/2026-11-26_raised_approach.md)
+tests the next acquisition change separately. Raise-only improves arm-effect
+held-out lifts from 195/200 to 198/200 and removes observed initial approach
+contacts, but still fails the pre-close cube-motion gate. Alignment correction
+variants introduce table contacts and are rejected. Defaults and weights remain
+unchanged; use only the opt-in experiment/replay commands in that report.
