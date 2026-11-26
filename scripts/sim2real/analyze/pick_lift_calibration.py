@@ -126,9 +126,9 @@ def evaluate_episode(env, policy: EpisodePolicy, seed: int) -> EpisodeResult:
                          float(info["lift_m"]), max_lift, table_steps, warnings)
 
 
-def build_condition(config: PickLiftConfig, controller: str):
+def build_condition(config: PickLiftConfig, controller: str, render_mode=None):
     """Load frozen saved policies or construct the existing scripted baseline."""
-    raw = SO101PickLiftEnv(cfg=config)
+    raw = SO101PickLiftEnv(cfg=config, render_mode=render_mode)
     path = CONTROLLERS[controller]
     if path is None:
         return raw, ScriptedPickLift.for_env(raw)
