@@ -1,0 +1,24 @@
+{
+  "base_commit": "8f36a64eac699b40f2720c10ea6c0ec38ab8fbc5",
+  "source_inventory_sha256": {
+    "src/rbe_501_so101/envs/__init__.py": "1f6463ef169fccb4cac32d7d061295193d0ecb23c2625a728eaf07d37e575998",
+    "src/rbe_501_so101/control/pick_place_stepper.py": "57540bd67f5fef39161e382bde9481a1bc93bb13073c6a1bf5fcf7e50b9be0ce",
+    "src/rbe_501_so101/envs/pick_place_config.py": "00a988ac10710d455e9da9e4a5b2c09202c9b55706be41a5e5b105596cdf7a94",
+    "src/rbe_501_so101/envs/pick_place_env.py": "c486e3bc2b95bec993b1b8d42a78192f1f42d8446f4d0335e2a350f45f2d249a",
+    "src/rbe_501_so101/rl/pick_place_training.py": "6c64176d462458c3f7b4bb91dbcedaeed7e469006f8d6c2aea40a2ac3edf57ef",
+    "scripts/sim2real/analyze/pick_place_pilot.py": "48dfd9a2fe4587e90d3eda0937a121047c77ba666431bdc71bde0e81050657c6",
+    "tests/test_pick_place_env.py": "adc0cc2431a2113d8ce58b2307f6631a1f728dd19b584b8173669fc341ad280e",
+    "tests/test_pick_place_training.py": "923d3639e07ad686dbdce9678fa8f8db142c90ad1cda9de0c3831ee94575943c"
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.pick_place_pilot --out experiments/2026-11-26_pick_place_env_pilot --model-dir checkpoints/pick_place_v1_pilot",
+  "validation": {
+    "passed": 452,
+    "skipped": 1,
+    "seconds": 43.85
+  },
+  "training_steps": 10000,
+  "training_device": "cuda",
+  "evaluation_device": "cpu",
+  "old_policies_reused": false,
+  "checkpoint_binaries_in_git": false
+}

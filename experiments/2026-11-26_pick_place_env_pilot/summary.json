@@ -1,0 +1,24 @@
+{
+  "scripted_eval": {
+    "episodes": 60,
+    "successes": 60,
+    "mean_error_mm": 4.463529343035836,
+    "max_error_mm": 6.969527042149046,
+    "mean_steps": 457.03333333333336,
+    "residual_steps": 0,
+    "residual_rejections": 0,
+    "table_steps": 0,
+    "warnings": 0
+  },
+  "learned_eval": {
+    "episodes": 60,
+    "successes": 60,
+    "mean_error_mm": 4.390147095469106,
+    "max_error_mm": 6.743709183951416,
+    "mean_steps": 460.4,
+    "residual_steps": 6340,
+    "residual_rejections": 0,
+    "table_steps": 0,
+    "warnings": 0
+  }
+}

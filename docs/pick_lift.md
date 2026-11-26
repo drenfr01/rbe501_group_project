@@ -194,3 +194,11 @@ near-target tracking correction and stops downward integration once table suppor
 is present. The first unconditional integral is retained as rejected for recorded
 regressions. Use `--contact-tracked` for the validated candidate; existing variants,
 gains, support guards, phase budgets and saved policies remain unchanged.
+
+The [full-task Gym environment and pilot](../reports/findings/2026-11-26_pick_place_env_pilot.md)
+now expose that complete sequence as `SO101PickPlace-v1`, with destination,
+orientation-aware observations, bounded carry/lower residuals and true released-
+placement rewards/success. A fresh 10k CUDA SAC pilot matches its scripted
+baseline at 60/60 full-task trials. This passes stability, not an RL-benefit gate.
+See [full-task usage](pick_place.md) for training and actual learned-policy replay;
+the earlier reaching and pickup environments/policies remain separate.
