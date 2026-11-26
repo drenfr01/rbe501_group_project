@@ -1,0 +1,150 @@
+{
+  "profile": {
+    "name": "position_zero",
+    "target_deg": 0.0,
+    "rate_rad": 0.05,
+    "stop_on_contact": false,
+    "stable_steps": 1
+  },
+  "representative_mass_kg": 0.01,
+  "environment": {
+    "sim": {
+      "model_path": "models/so101/so101.xml",
+      "timestep_s": 0.001,
+      "n_substeps": 33,
+      "initial_deg": [
+        0.0,
+        -20.0,
+        40.0,
+        15.0,
+        0.0,
+        45.0
+      ],
+      "stall_torque_nm": 2.9,
+      "arm_joints": [
+        "shoulder_pan",
+        "shoulder_lift",
+        "elbow_flex",
+        "wrist_flex",
+        "wrist_roll"
+      ],
+      "gripper_joint": "gripper",
+      "actuator_suffix": "_motor",
+      "tcp_site": "gripper_site",
+      "target_mocap_body": "reach_target",
+      "target_site": "reach_target_site",
+      "payload_body": "gripper_link",
+      "radial_axis_joint": "shoulder_pan",
+      "robot_root_body": "robot_mount",
+      "table_body": "table_frame",
+      "table_top_geom": "table_top",
+      "parked_bodies": [],
+      "calibration_path": "data/calibration/actuator_calibration.json"
+    },
+    "task": {
+      "delta_q_max_rad": 0.07,
+      "delta_gripper_max_rad": 0.1,
+      "max_episode_steps": 200,
+      "lift_success_m": 0.04
+    },
+    "gripper": {
+      "fixed_jaw_mesh": "wrist_roll_follower_so101_v1",
+      "moving_jaw_mesh": "moving_jaw_so101_v1",
+      "fixed_pad_cutoff_m": -0.058,
+      "moving_pad_cutoff_m": -0.048,
+      "pad_friction": [
+        1.5,
+        0.01,
+        0.001
+      ],
+      "pad_solref": [
+        0.005,
+        1.0
+      ],
+      "pad_solimp": [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      "pinch_clearance_m": 0.004,
+      "open_deg": 45.0,
+      "close_deg": 0.0
+    },
+    "object": {
+      "body": "cube",
+      "geom": "cube_geom",
+      "side_m": 0.025
+    },
+    "contact": {
+      "elliptic_cone": true,
+      "impratio": 10.0
+    },
+    "placement": {
+      "radial_min_m": 0.14,
+      "radial_max_m": 0.22,
+      "azimuth_max_deg": 40.0
+    },
+    "reward": {
+      "reach_scale_per_m": 10.0,
+      "grasp_bonus": 0.25,
+      "lift_weight": 1.0,
+      "success_bonus": 1.0,
+      "action_penalty": 0.01
+    },
+    "mass": {
+      "mode": "fixed",
+      "fixed_kg": 0.01,
+      "range_kg": [
+        0.005,
+        0.02
+      ]
+    }
+  },
+  "descent": {
+    "name": "cartesian_table",
+    "grasp_height_m": 0.0,
+    "xy_tolerance_m": 0.003,
+    "final_z_tolerance_m": 0.004,
+    "height_step_m": 0.002,
+    "tracking_lag_m": 0.008,
+    "feedback_gain": 0.2,
+    "feedback_limit_m": 0.012,
+    "feedback_period": 2,
+    "stable_steps": 3,
+    "table_margin_m": 0.004,
+    "cube_margin_m": 0.0003,
+    "segment_samples": 4,
+    "check_cube": false,
+    "feedback": true,
+    "close_dwell_steps": 25
+  },
+  "scripted": {
+    "pregrasp_height_m": 0.05,
+    "grasp_height_m": 0.0,
+    "lift_height_m": 0.07,
+    "approach_steps": 40,
+    "descend_steps": 30,
+    "close_steps": 30,
+    "arm_rate_rad": 0.07,
+    "close_rate_rad": 0.05,
+    "lift_rate_rad": 0.02
+  },
+  "motion": {
+    "name": "outer_wrist",
+    "gravity_feedforward": true,
+    "radial_jaw_alignment": true,
+    "grasp_height_m": 0.0,
+    "upright_lift": false,
+    "lift_reference": "cube",
+    "correction_limit_rad": 0.1,
+    "yaw_rounds": 3,
+    "yaw_probe_rad": 0.001,
+    "minimum_yaw_derivative": 0.1,
+    "wrist_seed_offset_rad": 0.0,
+    "opposite_wrist_radius_m": 0.21
+  },
+  "contact_stable_steps": 5,
+  "trained_policy": null
+}

@@ -1,0 +1,13 @@
+{
+  "known_regressions_pass": true,
+  "heldout_metrics": {
+    "worst_success": 1.0,
+    "table_episodes": 0,
+    "approach_contact_episodes": 0,
+    "worst_shift_rate": 0.0,
+    "warnings": 0
+  },
+  "passed": true,
+  "promote_defaults": false,
+  "train": false
+}

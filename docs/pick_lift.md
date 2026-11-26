@@ -1,5 +1,12 @@
 # Pick-and-lift with object mass as a parameter
 
+The latest opt-in calibrated scripted candidate combines Cartesian acquisition
+with a **0-degree closing endpoint**. It repairs the known light-cube failures and
+passes fresh original-horizon simulation checks. See the
+[closing/retention findings and viewer command](../reports/findings/2026-11-26_gripper_closing.md).
+Global defaults and older trained policies remain unchanged; this is a scripted
+controller improvement, not a newly trained RL policy.
+
 `SO101PickLift-v0` grasps a cube from the table and lifts it. The cube's
 mass `m` is the experimental parameter: train one policy on a fixed mass
 and one on a random mass per episode, then compare both across masses.

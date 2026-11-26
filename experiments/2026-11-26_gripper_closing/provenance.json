@@ -1,0 +1,17 @@
+{
+  "base_commit": "4b27f1ae5438c1527cf6f1d94442813aae339f1e",
+  "source_sha256": {
+    "src/rbe_501_so101/control/gripper_closing.py": "c6332735cddfeeb6fcfe5a790535af87c8b4ddd2679cdc8a18d083c4ac98da7d",
+    "scripts/sim2real/analyze/gripper_closing_check.py": "05f7ffe8b58d131b9b80c0f14b1e5a86fd5b768d19e72f7e6a0af21806ce4469"
+  },
+  "note": "Diagnostic loop froze profiles before heldout 77000. End-to-end protocol frozen before 78000. Normalized action bounds were tightened during execution; valid evaluated rates remain numerically identical. No policy training or physical gain/limit edits.",
+  "tests": "408 passed, 1 optional LeRobot skipped",
+  "commands": [
+    "uv run --locked python -m scripts.sim2real.analyze.gripper_closing_check --out experiments/2026-11-26_gripper_closing",
+    "uv run --locked python -m scripts.sim2real.analyze.gripper_closing_check --end-to-end experiments/2026-11-26_gripper_closing/frozen_selection.json --out experiments/2026-11-26_gripper_closing/end_to_end"
+  ],
+  "final_source_sha256": {
+    "src/rbe_501_so101/control/gripper_closing.py": "c6332735cddfeeb6fcfe5a790535af87c8b4ddd2679cdc8a18d083c4ac98da7d",
+    "scripts/sim2real/analyze/gripper_closing_check.py": "05f7ffe8b58d131b9b80c0f14b1e5a86fd5b768d19e72f7e6a0af21806ce4469"
+  }
+}
