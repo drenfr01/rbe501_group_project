@@ -1,0 +1,3842 @@
+[
+  {
+    "seed": 90000,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.024368371860863387,
+      -0.08254979394826259,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.449117348520139,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1357357370322104e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 83,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019507591135759356,
+      -0.016686089527611164,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.181756628914432,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.308620376813736e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 29,
+      "lower": 66,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02012901514678302,
+      0.016953147965775805,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.699291471996336,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0912582909100606e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 64,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.041961346269646,
+      -0.038791266953429174,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 3.5691487238513764,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.4511943652455638e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 40,
+      "lower": 78,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02588026744376276,
+      -0.009065602817115376,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.622062643299834,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.6956608118131665e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 76,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01870098903345886,
+      -0.035669628344181824,
+      0.4873922445797834
+    ],
+    "final_xy_error_mm": 4.459033492007785,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.165511934563781e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 66,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.010169298565567265,
+      0.08044599734486126,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.366741094202874,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2071675447448475e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 64,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04544591393970786,
+      -0.02675207068015621,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.042192328783341,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3805619997292432e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 40,
+      "lower": 71,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01659533614596856,
+      0.06300115924684811,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.059354105568013,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.8129345972123146e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 60,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012678678208786704,
+      -0.05470102911261716,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.309050199281444,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.853402684197664e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 69,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.024002498666532476,
+      -0.08332829201979589,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.564244733127331,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1706259115275904e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 38,
+      "lower": 74,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.018986753794442826,
+      -0.016405342425851083,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.597855920762403,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.7378011847682764e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 64,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019594797693690914,
+      0.01754211169540937,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.324607061608605,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2463358921889354e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 67,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04402528163939416,
+      -0.040049146980119535,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.929068075481901,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2234513062661085e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 39,
+      "lower": 77,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.025947164359988444,
+      -0.008743585197210763,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.6085691086345495,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1899081225245532e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 58,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.018481833801522362,
+      -0.03667768620752337,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.587691298797943,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.878590918192961e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 64,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.011551707531194383,
+      0.0799091170698318,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 3.933322544810564,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.911135348274613e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 73,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.046186028811384186,
+      -0.02646445873603416,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.797071136926171,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0059662180199518e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 39,
+      "lower": 81,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017345874453724555,
+      0.06420330255297675,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.321688255369707,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.058423194785085e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 75,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.011565422036250614,
+      -0.05537003995600468,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.556650012562813,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.849695381726784e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 68,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02525382083459769,
+      -0.08300297046410506,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.443786608773013,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.123079499659152e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 38,
+      "lower": 65,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020224298726367704,
+      -0.015793541341558155,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.6623081459047535,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1590563475952695e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 66,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01931276061170666,
+      0.016776343579874415,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.864545330681548,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.297565799483669e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 63,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04309531707368004,
+      -0.03929259782949438,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.79855025689873,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.3212383131563184e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 73,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.024713873763576526,
+      -0.008451269558731878,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.341322682655526,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.732123838418953e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 64,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019188105253366953,
+      -0.036172485250943916,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.060433538049048,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.589430193725091e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 71,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.009450903827353868,
+      0.08010530366245228,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.8133762662987225,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.4890263519691814e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 31,
+      "lower": 62,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.045162086053548024,
+      -0.02586529472217762,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.869648417239551,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.983985594306466e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 71,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01706858843354922,
+      0.06258392150040024,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.318754098349647,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3303158505580006e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 70,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.011507253896317573,
+      -0.055035375259551766,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 4.346724716873126,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1151835080235775e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 60,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.024993601813392594,
+      -0.08225752217868065,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.900336603840402,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.077685849568501e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 67,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020018788009165872,
+      -0.01687354876708842,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.726216470102345,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.8153768793588403e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 63,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02077796337503387,
+      0.017231046826411276,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.389917271493412,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.094740350929305e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 71,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.043537391616841385,
+      -0.03846053071724386,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.0565402895902585,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.2926373704815645e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 70,
+      "release": 60,
+      "retreat": 32,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.025782607769009973,
+      -0.009182511688432893,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.56157316158033,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.014394501019071e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 71,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019749559685239067,
+      -0.035466618073021434,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.453038132049311,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.411846129676964e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 72,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.009230991745920748,
+      0.08091997779432053,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.411234971401893,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3366075395046205e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 78,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04621251431537556,
+      -0.02673195357783587,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.809046597480259,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.6160377534583046e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 71,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01767622003596678,
+      0.06349222533815847,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.245145875674512,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.33209658592183e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 60,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012638448090866969,
+      -0.05454681474201833,
+      0.48739224457978325
+    ],
+    "final_xy_error_mm": 5.2256866757210565,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.312571057883217e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 62,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.025406427837700644,
+      -0.08392475557342781,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.049295763392574,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.384348199253528e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 72,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020879938523228378,
+      -0.016492826904046676,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.442168648434665,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.6260187638663246e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 66,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020644672637381387,
+      0.01817441250775763,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.523607319117709,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.4538507992497927e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 62,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.044363287976291056,
+      -0.04000733699374363,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.22975287759414,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.581516600782051e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 70,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02626306304657679,
+      -0.008734855150363905,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.915704864748456,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.624031606627109e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 64,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020459827699802795,
+      -0.03677808990533743,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.457568896852081,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.426419509682704e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 86,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.01004344197792024,
+      0.0814772095114698,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.097127186976924,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1830831805778224e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 56,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04619450672870785,
+      -0.025935139917652297,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.870099004940081,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1817332342875427e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 75,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017442503571370734,
+      0.06431821390437671,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.466235416548223,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2275203354721167e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 66,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.013287909351889778,
+      -0.055801855794623205,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.283140517928743,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.7194129485674002e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 84,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.025804792763452995,
+      -0.08295162522362998,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.917138778000381,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.298615033450149e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 71,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020025362605749875,
+      -0.01591321141597553,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.485397131322719,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1507342204027483e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 71,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019530568607926138,
+      0.01686254921440404,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.094398303198477,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8896908706481775e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 69,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04391636982993012,
+      -0.039181156420676384,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.559654713335095,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0990865521100804e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 68,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026122954819090577,
+      -0.008042020803979186,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.67572041708984,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0623589707209474e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 67,
+      "release": 60,
+      "retreat": 37,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02042055516937059,
+      -0.03602057682324744,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.213696765766433,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.4669913443711445e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 65,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.0112019574159063,
+      0.07942029886987874,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 3.9471983599715568,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.594440345240877e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 100,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.046155557210827786,
+      -0.025135443417242987,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.017521761811832,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.191628363548244e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 77,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01732590866516465,
+      0.06274442842061778,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.616973516721024,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.922834766241516e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 63,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.01,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.013463101133652934,
+      -0.0551192529724972,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.185448508960038,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.5782356223205192e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 69,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.025058709381336218,
+      -0.08172413099142287,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.798462486302661,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2179047000443922e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 75,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020466932750663327,
+      -0.016837292038015875,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.138941325664405,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2899682152738732e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 29,
+      "lower": 72,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020603393071805455,
+      0.01739504923564948,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.255994707119317,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0338338952126026e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 76,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.043132750495728255,
+      -0.038152760458624015,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.625087312924704,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.114451254049468e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 63,
+      "release": 60,
+      "retreat": 32,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.027163729558136444,
+      -0.009296972892822724,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.921259092939094,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8035353656444983e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 58,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01961733454081089,
+      -0.035190070184766345,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.288199486287554,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.5729674027431213e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 78,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.009523724974267246,
+      0.0808995641854827,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.155570221696833,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.617299700073079e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 82,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04656609776400832,
+      -0.026323143816156788,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 6.187920928934491,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3644442837390797e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 66,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017676011952610492,
+      0.06377250944948884,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 6.376886919903955,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.3172819459399326e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 58,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012705763315758303,
+      -0.05416925788178798,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.199164133832629,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.5932635871037956e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 77,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026016130486818095,
+      -0.08345611639117716,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.329282903426187,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1046843988600293e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 95,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02004161736145575,
+      -0.01639817177547904,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.606617816468209,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.453670119035736e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 85,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020470149203835726,
+      0.018378602038763254,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 6.4355966938032445,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.3876837230746224e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 67,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.044859761093069946,
+      -0.03947290931020867,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.545669806093867,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.368125951496234e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 64,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02643326839255539,
+      -0.008795757325192246,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.094762715571458,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.142637371639948e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 77,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020218115952344615,
+      -0.036611084311402524,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.1751550236035975,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.432963037903277e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 93,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.00980639497997036,
+      0.08170216250742873,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.423693521241126,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2059749500069487e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 80,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04673292874202371,
+      -0.02554702548905813,
+      0.4873922445797834
+    ],
+    "final_xy_error_mm": 6.47224043210441,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8276492384602365e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 73,
+      "release": 60,
+      "retreat": 32,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01724332592350457,
+      0.06507819512048021,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.7721781270224275,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3047970070577436e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 64,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012284208878738276,
+      -0.05539780550760391,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.2037882545807905,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.311963775361999e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 98,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026005632629760946,
+      -0.08243617822327692,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.912447436108211,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.255187960281262e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 75,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020840400863045137,
+      -0.015440699403997143,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.234614359417743,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.754485334704647e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 88,
+      "release": 60,
+      "retreat": 37,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020032070846302607,
+      0.016678447641473585,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.559604044411569,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8267735871223212e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 31,
+      "lower": 88,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.044249453841517086,
+      -0.038790941953906,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.808135628423446,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.9168436411565024e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 68,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026415345111262634,
+      -0.007928721788466306,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.958519058281454,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0573278190653178e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 79,
+      "release": 60,
+      "retreat": 37,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01985081263545201,
+      -0.03576294548319111,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 5.603152742491347,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.374292896277898e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 86,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.00961391893612602,
+      0.0800691246617148,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.651965946619403,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.012449523495568e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 86,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04533917840574244,
+      -0.02460253926808381,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.4467678538499875,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.4161200006267785e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 69,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.01738683710784494,
+      0.06323756970379789,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.872559081034209,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2491714870708232e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 60,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.013368456309977662,
+      -0.05480519509931813,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.998942729041809,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8557484417845728e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 82,
+      "release": 60,
+      "retreat": 37,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.0249664984438435,
+      -0.08188036762190441,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.7522848740687405,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2716609140971707e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 74,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02038665504785321,
+      -0.016851670164391312,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.067088364732659,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.5554549379841028e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 90,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020760758279355956,
+      0.017196574697655818,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.366046385927138,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.5151006834807997e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 106,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04300734900613418,
+      -0.03819873825308993,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 4.503233298203629,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.9043605055909455e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 58,
+      "release": 60,
+      "retreat": 31,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026841030488461908,
+      -0.008997101165547463,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.536267047935844,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.418417904313389e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 30,
+      "lower": 79,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.019741661041715652,
+      -0.035223935311660425,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.415275681645823,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0347511114943306e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 76,
+      "release": 60,
+      "retreat": 35,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.00939104508364407,
+      0.0810892887953836,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.372268071783842,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.6116837860070426e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 68,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.046713139701291394,
+      -0.026116419705500906,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.356861648117102,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.4800415010493776e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 61,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017623557797764897,
+      0.06389048740618211,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.389939605372298,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.344814361443416e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 59,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": -30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012906504158327853,
+      -0.054498647447317736,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.471049943579171,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.589421835961107e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 80,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026447831710480374,
+      -0.0835457908171349,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.75404121555855,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0746870335120017e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 66,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020939310001871467,
+      -0.016257087685347078,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.447966464670361,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.596782725594533e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 31,
+      "lower": 78,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.02041120751136587,
+      0.018185858591905888,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.309241783576069,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.2434935269943875e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 78,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04466419999395815,
+      -0.039551531366428444,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.376832550624989,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.3655162947989826e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 61,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026818027407522052,
+      -0.00824495108222123,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.387603859561739,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0313631987148794e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 52,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020487486908057153,
+      -0.03649999500600082,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.398939511963091,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.571848836952018e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 89,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.00983202625837383,
+      0.08154684738126293,
+      0.4873922445797834
+    ],
+    "final_xy_error_mm": 6.3025221453052325,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 4.054608109345071e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 87,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04620524939764224,
+      -0.025373917738935842,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.9994978661175695,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.793123900508945e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 36,
+      "lower": 62,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017298389596787537,
+      0.06481159463916643,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.644330366502291,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.3759952260162024e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 34,
+      "lower": 60,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 0.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.012574697634438043,
+      -0.055705369451478415,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.602441699040224,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.5640119384574848e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 99,
+      "release": 60,
+      "retreat": 37,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90000,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.02041843965142101,
+      -0.08050219029479043,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026031011910016697,
+      -0.08236186123708823,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.912642672408395,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.963099051251189e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 74,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90001,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014625072524192623,
+      -0.014950689352146407,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020751311663222437,
+      -0.015456127104610046,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.147054035080239,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.8978516002118396e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 82,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90002,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014525319860858671,
+      0.01591366615964383,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020418471496771822,
+      0.01674887842194595,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.952042987661101,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.564799006899784e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 98,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90003,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.03851727976571753,
+      -0.03785466216511776,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.04412890297365,
+      -0.03848395121204983,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.646797298681346,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.6931278921899577e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 37,
+      "lower": 61,
+      "release": 60,
+      "retreat": 33,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90004,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.020469629108540555,
+      -0.007538323808351297,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.026428003536009593,
+      -0.007554402593855021,
+      0.48739224457978336
+    ],
+    "final_xy_error_mm": 5.958396121882152,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.8451426925991404e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 66,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90005,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.014354261848895045,
+      -0.034675172479992224,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.020455683367761327,
+      -0.035730926215678534,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.192088541138615,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.1162631539063913e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 87,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90006,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      -0.01462405603349648,
+      0.07745316492821398,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      -0.009513679452016414,
+      0.08013583935398069,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.771714726076006,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.9637616119038936e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 32,
+      "lower": 94,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90007,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.04040625838778206,
+      -0.026911993781630096,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.045551293328271264,
+      -0.024468740038718004,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 5.695689018117889,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.290998128268898e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 35,
+      "lower": 67,
+      "release": 60,
+      "retreat": 32,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90008,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.012109260733043414,
+      0.06066188770316696,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.017560419554132668,
+      0.06317493043628067,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.002542483914195,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 2.0945552974144768e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 77,
+      "release": 60,
+      "retreat": 34,
+      "settle": 60
+    }
+  },
+  {
+    "seed": 90009,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30.0,
+    "acquisition_success": true,
+    "complete_success": true,
+    "failure": null,
+    "destination_m": [
+      0.007619625589276147,
+      -0.053091059978902566,
+      0.48750000000000004
+    ],
+    "final_cube_m": [
+      0.013478331029777604,
+      -0.05491245931239249,
+      0.4873922445797833
+    ],
+    "final_xy_error_mm": 6.135301538685683,
+    "supported": true,
+    "grasped": false,
+    "final_speed_m_s": 3.149361623804749e-11,
+    "table_contact_steps": 0,
+    "warning_steps": 0,
+    "phase_steps": {
+      "acquire": 200,
+      "carry": 33,
+      "lower": 86,
+      "release": 60,
+      "retreat": 36,
+      "settle": 60
+    }
+  }
+]

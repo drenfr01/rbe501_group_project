@@ -11,6 +11,9 @@ import torch
 from PIL import Image
 
 from rbe_501_so101.control.carry_place import CarryPlace, TransferConfig
+from rbe_501_so101.control.contact_tracked_place import ContactTrackedCarryPlace
+from rbe_501_so101.control.supported_place import SupportSearchConfig, SupportedCarryPlace
+from rbe_501_so101.control.tracked_place import PlacementTrackingConfig, TrackedCarryPlace
 from rbe_501_so101.control.timed_oracle_acquisition import make_timed_env
 from rbe_501_so101.rl.cartesian_zero_training import CartesianZeroRepository
 from scripts.sim2real.analyze.calibrated_lift_pilot import write
@@ -110,8 +113,9 @@ def run(repo, output: Path, protocol: PlacementProtocol = PlacementProtocol(), s
         "scope": "Unchanged 200-step acquisition then separate bounded backend carry/place; no Gym stepping past truncation or RL task changes.",
         "gate": "All acquisitions retained, >=95% complete per mass/yaw, zero candidate robot/table contacts and warnings; final supported released rest within 10mm; 40mm hand retreat.",
         "sequence_class": sequence_type.__name__,
-        "support_search_m": .003 if sequence_type.__name__ == "SupportedCarryPlace" else 0.,
-        "development": "Seed87000 10g; support probe developed on 88002 5g yaw0 if enabled. Frozen before new validation."})
+        "support_search_m": SupportSearchConfig().maximum_descent_m if issubclass(sequence_type, SupportedCarryPlace) else 0.,
+        "tracking": asdict(PlacementTrackingConfig()) if issubclass(sequence_type, TrackedCarryPlace) else None,
+        "development": "87000 demo; support: 88002 5g yaw0; tracking: 89000 5g yaw+30; contact-aware: 88000 15g yaw-30 if enabled. No validation tuning."})
     write(output / "demo.json", episode(repo, protocol.transfer, 87000, .01, 0, output / "demo", sequence_type=sequence_type))
     rows = []
     for mass in protocol.masses_kg:
@@ -139,7 +143,10 @@ if __name__ == "__main__":
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--replay", action="store_true")
     parser.add_argument("--viewer", action="store_true")
-    parser.add_argument("--supported", action="store_true", help="Use the bounded 3mm support-search candidate; new validation seeds 89000-89004")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--supported", action="store_true", help="Use the bounded 3mm support-search candidate; validation seeds 89000-89004")
+    selection.add_argument("--tracked", action="store_true", help="Use bounded final-lowering tracking correction; validation seeds 90000-90009")
+    selection.add_argument("--contact-tracked", action="store_true", help="Freeze vertical tracking on support; validation seeds 91000-91009")
     parser.add_argument("--seed", type=int, default=87000)
     parser.add_argument("--mass-kg", type=float, default=.01)
     parser.add_argument("--yaw-offset-deg", type=float, default=0.)
@@ -149,9 +156,14 @@ if __name__ == "__main__":
     sequence_type = CarryPlace
     protocol = PlacementProtocol()
     if args.supported:
-        from rbe_501_so101.control.supported_place import SupportedCarryPlace
         sequence_type = SupportedCarryPlace
         protocol = replace(protocol, first_seed=89000)
+    elif args.tracked:
+        sequence_type = TrackedCarryPlace
+        protocol = replace(protocol, first_seed=90000, placements=10)
+    elif args.contact_tracked:
+        sequence_type = ContactTrackedCarryPlace
+        protocol = replace(protocol, first_seed=91000, placements=10)
     if args.replay:
         print(episode(repo, TransferConfig(), args.seed, args.mass_kg, args.yaw_offset_deg, args.out, args.viewer, sequence_type))
     else:

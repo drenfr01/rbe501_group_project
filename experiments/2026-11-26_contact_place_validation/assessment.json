@@ -1,0 +1,8 @@
+{
+  "episodes": 120,
+  "complete_successes": 120,
+  "acquisition_successes": 120,
+  "passed_gate": true,
+  "failures": {},
+  "start_training": false
+}

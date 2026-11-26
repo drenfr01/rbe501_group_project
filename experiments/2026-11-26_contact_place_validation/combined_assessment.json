@@ -1,0 +1,11 @@
+{
+  "fresh_complete": 120,
+  "fresh_episodes": 120,
+  "fresh_gate": true,
+  "recorded_complete": 240,
+  "recorded_episodes": 240,
+  "new_recorded_failures": 0,
+  "selected_audit_pass": true,
+  "accepted": true,
+  "start_training": false
+}

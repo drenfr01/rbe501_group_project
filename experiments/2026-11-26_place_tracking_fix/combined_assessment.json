@@ -1,0 +1,9 @@
+{
+  "fresh_complete": 120,
+  "fresh_episodes": 120,
+  "recorded_complete": 112,
+  "recorded_episodes": 120,
+  "new_recorded_failures": 8,
+  "accepted": false,
+  "reason": "The blind tracking integral passes fresh cases but introduces eight guarded clearance failures on prior successes. Preserve as rejected."
+}

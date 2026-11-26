@@ -186,3 +186,11 @@ repairs those to 60/60 and completes 59/60 fresh cases without sampled robot/tab
 contacts or warnings. One guarded lowering timeout remains, so the per-condition
 gate fails. The full sequence is demonstrated, but is not promoted or trained.
 The report includes the complete-task viewer command; old RL tasks stay unchanged.
+
+The [contact-aware lowering repair](../reports/findings/2026-11-26_place_tracking_fix.md)
+resolves that last timeout: 240/240 recorded conditions and 120/120 fresh full
+sequences pass with no sampled robot/table contacts or warnings. It adds bounded
+near-target tracking correction and stops downward integration once table support
+is present. The first unconditional integral is retained as rejected for recorded
+regressions. Use `--contact-tracked` for the validated candidate; existing variants,
+gains, support guards, phase budgets and saved policies remain unchanged.

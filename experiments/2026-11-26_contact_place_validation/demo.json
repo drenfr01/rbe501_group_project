@@ -1,0 +1,32 @@
+{
+  "seed": 87000,
+  "mass_kg": 0.01,
+  "yaw_offset_deg": 0,
+  "acquisition_success": true,
+  "complete_success": true,
+  "failure": null,
+  "destination_m": [
+    0.012411294654949778,
+    0.008812743472465518,
+    0.48750000000000004
+  ],
+  "final_cube_m": [
+    0.016442073075106672,
+    0.008102275876148826,
+    0.48739224457978336
+  ],
+  "final_xy_error_mm": 4.092913250707682,
+  "supported": true,
+  "grasped": false,
+  "final_speed_m_s": 4.2850266130753484e-11,
+  "table_contact_steps": 0,
+  "warning_steps": 0,
+  "phase_steps": {
+    "acquire": 200,
+    "carry": 31,
+    "lower": 61,
+    "release": 60,
+    "retreat": 36,
+    "settle": 60
+  }
+}

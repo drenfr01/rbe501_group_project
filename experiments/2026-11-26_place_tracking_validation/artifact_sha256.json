@@ -1,0 +1,16 @@
+{
+  "assessment.json": "9c34ebfb62ac616128101b9bee23a3ece06ad79a1bad4a9aacb23648d517c4c1",
+  "demo.json": "7ba1d097a29d9a96565c0fe64762faf401abaf6b85d716aacd0d8d695ed27b59",
+  "episodes.json": "92e9b40384b35101b6f320e356d6979d56f043d9766944793b19e6cb9e2961e1",
+  "input_verification.json": "42b1219689d73894d808489fd188c73777a087ac96b900d173499286ae240c63",
+  "protocol.json": "6ab4e5d059475cfc590c4a924c688040530cc167769dd7a5da9ee04efe75d751",
+  "provenance.json": "a230b8110e4abab7f8677417a3f4b5d945aec85e906f6068e58ae532b060069a",
+  "demo/acquire.png": "3b09c813f7df1165b3f453a4b797453fe303106d11821b25e51e5d3d1b309408",
+  "demo/carry.png": "dfb2ef506cae851a2fef0c8ccf6a542b55ddebe9c8c9afbaf818f5bdb770ae7a",
+  "demo/lower.png": "e7372a329c3b3229a98f644671f19b71a8acbab673b9e6da4caba9274b54fb24",
+  "demo/release.png": "303717a39fa2434fbb76fec5754b2b1eb67eaada8f4fc3373900a45bf7ee0166",
+  "demo/result.json": "7ba1d097a29d9a96565c0fe64762faf401abaf6b85d716aacd0d8d695ed27b59",
+  "demo/retreat.png": "a8a5407713af0585ededaee36b32496d864634cdffd5c5cf91ca97e37c8ea55b",
+  "demo/settle.png": "24b8ec356af5b5e3e0fa997362486ce3a4b0a9a84640d879efefca06e9bbce6d",
+  "demo/trace.json": "02b94fe786a446dc8c84911be4d36a4535bc192f4b5d3d2d4cedcd907bffa6a7"
+}
