@@ -1,0 +1,682 @@
+[
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.005,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.938760065819387,
+      "min_final_lift_cm": 6.929160776908116,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": false,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06955401544805184,
+        "max_lift_m": 0.07053945127744243,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.06059315450827367,
+        "cube_tail_rms_mm": 0.23606927857228502,
+        "pinch_tail_rms_mm": 0.00558824156437347
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06929160776908116,
+        "max_lift_m": 0.07028402277393153,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.05697170770744319,
+        "cube_tail_rms_mm": 0.23352922738559467,
+        "pinch_tail_rms_mm": 0.0077086054008809355
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06931717875744858,
+        "max_lift_m": 0.07032191635893703,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.05812772579799649,
+        "cube_tail_rms_mm": 0.23657907076027385,
+        "pinch_tail_rms_mm": 0.006928545185834274
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 5.451427653431892
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 5,
+        "applied_norm_sum": 5.1599050760269165
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 6.969656739383936
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.01,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.922353559430831,
+      "min_final_lift_cm": 6.913313333511207,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": false,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06938322995435242,
+        "max_lift_m": 0.06974169855039336,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.04335451540906736,
+        "cube_tail_rms_mm": 0.18379145837822417,
+        "pinch_tail_rms_mm": 0.008840441787952845
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06913313333511206,
+        "max_lift_m": 0.06949420590217603,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.0425798429404499,
+        "cube_tail_rms_mm": 0.17879370266425768,
+        "pinch_tail_rms_mm": 0.0092369398810075
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06915424349346044,
+        "max_lift_m": 0.06952247822599478,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.042635687384479586,
+        "cube_tail_rms_mm": 0.1855924971132235,
+        "pinch_tail_rms_mm": 0.007841763990755542
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 5.562470011413097
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 5,
+        "applied_norm_sum": 4.927485916763544
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 7.024243980646133
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.015,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.93112614052881,
+      "min_final_lift_cm": 6.900812270883627,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": false,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06955866565236168,
+        "max_lift_m": 0.06955866565236168,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.03344639551096327,
+        "cube_tail_rms_mm": 0.16683180021565028,
+        "pinch_tail_rms_mm": 0.0070078367063268095
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06936699585466632,
+        "max_lift_m": 0.06936699585466632,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.031673952966939006,
+        "cube_tail_rms_mm": 0.16685796237649753,
+        "pinch_tail_rms_mm": 0.007348689375447113
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06900812270883627,
+        "max_lift_m": 0.06900812270883627,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.03247205159484201,
+        "cube_tail_rms_mm": 0.16455159220983492,
+        "pinch_tail_rms_mm": 0.005694416758055689
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 5.705234874039888
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 6,
+        "applied_norm_sum": 4.8773286789655685
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 7.056209668517113
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.02,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.86741191522962,
+      "min_final_lift_cm": 6.852664650754869,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": false,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0688870767645674,
+        "max_lift_m": 0.0688870767645674,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.02580276919646706,
+        "cube_tail_rms_mm": 0.12199059799321124,
+        "pinch_tail_rms_mm": 0.0020472641050649017
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.0685266465075487,
+        "max_lift_m": 0.0685266465075487,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.024067160842510503,
+        "cube_tail_rms_mm": 0.1276531291431174,
+        "pinch_tail_rms_mm": 0.012000112311289267
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06860863418477248,
+        "max_lift_m": 0.06860863418477248,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.024844899259785145,
+        "cube_tail_rms_mm": 0.12284100599694155,
+        "pinch_tail_rms_mm": 0.005714896849296337
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 5.867862686514854
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 6,
+        "applied_norm_sum": 4.859105333685875
+      },
+      {
+        "active_steps": 99,
+        "applied_steps": 99,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 7.05593241751194
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.005,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.056126761981925,
+      "min_final_lift_cm": 6.006018096067523,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": true,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06022512727426155,
+        "max_lift_m": 0.060765335950164645,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.14139141909292963,
+        "cube_tail_rms_mm": 0.22788019206226126,
+        "pinch_tail_rms_mm": 0.002459807251964481
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.060060180960675225,
+        "max_lift_m": 0.0604967843165406,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.10181474721734368,
+        "cube_tail_rms_mm": 0.22023472352959886,
+        "pinch_tail_rms_mm": 0.0036463706828398
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06139849462452096,
+        "max_lift_m": 0.06194301296703819,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.08490122556203557,
+        "cube_tail_rms_mm": 0.19716548076346646,
+        "pinch_tail_rms_mm": 0.044979254049681415
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 89,
+        "applied_steps": 89,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 8,
+        "applied_norm_sum": 5.491416696459055
+      },
+      {
+        "active_steps": 87,
+        "applied_steps": 87,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 6,
+        "applied_norm_sum": 4.120012495666742
+      },
+      {
+        "active_steps": 96,
+        "applied_steps": 96,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 6.366372630000114
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.01,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 6.029901451404052,
+      "min_final_lift_cm": 5.979052323670741,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": true,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.05999184862781015,
+        "max_lift_m": 0.05999184862781015,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.0917304857428099,
+        "cube_tail_rms_mm": 0.3141292743832647,
+        "pinch_tail_rms_mm": 0.0543823845391674
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.059790523236707416,
+        "max_lift_m": 0.059790523236707416,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.06588965224792201,
+        "cube_tail_rms_mm": 0.41743321601932737,
+        "pinch_tail_rms_mm": 0.1727794688654458
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.06111467167760398,
+        "max_lift_m": 0.06111467167760398,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.05181698593354625,
+        "cube_tail_rms_mm": 0.33345005650770876,
+        "pinch_tail_rms_mm": 0.0966730823908194
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 89,
+        "applied_steps": 89,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 5.879529379308224
+      },
+      {
+        "active_steps": 87,
+        "applied_steps": 87,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 7,
+        "applied_norm_sum": 4.427357517182827
+      },
+      {
+        "active_steps": 96,
+        "applied_steps": 96,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 6.762624189257622
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.015,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 5.886081814666459,
+      "min_final_lift_cm": 5.813848092199036,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": true,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.058138480921990365,
+        "max_lift_m": 0.05863194395151128,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.06897378478548691,
+        "cube_tail_rms_mm": 0.18934309466679553,
+        "pinch_tail_rms_mm": 0.019614258134868022
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.05873599810479668,
+        "max_lift_m": 0.05873599810479668,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.050214339932431365,
+        "cube_tail_rms_mm": 0.9505384834576782,
+        "pinch_tail_rms_mm": 0.06702511454502626
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.059707975413206715,
+        "max_lift_m": 0.05971872318691451,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.038657352470675865,
+        "cube_tail_rms_mm": 1.2012347794531435,
+        "pinch_tail_rms_mm": 0.07518171065463056
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 89,
+        "applied_steps": 89,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 5.981105174869299
+      },
+      {
+        "active_steps": 87,
+        "applied_steps": 87,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 8,
+        "applied_norm_sum": 4.766962628811598
+      },
+      {
+        "active_steps": 96,
+        "applied_steps": 96,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 7.0935336500406265
+      }
+    ]
+  },
+  {
+    "summary": {
+      "dynamics": "calibrated_cartesian_zero_v3",
+      "controller": "known_v3_sac",
+      "mass_kg": 0.02,
+      "episodes": 3,
+      "success_rate": 1.0,
+      "mean_final_lift_cm": 5.896727184621916,
+      "min_final_lift_cm": 5.848198585378384,
+      "lost_success_episodes": 0,
+      "robot_table_contact_episodes": 0,
+      "warning_episodes": 0
+    },
+    "arm_effects": true,
+    "episodes": [
+      {
+        "placement_seed": 68006,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.058764717440684344,
+        "max_lift_m": 0.058764717440684344,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.05559601673779434,
+        "cube_tail_rms_mm": 1.0374945999865728,
+        "pinch_tail_rms_mm": 0.024894067812324536
+      },
+      {
+        "placement_seed": 69005,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.058481985853783836,
+        "max_lift_m": 0.058481985853783836,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.04090264366377765,
+        "cube_tail_rms_mm": 1.121509352520823,
+        "pinch_tail_rms_mm": 0.04146029766118946
+      },
+      {
+        "placement_seed": 75003,
+        "final_success": true,
+        "ever_success": true,
+        "ever_grasped": true,
+        "final_lift_m": 0.05965511224418929,
+        "max_lift_m": 0.05968303843190481,
+        "robot_table_contact_steps": 0,
+        "warnings": false,
+        "approach_contact_steps": 0,
+        "preclose_max_xy_mm": 0.03114000246435266,
+        "cube_tail_rms_mm": 0.9452520665153397,
+        "pinch_tail_rms_mm": 0.08721598636140643
+      }
+    ],
+    "interventions": [
+      {
+        "active_steps": 89,
+        "applied_steps": 89,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 6.298311468213797
+      },
+      {
+        "active_steps": 87,
+        "applied_steps": 87,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 8,
+        "applied_norm_sum": 5.0699696987867355
+      },
+      {
+        "active_steps": 96,
+        "applied_steps": 96,
+        "clearance_rejections": 0,
+        "holding_rejections": 0,
+        "budget_clips": 9,
+        "applied_norm_sum": 7.2390454933047295
+      }
+    ]
+  }
+]

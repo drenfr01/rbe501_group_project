@@ -1,0 +1,16 @@
+{
+  "base_commit": "dc98d92818633d359e3832e99616ee29eff16adf",
+  "exploration": "Known-case prototype initially contacted the table. Before freezing, stopped vertical integral accumulation during moving reference, added sampled closing-jaw clearance, moved experimental pinch goal from -4 mm to cube-center height, and required 25-step closing dwell. 5 g known cases still lose grasp during closing before lift.",
+  "final_source_note": "Positive configuration validation and docstring/unused-local cleanup added during execution; all evaluated configurations are valid and algorithm unchanged. Final report metadata explicitly distinguishes held-out and overall validation; counter comment clarifies that proposal rejections include IK failures. No evaluated control behavior changed.",
+  "training": "None. Original and raised references unchanged; no saved policy is executed.",
+  "initial_recorded_source_sha256": {
+    "src/rbe_501_so101/control/cartesian_descent.py": "57c773441a8f3e386f07f63c6af35188798b5e14154972c8cc1ea48ca43668fa",
+    "scripts/sim2real/analyze/cartesian_descent_check.py": "96aa9fc7391c6d4787e1259d6887925181fa56b13768f3b8cbb5982b74847867"
+  },
+  "final_source_sha256": {
+    "src/rbe_501_so101/control/cartesian_descent.py": "02fb946a13d62d15507e450ec80291a134198c014b166ccfe12788486931f712",
+    "scripts/sim2real/analyze/cartesian_descent_check.py": "f4d21e4cfc6bd2880d128d61d651818280201ad14063c7defd9a9e43fa4b4cf6"
+  },
+  "tests": "403 passed, 1 optional LeRobot skipped",
+  "command": "uv run --locked python -m scripts.sim2real.analyze.cartesian_descent_check --out experiments/2026-11-26_cartesian_descent"
+}

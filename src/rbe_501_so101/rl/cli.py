@@ -8,7 +8,7 @@ from typing import Literal
 
 from rbe_501_so101.config import PRESETS, TrainConfig
 from rbe_501_so101.rl.checkpoints import LEGACY_PRESET, CheckpointRepository
-from rbe_501_so101.rl.evaluation import run_evaluation
+from rbe_501_so101.rl.evaluation import EvalOverrides, run_evaluation
 from rbe_501_so101.rl.training import ALGORITHMS, resolve_device, train_seed
 
 AlgoName = Literal["sac", "ppo"]
@@ -28,6 +28,7 @@ class RunSettings:
     render: bool
     cpu: bool
     preset: str
+    overrides: EvalOverrides = EvalOverrides()
 
 
 def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
@@ -48,6 +49,8 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
         default=LEGACY_PRESET,
         help="training variant (evaluation reads each checkpoint's recorded preset)",
     )
+    parser.add_argument("--calibration", type=Path, default=None, help="evaluate with this actuator calibration file")
+    parser.add_argument("--perturb", action="store_true", help="evaluate with encoder rounding and a 1-step delay")
     args = parser.parse_args(argv)
     return RunSettings(
         algo=args.algo,
@@ -60,6 +63,7 @@ def parse_args(cfg: TrainConfig, argv: list[str] | None = None) -> RunSettings:
         render=args.render,
         cpu=args.cpu,
         preset=args.preset,
+        overrides=EvalOverrides(calibration_path=args.calibration, perturb=args.perturb),
     )
 
 
@@ -97,4 +101,5 @@ def _evaluation_report(settings: RunSettings, cfg: TrainConfig) -> dict:
         settings.num_episodes,
         cfg,
         settings.render,
+        settings.overrides,
     )

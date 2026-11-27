@@ -1,0 +1,56 @@
+# Sim-to-real scripts (reach sub-task)
+
+Spec: [`docs/sim2real_reach_transfer_spec.md`](../../docs/sim2real_reach_transfer_spec.md).
+Findings go to [`reports/`](../../reports/README.md).
+
+- `collect/` talks to the physical arm. Its output is irreplaceable raw data, so these scripts refuse to run on a
+  dirty git tree unless `--allow-dirty` is given. Most take `--sim`, which runs the identical code path on MuJoCo
+  through `SimJointBus` (robot id `sim`) as a dry run.
+- `analyze/` is sim or offline only and can be rerun from saved data at any time.
+- Every output folder gets a `manifest.json` (script, argv, commit, package versions, start/finish time), plus
+  `uncommitted.patch` when the tree was dirty. A folder whose manifest has no `finished_at` is a crashed or aborted run.
+- Scripts import shared code from `rbe_501_so101` only, never from each other.
+
+Run from the repo root in the `lerobot` conda env
+(`source ~/miniforge3/etc/profile.d/conda.sh && conda activate lerobot`).
+
+| Script | Phase | Needs arm | Writes | Example |
+|---|---|---|---|---|
+| `collect/jog.py` | tooling | yes | nothing | `python scripts/sim2real/collect/jog.py --port /dev/so101_follower` |
+| `collect/sag_check.py record-poses` | 0 | yes (torque off, move by hand) | `data/sag_check/poses/poses.json` | `python scripts/sim2real/collect/sag_check.py record-poses` |
+| `collect/sag_check.py run` | 0 | yes (`--sim` for a dry run) | `data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/session.json`, manifest; refuses to move if the planned path (with sag allowance) comes near the table | `python scripts/sim2real/collect/sag_check.py run --p-gain 24` (`--approach-offset 8` to sweep the whole friction band) |
+| `collect/mirror_arm.py` | 1, and the Phase 3 dry run | yes (torque off) | `data/joint_mapping/<date>_<robot_id>/references.json`, manifest | `python scripts/sim2real/collect/mirror_arm.py` |
+| `collect/pose_check.py` | 1 (verify the map) | yes, torque on (`--sim` for a dry run) | `data/pose_check/<date>_<robot_id>_p<gain>_<time>/` (`results.json`: goal, sent, reading in LeRobot and sim degrees, operator's level reading; `servo_settings.json`), manifest | `python scripts/sim2real/collect/pose_check.py --p-gain 16` |
+| `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction); the command rate is capped at the arm's 0.035 rad/step unless `--speed-scale` is given | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
+| `analyze/analyze_sag.py` | 0 | no | `experiments/<date>_sag_analysis/` (report.json, README, real_sag.png), `data/calibration/actuator_calibration.json`; `--report-figures` copies `real_sag.png` to `reports/figures/` | `python scripts/sim2real/analyze/analyze_sag.py data/sag_check/<date>_rbe501_follower --report-figures` |
+| `analyze/robustness_sweep.py` | 2 | no | `experiments/<date>_reach_robustness/` (report.json, README, kp_sweep.png, saturation.png); `--report-figures` copies the plots to `reports/figures/` | `python scripts/sim2real/analyze/robustness_sweep.py --calibration data/calibration/actuator_calibration.json --session data/sag_check/<date>_rbe501_follower --report-figures` |
+| `analyze/hardware_figures.py` | 0 | no | `experiments/<date>_hardware_figures/` (friction_bands, direction_errors, stiffness, gain_sweep PNGs, summary.json); `--report-figures` copies them to `reports/figures/` | see the example in the script's docstring (two sag sessions, one pose check, the gain-sweep runs) |
+| `analyze/calibrated_sim_gate.py` | 0 → 2 (plan step 10) | no | `experiments/<date>_calibrated_sim_gate/` (README with PASS/FAIL, gate.png, report.json): replays real sag checks and a pose check on the calibrated sim with and without stiction; `--report-figures` copies `gate.png` to `reports/figures/calibrated_sim_gate.png` | see the example in the script's docstring |
+| `analyze/acceptance.py` | 2 (plan steps 14, 15, 18) | no | `experiments/<date>_acceptance/` (README, report.json): IK hold, gravity comp, integral, and (with `--model-dir`) the trained policy in the deployment and stress conditions of `residual_ik_sim2real`, with the ACCEPT/REJECT verdict | `python scripts/sim2real/analyze/acceptance.py --model-dir checkpoints/<run>` (no `--model-dir`: the baselines' bar only) |
+
+## Order of a hardware campaign
+
+1. `sag_check.py record-poses` (about 10 poses clear of the table and the joint limits; keep the gripper well above
+   the table, the path check adds a 6° sag allowance), then `sag_check.py run --sim` to check the path, then `sag_check.py run`.
+2. `mirror_arm.py`: confirm every joint sign and record physical references (link levels, stops) to fix the
+   offsets in `HardwareConfig.joint_map`; re-measure at a second reference. Then `pose_check.py` sends the arm to
+   poses defined in sim degrees (upper arm vertical, forearm level, ...) and you check the links with a level.
+3. `analyze_sag.py` on the session (needs the Phase 1 mapping), which writes the calibration file.
+4. `calibrated_sim_gate.py` (the sim must reproduce the real errors within 1°), then
+   `robustness_sweep.py --calibration ... --session ...` for the transfer-or-retrain decision. After retraining on
+   `residual_ik_sim2real`, `acceptance.py --model-dir ...` decides whether the policy goes on the arm.
+5. `run_policy_real.py` for each of `ik_hold`, `gravity_comp`, `integral`, `trained` on
+   `data/targets/reach_fixed.json`, then 10 repeats on `data/targets/reach_repeat.json`.
+   Run each first with `--sim --calibration ...` to get the calibrated-sim prediction.
+
+## Targets
+
+`data/targets/reach_fixed.json` holds 10 targets from the training sampler, keeping only those whose IK pose is
+inside the real arm's calibrated range minus `limit_margin_rad` (see `reports/differences.md`, D-02).
+`reach_repeat.json` is the first 3 of them. Both are sim world coordinates in metres.
+
+## Safety
+
+The physical power switch is the e-stop and stays within reach during every powered session. `q` triggers the
+software abort in `run_policy_real.py` (hold, then ramp to rest). Torque is only cut after ramping to rest.
+Every commanded pose passes `SafetyMonitor` (table clearance, temperature, load, loop overruns).

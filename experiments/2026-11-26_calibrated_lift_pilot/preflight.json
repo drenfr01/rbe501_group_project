@@ -1,0 +1,12 @@
+{
+  "python": "3.12.15",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "numpy": "2.5.3"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "script": "scripts/sim2real/analyze/acceptance.py",
+  "argv": [
+    "--model-dir",
+    "checkpoints/reach_1m_residual_ik_sim2real",
+    "--out",
+    "experiments/2026-11-01_acceptance_reach_1m_residual_ik_sim2real"
+  ],
+  "git_commit": "8ec91454e4b17f15650c95f3ddf07a2e120213e8",
+  "git_dirty": true,
+  "started_at": "2026-11-01T14:34:12.691958+00:00",
+  "finished_at": "2026-11-01T14:34:38.543411+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": null
+}

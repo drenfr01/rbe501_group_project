@@ -1,0 +1,79 @@
+[
+  {
+    "calibrated_stiffness": false,
+    "controller": "fixed_10g",
+    "mass_kg": 0.01,
+    "placement_seed": 20000,
+    "success": true,
+    "contacts": [
+      {
+        "body": "gripper_link",
+        "geom": "fixed_finger_pad",
+        "first_step": 71,
+        "last_step": 72,
+        "max_penetration_mm": 0.028537870448985814
+      },
+      {
+        "body": "moving_jaw_so101_v1_link",
+        "geom": "moving_finger_pad",
+        "first_step": 72,
+        "last_step": 87,
+        "max_penetration_mm": 0.7177148245939291
+      }
+    ]
+  },
+  {
+    "calibrated_stiffness": true,
+    "controller": "fixed_10g",
+    "mass_kg": 0.01,
+    "placement_seed": 20000,
+    "success": true,
+    "contacts": [
+      {
+        "body": "gripper_link",
+        "geom": "fixed_finger_pad",
+        "first_step": 45,
+        "last_step": 71,
+        "max_penetration_mm": 0.3165957295609978
+      },
+      {
+        "body": "moving_jaw_so101_v1_link",
+        "geom": "moving_finger_pad",
+        "first_step": 72,
+        "last_step": 76,
+        "max_penetration_mm": 1.3931901716680573
+      }
+    ]
+  },
+  {
+    "calibrated_stiffness": false,
+    "controller": "scripted",
+    "mass_kg": 0.01,
+    "placement_seed": 20000,
+    "success": true,
+    "contacts": []
+  },
+  {
+    "calibrated_stiffness": true,
+    "controller": "scripted",
+    "mass_kg": 0.01,
+    "placement_seed": 20000,
+    "success": true,
+    "contacts": [
+      {
+        "body": "gripper_link",
+        "geom": "fixed_finger_pad",
+        "first_step": 47,
+        "last_step": 75,
+        "max_penetration_mm": 0.07554149768018714
+      },
+      {
+        "body": "moving_jaw_so101_v1_link",
+        "geom": "moving_finger_pad",
+        "first_step": 76,
+        "last_step": 83,
+        "max_penetration_mm": 0.7269209762278961
+      }
+    ]
+  }
+]

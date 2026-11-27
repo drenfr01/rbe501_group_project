@@ -1,0 +1,50 @@
+[
+  {
+    "seed": 89000,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": 30,
+    "physics_steps": 15147,
+    "robot_table_contact_steps": 0,
+    "success": true,
+    "failure": null,
+    "support_ready_before_open": true,
+    "cube_table_force_before_open_n": 0.22794910497348533,
+    "warnings": false
+  },
+  {
+    "seed": 88000,
+    "mass_kg": 0.015,
+    "yaw_offset_deg": -30,
+    "physics_steps": 14553,
+    "robot_table_contact_steps": 0,
+    "success": true,
+    "failure": null,
+    "support_ready_before_open": true,
+    "cube_table_force_before_open_n": 0.6510733289309956,
+    "warnings": false
+  },
+  {
+    "seed": 91000,
+    "mass_kg": 0.005,
+    "yaw_offset_deg": -30,
+    "physics_steps": 14916,
+    "robot_table_contact_steps": 0,
+    "success": true,
+    "failure": null,
+    "support_ready_before_open": true,
+    "cube_table_force_before_open_n": 0.8041069273202501,
+    "warnings": false
+  },
+  {
+    "seed": 91000,
+    "mass_kg": 0.02,
+    "yaw_offset_deg": 30,
+    "physics_steps": 14421,
+    "robot_table_contact_steps": 0,
+    "success": true,
+    "failure": null,
+    "support_ready_before_open": true,
+    "cube_table_force_before_open_n": 0.8100211764550898,
+    "warnings": false
+  }
+]

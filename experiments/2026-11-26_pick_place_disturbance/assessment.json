@@ -1,0 +1,28 @@
+{
+  "episodes": 720,
+  "common_eligible_disturbed_pairs": 320,
+  "complete_protocol": true,
+  "pulse_phases_valid": true,
+  "controls_pass": true,
+  "additional_rl_failures": 0,
+  "additional_rl_control_failures": 0,
+  "safe": true,
+  "retention_rl_minus_script": {
+    "clusters": 10,
+    "mean": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ]
+  },
+  "adjusted_final_error_difference_mm": {
+    "clusters": 10,
+    "mean": 0.12022315503520942,
+    "ci95": [
+      -0.12080291098122443,
+      0.36503230040530654
+    ]
+  },
+  "useful_benefit_established": false,
+  "start_long_training": false
+}

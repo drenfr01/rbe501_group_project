@@ -1,0 +1,30 @@
+{
+  "base_commit": "ec7ed81844a013dfae783246e4fc42edd02184bf",
+  "source_inventory_at_completion_sha256": {
+    "src/rbe_501_so101/control/tracked_place.py": "dddc3d54613226e7488b15c37740011e1faf9c8e8e8b654fe0f1fb7bb1ddc73e",
+    "src/rbe_501_so101/control/contact_tracked_place.py": "fb731339eeeb8e96952863efc9b2f40c7c1cdd6357bd091c6328df93f1ada8a2",
+    "scripts/sim2real/analyze/carry_place_check.py": "0fdc2e65cb92208b33461f5f62f2516e47fdf093db9940011c020904430021ce",
+    "tests/test_tracked_place.py": "3f40cb9eb13657d84730b5d8fd097011f9fb31a631476d8952de69506734113a",
+    "tests/test_contact_tracked_place.py": "1f4729a06884c146491fc6ef1f01f75c276dea3dcc0b7f4d047b3edf961c920b"
+  },
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "validation": {
+    "passed": 444,
+    "skipped": 1,
+    "seconds": 43.02
+  },
+  "training_updates": 0,
+  "candidate": "TrackedCarryPlace",
+  "commands": {
+    "initial": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.carry_place_check --tracked --out experiments/2026-11-26_place_tracking_validation",
+    "final": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.carry_place_check --contact-tracked --out experiments/2026-11-26_contact_place_validation"
+  },
+  "note": "First integral candidate rejected for recorded regressions; final candidate frozen before seeds91000-91009. Both stage records retained."
+}

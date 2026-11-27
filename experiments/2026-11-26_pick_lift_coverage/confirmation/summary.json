@@ -1,0 +1,46 @@
+[
+  {
+    "controller": "scripted",
+    "benchmark": "workspace",
+    "episodes": 0,
+    "successes": 0,
+    "not_released": 0,
+    "acquisition_aborts": 0,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0
+  },
+  {
+    "controller": "scripted",
+    "benchmark": "yaw",
+    "episodes": 280,
+    "successes": 152,
+    "not_released": 128,
+    "acquisition_aborts": 128,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0
+  },
+  {
+    "controller": "sac",
+    "benchmark": "workspace",
+    "episodes": 0,
+    "successes": 0,
+    "not_released": 0,
+    "acquisition_aborts": 0,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0
+  },
+  {
+    "controller": "sac",
+    "benchmark": "yaw",
+    "episodes": 280,
+    "successes": 152,
+    "not_released": 128,
+    "acquisition_aborts": 128,
+    "table_contact_episodes": 0,
+    "approach_contact_episodes": 0,
+    "warning_episodes": 0
+  }
+]

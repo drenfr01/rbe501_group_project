@@ -1,0 +1,7 @@
+{
+  "passed_pilot_gate": true,
+  "start_full_training": false,
+  "gate": "Each mass >=95% success, <=5% sampled table-contact episodes, no warnings",
+  "holding_gate": "Each mass <=5% episodes losing previously achieved success",
+  "stability_does_not_establish_learning_improvement": true
+}

@@ -1,0 +1,28 @@
+{
+  "base_commit": "b6e04699c60a8e1ef834f0e0b3885af96aa2e4a9",
+  "source_sha256": {
+    "scripts/sim2real/analyze/cartesian_disturbance.py": "62bcc9d9461064743d104642f59722620acd285ca9517dfd4d3a15d3f94f09b2",
+    "scripts/sim2real/analyze/acquisition_holding_checks.py": "59c0ad39f122056ef84d0924414647baeb6ab4e1a02bc04eb5ade6ab18fdeb7a",
+    "tests/test_cartesian_disturbance.py": "450356c0b5fdba28da8c22c8139134dc00c2e554e960f547b29b4875867e461d"
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.cartesian_disturbance --model-dir checkpoints/calibrated_cartesian_zero_v3_pilot --out experiments/2026-11-26_cartesian_disturbance",
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "inference_device": "cpu",
+  "control_dt_s": 0.033,
+  "pulse_start_s": 4.95,
+  "pulse_duration_s": 0.099,
+  "post_pulse_observation_s": 1.5510000000000002,
+  "training_updates": 0,
+  "validation": {
+    "passed": 418,
+    "skipped": 1,
+    "seconds": 37.61
+  }
+}

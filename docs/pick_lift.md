@@ -1,5 +1,12 @@
 # Pick-and-lift with object mass as a parameter
 
+The latest opt-in calibrated scripted candidate combines Cartesian acquisition
+with a **0-degree closing endpoint**. It repairs the known light-cube failures and
+passes fresh original-horizon simulation checks. See the
+[closing/retention findings and viewer command](../reports/findings/2026-11-26_gripper_closing.md).
+Global defaults and older trained policies remain unchanged; this is a scripted
+controller improvement, not a newly trained RL policy.
+
 `SO101PickLift-v0` grasps a cube from the table and lifts it. The cube's
 mass `m` is the experimental parameter: train one policy on a fixed mass
 and one on a random mass per episode, then compare both across masses.
@@ -44,3 +51,159 @@ allow a held cube to stay between the jaws. The source model remains unchanged.
 The simulated motor gains are placeholders, so these results do not measure
 real SO-101 payload limits. The simulation currently assumes fixed contact
 settings; verify that their friction matches the printed material.
+
+## Calibration integration boundary
+
+Merging the reaching calibration code does not change existing pick-and-lift
+checkpoints or their default dynamics. Calibrated reaching presets construct
+the measured-stiffness backend and their configured servo/friction and sensing
+wrappers through `envs/factory.py`.
+
+For a controlled pick-and-lift stiffness experiment, Python callers can set
+`PickLiftConfig.sim.calibration_path` to the measured actuator JSON. The shared
+backend applies those gains to the compiled grasp model before capturing its
+nominal dynamics, so resets preserve them. This does **not** enable the reaching
+servo-effects wrappers or calibrate the moving gripper, contact friction, or
+payload response. Existing pick-and-lift CLI commands retain their original
+dynamics; a fully calibrated manipulation preset needs separate validation.
+
+See `reports/findings/2026-11-26_calibration_pick_lift_integration.md` for the
+integration checks and the small original-versus-measured-stiffness comparison.
+
+## Experimental guarded setup validation
+
+The opt-in validation below compares a stable-contact lift guard, 0–8 mm grasp
+waypoint offsets, and manipulation access to the existing arm servo/sensing
+wrappers. It does not change any default controller or checkpoint. Its frozen
+candidate is **not approved for retraining or hardware deployment**: held-out
+tests still find table contact and grasp loss.
+
+```powershell
+uv run --locked python -m scripts.sim2real.analyze.validate_pick_lift_setup --out experiments/guarded_setup_repeat
+uv run --locked python -m scripts.sim2real.analyze.replay_pick_lift --controller random_5_20g --mass-kg 0.005 --placement-seed 20008 --calibrated --guarded --viewer --out experiments/guarded_drop_viewer
+```
+
+Output directories must be new. Add `--arm-effects` to the replay to stress the
+controller with arm stiction, clipping, fixed delay, and encoder quantization.
+This is not a hardware-calibrated gripper/contact/perception model. The guard
+uses simulation contact truth, and cannot catch a cube after it has slipped.
+See `reports/findings/2026-11-26_guarded_pick_lift_validation.md`.
+
+## Experimental motion alignment
+
+The opt-in calibrated motion ablation and independent results are documented in
+[the motion findings](../reports/findings/2026-11-26_pick_lift_motion_ablation.md).
+The candidate improves scripted table clearance but misses the held-out success
+gate with arm effects; default control and training presets remain unchanged.
+Use replay's `--motion-variant gravity_yaw_depth4 --calibrated --guarded` flags
+to inspect it, optionally adding `--arm-effects`. No retraining was performed.
+
+The subsequent [wrist acquisition findings](../reports/findings/2026-11-26_pick_lift_wrist_acquisition.md)
+document the opt-in `--motion-variant outer_wrist` candidate: 200/200 scripted
+lifts with stiffness alone and 199/200 with arm effects on fresh placements,
+with no sampled table contacts. It passes the observed simulation gate; training
+defaults and saved policies are unchanged.
+
+The [calibrated SAC pilot](../reports/findings/2026-11-26_calibrated_lift_pilot.md)
+adds a separate serialized training preset and a 10k-transition fresh-policy test.
+It failed held-out evaluation (29/80 lifts versus scripted 79/80, with table
+contacts), so its weights are not promoted. The report includes the dedicated
+training/replay commands and locations of the local checkpoint companions.
+
+The subsequent [lift-only residual pilot](../reports/findings/2026-11-26_lift_only_residual_pilot.md)
+protects acquisition and the jaw, bounds lift corrections and checks nominal table
+clearance/holding height. Its fresh v2 policy matches the script at 78/80 lifts
+with zero sampled table contacts; this passes the stability gate but does not
+establish an RL improvement. Use the dedicated `limited_lift_pilot` commands in
+that report. Legacy defaults and reaching policies remain unchanged.
+
+[Acquisition and holding probes](../reports/findings/2026-11-26_acquisition_holding_checks.md)
+then preserve both controllers and diagnose premature stationary-finger contact
+during the failing approach. In 720 paired holding-force episodes, both retain
+all 312 eligible disturbed holds; RL shows only a tiny simulated cube-motion
+reduction and more TCP motion. No training or controller changes were made.
+
+The [raised-approach experiment](../reports/findings/2026-11-26_raised_approach.md)
+tests the next acquisition change separately. Raise-only improves arm-effect
+held-out lifts from 195/200 to 198/200 and removes observed initial approach
+contacts, but still fails the pre-close cube-motion gate. Alignment correction
+variants introduce table contacts and are rejected. Defaults and weights remain
+unchanged; use only the opt-in experiment/replay commands in that report.
+
+The [Cartesian descent check](../reports/findings/2026-11-26_cartesian_descent.md)
+then reduces pre-close cube movement below 0.16 mm on its fresh batch, without
+observed table contact. It achieves 79/80 arm-effect lifts versus both references'
+80/80, and known 5 g retention failures remain. It is an opt-in trajectory
+prototype, not a promoted controller or a new trained policy.
+
+The [closing endpoint check](../reports/findings/2026-11-26_gripper_closing.md)
+then validates Cartesian acquisition with a 0-degree closing endpoint: 160/160
+fresh scripted lifts and 24/24 known regressions pass in simulation.
+
+The [fresh Cartesian/zero-closing SAC pilot](../reports/findings/2026-11-26_cartesian_zero_rl_pilot.md)
+serializes that setup in a separate v3 preset and trains 10k transitions on CUDA.
+Its saved policy matches the script at 160/160 fresh lifts and passes 24/24 known
+regressions. This passes stability, but establishes no useful RL improvement yet.
+The findings contain replay commands and local checkpoint locations; binaries
+are not included in Git. Default presets and earlier policies remain unchanged.
+
+The [frozen v3 disturbance evaluation](../reports/findings/2026-11-26_cartesian_disturbance.md)
+compares this saved policy and its scripted reference on new placements with
+matched 99 ms lateral cube pushes, without training or controller changes.
+The report records retention, motion, stable recovery and the practical-benefit gate.
+Both retain 640/640 pushed holds and pass 40/40 controls; the learned policy does
+not demonstrate useful added robustness and produces more adjusted holding motion.
+Longer training is not recommended from this result alone.
+
+The [workspace and cube-yaw coverage audit](../reports/findings/2026-11-26_pick_lift_coverage.md)
+identifies a shared acquisition weakness: both controllers pass 180/180 supported
+workspace-grid cases but fail many independently rotated-cube cases, replicated
+on new placements. Cube yaw is absent from observations, and lift-only residuals
+cannot act before these acquisition aborts. This is a separate distribution-shift
+diagnostic, not a changed training preset; orientation-aware acquisition is the
+next proposed experiment before further training.
+
+The [orientation-oracle prototype](../reports/findings/2026-11-26_oracle_acquisition.md)
+then improves independent yaw lifts from 167/280 to 268/280 with zero sampled
+candidate table contacts, but regresses nominal controls and workspace-grid cases.
+It is rejected as a replacement baseline. One traced regression reaches stable
+alignment too late for the fixed closing window; address bounded phase timing
+before changing observations, gains or training again. The old controller and
+saved policies remain unchanged.
+
+The [bounded timing repair](../reports/findings/2026-11-26_timed_oracle.md)
+then passes 460/460 recorded regressions and 280/280 fresh yaw cases, versus the
+original script's 140/280 on the same fresh set. Nominal controls are retained;
+candidate table contacts and warnings are zero. This opt-in scripted oracle
+keeps the original horizon and measured/contact gates; it changes phase timing
+and guard synchronization. The targeted blocker is resolved on these sets.
+No defaults, neural policies, observations or training configurations changed.
+
+The [first complete carry/place prototype](../reports/findings/2026-11-26_carry_place.md)
+extends the unchanged pickup with carry, supported lowering, release and retreat.
+The initial transfer completes 34/60 recorded cases; a bounded touchdown variant
+repairs those to 60/60 and completes 59/60 fresh cases without sampled robot/table
+contacts or warnings. One guarded lowering timeout remains, so the per-condition
+gate fails. The full sequence is demonstrated, but is not promoted or trained.
+The report includes the complete-task viewer command; old RL tasks stay unchanged.
+
+The [contact-aware lowering repair](../reports/findings/2026-11-26_place_tracking_fix.md)
+resolves that last timeout: 240/240 recorded conditions and 120/120 fresh full
+sequences pass with no sampled robot/table contacts or warnings. It adds bounded
+near-target tracking correction and stops downward integration once table support
+is present. The first unconditional integral is retained as rejected for recorded
+regressions. Use `--contact-tracked` for the validated candidate; existing variants,
+gains, support guards, phase budgets and saved policies remain unchanged.
+
+The [full-task Gym environment and pilot](../reports/findings/2026-11-26_pick_place_env_pilot.md)
+now expose that complete sequence as `SO101PickPlace-v1`, with destination,
+orientation-aware observations, bounded carry/lower residuals and true released-
+placement rewards/success. A fresh 10k CUDA SAC pilot matches its scripted
+baseline at 60/60 full-task trials. This passes stability, not an RL-benefit gate.
+See [full-task usage](pick_place.md) for training and actual learned-policy replay;
+the earlier reaching and pickup environments/policies remain separate.
+
+The [full-task carrying-force comparison](../reports/findings/2026-11-26_pick_place_disturbance.md)
+preserves that policy and script: both complete all 320 pushed placements and
+40 controls. The modest-push test establishes no useful added RL benefit and
+does not justify longer training by itself.

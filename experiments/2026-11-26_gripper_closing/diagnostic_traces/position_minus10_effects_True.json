@@ -1,0 +1,4775 @@
+{
+  "profile": {
+    "name": "position_minus10",
+    "target_deg": -10.0,
+    "rate_rad": 0.05,
+    "stop_on_contact": false,
+    "stable_steps": 1
+  },
+  "mass_kg": 0.005,
+  "arm_effects": true,
+  "seed": 68006,
+  "prepared": true,
+  "preparation_sha256": "d9d89f4987d45575520261f53911e8380754025e22a16ed79d5e9be5402f5df2",
+  "closing": {
+    "stable_end": false,
+    "max_cube_shift_xy_mm": 5.397451229988951,
+    "max_cube_rotation_deg": 25.211407072268397,
+    "max_pinch_drift_mm": 10.698581321555185,
+    "max_arm_command_drift_rad": 0.0,
+    "peak_fixed_force_n": 9.079219931049398,
+    "peak_moving_force_n": 15.876134938369274,
+    "final_jaw_deg": -10.708573884511965,
+    "final_command_deg": -10.0,
+    "table_steps": 0,
+    "warnings": false
+  },
+  "stop_step": null,
+  "lift_attempted": false,
+  "success": false,
+  "early_lift_retained": null,
+  "loss_step": null,
+  "final_lift_mm": -1.0085278484041615,
+  "table_steps": 0,
+  "warnings": false,
+  "trace": [
+    {
+      "stage": "closing",
+      "stage_step": 1,
+      "grasped": false,
+      "cube_m": [
+        0.056389526835629554,
+        0.018922320819297084,
+        0.48739657795495145
+      ],
+      "pinch_m": [
+        0.0579480543000685,
+        0.019158867809529093,
+        0.48980981291470144
+      ],
+      "cube_shift_xy_mm": 0.3439291499838054,
+      "cube_rotation_deg": 0.507092376885751,
+      "pinch_drift_mm": 0.22046020534133862,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 42.10563032897317,
+      "jaw_command_deg": 42.135210451956986,
+      "fixed": {
+        "gap_mm": -0.017892844790938688,
+        "contacts": 2,
+        "normal_force_n": 0.08994183519291282,
+        "cube_local_contacts_mm": [
+          [
+            12.4932966297005,
+            12.494131094675891,
+            6.584722987812741
+          ],
+          [
+            12.4932966297005,
+            12.494131094675891,
+            6.58472298781263
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": 27.15451529715797,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.10342204504859565,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 2,
+      "grasped": false,
+      "cube_m": [
+        0.05610040864156425,
+        0.018742264969094414,
+        0.48740502147977
+      ],
+      "pinch_m": [
+        0.05767529670555158,
+        0.01910874864140554,
+        0.4896042495461937
+      ],
+      "cube_shift_xy_mm": 0.6844277061472556,
+      "cube_rotation_deg": 1.029900268241929,
+      "pinch_drift_mm": 0.5550176095709776,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 39.24180088593026,
+      "jaw_command_deg": 39.27042147630287,
+      "fixed": {
+        "gap_mm": 0.08874083235731375,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 24.160318374029192,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.09497852023004905,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 3,
+      "grasped": false,
+      "cube_m": [
+        0.05607834463642721,
+        0.018740303111026098,
+        0.48733831492914853
+      ],
+      "pinch_m": [
+        0.057407168390250715,
+        0.01908194138916304,
+        0.4893400024028532
+      ],
+      "cube_shift_xy_mm": 0.704092395893204,
+      "cube_rotation_deg": 0.8950454784312388,
+      "pinch_drift_mm": 0.9225158092668985,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 36.37840093053062,
+      "jaw_command_deg": 36.40563250064875,
+      "fixed": {
+        "gap_mm": -0.09351451706454705,
+        "contacts": 2,
+        "normal_force_n": 0.06321617639593012,
+        "cube_local_contacts_mm": [
+          [
+            12.46476196268013,
+            12.469323109454004,
+            6.156855038257586
+          ],
+          [
+            12.46476196268013,
+            12.469323109454004,
+            6.156855038257586
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": 21.348926951134555,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.16168507085151385,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 4,
+      "grasped": false,
+      "cube_m": [
+        0.05570088297689607,
+        0.01861867014093578,
+        0.48747001380467453
+      ],
+      "pinch_m": [
+        0.05743127630894802,
+        0.019096032105283142,
+        0.48934430684937325
+      ],
+      "cube_shift_xy_mm": 1.0928778040502858,
+      "cube_rotation_deg": 0.8692979238071203,
+      "pinch_drift_mm": 0.8988717011737916,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 33.516033686378655,
+      "jaw_command_deg": 33.540843524994635,
+      "fixed": {
+        "gap_mm": 0.2898887502033279,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 18.023293716300756,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.029986195325515386,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 5,
+      "grasped": false,
+      "cube_m": [
+        0.05569576807537166,
+        0.01861033020641773,
+        0.48742273908919986
+      ],
+      "pinch_m": [
+        0.057140610717776694,
+        0.019027898396335934,
+        0.4891330571954714
+      ],
+      "cube_shift_xy_mm": 1.1012298189556597,
+      "cube_rotation_deg": 0.8925773606048807,
+      "pinch_drift_mm": 1.2637273564981324,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 30.65358359322329,
+      "jaw_command_deg": 30.676054549340513,
+      "fixed": {
+        "gap_mm": 0.05642302411333979,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 15.181976307504883,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.07726091080018094,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 6,
+      "grasped": false,
+      "cube_m": [
+        0.055699805904211475,
+        0.01859462302129683,
+        0.48739015802048435
+      ],
+      "pinch_m": [
+        0.05702761049576445,
+        0.019000583732055296,
+        0.48898494210896515
+      ],
+      "cube_shift_xy_mm": 1.104938749085199,
+      "cube_rotation_deg": 0.8538450374174151,
+      "pinch_drift_mm": 1.4448931536301253,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 27.790679577886305,
+      "jaw_command_deg": 27.8112655736864,
+      "fixed": {
+        "gap_mm": -0.028708862747202198,
+        "contacts": 2,
+        "normal_force_n": 0.025903286928919102,
+        "cube_local_contacts_mm": [
+          [
+            12.489170571606405,
+            12.49063440345933,
+            5.703105416737782
+          ],
+          [
+            12.489170571606405,
+            12.49063440345933,
+            5.703105416737838
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": 12.183282692510788,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.10984197951569019,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 7,
+      "grasped": false,
+      "cube_m": [
+        0.05537836573320299,
+        0.01843022242846923,
+        0.4874184944498548
+      ],
+      "pinch_m": [
+        0.05719881957886178,
+        0.01902681044251711,
+        0.48909612250369894
+      ],
+      "cube_shift_xy_mm": 1.4659426335460106,
+      "cube_rotation_deg": 1.1375871662297208,
+      "pinch_drift_mm": 1.239895286819818,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 24.928164637789077,
+      "jaw_command_deg": 24.946476598032284,
+      "fixed": {
+        "gap_mm": 0.4481687873958809,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 8.69159025552447,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.08150555014524441,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 8,
+      "grasped": false,
+      "cube_m": [
+        0.055353771542887,
+        0.018441258022916057,
+        0.4873956142814795
+      ],
+      "pinch_m": [
+        0.05702651237266014,
+        0.018987121683878255,
+        0.4889961709459384
+      ],
+      "cube_shift_xy_mm": 1.482699536184397,
+      "cube_rotation_deg": 1.0740182314572146,
+      "pinch_drift_mm": 1.4408138341347272,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 22.066083415719273,
+      "jaw_command_deg": 22.08168762237817,
+      "fixed": {
+        "gap_mm": 0.3128025300607935,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 5.68017336000611,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.104385718520561,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 9,
+      "grasped": false,
+      "cube_m": [
+        0.05534304206292156,
+        0.01845263321178091,
+        0.48739286583720204
+      ],
+      "pinch_m": [
+        0.05690732696286489,
+        0.018957175169006926,
+        0.48888446904605637
+      ],
+      "cube_shift_xy_mm": 1.4871737164386385,
+      "cube_rotation_deg": 1.0252539809201824,
+      "pinch_drift_mm": 1.6060394829892908,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 19.203612418452778,
+      "jaw_command_deg": 19.21689864672405,
+      "fixed": {
+        "gap_mm": 0.21024469292059253,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": 2.610583776087511,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "table_contact": false,
+      "lift_mm": -0.10713416279800603,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 10,
+      "grasped": false,
+      "cube_m": [
+        0.05533968478377417,
+        0.018477164259083113,
+        0.48736889153759966
+      ],
+      "pinch_m": [
+        0.05681311842166829,
+        0.018920735987390858,
+        0.48882607167680187
+      ],
+      "cube_shift_xy_mm": 1.479454792791229,
+      "cube_rotation_deg": 0.9710964774960672,
+      "pinch_drift_mm": 1.7205267147569965,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 16.410363162237548,
+      "jaw_command_deg": 16.352109671069936,
+      "fixed": {
+        "gap_mm": 0.09983935070709919,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.367662981387983,
+        "contacts": 1,
+        "normal_force_n": 0.08187364115636407,
+        "cube_local_contacts_mm": [
+          [
+            -12.362016724722938,
+            -12.382543822452002,
+            12.469037456977954
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -0.13110846240038665,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 11,
+      "grasped": true,
+      "cube_m": [
+        0.05615269934742633,
+        0.01898532643554521,
+        0.48755306897197676
+      ],
+      "pinch_m": [
+        0.0567365931984002,
+        0.018721064400757704,
+        0.4889665071667798
+      ],
+      "cube_shift_xy_mm": 0.537940661834469,
+      "cube_rotation_deg": 0.8557801324067168,
+      "pinch_drift_mm": 1.7460766346381715,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 13.925734459447822,
+      "jaw_command_deg": 13.487320695415821,
+      "fixed": {
+        "gap_mm": -1.0678347698902635,
+        "contacts": 2,
+        "normal_force_n": 0.6293000494204606,
+        "cube_local_contacts_mm": [
+          [
+            12.09740891504396,
+            12.14935924784709,
+            5.648917350709738
+          ],
+          [
+            12.198638207825242,
+            12.237525917917814,
+            -2.3144660321700674
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -1.9551018386889463,
+        "contacts": 1,
+        "normal_force_n": 0.6293283457708373,
+        "cube_local_contacts_mm": [
+          [
+            -11.765870583630615,
+            -11.86519299463814,
+            12.383039041231873
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.05306897197671079,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 12,
+      "grasped": true,
+      "cube_m": [
+        0.056616599063726306,
+        0.019406907991770986,
+        0.4876025334907859
+      ],
+      "pinch_m": [
+        0.056833423525787984,
+        0.018735506000498232,
+        0.4889546045107289
+      ],
+      "cube_shift_xy_mm": 0.29851872812692365,
+      "cube_rotation_deg": 1.1029044019622674,
+      "pinch_drift_mm": 1.6705235192488683,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 12.180351748592706,
+      "jaw_command_deg": 10.622531719761705,
+      "fixed": {
+        "gap_mm": -1.6502343496541168,
+        "contacts": 2,
+        "normal_force_n": 1.6788693601071487,
+        "cube_local_contacts_mm": [
+          [
+            11.997622513356728,
+            12.063813224570548,
+            -2.213265069748479
+          ],
+          [
+            11.876982522069222,
+            11.95906814704104,
+            5.7039387599621545
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -3.268666229096405,
+        "contacts": 2,
+        "normal_force_n": 1.719251931863024,
+        "cube_local_contacts_mm": [
+          [
+            -11.2670567482434,
+            -11.435757369003367,
+            12.364784025058688
+          ],
+          [
+            -11.572207084120874,
+            -11.69915472799865,
+            2.620161931825416
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.10253349078587215,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 13,
+      "grasped": true,
+      "cube_m": [
+        0.05723995436908881,
+        0.020142897057875857,
+        0.4875670183815217
+      ],
+      "pinch_m": [
+        0.05671937851355464,
+        0.018689145816721448,
+        0.4889195902681086
+      ],
+      "cube_shift_xy_mm": 1.173669334083211,
+      "cube_rotation_deg": 1.3053472822748018,
+      "pinch_drift_mm": 1.7931450860188332,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 10.990139177994392,
+      "jaw_command_deg": 7.75774274410759,
+      "fixed": {
+        "gap_mm": -2.7394380943653562,
+        "contacts": 2,
+        "normal_force_n": 3.2328891778510354,
+        "cube_local_contacts_mm": [
+          [
+            11.592592054459143,
+            11.715087733183426,
+            -2.1152188074968463
+          ],
+          [
+            11.464094070444926,
+            11.60393635478784,
+            5.756105318503056
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -3.472042956742682,
+        "contacts": 2,
+        "normal_force_n": 3.3164716473172415,
+        "cube_local_contacts_mm": [
+          [
+            -11.18656087137558,
+            -11.369477464927844,
+            12.39720358898164
+          ],
+          [
+            -11.40728849051554,
+            -11.559465369286908,
+            2.560560236327926
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.06701838152167738,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 14,
+      "grasped": true,
+      "cube_m": [
+        0.057895210323745165,
+        0.020846479071424683,
+        0.4875623317956826
+      ],
+      "pinch_m": [
+        0.05666145864127368,
+        0.018642195132923787,
+        0.4888858507304005
+      ],
+      "cube_shift_xy_mm": 2.1189371031328506,
+      "cube_rotation_deg": 1.6851917569580417,
+      "pinch_drift_mm": 1.8707434189586194,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 9.195939566425961,
+      "jaw_command_deg": 4.892953768453474,
+      "fixed": {
+        "gap_mm": -3.808421071470094,
+        "contacts": 2,
+        "normal_force_n": 4.362690310431141,
+        "cube_local_contacts_mm": [
+          [
+            11.203845525094955,
+            11.384939940615826,
+            -1.9767911848040978
+          ],
+          [
+            11.056484873976672,
+            11.258168032198919,
+            5.834738614905196
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -4.328380537908915,
+        "contacts": 2,
+        "normal_force_n": 4.415689145527614,
+        "cube_local_contacts_mm": [
+          [
+            -10.857308255848805,
+            -11.09175577674309,
+            12.453830118016022
+          ],
+          [
+            -10.93818028011813,
+            -11.161085619914129,
+            2.467509161613935
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.06233179568254643,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 15,
+      "grasped": true,
+      "cube_m": [
+        0.058509633623908104,
+        0.0214804741938486,
+        0.4876136517149438
+      ],
+      "pinch_m": [
+        0.056635675735561705,
+        0.018610351452737733,
+        0.48889410189882704
+      ],
+      "cube_shift_xy_mm": 2.994227597667399,
+      "cube_rotation_deg": 2.2235393636173066,
+      "pinch_drift_mm": 1.8967199846768807,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 7.473669096800096,
+      "jaw_command_deg": 2.0281647927993576,
+      "fixed": {
+        "gap_mm": -4.780231155551479,
+        "contacts": 2,
+        "normal_force_n": 5.540317484166241,
+        "cube_local_contacts_mm": [
+          [
+            10.856513514705059,
+            11.097187595293057,
+            -1.7971386105058453
+          ],
+          [
+            10.682099641271803,
+            10.948315093210244,
+            5.938252202023398
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -5.352685157004075,
+        "contacts": 2,
+        "normal_force_n": 5.596133258474892,
+        "cube_local_contacts_mm": [
+          [
+            -10.533441664632022,
+            -10.824776515552946,
+            12.547147803304094
+          ],
+          [
+            -10.462655799236481,
+            -10.764477188579091,
+            2.355394545795595
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.11365171494376325,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 16,
+      "grasped": true,
+      "cube_m": [
+        0.05913587658071535,
+        0.02211402499127033,
+        0.4877140275501394
+      ],
+      "pinch_m": [
+        0.056622630292802616,
+        0.01857811424349111,
+        0.4889295759616928
+      ],
+      "cube_shift_xy_mm": 3.8801034788305033,
+      "cube_rotation_deg": 2.999566851740774,
+      "pinch_drift_mm": 1.8996178107230641,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 5.732339512868882,
+      "jaw_command_deg": -0.8366241828547588,
+      "fixed": {
+        "gap_mm": -5.769369841976819,
+        "contacts": 2,
+        "normal_force_n": 6.7185571681089105,
+        "cube_local_contacts_mm": [
+          [
+            10.507446397200203,
+            10.817133857066656,
+            -1.5632643076896207
+          ],
+          [
+            10.296183943747273,
+            10.63870632081903,
+            6.065779930763861
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -6.597416741134016,
+        "contacts": 2,
+        "normal_force_n": 6.752609403373353,
+        "cube_local_contacts_mm": [
+          [
+            -9.979307201514997,
+            -10.372182303592057,
+            2.211667117870045
+          ],
+          [
+            -10.226692464098004,
+            -10.581010106754352,
+            12.68428422339974
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.2140275501393285,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 17,
+      "grasped": true,
+      "cube_m": [
+        0.059697761025004244,
+        0.02259399570555226,
+        0.487805039038019
+      ],
+      "pinch_m": [
+        0.05668213221145117,
+        0.018567363140578587,
+        0.4889903446871272
+      ],
+      "cube_shift_xy_mm": 4.609388339049525,
+      "cube_rotation_deg": 3.529197295858124,
+      "pinch_drift_mm": 1.8255980797214773,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 4.396458299840713,
+      "jaw_command_deg": -3.701413158508875,
+      "fixed": {
+        "gap_mm": -6.502223444551765,
+        "contacts": 2,
+        "normal_force_n": 7.353071333195695,
+        "cube_local_contacts_mm": [
+          [
+            10.232348259814405,
+            10.611729316315664,
+            -1.356105540545611
+          ],
+          [
+            10.00167095090868,
+            10.419644618264902,
+            6.138632819068216
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -7.5813634064850675,
+        "contacts": 2,
+        "normal_force_n": 7.348594503141183,
+        "cube_local_contacts_mm": [
+          [
+            -9.582579332186537,
+            -10.079672134452668,
+            -6.304200528839876
+          ],
+          [
+            -9.594491602764656,
+            -10.089554699809206,
+            2.5288251671888133
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.3050390380189283,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 18,
+      "grasped": true,
+      "cube_m": [
+        0.06028063324250595,
+        0.02313059458953383,
+        0.48785677807233074
+      ],
+      "pinch_m": [
+        0.05672275564693123,
+        0.018539686390355026,
+        0.48902193452945075
+      ],
+      "cube_shift_xy_mm": 5.397451229988951,
+      "cube_rotation_deg": 3.32178798175876,
+      "pinch_drift_mm": 1.7876313688979488,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": 3.6024129405405367,
+      "jaw_command_deg": -6.5662021341629915,
+      "fixed": {
+        "gap_mm": -7.214552563986004,
+        "contacts": 2,
+        "normal_force_n": 9.079219931049398,
+        "cube_local_contacts_mm": [
+          [
+            9.708846153658387,
+            10.21490200296213,
+            5.973407870969467
+          ],
+          [
+            9.908699185638348,
+            10.378520272760467,
+            -1.3179735367297676
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -7.847943534742512,
+        "contacts": 2,
+        "normal_force_n": 9.11516751967945,
+        "cube_local_contacts_mm": [
+          [
+            -9.487483192037764,
+            -10.041108563458916,
+            2.724658088020025
+          ],
+          [
+            -9.460071662742727,
+            -10.018734588824849,
+            -6.039071942395808
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": 0.356778072330699,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 19,
+      "grasped": true,
+      "cube_m": [
+        0.059905176277725555,
+        0.022165137168180964,
+        0.4865358769649854
+      ],
+      "pinch_m": [
+        0.05651497269873132,
+        0.018437610929932756,
+        0.4895278573415056
+      ],
+      "cube_shift_xy_mm": 4.443267037014408,
+      "cube_rotation_deg": 12.712879350769434,
+      "pinch_drift_mm": 1.839860114293088,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -8.280103622307022,
+      "jaw_command_deg": -9.430991109817107,
+      "fixed": {
+        "gap_mm": -4.747240044095827,
+        "contacts": 4,
+        "normal_force_n": 6.475540794465938,
+        "cube_local_contacts_mm": [
+          [
+            10.275924584753612,
+            12.1460813972946,
+            12.375653310904408
+          ],
+          [
+            10.276983336635604,
+            12.087460870718788,
+            12.375712505071153
+          ],
+          [
+            10.122434798825982,
+            10.625452446872059,
+            5.93275208018536
+          ],
+          [
+            10.121111047767847,
+            10.692029836929017,
+            5.92836529187255
+          ]
+        ]
+      },
+      "moving": {
+        "gap_mm": -14.649535232952479,
+        "contacts": 3,
+        "normal_force_n": 15.876134938369274,
+        "cube_local_contacts_mm": [
+          [
+            3.6197887607230896,
+            1.4910876845953247,
+            5.175554360492666
+          ],
+          [
+            3.753887267678819,
+            1.5656418720202359,
+            5.17505206105646
+          ],
+          [
+            3.6318510344370245,
+            1.6769083277294263,
+            5.175424088787097
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -0.9641230350146412,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 20,
+      "grasped": false,
+      "cube_m": [
+        0.05966125843473785,
+        0.020175713175722566,
+        0.48498649967029356
+      ],
+      "pinch_m": [
+        0.061953324420899535,
+        0.019654084451851128,
+        0.4951683195625864
+      ],
+      "cube_shift_xy_mm": 3.1693420214073678,
+      "cube_rotation_deg": 25.211407072268397,
+      "pinch_drift_mm": 6.539109492427811,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.987944229844196,
+      "jaw_command_deg": -9.999999996928343,
+      "fixed": {
+        "gap_mm": 3.3343312146948243,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -4.931911420261499,
+        "contacts": 2,
+        "normal_force_n": 1.2132444200562724,
+        "cube_local_contacts_mm": [
+          [
+            10.682232660127635,
+            6.3055594733945295,
+            10.833779718213583
+          ],
+          [
+            10.68217144028887,
+            6.314795444055883,
+            10.833723602265868
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -2.513500329706486,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 21,
+      "grasped": false,
+      "cube_m": [
+        0.05984903893972994,
+        0.02070963000004874,
+        0.48575121197771653
+      ],
+      "pinch_m": [
+        0.06477130356195454,
+        0.021517780154565985,
+        0.49738226463733065
+      ],
+      "cube_shift_xy_mm": 3.5524854256990652,
+      "cube_rotation_deg": 24.116741386413313,
+      "pinch_drift_mm": 10.27988503452496,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.092013612302834,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 5.838133342760004,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.5412937362801251,
+        "contacts": 2,
+        "normal_force_n": 1.1674498722848465,
+        "cube_local_contacts_mm": [
+          [
+            11.964854497519783,
+            6.228566081220153,
+            11.945472200816226
+          ],
+          [
+            11.964847830281368,
+            6.2413766425825985,
+            11.945465292098852
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.7487880222835095,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 22,
+      "grasped": false,
+      "cube_m": [
+        0.059617105311026285,
+        0.02118016160183997,
+        0.48596562466749005
+      ],
+      "pinch_m": [
+        0.0647582555593607,
+        0.022602020306710366,
+        0.49756200120592253
+      ],
+      "cube_shift_xy_mm": 3.5950590569667082,
+      "cube_rotation_deg": 22.97955286149277,
+      "pinch_drift_mm": 10.698581321555185,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.049393476270382,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.246732084055855,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1250358257663884,
+        "contacts": 2,
+        "normal_force_n": 1.2115144567595295,
+        "cube_local_contacts_mm": [
+          [
+            12.111623358149338,
+            6.093159527691748,
+            12.093072325157525
+          ],
+          [
+            12.11177061147701,
+            6.107210556516073,
+            12.09322661212478
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.5343753325099962,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 23,
+      "grasped": false,
+      "cube_m": [
+        0.05942299409078029,
+        0.021449224496456285,
+        0.4859436639092966
+      ],
+      "pinch_m": [
+        0.06446756149644335,
+        0.023152445606874076,
+        0.49731848503907444
+      ],
+      "cube_shift_xy_mm": 3.606119578119856,
+      "cube_rotation_deg": 22.383352623936197,
+      "pinch_drift_mm": 10.539199542038137,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.089584202992597,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.259502258852024,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.102344736619212,
+        "contacts": 2,
+        "normal_force_n": 1.3152471423508088,
+        "cube_local_contacts_mm": [
+          [
+            12.119441859283008,
+            5.671499826617962,
+            12.101293839979999
+          ],
+          [
+            12.119597779920744,
+            5.611522947092985,
+            12.10145719614585
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.5563360907034363,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 24,
+      "grasped": false,
+      "cube_m": [
+        0.05933427475886067,
+        0.021520876566060654,
+        0.4859876640325833
+      ],
+      "pinch_m": [
+        0.06440201379022469,
+        0.023353103123787064,
+        0.4972157306985384
+      ],
+      "cube_shift_xy_mm": 3.5866594231047606,
+      "cube_rotation_deg": 22.15161102251445,
+      "pinch_drift_mm": 10.505248603588406,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.056918369648542,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.308088545809869,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.142274475098519,
+        "contacts": 2,
+        "normal_force_n": 1.3055222646284135,
+        "cube_local_contacts_mm": [
+          [
+            12.105728315742827,
+            5.541453521436667,
+            12.086783963735098
+          ],
+          [
+            12.10576111007624,
+            5.598528352250782,
+            12.086818333802782
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.5123359674167336,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 25,
+      "grasped": false,
+      "cube_m": [
+        0.059273093775602345,
+        0.021516088229848976,
+        0.48602938154869807
+      ],
+      "pinch_m": [
+        0.06438948361916971,
+        0.02337984037202049,
+        0.4971783234987195
+      ],
+      "cube_shift_xy_mm": 3.5382831537214443,
+      "cube_rotation_deg": 22.024781691742927,
+      "pinch_drift_mm": 10.482294013455565,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.044283017270299,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.355188471338322,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1472080884056066,
+        "contacts": 2,
+        "normal_force_n": 1.2982016999727053,
+        "cube_local_contacts_mm": [
+          [
+            12.103889277477737,
+            5.467694033047812,
+            12.08512888885055
+          ],
+          [
+            12.104007309096733,
+            5.522199175281274,
+            12.08525251062124
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.4706184513019749,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 26,
+      "grasped": false,
+      "cube_m": [
+        0.059220666764916184,
+        0.02147965367331259,
+        0.4860561291689212
+      ],
+      "pinch_m": [
+        0.06439531165127554,
+        0.023342595827981445,
+        0.4971540783863862
+      ],
+      "cube_shift_xy_mm": 3.475064739915512,
+      "cube_rotation_deg": 21.934409030811235,
+      "pinch_drift_mm": 10.454011466103916,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.036706736499335,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.406010059504537,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.140038556263538,
+        "contacts": 2,
+        "normal_force_n": 1.2926672722401644,
+        "cube_local_contacts_mm": [
+          [
+            12.106030472034051,
+            5.398922067380016,
+            12.088040821811026
+          ],
+          [
+            12.106190874728483,
+            5.4507952925576015,
+            12.088208548900274
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.4438708310788306,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 27,
+      "grasped": false,
+      "cube_m": [
+        0.05917079225043924,
+        0.021432458484005146,
+        0.4860744104513907
+      ],
+      "pinch_m": [
+        0.06440449192557296,
+        0.02328210213172563,
+        0.4971310132416387
+      ],
+      "cube_shift_xy_mm": 3.4064028375393924,
+      "cube_rotation_deg": 21.857217248168606,
+      "pinch_drift_mm": 10.419524776057216,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.027548700584772,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.455941411090667,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.135239888970227,
+        "contacts": 2,
+        "normal_force_n": 1.2876839615318043,
+        "cube_local_contacts_mm": [
+          [
+            12.107406630908134,
+            5.381064135286423,
+            12.090414504802489
+          ],
+          [
+            12.10722181124939,
+            5.331784106308623,
+            12.090221685826334
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.4255895486093295,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 28,
+      "grasped": false,
+      "cube_m": [
+        0.05912244273904188,
+        0.021382873014855943,
+        0.4860889466263035
+      ],
+      "pinch_m": [
+        0.06441396295616729,
+        0.023212984552681205,
+        0.4971075119908605
+      ],
+      "cube_shift_xy_mm": 3.337233333044799,
+      "cube_rotation_deg": 21.785590875131767,
+      "pinch_drift_mm": 10.381862421568956,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.019805998643934,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.502835906747456,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1311102732118405,
+        "contacts": 2,
+        "normal_force_n": 1.2833861766701737,
+        "cube_local_contacts_mm": [
+          [
+            12.108363047518175,
+            5.3132173983890825,
+            12.09238897177159
+          ],
+          [
+            12.108162636930048,
+            5.266493602410917,
+            12.092180386842701
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.4110533736965691,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 29,
+      "grasped": false,
+      "cube_m": [
+        0.05907511341402783,
+        0.02133342448722484,
+        0.48610198498382345
+      ],
+      "pinch_m": [
+        0.06442416395649717,
+        0.02314181451351994,
+        0.49708455935500867
+      ],
+      "cube_shift_xy_mm": 3.2689094588373195,
+      "cube_rotation_deg": 21.71696558534779,
+      "pinch_drift_mm": 10.344627853279507,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.012374488372473,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.548511854558348,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1272168885641205,
+        "contacts": 2,
+        "normal_force_n": 1.27919567536097,
+        "cube_local_contacts_mm": [
+          [
+            12.109232481654692,
+            5.2473994841227825,
+            12.094272533536289
+          ],
+          [
+            12.109022357020992,
+            5.2032033526926424,
+            12.094054364596284
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3980150161765903,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 30,
+      "grasped": false,
+      "cube_m": [
+        0.05902851140050474,
+        0.021285300818340763,
+        0.486114431358794
+      ],
+      "pinch_m": [
+        0.06443461730887806,
+        0.02307104406743518,
+        0.4970623274654826
+      ],
+      "cube_shift_xy_mm": 3.202023790667515,
+      "cube_rotation_deg": 21.65006804096107,
+      "pinch_drift_mm": 10.308618787670666,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -11.005118779106295,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.593065459417727,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1235772843912628,
+        "contacts": 2,
+        "normal_force_n": 1.2751209199068814,
+        "cube_local_contacts_mm": [
+          [
+            12.10980282579149,
+            5.141720517783908,
+            12.095829638038909
+          ],
+          [
+            12.110018461273338,
+            5.183423664618063,
+            12.09605299555276
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3855686412060364,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 31,
+      "grasped": false,
+      "cube_m": [
+        0.05898251068678311,
+        0.021238961220402277,
+        0.48612653969980246
+      ],
+      "pinch_m": [
+        0.06444505082357078,
+        0.023001656169760888,
+        0.49704072498787033
+      ],
+      "cube_shift_xy_mm": 3.136793271253074,
+      "cube_rotation_deg": 21.58429727891641,
+      "pinch_drift_mm": 10.273970109868415,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.99816364951537,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.636492611777823,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.120042059970678,
+        "contacts": 2,
+        "normal_force_n": 1.2711838972264482,
+        "cube_local_contacts_mm": [
+          [
+            12.110559684288056,
+            5.082016239035134,
+            12.097556265686311
+          ],
+          [
+            12.110777508031878,
+            5.121260457524251,
+            12.097781362568542
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.373460300197582,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 32,
+      "grasped": false,
+      "cube_m": [
+        0.05893702036595496,
+        0.02119432440368337,
+        0.48613846433202124
+      ],
+      "pinch_m": [
+        0.06445540346169312,
+        0.02293397414662072,
+        0.49701978370812383
+      ],
+      "cube_shift_xy_mm": 3.0730936505286714,
+      "cube_rotation_deg": 21.519499700506408,
+      "pinch_drift_mm": 10.24076633185762,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.991373357240747,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.679007129447327,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1166109794355767,
+        "contacts": 2,
+        "normal_force_n": 1.2674279009039224,
+        "cube_local_contacts_mm": [
+          [
+            12.111292739293601,
+            5.024071500204982,
+            12.099234526802402
+          ],
+          [
+            12.111509939070665,
+            5.0608890403336595,
+            12.0994584644033
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3615356679788082,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 33,
+      "grasped": false,
+      "cube_m": [
+        0.05889197301692393,
+        0.0211507271871546,
+        0.48615047329434874
+      ],
+      "pinch_m": [
+        0.0644656811926175,
+        0.022867711515242504,
+        0.4969996413688968
+      ],
+      "cube_shift_xy_mm": 3.010424897420801,
+      "cube_rotation_deg": 21.45638845821003,
+      "pinch_drift_mm": 10.208980125050457,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.984595492322912,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.720875269728472,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1132949393320373,
+        "contacts": 2,
+        "normal_force_n": 1.2636848768115214,
+        "cube_local_contacts_mm": [
+          [
+            12.112001656685093,
+            4.967847018879532,
+            12.100857076305811
+          ],
+          [
+            12.112215854894249,
+            5.00226988955152,
+            12.101077426987516
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.349526705651305,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 34,
+      "grasped": false,
+      "cube_m": [
+        0.05884728947981385,
+        0.02110777940768864,
+        0.48616255182936097
+      ],
+      "pinch_m": [
+        0.06447563075483548,
+        0.022802749565252793,
+        0.49698006805516814
+      ],
+      "cube_shift_xy_mm": 2.9484641825817803,
+      "cube_rotation_deg": 21.396364218969115,
+      "pinch_drift_mm": 10.178232018363436,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.977950188999248,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.762160880355602,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1100103075791823,
+        "contacts": 2,
+        "normal_force_n": 1.2599584302869875,
+        "cube_local_contacts_mm": [
+          [
+            12.112721572608566,
+            4.913279144493892,
+            12.102447967069505
+          ],
+          [
+            12.112930896207283,
+            4.945339738476127,
+            12.102662843541593
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3374481706390773,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 35,
+      "grasped": false,
+      "cube_m": [
+        0.05880275473178715,
+        0.02106550404512968,
+        0.486174388556532
+      ],
+      "pinch_m": [
+        0.06448483177549048,
+        0.02273926622050923,
+        0.49696076396045413
+      ],
+      "cube_shift_xy_mm": 2.887068273007125,
+      "cube_rotation_deg": 21.339424053478435,
+      "pinch_drift_mm": 10.148092688003814,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.971460456924493,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.802913180130659,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.106731076765782,
+        "contacts": 2,
+        "normal_force_n": 1.2562719275640566,
+        "cube_local_contacts_mm": [
+          [
+            12.113456711516788,
+            4.860327622158841,
+            12.104021118310607
+          ],
+          [
+            12.113659605548275,
+            4.890056800656066,
+            12.104228965022886
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3256114434680444,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 36,
+      "grasped": false,
+      "cube_m": [
+        0.058758281563795506,
+        0.021023959378732457,
+        0.4861858623218147
+      ],
+      "pinch_m": [
+        0.06449314222291726,
+        0.0226774156822672,
+        0.49694156831560926
+      ],
+      "cube_shift_xy_mm": 2.8262118648341867,
+      "cube_rotation_deg": 21.285391902386092,
+      "pinch_drift_mm": 10.11838790128849,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.96510022235346,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.843166887217352,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.1034786413243474,
+        "contacts": 2,
+        "normal_force_n": 1.252621436824663,
+        "cube_local_contacts_mm": [
+          [
+            12.114197317543248,
+            4.808942913158709,
+            12.105571013970659
+          ],
+          [
+            12.114392405234957,
+            4.836370487250977,
+            12.10577046369953
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3141376781853342,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 37,
+      "grasped": false,
+      "cube_m": [
+        0.05871384126096442,
+        0.020983165127093056,
+        0.48619695437198807
+      ],
+      "pinch_m": [
+        0.0645005324379001,
+        0.022617250696508766,
+        0.49692242060709296
+      ],
+      "cube_shift_xy_mm": 2.7658868301103734,
+      "cube_rotation_deg": 21.234138624619327,
+      "pinch_drift_mm": 10.089045570976895,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.958863637971147,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.882942348859488,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.100254613004187,
+        "contacts": 2,
+        "normal_force_n": 1.2490024907394315,
+        "cube_local_contacts_mm": [
+          [
+            12.11494200860889,
+            4.759073222067458,
+            12.107097801465239
+          ],
+          [
+            12.115128026465985,
+            4.784228110740474,
+            12.107287608784217
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.3030456280119784,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 38,
+      "grasped": false,
+      "cube_m": [
+        0.058669417211992106,
+        0.020943113860035546,
+        0.48620766279634214
+      ],
+      "pinch_m": [
+        0.06450699981372816,
+        0.022558771240673705,
+        0.4969032960423031
+      ],
+      "cube_shift_xy_mm": 2.706075884148744,
+      "cube_rotation_deg": 21.18555924076712,
+      "pinch_drift_mm": 10.060017320423285,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.952744970687508,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.922264391437782,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0970539567767792,
+        "contacts": 2,
+        "normal_force_n": 1.2454107931274196,
+        "cube_local_contacts_mm": [
+          [
+            12.115691753678304,
+            4.710670192358393,
+            12.108603985504859
+          ],
+          [
+            12.115867519384711,
+            4.733580388724184,
+            12.108782992845082
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2923372036579006,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 39,
+      "grasped": false,
+      "cube_m": [
+        0.05862499581650834,
+        0.02090378705194265,
+        0.4862179858753201
+      ],
+      "pinch_m": [
+        0.06451254612885099,
+        0.02250195308280087,
+        0.49688417796347056
+      ],
+      "cube_shift_xy_mm": 2.6467567849678235,
+      "cube_rotation_deg": 21.139560532717184,
+      "pinch_drift_mm": 10.031255949020803,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.946737851545404,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.961156115375455,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0938736528077186,
+        "contacts": 2,
+        "normal_force_n": 1.2418431467731224,
+        "cube_local_contacts_mm": [
+          [
+            12.116446762016496,
+            4.663686367140336,
+            12.110091412155397
+          ],
+          [
+            12.116611158339111,
+            4.684378968075078,
+            12.110258532470525
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.282014124679931,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 40,
+      "grasped": false,
+      "cube_m": [
+        0.058580565425499075,
+        0.020865162101717433,
+        0.4862279213264362
+      ],
+      "pinch_m": [
+        0.06451717535929934,
+        0.022446761185105413,
+        0.4968650517832301
+      ],
+      "cube_shift_xy_mm": 2.5879063204730515,
+      "cube_rotation_deg": 21.09605666284514,
+      "pinch_drift_mm": 10.002714791127156,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.94083725405093,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 6.999638236515623,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0907112026799521,
+        "contacts": 2,
+        "normal_force_n": 1.2382970730898943,
+        "cube_local_contacts_mm": [
+          [
+            12.11720708426041,
+            4.618075547061537,
+            12.111561725227569
+          ],
+          [
+            12.117359048458074,
+            4.63657675695953,
+            12.111715930565106
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2720786735638256,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 41,
+      "grasped": false,
+      "cube_m": [
+        0.05853611576359343,
+        0.020827214892969896,
+        0.48623746722331523
+      ],
+      "pinch_m": [
+        0.06452089380451131,
+        0.022393156175253948,
+        0.4968459046263428
+      ],
+      "cube_shift_xy_mm": 2.529501629541113,
+      "cube_rotation_deg": 21.054967349504615,
+      "pinch_drift_mm": 9.974349874717054,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.935038321317457,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.037730711962516,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0875644922678798,
+        "contacts": 2,
+        "normal_force_n": 1.2347702244244132,
+        "cube_local_contacts_mm": [
+          [
+            12.117972673918006,
+            4.573792770529209,
+            12.113016401367817
+          ],
+          [
+            12.118111189575767,
+            4.590127902389905,
+            12.113156714073295
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2625327766848105,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 42,
+      "grasped": false,
+      "cube_m": [
+        0.05849163754005511,
+        0.020789921084121275,
+        0.4862466223541598
+      ],
+      "pinch_m": [
+        0.06452370935189171,
+        0.022341096997658343,
+        0.4968267250135759
+      ],
+      "cube_shift_xy_mm": 2.471520803167342,
+      "cube_rotation_deg": 21.016216887516716,
+      "pinch_drift_mm": 9.946120156640934,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.929336381272439,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.0754528012216475,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0844316563735217,
+        "contacts": 2,
+        "normal_force_n": 1.2312603796809092,
+        "cube_local_contacts_mm": [
+          [
+            12.118867530592842,
+            4.544987677475129,
+            12.114582277993582
+          ],
+          [
+            12.118743440193008,
+            4.5307941942427075,
+            12.114456792386669
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2533776458402701,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 43,
+      "grasped": false,
+      "cube_m": [
+        0.05844712216602581,
+        0.02075325666409988,
+        0.48625538612277336
+      ],
+      "pinch_m": [
+        0.06452563093184036,
+        0.02229054219965419,
+        0.49680750252046546
+      ],
+      "cube_shift_xy_mm": 2.413943069745499,
+      "cube_rotation_deg": 20.97973361266068,
+      "pinch_drift_mm": 9.917987347451405,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.9237270036961,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.1128231619480555,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0813109142823898,
+        "contacts": 2,
+        "normal_force_n": 1.2277654253817514,
+        "cube_local_contacts_mm": [
+          [
+            12.11951930439911,
+            4.489037106949375,
+            12.11588418449002
+          ],
+          [
+            12.119628026817184,
+            4.501112495914035,
+            12.115993945644126
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2446138772266857,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 44,
+      "grasped": false,
+      "cube_m": [
+        0.05840256151300016,
+        0.02071719820044469,
+        0.4862637583289134
+      ],
+      "pinch_m": [
+        0.06452666805924492,
+        0.022241450627593088,
+        0.49678822749139745
+      ],
+      "cube_shift_xy_mm": 2.356748806623743,
+      "cube_rotation_deg": 20.945449564171646,
+      "pinch_drift_mm": 9.889915604595911,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.918205936049462,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.14985996172118,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.078200552556135,
+        "contacts": 2,
+        "normal_force_n": 1.2242833201357697,
+        "cube_local_contacts_mm": [
+          [
+            12.120300201066323,
+            4.448479906403076,
+            12.117299808731847
+          ],
+          [
+            12.120392641718228,
+            4.458459889877742,
+            12.117392979850875
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2362416710866575,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 45,
+      "grasped": false,
+      "cube_m": [
+        0.058357947708555645,
+        0.020681722964694636,
+        0.48627173892326503
+      ],
+      "pinch_m": [
+        0.06452683041275216,
+        0.022193781815651126,
+        0.49676889078485525
+      ],
+      "cube_shift_xy_mm": 2.2999195013315834,
+      "cube_rotation_deg": 20.913300248693496,
+      "pinch_drift_mm": 9.861871153931787,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.912769087968003,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.1865809322354055,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.075098904823794,
+        "contacts": 2,
+        "normal_force_n": 1.2208120733126053,
+        "cube_local_contacts_mm": [
+          [
+            12.121086079894779,
+            4.4090820659507575,
+            12.118704852824752
+          ],
+          [
+            12.121161349366133,
+            4.416988477307099,
+            12.118780595315682
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2282610767350155,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 46,
+      "grasped": false,
+      "cube_m": [
+        0.05831327295023398,
+        0.02064680898951404,
+        0.4862793277593367
+      ],
+      "pinch_m": [
+        0.06452612746421667,
+        0.022147496237293805,
+        0.49674948355674237
+      ],
+      "cube_shift_xy_mm": 2.243437686571511,
+      "cube_rotation_deg": 20.883224467504625,
+      "pinch_drift_mm": 9.833821915106236,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.907412512379052,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.223003434671725,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.072004327779806,
+        "contacts": 2,
+        "normal_force_n": 1.2173497198563872,
+        "cube_local_contacts_mm": [
+          [
+            12.121876908826975,
+            4.370804099818288,
+            12.12010047459105
+          ],
+          [
+            12.12193413786971,
+            4.376657927352072,
+            12.120157972497607
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2206722406633563,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 47,
+      "grasped": false,
+      "cube_m": [
+        0.05826852932533023,
+        0.02061243509435094,
+        0.48628652434722225
+      ],
+      "pinch_m": [
+        0.0645245681287516,
+        0.0221025554867986,
+        0.49672999706510357
+      ],
+      "cube_shift_xy_mm": 2.1872868664343144,
+      "cube_rotation_deg": 20.855164185995694,
+      "pinch_drift_mm": 9.80573712598167,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.902132382768503,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.259144528554864,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0689151808097075,
+        "contacts": 2,
+        "normal_force_n": 1.2138942939429203,
+        "cube_local_contacts_mm": [
+          [
+            12.122711011351548,
+            4.33742891844845,
+            12.121526270281317
+          ],
+          [
+            12.12267267574728,
+            4.333607521307736,
+            12.121487814297867
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.2134756527777957,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 48,
+      "grasped": false,
+      "cube_m": [
+        0.05822370862882884,
+        0.02057858089662294,
+        0.4862933276030702
+      ],
+      "pinch_m": [
+        0.06452216041863204,
+        0.022058922424747072,
+        0.4967104224821124
+      ],
+      "cube_shift_xy_mm": 2.1314514415599937,
+      "cube_rotation_deg": 20.82906443644046,
+      "pinch_drift_mm": 9.777586958580857,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.896924972344635,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.295021042953868,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0658298038194318,
+        "contacts": 2,
+        "normal_force_n": 1.210443801646298,
+        "cube_local_contacts_mm": [
+          [
+            12.123473390757008,
+            4.297454795488395,
+            12.122868007759955
+          ],
+          [
+            12.123491992421025,
+            4.2992630905809595,
+            12.122886639331853
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.206672396929842,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 49,
+      "grasped": false,
+      "cube_m": [
+        0.058178736502145736,
+        0.02054417069949476,
+        0.48629976166532773
+      ],
+      "pinch_m": [
+        0.06451943648266613,
+        0.02201663500874456,
+        0.49669079180737163
+      ],
+      "cube_shift_xy_mm": 2.0751411344991273,
+      "cube_rotation_deg": 20.805082630965817,
+      "pinch_drift_mm": 9.749734971547433,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.891601804953437,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.33193237122396,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.061775552162879,
+        "contacts": 2,
+        "normal_force_n": 1.2040392220993459,
+        "cube_local_contacts_mm": [
+          [
+            12.113248448872747,
+            4.280750138096552,
+            12.136934982781904
+          ],
+          [
+            12.11333246507165,
+            4.1427358909038565,
+            12.137013853422806
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.20023833467231,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 50,
+      "grasped": false,
+      "cube_m": [
+        0.05813332689732069,
+        0.020508499379047064,
+        0.4863060948723729
+      ],
+      "pinch_m": [
+        0.06451553609115156,
+        0.021975500584056125,
+        0.4966706025942717
+      ],
+      "cube_shift_xy_mm": 2.017660692254465,
+      "cube_rotation_deg": 20.783151586290426,
+      "pinch_drift_mm": 9.72119727131308,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.886034967852519,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.369927861584524,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0577223349813492,
+        "contacts": 2,
+        "normal_force_n": 1.200070843354652,
+        "cube_local_contacts_mm": [
+          [
+            12.114473002635743,
+            4.108788235073623,
+            12.138705474874376
+          ],
+          [
+            12.114415646422586,
+            4.2468479487113076,
+            12.138651723811764
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1939051276271262,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 51,
+      "grasped": false,
+      "cube_m": [
+        0.05808777272661462,
+        0.020473990350269176,
+        0.4863121884550413
+      ],
+      "pinch_m": [
+        0.06450962813209125,
+        0.02193602949538287,
+        0.4966492768955135
+      ],
+      "cube_shift_xy_mm": 1.9608974369548968,
+      "cube_rotation_deg": 20.7626899807511,
+      "pinch_drift_mm": 9.691153213248977,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.881368025158,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.406213548523104,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0542371383666989,
+        "contacts": 2,
+        "normal_force_n": 1.196480968456466,
+        "cube_local_contacts_mm": [
+          [
+            12.115392584190252,
+            4.213921809505208,
+            12.140158702813263
+          ],
+          [
+            12.115421110622137,
+            4.0758170365837545,
+            12.140185392335722
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1878115449587279,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 52,
+      "grasped": false,
+      "cube_m": [
+        0.05804216874534457,
+        0.02044022020132664,
+        0.4863180452345038
+      ],
+      "pinch_m": [
+        0.0645030229595433,
+        0.02189843857450663,
+        0.4966276065234541
+      ],
+      "cube_shift_xy_mm": 1.9046358748273475,
+      "cube_rotation_deg": 20.74379273474926,
+      "pinch_drift_mm": 9.661055151883426,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.876629098837226,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.442266722513029,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0509675335816948,
+        "contacts": 2,
+        "normal_force_n": 1.2010447103137956,
+        "cube_local_contacts_mm": [
+          [
+            12.11812621457093,
+            3.928489107190499,
+            12.143590760349047
+          ],
+          [
+            12.116093725746463,
+            4.0652501702291435,
+            12.14169380427566
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1819547654962625,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 53,
+      "grasped": false,
+      "cube_m": [
+        0.057998237569470035,
+        0.02040383341220716,
+        0.4863243679761726
+      ],
+      "pinch_m": [
+        0.06449492599798198,
+        0.02186036975210573,
+        0.4966043056359078
+      ],
+      "cube_shift_xy_mm": 1.847773080048712,
+      "cube_rotation_deg": 20.727012596677216,
+      "pinch_drift_mm": 9.62880737622272,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.869443872501577,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.475379425553809,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0542822284911182,
+        "contacts": 2,
+        "normal_force_n": 1.1977458475626,
+        "cube_local_contacts_mm": [
+          [
+            12.116611827960083,
+            3.902399134400124,
+            12.142749300567672
+          ],
+          [
+            12.114595440269719,
+            4.039204038609872,
+            12.14087038002384
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.175632023827422,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 54,
+      "grasped": false,
+      "cube_m": [
+        0.057954371761310124,
+        0.020368862534116197,
+        0.4863298424111557
+      ],
+      "pinch_m": [
+        0.06448585225354464,
+        0.021823627848474497,
+        0.49658130572735476
+      ],
+      "cube_shift_xy_mm": 1.7919595835588926,
+      "cube_rotation_deg": 20.71120519342745,
+      "pinch_drift_mm": 9.596596308338595,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.865981980805861,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.507398157501381,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0531643599424367,
+        "contacts": 2,
+        "normal_force_n": 1.1944781182993807,
+        "cube_local_contacts_mm": [
+          [
+            12.116756711180269,
+            3.877498744146544,
+            12.14337206174588
+          ],
+          [
+            12.114759918173572,
+            4.014346750605861,
+            12.141513941345975
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1701575888443672,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 55,
+      "grasped": false,
+      "cube_m": [
+        0.05791005600400877,
+        0.020334752792009164,
+        0.486334958522721
+      ],
+      "pinch_m": [
+        0.06447736683655136,
+        0.021790469992251232,
+        0.49655947294230546
+      ],
+      "cube_shift_xy_mm": 1.736449569088071,
+      "cube_rotation_deg": 20.696457308285687,
+      "pinch_drift_mm": 9.566660622236627,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.861968526303407,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.5418139234181085,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0499815249163837,
+        "contacts": 2,
+        "normal_force_n": 1.1907452777250906,
+        "cube_local_contacts_mm": [
+          [
+            12.11765679180658,
+            3.8537003414823947,
+            12.14469664896801
+          ],
+          [
+            12.115680911128578,
+            3.9905914227824706,
+            12.142860505390535
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1650414772790274,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 56,
+      "grasped": false,
+      "cube_m": [
+        0.05786551101320759,
+        0.02030152728509953,
+        0.4863400984895852
+      ],
+      "pinch_m": [
+        0.0644682224702115,
+        0.02175944936902941,
+        0.49653785641736825
+      ],
+      "cube_shift_xy_mm": 1.6814288467562648,
+      "cube_rotation_deg": 20.6828310178738,
+      "pinch_drift_mm": 9.537094529633269,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.857574310423558,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.576381690090595,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0468932064429064,
+        "contacts": 2,
+        "normal_force_n": 1.187003764175735,
+        "cube_local_contacts_mm": [
+          [
+            12.118525460147577,
+            3.830464931667378,
+            12.145983144263704
+          ],
+          [
+            12.116571945924449,
+            3.9673986226853604,
+            12.144170239624835
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1599015104148402,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 57,
+      "grasped": false,
+      "cube_m": [
+        0.057820965473015205,
+        0.020268938521123596,
+        0.48634517272641187
+      ],
+      "pinch_m": [
+        0.0644584794110365,
+        0.02172970065004466,
+        0.4965161577732871
+      ],
+      "cube_shift_xy_mm": 1.6268970909344291,
+      "cube_rotation_deg": 20.67039776725729,
+      "pinch_drift_mm": 9.507481015943975,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.8534462860113,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.6105737397219,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0436813094510071,
+        "contacts": 2,
+        "normal_force_n": 1.1833532932759252,
+        "cube_local_contacts_mm": [
+          [
+            12.119449229376537,
+            3.8079136701303837,
+            12.147299919055683
+          ],
+          [
+            12.117518913892507,
+            3.9448896466956738,
+            12.145510874123865
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.154827273588177,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 58,
+      "grasped": false,
+      "cube_m": [
+        0.057776462301654063,
+        0.020236752922931915,
+        0.4863501605765457
+      ],
+      "pinch_m": [
+        0.06444837261195253,
+        0.02170095257880192,
+        0.49649447864807816
+      ],
+      "cube_shift_xy_mm": 1.5727289487039746,
+      "cube_rotation_deg": 20.65917918367759,
+      "pinch_drift_mm": 9.477965253267028,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.849329337581214,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.644600135943605,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0404734872739982,
+        "contacts": 2,
+        "normal_force_n": 1.1797072119041923,
+        "cube_local_contacts_mm": [
+          [
+            12.118471748314406,
+            3.9230476932390266,
+            12.14684249599745
+          ],
+          [
+            12.120378691365632,
+            3.7860297081814864,
+            12.148607637229516
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1498394234543685,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 59,
+      "grasped": false,
+      "cube_m": [
+        0.057732026781805536,
+        0.0202049074676632,
+        0.48635506978409526
+      ],
+      "pinch_m": [
+        0.06443790909958984,
+        0.021673011005707614,
+        0.4964728291359683
+      ],
+      "cube_shift_xy_mm": 1.5189063044730098,
+      "cube_rotation_deg": 20.649152019564976,
+      "pinch_drift_mm": 9.448500792318457,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.845252358387356,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.678394271847073,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0372981220155126,
+        "contacts": 2,
+        "normal_force_n": 1.1760851670059362,
+        "cube_local_contacts_mm": [
+          [
+            12.11941978407691,
+            3.9018339658655417,
+            12.148155709811098
+          ],
+          [
+            12.121303319183777,
+            3.7647742617299955,
+            12.149897027528146
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1449302159047825,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 60,
+      "grasped": false,
+      "cube_m": [
+        0.0576876735690257,
+        0.020173361934104853,
+        0.4863598968515097
+      ],
+      "pinch_m": [
+        0.06442712309260508,
+        0.021645785396018066,
+        0.4964512151555463
+      ],
+      "cube_shift_xy_mm": 1.4654199530106244,
+      "cube_rotation_deg": 20.64028346423551,
+      "pinch_drift_mm": 9.419085238647328,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.84123357152415,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.711955739336561,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.034136536482243,
+        "contacts": 2,
+        "normal_force_n": 1.1724885641759575,
+        "cube_local_contacts_mm": [
+          [
+            12.122229873539979,
+            3.7441358281490675,
+            12.151174678026836
+          ],
+          [
+            12.120369695835185,
+            3.8812369719665103,
+            12.149457027420436
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1401031484903346,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 61,
+      "grasped": false,
+      "cube_m": [
+        0.05764340676827332,
+        0.020142093222086144,
+        0.486364642664671
+      ],
+      "pinch_m": [
+        0.06441603741270803,
+        0.0216192303992883,
+        0.49642964300912223
+      ],
+      "cube_shift_xy_mm": 1.4122662515240862,
+      "cube_rotation_deg": 20.632536041751596,
+      "pinch_drift_mm": 9.389721577646723,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.83726155304507,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.745296712889141,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.03099411984031,
+        "contacts": 2,
+        "normal_force_n": 1.1689143660618813,
+        "cube_local_contacts_mm": [
+          [
+            12.123156029021029,
+            3.7240956589049294,
+            12.152439191171686
+          ],
+          [
+            12.121319115721734,
+            3.861237966364832,
+            12.150745017664264
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1353573353290458,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 62,
+      "grasped": false,
+      "cube_m": [
+        0.05759922870402932,
+        0.02011108968327098,
+        0.4863693092365381
+      ],
+      "pinch_m": [
+        0.06440466360888132,
+        0.0215933136589953,
+        0.4964081126491603
+      ],
+      "cube_shift_xy_mm": 1.3594497145708362,
+      "cube_rotation_deg": 20.625870887020337,
+      "pinch_drift_mm": 9.360404734456132,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.8333374641281,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.778418380492213,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0278711314649651,
+        "contacts": 2,
+        "normal_force_n": 1.1653632387295985,
+        "cube_local_contacts_mm": [
+          [
+            12.122267725568904,
+            3.8418187673215596,
+            12.15201981240764
+          ],
+          [
+            12.124081477474956,
+            3.704635570356607,
+            12.153690704124433
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.13069076346195,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 63,
+      "grasped": false,
+      "cube_m": [
+        0.05755514054996583,
+        0.020080342303720227,
+        0.48637389861459196
+      ],
+      "pinch_m": [
+        0.06439301353139597,
+        0.02156801157435889,
+        0.49638662410249607
+      ],
+      "cube_shift_xy_mm": 1.3069774753163879,
+      "cube_rotation_deg": 20.620249835805225,
+      "pinch_drift_mm": 9.331132520156109,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.829460524789289,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.811325679904903,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0247666838552751,
+        "contacts": 2,
+        "normal_force_n": 1.1618346481788324,
+        "cube_local_contacts_mm": [
+          [
+            12.125006331047324,
+            3.6857387825672983,
+            12.154929733964197
+          ],
+          [
+            12.123215633373738,
+            3.8229625977345183,
+            12.153281928750983
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1261013854080848,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 64,
+      "grasped": false,
+      "cube_m": [
+        0.05751114283792003,
+        0.020049843760370212,
+        0.4863784132467595
+      ],
+      "pinch_m": [
+        0.06438109764487258,
+        0.021543304176037156,
+        0.4963651773792737
+      ],
+      "cube_shift_xy_mm": 1.254859311928147,
+      "cube_rotation_deg": 20.615635831087623,
+      "pinch_drift_mm": 9.301903045474063,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.825629152817122,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.8440236124901945,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0216806986813187,
+        "contacts": 2,
+        "normal_force_n": 1.1583280083328091,
+        "cube_local_contacts_mm": [
+          [
+            12.12593040622581,
+            3.6673886583899717,
+            12.156156515241381
+          ],
+          [
+            12.124162655397146,
+            3.8046528230806316,
+            12.154531604756214
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1215867532405333,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 65,
+      "grasped": false,
+      "cube_m": [
+        0.05746723592852958,
+        0.020019587625033277,
+        0.48638285563068717
+      ],
+      "pinch_m": [
+        0.0643689255701743,
+        0.0215191731304875,
+        0.4963437723087773
+      ],
+      "cube_shift_xy_mm": 1.2031077932572303,
+      "cube_rotation_deg": 20.61199311921606,
+      "pinch_drift_mm": 9.272714415952024,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.821842302621906,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.876516740803207,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.018612779176464,
+        "contacts": 2,
+        "normal_force_n": 1.1548428619210713,
+        "cube_local_contacts_mm": [
+          [
+            12.126853649486888,
+            3.6495690976442043,
+            12.15737137412764
+          ],
+          [
+            12.125108739776346,
+            3.7868733459291084,
+            12.155769171625659
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1171443693128724,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 66,
+      "grasped": false,
+      "cube_m": [
+        0.05742342007566132,
+        0.019989567863659224,
+        0.4863872282195482
+      ],
+      "pinch_m": [
+        0.0643565065652814,
+        0.021495601206719853,
+        0.49632240876930733
+      ],
+      "cube_shift_xy_mm": 1.1517384328093017,
+      "cube_rotation_deg": 20.609287307672933,
+      "pinch_drift_mm": 9.243565053367647,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.818098832553156,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.908809692221826,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0155625142363256,
+        "contacts": 2,
+        "normal_force_n": 1.1513787050025477,
+        "cube_local_contacts_mm": [
+          [
+            12.127776018921573,
+            3.632264504547415,
+            12.15857463520329
+          ],
+          [
+            12.126053846718861,
+            3.7696085734101077,
+            12.156994959248863
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1127717804518267,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 67,
+      "grasped": false,
+      "cube_m": [
+        0.05737969547943826,
+        0.019959778738218113,
+        0.48639153340449826
+      ],
+      "pinch_m": [
+        0.06434384949060576,
+        0.0214725719029223,
+        0.49630108665055556
+      ],
+      "cube_shift_xy_mm": 1.100770240746527,
+      "cube_rotation_deg": 20.60748533776448,
+      "pinch_drift_mm": 9.214453533033419,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.814397620203394,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.940906958823373,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0125295242614119,
+        "contacts": 2,
+        "normal_force_n": 1.147935049829399,
+        "cube_local_contacts_mm": [
+          [
+            12.128697467818155,
+            3.6154597333514085,
+            12.159766605801776
+          ],
+          [
+            12.126997931869976,
+            3.7528433627957885,
+            12.158209280348522
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1084665955017892,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 68,
+      "grasped": false,
+      "cube_m": [
+        0.05733606231592968,
+        0.01993021473648483,
+        0.4863957734905941
+      ],
+      "pinch_m": [
+        0.06433096287526113,
+        0.021450069305408204,
+        0.4962798058468609
+      ],
+      "cube_shift_xy_mm": 1.0502264282706428,
+      "cube_rotation_deg": 20.60655544237549,
+      "pinch_drift_mm": 9.18537857236903,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.810737594741257,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 7.972812899146824,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0095134232382716,
+        "contacts": 2,
+        "normal_force_n": 1.1445114249650818,
+        "cube_local_contacts_mm": [
+          [
+            12.129617958677471,
+            3.5991400925828034,
+            12.160947589047865
+          ],
+          [
+            12.127940960154346,
+            3.7365630257424813,
+            12.159412443363125
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1042265094059478,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 69,
+      "grasped": false,
+      "cube_m": [
+        0.057292520745422404,
+        0.019900870537128905,
+        0.4863999506931884
+      ],
+      "pinch_m": [
+        0.06431785495303101,
+        0.021428078029115682,
+        0.496258566261766
+      ],
+      "cube_shift_xy_mm": 1.0001353186624982,
+      "cube_rotation_deg": 20.60646709599619,
+      "pinch_drift_mm": 9.15633902940907,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.807117711446315,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.004531754996497,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0065138353770617,
+        "contacts": 2,
+        "normal_force_n": 1.1411073698383933,
+        "cube_local_contacts_mm": [
+          [
+            12.130537456629407,
+            3.583291328460047,
+            12.16211787881284
+          ],
+          [
+            12.128882899111266,
+            3.720753311692625,
+            12.160604747336027
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.1000493068116235,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 70,
+      "grasped": false,
+      "cube_m": [
+        0.057249072504360045,
+        0.019871739708800424,
+        0.48640406488099813
+      ],
+      "pinch_m": [
+        0.06430453791451124,
+        0.021406582310361404,
+        0.49623736640891986
+      ],
+      "cube_shift_xy_mm": 0.950531461260785,
+      "cube_rotation_deg": 20.6071908168846,
+      "pinch_drift_mm": 9.127335555029038,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.803536356817677,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.036069016123857,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0035290632805651,
+        "contacts": 2,
+        "normal_force_n": 1.1377144507386387,
+        "cube_local_contacts_mm": [
+          [
+            12.131456461945458,
+            3.567900558993449,
+            12.163278175988447
+          ],
+          [
+            12.129824245619972,
+            3.705401341490712,
+            12.16178689259433
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0959351190019118,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 71,
+      "grasped": false,
+      "cube_m": [
+        0.05720573941695792,
+        0.01984279331770944,
+        0.4864080790300873
+      ],
+      "pinch_m": [
+        0.06429107887336269,
+        0.021385538395567186,
+        0.49621617596437084
+      ],
+      "cube_shift_xy_mm": 0.9014505737499593,
+      "cube_rotation_deg": 20.60869489742239,
+      "pinch_drift_mm": 9.098379120802488,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.799981402432348,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.067443760159193,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -1.0005494321421218,
+        "contacts": 2,
+        "normal_force_n": 1.1343097757692644,
+        "cube_local_contacts_mm": [
+          [
+            12.13237891992982,
+            3.5529620240436777,
+            12.164431509026778
+          ],
+          [
+            12.130768851527302,
+            3.6905013525640475,
+            12.162961821205547
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0919209699127297,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 72,
+      "grasped": false,
+      "cube_m": [
+        0.05716253878934449,
+        0.019813993867867925,
+        0.48641194728784126
+      ],
+      "pinch_m": [
+        0.06427751761684242,
+        0.021364861358266082,
+        0.49619494451167834
+      ],
+      "cube_shift_xy_mm": 0.8529257345095211,
+      "cube_rotation_deg": 20.610942095991188,
+      "pinch_drift_mm": 9.069438880593886,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.796453691266796,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.098640649454055,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9975850150553628,
+        "contacts": 2,
+        "normal_force_n": 1.1309049340116322,
+        "cube_local_contacts_mm": [
+          [
+            12.13330145484731,
+            3.5384650478351833,
+            12.165574309322869
+          ],
+          [
+            12.131713232590887,
+            3.6760426626761626,
+            12.164125865275098
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0880527121587824,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 73,
+      "grasped": false,
+      "cube_m": [
+        0.057119468366243355,
+        0.01978532193746111,
+        0.48641565989561303
+      ],
+      "pinch_m": [
+        0.06426384399639266,
+        0.02134449644946748,
+        0.4961736517139759
+      ],
+      "cube_shift_xy_mm": 0.8050029646049545,
+      "cube_rotation_deg": 20.613892462950513,
+      "pinch_drift_mm": 9.040479131870114,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.792963091070392,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.129632821799616,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9946508457751607,
+        "contacts": 2,
+        "normal_force_n": 1.1275070528947952,
+        "cube_local_contacts_mm": [
+          [
+            12.134218481794026,
+            3.5244022557291697,
+            12.166701607624038
+          ],
+          [
+            12.13265176456381,
+            3.6620178942883914,
+            12.16527402228104
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.084340104387016,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 74,
+      "grasped": false,
+      "cube_m": [
+        0.057076518593235766,
+        0.019756771571013142,
+        0.48641922618724226
+      ],
+      "pinch_m": [
+        0.0642500461714824,
+        0.0213244281535643,
+        0.49615230141816546
+      ],
+      "cube_shift_xy_mm": 0.7577497066593357,
+      "cube_rotation_deg": 20.617506121965555,
+      "pinch_drift_mm": 9.011489526908074,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.789508207129998,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.16041275163522,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9917563279585524,
+        "contacts": 2,
+        "normal_force_n": 1.1241182182942704,
+        "cube_local_contacts_mm": [
+          [
+            12.135126348521743,
+            3.510766195979118,
+            12.167810419577782
+          ],
+          [
+            12.13358079242697,
+            3.6484195943565276,
+            12.166403308846236
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0807738127577848,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 75,
+      "grasped": false,
+      "cube_m": [
+        0.0570336781528381,
+        0.019728344968052185,
+        0.48642266167736475
+      ],
+      "pinch_m": [
+        0.06423611341550355,
+        0.02130465894483427,
+        0.49613090581585323
+      ],
+      "cube_shift_xy_mm": 0.7112591022607387,
+      "cube_rotation_deg": 20.621744915046374,
+      "pinch_drift_mm": 8.982470605033454,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.78608720640223,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.190980373921608,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9889033666393989,
+        "contacts": 2,
+        "normal_force_n": 1.1207394172052758,
+        "cube_local_contacts_mm": [
+          [
+            12.136024170306936,
+            3.4975482154484223,
+            12.168900247806333
+          ],
+          [
+            12.13449945045685,
+            3.6352391093393663,
+            12.167513248112023
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0773383226352906,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 76,
+      "grasped": false,
+      "cube_m": [
+        0.05699093589908074,
+        0.019700047048788215,
+        0.48642598241176815
+      ],
+      "pinch_m": [
+        0.06422203613547926,
+        0.02128519701653262,
+        0.49610947793020754
+      ],
+      "cube_shift_xy_mm": 0.6656530333347433,
+      "cube_rotation_deg": 20.626573259997574,
+      "pinch_drift_mm": 8.95342556232211,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.782698569481946,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.221338377015542,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9860912227729257,
+        "contacts": 2,
+        "normal_force_n": 1.1173713187040675,
+        "cube_local_contacts_mm": [
+          [
+            12.136912036402954,
+            3.4847392416320417,
+            12.16997147533768
+          ],
+          [
+            12.135407854182532,
+            3.622467367829493,
+            12.168604250067819
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0740175882318903,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 77,
+      "grasped": false,
+      "cube_m": [
+        0.056948281605473314,
+        0.019671882960502717,
+        0.48642920305194304
+      ],
+      "pinch_m": [
+        0.0642078061241773,
+        0.021266050830332173,
+        0.4960880295041763
+      ],
+      "cube_shift_xy_mm": 0.6210886339253869,
+      "cube_rotation_deg": 20.63195832502375,
+      "pinch_drift_mm": 8.924357646983886,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.779340724306627,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.251490530629946,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9833187682452708,
+        "contacts": 2,
+        "normal_force_n": 1.1140143508760856,
+        "cube_local_contacts_mm": [
+          [
+            12.137790173109849,
+            3.4723297922836447,
+            12.1710246235613
+          ],
+          [
+            12.136306256685392,
+            3.6100948898784804,
+            12.16967686342868
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0707969480570068,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 78,
+      "grasped": false,
+      "cube_m": [
+        0.056905706290664444,
+        0.01964385715291814,
+        0.48643233642986017
+      ],
+      "pinch_m": [
+        0.06419341682551223,
+        0.021247227052123313,
+        0.4960665706285766
+      ],
+      "cube_shift_xy_mm": 0.577768417900013,
+      "cube_rotation_deg": 20.637869895616074,
+      "pinch_drift_mm": 8.895269609333592,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.776012292492647,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.281441011962205,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9805847495247705,
+        "contacts": 2,
+        "normal_force_n": 1.1106688093178527,
+        "cube_local_contacts_mm": [
+          [
+            12.1386588519268,
+            3.4603101189907024,
+            12.172060262482312
+          ],
+          [
+            12.137194954170907,
+            3.5981119303232516,
+            12.170731683524803
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0676635701398762,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 79,
+      "grasped": false,
+      "cube_m": [
+        0.056863202261803567,
+        0.019615973090614486,
+        0.48643539361500526
+      ],
+      "pinch_m": [
+        0.06417886345737553,
+        0.021228730095506933,
+        0.49604510988129275
+      ],
+      "cube_shift_xy_mm": 0.53595417229254,
+      "cube_rotation_deg": 20.64428014501682,
+      "pinch_drift_mm": 8.86616379872917,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.77271203375188,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.311194286175,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9778878677670892,
+        "contacts": 2,
+        "normal_force_n": 1.1073348739389033,
+        "cube_local_contacts_mm": [
+          [
+            12.139518362913911,
+            3.4486703308866793,
+            12.173078982241105
+          ],
+          [
+            12.138074258445634,
+            3.586508602299492,
+            12.171769323013102
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0646063849947818,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 80,
+      "grasped": false,
+      "cube_m": [
+        0.05682076303657809,
+        0.019588233277327474,
+        0.4864383841221907
+      ],
+      "pinch_m": [
+        0.06416414288768413,
+        0.021210562225307927,
+        0.49602365450744035
+      ],
+      "cube_shift_xy_mm": 0.4959851521093064,
+      "cube_rotation_deg": 20.651163387962114,
+      "pinch_drift_mm": 8.837042252403656,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.769438824529225,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.340754986833085,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9752268320732108,
+        "contacts": 2,
+        "normal_force_n": 1.1040126416254505,
+        "cube_local_contacts_mm": [
+          [
+            12.140368997206394,
+            3.4374004728959306,
+            12.17408137269804
+          ],
+          [
+            12.13894447944809,
+            3.5752749553049408,
+            12.172790391473518
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.061615877809341,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 81,
+      "grasped": false,
+      "cube_m": [
+        0.05677838322187802,
+        0.019560639375019714,
+        0.4864413161272999
+      ],
+      "pinch_m": [
+        0.06414925343840118,
+        0.021192723844296636,
+        0.4960022105905132
+      ],
+      "cube_shift_xy_mm": 0.4583005482337425,
+      "cube_rotation_deg": 20.658495852022007,
+      "pinch_drift_mm": 8.80790676813688,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.766191653743673,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.370127832927748,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9726003751274094,
+        "contacts": 2,
+        "normal_force_n": 1.1007021497413598,
+        "cube_local_contacts_mm": [
+          [
+            12.141211042668406,
+            3.426490592697867,
+            12.175068015932649
+          ],
+          [
+            12.139805921210115,
+            3.5644010420231163,
+            12.17379548818629
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.058683872700139,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 82,
+      "grasped": false,
+      "cube_m": [
+        0.05673605838112231,
+        0.01953319233780481,
+        0.48644419666348154
+      ],
+      "pinch_m": [
+        0.06413419467741875,
+        0.02117521381059577,
+        0.49598078321276207
+      ],
+      "cube_shift_xy_mm": 0.42346455852208287,
+      "cube_rotation_deg": 20.666255475794088,
+      "pinch_drift_mm": 8.778758963983286,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.762969606537718,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.399317578088723,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9700072658326511,
+        "contacts": 2,
+        "normal_force_n": 1.0974033896608093,
+        "cube_local_contacts_mm": [
+          [
+            12.142044779887877,
+            3.415930792061274,
+            12.176039480475424
+          ],
+          [
+            12.14065887821777,
+            3.553876969545153,
+            12.174785196699617
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0558033365185016,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 83,
+      "grasped": false,
+      "cube_m": [
+        0.05669378490779617,
+        0.019505892536234606,
+        0.48644703179111354
+      ],
+      "pinch_m": [
+        0.06411896721942317,
+        0.021158029725528882,
+        0.4959593765983477
+      ],
+      "cube_shift_xy_mm": 0.39218847332551743,
+      "cube_rotation_deg": 20.674421733496796,
+      "pinch_drift_mm": 8.749600321279816,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.759771852043091,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.428328971312018,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9674463158075208,
+        "contacts": 2,
+        "normal_force_n": 1.0941163171126502,
+        "cube_local_contacts_mm": [
+          [
+            12.14287048005719,
+            3.4057112664900777,
+            12.176996318054137
+          ],
+          [
+            12.141503633642778,
+            3.543692938923995,
+            12.175760081899352
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0529682088865067,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 84,
+      "grasped": false,
+      "cube_m": [
+        0.05665155991123566,
+        0.01947873986340271,
+        0.4864498267419327
+      ],
+      "pinch_m": [
+        0.06410357254828057,
+        0.021141168179015436,
+        0.4959379942394533
+      ],
+      "cube_shift_xy_mm": 0.3653368349047125,
+      "cube_rotation_deg": 20.682975483007507,
+      "pinch_drift_mm": 8.720432217246103,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.756597632935238,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.457173908471825,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9649163817692578,
+        "contacts": 2,
+        "normal_force_n": 1.0908408597098023,
+        "cube_local_contacts_mm": [
+          [
+            12.143688404142905,
+            3.3958223366221256,
+            12.17793906207336
+          ],
+          [
+            12.142340458817856,
+            3.5338392764990973,
+            12.176720688771084
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0501732580673329,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 85,
+      "grasped": false,
+      "cube_m": [
+        0.056609381115971365,
+        0.019451733823141425,
+        0.4864525860405717
+      ],
+      "pinch_m": [
+        0.0640880128625711,
+        0.021124624953634808,
+        0.49591663900591687
+      ],
+      "cube_shift_xy_mm": 0.3438946897804211,
+      "cube_rotation_deg": 20.69189883385314,
+      "pinch_drift_mm": 8.691255949587358,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.753446256100455,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.48592321910606,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9624163663254826,
+        "contacts": 2,
+        "normal_force_n": 1.0875769226770362,
+        "cube_local_contacts_mm": [
+          [
+            12.144498802508549,
+            3.3862544727990387,
+            12.178868226873261
+          ],
+          [
+            12.143169613117347,
+            3.5243064584059267,
+            12.177667541899385
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0474139594283671,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 86,
+      "grasped": false,
+      "cube_m": [
+        0.05656724677416997,
+        0.019424873602782083,
+        0.48645531360689354
+      ],
+      "pinch_m": [
+        0.06407229094307518,
+        0.02110839519283393,
+        0.4958953132395547
+      ],
+      "cube_shift_xy_mm": 0.32886757560711344,
+      "cube_rotation_deg": 20.701175031960027,
+      "pinch_drift_mm": 8.662072754932899,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.750317084788456,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.514595877465082,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9599452176514176,
+        "contacts": 2,
+        "normal_force_n": 1.084324393435935,
+        "cube_local_contacts_mm": [
+          [
+            12.145301914881195,
+            3.3769983142262925,
+            12.17978430752816
+          ],
+          [
+            12.143991344139371,
+            3.515085129686517,
+            12.17860114546655
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0446863931065087,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 87,
+      "grasped": false,
+      "cube_m": [
+        0.05652515558990433,
+        0.019398158133114865,
+        0.4864580128422767
+      ],
+      "pinch_m": [
+        0.0640564100400637,
+        0.02109247353949188,
+        0.4958740188349078
+      ],
+      "cube_shift_xy_mm": 0.3211028171830685,
+      "cube_rotation_deg": 20.71078835848635,
+      "pinch_drift_mm": 8.632883822756005,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.747209531884652,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.543194364883508,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.957501928546726,
+        "contacts": 2,
+        "normal_force_n": 1.0810831453166954,
+        "cube_local_contacts_mm": [
+          [
+            12.146097970513853,
+            3.3680446837686047,
+            12.18068777996515
+          ],
+          [
+            12.144805888047035,
+            3.5061661190445452,
+            12.179521983539653
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0419871577233564,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 88,
+      "grasped": false,
+      "cube_m": [
+        0.05648310665380443,
+        0.01937158613794214,
+        0.48646068670256765
+      ],
+      "pinch_m": [
+        0.06404037377782769,
+        0.021076854250265453,
+        0.4958527573081635
+      ],
+      "cube_shift_xy_mm": 0.32107407013584816,
+      "cube_rotation_deg": 20.720724040538354,
+      "pinch_drift_mm": 8.603690305877853,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.744123054123008,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.57172113539228,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.955085535149675,
+        "contacts": 2,
+        "normal_force_n": 1.0778530406143414,
+        "cube_local_contacts_mm": [
+          [
+            12.146887188459687,
+            3.359384599166391,
+            12.181579101277926
+          ],
+          [
+            12.145613469991861,
+            3.4975404500285934,
+            12.180430520524164
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0393132974323982,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 89,
+      "grasped": false,
+      "cube_m": [
+        0.05644109938669266,
+        0.01934515617518027,
+        0.4864633377599491
+      ],
+      "pinch_m": [
+        0.06402418607401048,
+        0.021061531290174944,
+        0.4958315298558985
+      ],
+      "cube_shift_xy_mm": 0.3287317622755903,
+      "cube_rotation_deg": 20.7309681719863,
+      "pinch_drift_mm": 8.574493328373187,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.741057147101564,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.600178607812994,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9526951154422632,
+        "contacts": 2,
+        "normal_force_n": 1.074633933131564,
+        "cube_local_contacts_mm": [
+          [
+            12.14766977791972,
+            3.351009281306987,
+            12.182458710166408
+          ],
+          [
+            12.14641430458593,
+            3.4891993492765008,
+            12.181327201721286
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.036662240050945,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 90,
+      "grasped": false,
+      "cube_m": [
+        0.05639913349094037,
+        0.019318866671069468,
+        0.4864659682555718
+      ],
+      "pinch_m": [
+        0.06400785107154969,
+        0.02104649841101803,
+        0.4958103374051291
+      ],
+      "cube_shift_xy_mm": 0.34351354011879953,
+      "cube_rotation_deg": 20.741507642916027,
+      "pinch_drift_mm": 8.545293991489624,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.738011340966185,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.6285691590787,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9503297876449021,
+        "contacts": 2,
+        "normal_force_n": 1.071425670306463,
+        "cube_local_contacts_mm": [
+          [
+            12.148445938633031,
+            3.3429101600646938,
+            12.183327027456128
+          ],
+          [
+            12.147208596396007,
+            3.4811342523334723,
+            12.182212453945782
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.034031744428232,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 91,
+      "grasped": false,
+      "cube_m": [
+        0.056357208908443604,
+        0.01929271594873216,
+        0.48646858014446637
+      ],
+      "pinch_m": [
+        0.06399137308131428,
+        0.021031749216472752,
+        0.4957891806559642
+      ],
+      "cube_shift_xy_mm": 0.3645083896024849,
+      "cube_rotation_deg": 20.752330076517925,
+      "pinch_drift_mm": 8.516093378030876,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.734985196659899,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.656895118616346,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9479887085593369,
+        "contacts": 2,
+        "normal_force_n": 1.0682280949983147,
+        "cube_local_contacts_mm": [
+          [
+            12.149215861290623,
+            3.335078878124075,
+            12.184184456665621
+          ],
+          [
+            12.147996540444806,
+            3.473336807457714,
+            12.183086686176825
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0314198555336773,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 92,
+      "grasped": false,
+      "cube_m": [
+        0.056315325784271494,
+        0.01926670225206808,
+        0.48647117513396965
+      ],
+      "pinch_m": [
+        0.06397475653380635,
+        0.0210172772161877,
+        0.4957680601179706
+      ],
+      "cube_shift_xy_mm": 0.3906740396120033,
+      "cube_rotation_deg": 20.76342377242745,
+      "pinch_drift_mm": 8.486892555551178,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.731978302652177,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.685158763664658,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9456710718948526,
+        "contacts": 2,
+        "normal_force_n": 1.065041046988179,
+        "cube_local_contacts_mm": [
+          [
+            12.149979727960474,
+            3.3275072931302794,
+            12.185031384603992
+          ],
+          [
+            12.148778322709338,
+            3.465798877756734,
+            12.183950290225464
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0288248660303978,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 93,
+      "grasped": false,
+      "cube_m": [
+        0.05627348443518193,
+        0.019240823765779652,
+        0.48647375471669013
+      ],
+      "pinch_m": [
+        0.06395800593853682,
+        0.0210030758707122,
+        0.4957469761411962
+      ],
+      "cube_shift_xy_mm": 0.4210089663156936,
+      "cube_rotation_deg": 20.774777655681255,
+      "pinch_drift_mm": 8.457692578623174,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.728990272077482,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.713362315410054,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9433761066076438,
+        "contacts": 2,
+        "normal_force_n": 1.061864364239256,
+        "cube_local_contacts_mm": [
+          [
+            12.15073771251391,
+            3.3201874784530925,
+            12.185868181982306
+          ],
+          [
+            12.149554120609343,
+            3.4585125419402,
+            12.184803641406058
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0262452833099123,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 94,
+      "grasped": false,
+      "cube_m": [
+        0.056231685322321895,
+        0.01921507863216987,
+        0.4864763201988504
+      ],
+      "pinch_m": [
+        0.06394112584990967,
+        0.020989138628776258,
+        0.4957259289426451
+      ],
+      "cube_shift_xy_mm": 0.45464396393459217,
+      "cube_rotation_deg": 20.786381230601666,
+      "pinch_drift_mm": 8.428494490383782,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.726020740225124,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.741507935847435,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9411030752704858,
+        "contacts": 2,
+        "normal_force_n": 1.0586978839540018,
+        "cube_local_contacts_mm": [
+          [
+            12.15032410348041,
+            3.451470093926776,
+            12.185647099203809
+          ],
+          [
+            12.15148998104676,
+            3.3131117228022453,
+            12.186695204030618
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0236798011496462,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 95,
+      "grasped": false,
+      "cube_m": [
+        0.05618992902753278,
+        0.019189464965235943,
+        0.48647887272470897
+      ],
+      "pinch_m": [
+        0.06392412083862985,
+        0.020975458958156216,
+        0.4957049186288832
+      ],
+      "cube_shift_xy_mm": 0.4908685339837803,
+      "cube_rotation_deg": 20.79822453902075,
+      "pinch_drift_mm": 8.399299323524085,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.723069362331106,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.76959772528019,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9388512724840048,
+        "contacts": 2,
+        "normal_force_n": 1.0555414434572203,
+        "cube_local_contacts_mm": [
+          [
+            12.151088433029626,
+            3.4446640415048453,
+            12.186481007932086
+          ],
+          [
+            12.152236692290517,
+            3.3062725288946857,
+            12.187512791112077
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0211272752910783,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 96,
+      "grasped": false,
+      "cube_m": [
+        0.05614821623276952,
+        0.01916398086248931,
+        0.4864814132976397
+      ],
+      "pinch_m": [
+        0.06390699546780165,
+        0.020962030371146658,
+        0.4956839452153418
+      ],
+      "cube_shift_xy_mm": 0.5291210269821607,
+      "cube_rotation_deg": 20.810298122338086,
+      "pinch_drift_mm": 8.370108100846933,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.720135811631389,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.797633720381855,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.936620023337272,
+        "contacts": 2,
+        "normal_force_n": 1.0523948809314019,
+        "cube_local_contacts_mm": [
+          [
+            12.152977998011298,
+            3.2996626113427783,
+            12.188321269329265
+          ],
+          [
+            12.151847263771716,
+            3.4380871042160335,
+            12.187305697375596
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0185867023603246,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 97,
+      "grasped": false,
+      "cube_m": [
+        0.05610654770221593,
+        0.019138624414857443,
+        0.48648394279835894
+      ],
+      "pinch_m": [
+        0.06388975427302235,
+        0.020948846445486138,
+        0.49566300864279833
+      ],
+      "cube_shift_xy_mm": 0.5689647654612947,
+      "cube_rotation_deg": 20.82259298698444,
+      "pinch_drift_mm": 8.340921835496925,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.71721977764205,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.825617892754707,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9344086819259111,
+        "contacts": 2,
+        "normal_force_n": 1.0492580360254284,
+        "cube_local_contacts_mm": [
+          [
+            12.152600743444214,
+            3.431732210604084,
+            12.188121483417152
+          ],
+          [
+            12.153714043393224,
+            3.293274893906369,
+            12.1891209511191
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0160572016411074,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 98,
+      "grasped": false,
+      "cube_m": [
+        0.056064924266739355,
+        0.01911339371496317,
+        0.48648646200070855
+      ],
+      "pinch_m": [
+        0.06387240174587686,
+        0.02093590084144238,
+        0.4956421087914439
+      ],
+      "cube_shift_xy_mm": 0.6100622496027216,
+      "cube_rotation_deg": 20.835100572928496,
+      "pinch_drift_mm": 8.311741530943614,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.714320964636723,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.853552147924367,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9322166299273598,
+        "contacts": 2,
+        "normal_force_n": 1.0461307503548767,
+        "cube_local_contacts_mm": [
+          [
+            12.1544449674052,
+            3.287102506227929,
+            12.189912135833275
+          ],
+          [
+            12.153349013401218,
+            3.4255924949481615,
+            12.188928668644923
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0135379992914917,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 99,
+      "grasped": false,
+      "cube_m": [
+        0.05602334681038008,
+        0.019088286864028484,
+        0.48648897158534044
+      ],
+      "pinch_m": [
+        0.06385494232033324,
+        0.02092318731565093,
+        0.49562124549287995
+      ],
+      "cube_shift_xy_mm": 0.6521524677127054,
+      "cube_rotation_deg": 20.847812724890467,
+      "pinch_drift_mm": 8.282568180781684,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.711439090296713,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.881438324716866,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9300432752382359,
+        "contacts": 2,
+        "normal_force_n": 1.0430128679099107,
+        "cube_local_contacts_mm": [
+          [
+            12.155170903150823,
+            3.281138780155748,
+            12.190695110301736
+          ],
+          [
+            12.154092208986004,
+            3.419661293585062,
+            12.189727542939497
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0110284146596094,
+      "warning": false
+    },
+    {
+      "stage": "closing",
+      "stage_step": 100,
+      "grasped": false,
+      "cube_m": [
+        0.05598181625861397,
+        0.019063301977610112,
+        0.4864914721515959
+      ],
+      "pinch_m": [
+        0.06383738036161467,
+        0.02091069973220202,
+        0.4956004185403425
+      ],
+      "cube_shift_xy_mm": 0.6950326354313375,
+      "cube_rotation_deg": 20.86072166599687,
+      "pinch_drift_mm": 8.253402768403069,
+      "arm_command_drift_rad": 0.0,
+      "jaw_deg": -10.708573884511965,
+      "jaw_command_deg": -10.0,
+      "fixed": {
+        "gap_mm": 8.909278194970208,
+        "contacts": 0,
+        "normal_force_n": 0,
+        "cube_local_contacts_mm": []
+      },
+      "moving": {
+        "gap_mm": -0.9278880506712902,
+        "contacts": 2,
+        "normal_force_n": 1.0399042353832497,
+        "cube_local_contacts_mm": [
+          [
+            12.15589197820065,
+            3.2753772457374235,
+            12.191470149379512
+          ],
+          [
+            12.15483045988279,
+            3.41393214090278,
+            12.190518384040484
+          ]
+        ]
+      },
+      "table_contact": false,
+      "lift_mm": -1.0085278484041615,
+      "warning": false
+    }
+  ]
+}

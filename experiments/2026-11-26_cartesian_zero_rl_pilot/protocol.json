@@ -1,0 +1,102 @@
+{
+  "pilot": {
+    "steps": 10000,
+    "seed": 0,
+    "eval_seed": 80000,
+    "episodes_per_mass": 20
+  },
+  "preset": {
+    "base": {
+      "name": "calibrated_cartesian_zero_v3",
+      "motion": {
+        "name": "outer_wrist",
+        "gravity_feedforward": true,
+        "radial_jaw_alignment": true,
+        "grasp_height_m": 0.0,
+        "upright_lift": false,
+        "lift_reference": "cube",
+        "correction_limit_rad": 0.1,
+        "yaw_rounds": 3,
+        "yaw_probe_rad": 0.001,
+        "minimum_yaw_derivative": 0.1,
+        "wrist_seed_offset_rad": 0.0,
+        "opposite_wrist_radius_m": 0.21
+      },
+      "mass": {
+        "mode": "random",
+        "fixed_kg": 0.01,
+        "range_kg": [
+          0.005,
+          0.02
+        ]
+      },
+      "residual": {
+        "scale": 0.05
+      },
+      "arm_effects": true,
+      "stable_steps": 5,
+      "calibration_file": "data/calibration/actuator_calibration.json"
+    },
+    "descent": {
+      "name": "cartesian_table",
+      "grasp_height_m": 0.0,
+      "xy_tolerance_m": 0.003,
+      "final_z_tolerance_m": 0.004,
+      "height_step_m": 0.002,
+      "tracking_lag_m": 0.008,
+      "feedback_gain": 0.2,
+      "feedback_limit_m": 0.012,
+      "feedback_period": 2,
+      "stable_steps": 3,
+      "table_margin_m": 0.004,
+      "cube_margin_m": 0.0003,
+      "segment_samples": 4,
+      "check_cube": false,
+      "feedback": true,
+      "close_dwell_steps": 25
+    },
+    "closing": {
+      "name": "position_zero",
+      "target_deg": 0.0,
+      "rate_rad": 0.05,
+      "stop_on_contact": false,
+      "stable_steps": 1
+    },
+    "limits": {
+      "scale": 0.05,
+      "command_budget_rad": 0.02,
+      "clearance_m": 0.004,
+      "holding_drop_m": 0.0005,
+      "distance_search_m": 0.05
+    }
+  },
+  "protected_sha256": {
+    "models\\so101\\so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+    "data\\calibration\\actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\run_info.json": "6d89d9e0125d7813b95d6a882fbe36079e06b6f0b8ce3b2d5f9c5a3662157afa",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\model.zip": "60846e9851621894f44666c1f3981800c26b39c0bda834561ad45607265333be",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_fixed_10g_25mm\\seed_0\\vecnormalize.pkl": "89d6190e0ba096130e01389d0de7319694ab1b023eba92bd808045e8779fa07e",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\run_info.json": "e404b79e78bf813ed01484d88c65d9674acf1edaa396f4e06953c9e509a6a4fe",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\model.zip": "9fe4c84d061f2610063e036e9469427ca9a5f286bf9a3dd662f1516259ae8675",
+    "checkpoints\\pick-lift checkpoint\\pick_lift_random_5_20g_25mm\\seed_0\\vecnormalize.pkl": "5150b535e9980bfc179b58b85d271552d78f82d2eba90af977e0b638808a5c46",
+    "checkpoints\\calibrated_outer_wrist_pilot\\run_config.json": "c272705361371428825ef92e778cebbbb0e48438714848428f74ae2a55a5a080",
+    "checkpoints\\calibrated_outer_wrist_pilot\\seed_0\\model.zip": "58319a853f35bb7b6f52c8f628c229dfac7de54cd1336607e5cff64143542544",
+    "checkpoints\\calibrated_outer_wrist_pilot\\seed_0\\vecnormalize.pkl": "c7af477533bb6c75c3d2b069388b39d0e2e777430b83cd5dba6cfe96e8dbf3fd",
+    "checkpoints\\calibrated_lift_only_v2_pilot\\run_config.json": "7b09112ec5de6a6c2fbd74c00ae6fa07948a2414552939b1192f7a4e4179d9b5",
+    "checkpoints\\calibrated_lift_only_v2_pilot\\seed_0\\model.zip": "eb8d158e5cade0eab91a6a3e6ea31089c4687d0f7e5d9a4c8ad78300540ecb92",
+    "checkpoints\\calibrated_lift_only_v2_pilot\\seed_0\\vecnormalize.pkl": "b9a44c9388b4743d1505b95f0352c62c83b519cfee04cb0d4a6edb797863934d",
+    "src\\rbe_501_so101\\control\\cartesian_descent.py": "02fb946a13d62d15507e450ec80291a134198c014b166ccfe12788486931f712",
+    "src\\rbe_501_so101\\control\\gripper_closing.py": "c6332735cddfeeb6fcfe5a790535af87c8b4ddd2679cdc8a18d083c4ac98da7d",
+    "experiments\\2026-11-26_gripper_closing\\frozen_selection.json": "c9d8144c12a1abff7582efbd8bb50b6dc4e5a12171cdb2b17821ce013b210791"
+  },
+  "known_seeds": [
+    68006,
+    69005,
+    75003
+  ],
+  "heldout_seeds": [
+    80000,
+    80019
+  ],
+  "gate": ">=95% per mass/mode; no additional paired failures; known regressions pass; zero table/approach contact, warnings or lost achieved success"
+}

@@ -1,0 +1,1348 @@
+diff --git a/data/calibration/actuator_calibration.json b/data/calibration/actuator_calibration.json
+index 7cdc6bb..15e3873 100644
+--- a/data/calibration/actuator_calibration.json
++++ b/data/calibration/actuator_calibration.json
+@@ -1,19 +1,44 @@
+ {
+   "joints": [
++    {
++      "joint": "shoulder_pan",
++      "kp_nm_per_rad": 11.097887262312176,
++      "frictionloss_nm": null,
++      "kp_assumed": true,
++      "stiction_half_band_rad": 0.017338215865965727,
++      "stiction_load_slope_rad_per_nm": 0.0
++    },
+     {
+       "joint": "shoulder_lift",
+       "kp_nm_per_rad": 10.222258557321833,
+-      "frictionloss_nm": 0.27291164812206636
++      "frictionloss_nm": null,
++      "kp_assumed": false,
++      "stiction_half_band_rad": 0.016183007495005657,
++      "stiction_load_slope_rad_per_nm": 0.03486340866719594
+     },
+     {
+       "joint": "elbow_flex",
+       "kp_nm_per_rad": 11.142955167742327,
+-      "frictionloss_nm": 0.35049369227463945
++      "frictionloss_nm": null,
++      "kp_assumed": false,
++      "stiction_half_band_rad": 0.03145428542055715,
++      "stiction_load_slope_rad_per_nm": 0.0
+     },
+     {
+       "joint": "wrist_flex",
+       "kp_nm_per_rad": 11.92844806187237,
+-      "frictionloss_nm": 0.22329023812398013
++      "frictionloss_nm": null,
++      "kp_assumed": false,
++      "stiction_half_band_rad": 0.018719135713697443,
++      "stiction_load_slope_rad_per_nm": 0.0
++    },
++    {
++      "joint": "wrist_roll",
++      "kp_nm_per_rad": 11.097887262312176,
++      "frictionloss_nm": null,
++      "kp_assumed": true,
++      "stiction_half_band_rad": 0.015036682786412686,
++      "stiction_load_slope_rad_per_nm": 0.0
+     }
+   ],
+   "source": "/workspaces/rbe501_group_project/data/sag_check/2026-10-31_rbe501_follower_p24_192311"
+diff --git a/experiments/2026-10-31_sag_analysis_p24_offset8/README.md b/experiments/2026-10-31_sag_analysis_p24_offset8/README.md
+index 2654b8f..c22aa02 100644
+--- a/experiments/2026-10-31_sag_analysis_p24_offset8/README.md
++++ b/experiments/2026-10-31_sag_analysis_p24_offset8/README.md
+@@ -3,15 +3,15 @@
+ 5 poses, each approached from above and from below. Sag is commanded minus
+ measured (LeRobot degrees); hysteresis is half of (from above minus from below).
+ 
+-| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) | friction (N*m) |
+-|---|---|---|---|---|---|---|
+-| shoulder_pan | 0.08 | 0.17 | 0.99 | 20.0 | not identifiable (torque span 0.000 N*m) | - |
+-| shoulder_lift | -1.76 | 2.69 | 1.53 | 20.0 | 10.22 (8.95 to 11.92) | 0.273 |
+-| elbow_flex | -2.08 | 2.19 | 1.80 | 20.0 | 11.14 (10.45 to 11.94) | 0.350 |
+-| wrist_flex | -0.49 | 0.61 | 1.07 | 6.0 | 11.93 (9.07 to 17.40) | 0.223 |
+-| wrist_roll | 0.05 | 0.17 | 0.86 | 4.0 | not identifiable (torque span 0.000 N*m) | - |
++| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) | friction (N*m) | stiction half-band (deg) |
++|---|---|---|---|---|---|---|---|
++| shoulder_pan | 0.08 | 0.17 | 0.99 | 20.0 | not identifiable (torque span 0.000 N*m) | - | 0.99 |
++| shoulder_lift | -1.76 | 2.69 | 1.53 | 20.0 | 10.22 (8.95 to 11.92) | 0.273 | 0.93 + 2.00·|τ| |
++| elbow_flex | -2.08 | 2.19 | 1.80 | 20.0 | 11.14 (10.45 to 11.94) | 0.350 | 1.80 |
++| wrist_flex | -0.49 | 0.61 | 1.07 | 6.0 | 11.93 (9.07 to 17.40) | 0.223 | 1.07 |
++| wrist_roll | 0.05 | 0.17 | 0.86 | 4.0 | not identifiable (torque span 0.000 N*m) | - | 0.86 |
+ 
+-**Early warning** (sag above 50% of the policy's ±0.1 rad correction cap, i.e. 2.86 deg):
+-no joint exceeds it; the existing policy should have correction headroom.
++**Early warning** (worst single-approach sag above 50% of the policy's ±0.1 rad correction cap, i.e. 2.86 deg):
++shoulder_lift, elbow_flex exceed it; the policy will likely run out of correction room. Plan on retraining.
+ 
+-Source session: `/workspaces/rbe501_group_project/data/sag_check/2026-10-31_rbe501_follower_p24_192311`. Calibration written to `/workspaces/rbe501_group_project/experiments/2026-10-31_sag_analysis_p24_offset8/actuator_calibration.json`.
++Source session: `/workspaces/rbe501_group_project/data/sag_check/2026-10-31_rbe501_follower_p24_192311`. Calibration written to `/workspaces/rbe501_group_project/data/calibration/actuator_calibration.json`.
+diff --git a/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json b/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
+index 9f3dfef..372a4e3 100644
+--- a/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
++++ b/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
+@@ -4,13 +4,12 @@
+     "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
+     "--out",
+     "experiments/2026-10-31_sag_analysis_p24_offset8",
+-    "--calibration-out",
+-    "experiments/2026-10-31_sag_analysis_p24_offset8/actuator_calibration.json"
++    "--report-figures"
+   ],
+-  "git_commit": "9d1d9b0262f0dbf5ea0a56dc0d23e3fc51630bf1",
+-  "git_dirty": false,
+-  "started_at": "2026-10-31T19:24:27.096080+00:00",
+-  "finished_at": "2026-10-31T19:24:27.255910+00:00",
++  "git_commit": "7d7c81633d4e51c75e5274044996f4e28db31c82",
++  "git_dirty": true,
++  "started_at": "2026-10-31T19:38:56.730871+00:00",
++  "finished_at": "2026-10-31T19:38:56.886932+00:00",
+   "package_versions": [
+     {
+       "name": "rbe_501_so101",
+diff --git a/experiments/2026-10-31_sag_analysis_p24_offset8/report.json b/experiments/2026-10-31_sag_analysis_p24_offset8/report.json
+index f64f7e6..57a2e77 100644
+--- a/experiments/2026-10-31_sag_analysis_p24_offset8/report.json
++++ b/experiments/2026-10-31_sag_analysis_p24_offset8/report.json
+@@ -19,7 +19,13 @@
+         "kp_ci_low": null,
+         "kp_ci_high": null
+       },
+-      "friction_nm": null
++      "friction_nm": null,
++      "stiction": {
++        "joint": "shoulder_pan",
++        "half_band_rad": 0.017338215865965727,
++        "load_slope_rad_per_nm": 0.0,
++        "n_poses": 5
++      }
+     },
+     {
+       "joint": "shoulder_lift",
+@@ -41,7 +47,13 @@
+         "kp_ci_low": 8.949221747128144,
+         "kp_ci_high": 11.917542286635564
+       },
+-      "friction_nm": 0.27291164812206636
++      "friction_nm": 0.27291164812206636,
++      "stiction": {
++        "joint": "shoulder_lift",
++        "half_band_rad": 0.016183007495005657,
++        "load_slope_rad_per_nm": 0.03486340866719594,
++        "n_poses": 5
++      }
+     },
+     {
+       "joint": "elbow_flex",
+@@ -63,7 +75,13 @@
+         "kp_ci_low": 10.446919724895668,
+         "kp_ci_high": 11.938359103473395
+       },
+-      "friction_nm": 0.35049369227463945
++      "friction_nm": 0.35049369227463945,
++      "stiction": {
++        "joint": "elbow_flex",
++        "half_band_rad": 0.03145428542055715,
++        "load_slope_rad_per_nm": 0.0,
++        "n_poses": 5
++      }
+     },
+     {
+       "joint": "wrist_flex",
+@@ -85,7 +103,13 @@
+         "kp_ci_low": 9.074507286963746,
+         "kp_ci_high": 17.4011142955962
+       },
+-      "friction_nm": 0.22329023812398013
++      "friction_nm": 0.22329023812398013,
++      "stiction": {
++        "joint": "wrist_flex",
++        "half_band_rad": 0.018719135713697443,
++        "load_slope_rad_per_nm": 0.0,
++        "n_poses": 5
++      }
+     },
+     {
+       "joint": "wrist_roll",
+@@ -104,12 +128,22 @@
+         "kp_ci_low": null,
+         "kp_ci_high": null
+       },
+-      "friction_nm": null
++      "friction_nm": null,
++      "stiction": {
++        "joint": "wrist_roll",
++        "half_band_rad": 0.015036682786412686,
++        "load_slope_rad_per_nm": 0.0,
++        "n_poses": 5
++      }
+     }
+   ],
+-  "headroom_warnings": [],
++  "headroom_warnings": [
++    "shoulder_lift",
++    "elbow_flex"
++  ],
+   "residual_max_rad": 0.1,
+   "warning_fraction": 0.5,
+   "min_hysteresis_deg": 0.087890625,
+-  "n_excluded_clamped": 0
++  "n_excluded_clamped": 0,
++  "assume_unidentified_kp": true
+ }
+\ No newline at end of file
+diff --git a/reports/differences.md b/reports/differences.md
+index ba6dc6c..c77b173 100644
+--- a/reports/differences.md
++++ b/reports/differences.md
+@@ -44,7 +44,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
+   the sim bus such a target leaves every controller, including integral control, about 31 mm off because the command
+   saturates at the clip. All 10 targets in `reach_fixed.json` stay inside the window under the new mapping.
+ - **Action:** `data/targets/reach_fixed.json` keeps only targets whose IK pose is inside the hardware range minus the
+-  margin (3 of the first 13 rejected). A retrained policy should sample targets within the real range.
++  margin (3 of the first 13 rejected). **Done for retraining:** `residual_ik_sim2real` samples targets inside the real
++  range minus the margin (`HardwareConfig.sim_joint_window_rad`: lift -106 to +52, elbow -95 to +82 sim deg), and
++  clips the training command to the same window, as the real backend does. IK from home for 300 windowed targets
++  never left the window.
+ - **Evidence:** `run_policy_real.py --sim` on the unfiltered first target; the target files' `source` field.
+ 
+ ### D-03: MuJoCo friction creeps, so the sim has no lasting hysteresis
+@@ -66,9 +69,12 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
+   Friction torque is 0.27–0.35 N·m, as large as the gravity torque, so moving with gravity lands on target and
+   moving against it stops ~4° short. This direction dependence is the largest real error and the sim has none of it.
+ - **Impact:** the calibration's `frictionloss` (from `friction_torque = kp * hysteresis`) changes the transient but
+-  cannot reproduce a real steady-state hysteresis. The calibrated-sim check can match sag but not hysteresis.
+-- **Action:** report real hysteresis separately as an unmodeled effect; only write friction when hysteresis exceeds
+-  one encoder count. A stiction model (or a deadband in the backend) is needed if hysteresis turns out large.
++  cannot reproduce a real steady-state hysteresis.
++- **Resolved (model):** `ServoEffectsBackend` applies the friction as hysteresis on the servo goal (play with a
++  rounded, Dahl-type corner, transition ratio 1.5), with a half-band fitted per joint from the 8° session
++  (lift 0.93° + 2.0°/N·m × |τ|; elbow 1.8°; wrist 1.1°) and `frictionloss` left off. Replaying the 8° and 3° sag
++  checks and the P = 24 pose check, the calibrated sim matches the real arm within 1° in all 12 joint × direction rows
++  (worst 0.77°); with stiffness only, 3 of 12. See [the servo-model finding](findings/2026-10-31_servo_model_and_gate.md).
+ 
+ ### D-04: Encoder quantization
+ 
+@@ -109,7 +115,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
+ 
+ - **Sub-task:** reach, Phase 2 (reduced speed) and Phase 3
+ - **Sim:** training rate limit 0.07 rad per 33 ms step.
+-- **Real:** first hardware runs use `speed_scale` 0.5.
++- **Real:** first hardware runs use `speed_scale` 0.5 (0.035 rad per step).
++- **Resolved for retraining:** `residual_ik_sim2real` trains at 0.035 rad per step. Deployment now caps the step at
++  the hardware's (`hardware_speed_scale`) instead of always halving it, so the old presets still run at half speed
++  and the new one runs as trained.
+ - **Impact (measured, sim, with rounding and one-step delay):** the policy's error drops from 14.35 to 10.61 mm at half
+   speed; the slow approach still settles before the holding window for the baselines.
+ 
+@@ -122,6 +131,10 @@ Spec: [`docs/sim2real_reach_transfer_spec.md`](../docs/sim2real_reach_transfer_s
+   It was trained without dynamics randomization.
+ - **Impact:** transfer depends on the sim matching the real stiffness to within about -25% / +50%.
+ - **Action:** the provisional verdict is retrain; see [assumptions.md](assumptions.md).
++- **Update (calibrated sim with stiction, 2026-10-31):** in the acceptance conditions the current policy holds 8.9 mm
++  (deployment), 15.0 mm at 0.7× kp, and saturates on 31% of holding steps; integral control holds 0.8 mm. Rejected on
++  4 of 5 criteria. `residual_ik_sim2real` randomizes kp 0.7–1.4× around the calibration and the stiction band
++  0.5–1.5×, so a feedforward-only correction can no longer fit every episode.
+ 
+ ### D-09: Servo variant and supply voltage
+ 
+diff --git a/scripts/sim2real/README.md b/scripts/sim2real/README.md
+index e53c2e1..c2cceef 100644
+--- a/scripts/sim2real/README.md
++++ b/scripts/sim2real/README.md
+@@ -21,10 +21,12 @@ Run from the repo root in the `lerobot` conda env
+ | `collect/sag_check.py run` | 0 | yes (`--sim` for a dry run) | `data/sag_check/<date>_<robot_id>_p<gain>_<HHMMSS>/session.json`, manifest; refuses to move if the planned path (with sag allowance) comes near the table | `python scripts/sim2real/collect/sag_check.py run --p-gain 24` (`--approach-offset 8` to sweep the whole friction band) |
+ | `collect/mirror_arm.py` | 1, and the Phase 3 dry run | yes (torque off) | `data/joint_mapping/<date>_<robot_id>/references.json`, manifest | `python scripts/sim2real/collect/mirror_arm.py` |
+ | `collect/pose_check.py` | 1 (verify the map) | yes, torque on (`--sim` for a dry run) | `data/pose_check/<date>_<robot_id>_p<gain>_<time>/` (`results.json`: goal, sent, reading in LeRobot and sim degrees, operator's level reading; `servo_settings.json`), manifest | `python scripts/sim2real/collect/pose_check.py --p-gain 16` |
+-| `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction) | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
++| `collect/run_policy_real.py` | 3 | yes (`--sim` for a dry run / prediction); the command rate is capped at the arm's 0.035 rad/step unless `--speed-scale` is given | `experiments/<date>_real_reach/<controller>_<robot_id>_<time>/` (episodes, summary.json, README, manifest) | `python scripts/sim2real/collect/run_policy_real.py --policy ik_hold --targets data/targets/reach_repeat.json --repeats 10` |
+ | `analyze/analyze_sag.py` | 0 | no | `experiments/<date>_sag_analysis/` (report.json, README, real_sag.png), `data/calibration/actuator_calibration.json`; `--report-figures` copies `real_sag.png` to `reports/figures/` | `python scripts/sim2real/analyze/analyze_sag.py data/sag_check/<date>_rbe501_follower --report-figures` |
+ | `analyze/robustness_sweep.py` | 2 | no | `experiments/<date>_reach_robustness/` (report.json, README, kp_sweep.png, saturation.png); `--report-figures` copies the plots to `reports/figures/` | `python scripts/sim2real/analyze/robustness_sweep.py --calibration data/calibration/actuator_calibration.json --session data/sag_check/<date>_rbe501_follower --report-figures` |
+ | `analyze/hardware_figures.py` | 0 | no | `experiments/<date>_hardware_figures/` (friction_bands, direction_errors, stiffness, gain_sweep PNGs, summary.json); `--report-figures` copies them to `reports/figures/` | see the example in the script's docstring (two sag sessions, one pose check, the gain-sweep runs) |
++| `analyze/calibrated_sim_gate.py` | 0 → 2 (plan step 10) | no | `experiments/<date>_calibrated_sim_gate/` (README with PASS/FAIL, gate.png, report.json): replays real sag checks and a pose check on the calibrated sim with and without stiction; `--report-figures` copies `gate.png` to `reports/figures/calibrated_sim_gate.png` | see the example in the script's docstring |
++| `analyze/acceptance.py` | 2 (plan steps 14, 15, 18) | no | `experiments/<date>_acceptance/` (README, report.json): IK hold, gravity comp, integral, and (with `--model-dir`) the trained policy in the deployment and stress conditions of `residual_ik_sim2real`, with the ACCEPT/REJECT verdict | `python scripts/sim2real/analyze/acceptance.py --model-dir checkpoints/<run>` (no `--model-dir`: the baselines' bar only) |
+ 
+ ## Order of a hardware campaign
+ 
+@@ -34,7 +36,9 @@ Run from the repo root in the `lerobot` conda env
+    offsets in `HardwareConfig.joint_map`; re-measure at a second reference. Then `pose_check.py` sends the arm to
+    poses defined in sim degrees (upper arm vertical, forearm level, ...) and you check the links with a level.
+ 3. `analyze_sag.py` on the session (needs the Phase 1 mapping), which writes the calibration file.
+-4. `robustness_sweep.py --calibration ... --session ...` for the transfer-or-retrain decision.
++4. `calibrated_sim_gate.py` (the sim must reproduce the real errors within 1°), then
++   `robustness_sweep.py --calibration ... --session ...` for the transfer-or-retrain decision. After retraining on
++   `residual_ik_sim2real`, `acceptance.py --model-dir ...` decides whether the policy goes on the arm.
+ 5. `run_policy_real.py` for each of `ik_hold`, `gravity_comp`, `integral`, `trained` on
+    `data/targets/reach_fixed.json`, then 10 repeats on `data/targets/reach_repeat.json`.
+    Run each first with `--sim --calibration ...` to get the calibrated-sim prediction.
+diff --git a/scripts/sim2real/analyze/robustness_sweep.py b/scripts/sim2real/analyze/robustness_sweep.py
+index ab18598..90d221a 100644
+--- a/scripts/sim2real/analyze/robustness_sweep.py
++++ b/scripts/sim2real/analyze/robustness_sweep.py
+@@ -41,6 +41,7 @@ from rbe_501_so101.rl.robustness import (
+     SweepResult,
+     classify_correction,
+     evaluate_condition,
++    hardware_speed_scale,
+     measured_kp_scales,
+     run_sensing_sweep,
+     run_stiffness_sweep,
+@@ -65,7 +66,9 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
+     parser.add_argument("--kp-scales", type=float, nargs="+", default=list(cfg.kp_scales))
+     parser.add_argument("--calibration", type=Path, default=None, help="Phase 0 ActuatorCalibration JSON")
+     parser.add_argument("--session", type=Path, default=None, help="Phase 0 sag session, for the calibrated-sim check")
+-    parser.add_argument("--speed-scale", type=float, default=HardwareConfig().speed_scale)
++    parser.add_argument(
++        "--speed-scale", type=float, default=None, help="hardware command-rate scale (default: cap at the arm's step)"
++    )
+     parser.add_argument("--out", type=Path, default=None)
+     parser.add_argument("--report-figures", action="store_true", help="also copy the plots to reports/figures/")
+     return parser.parse_args(argv)
+@@ -112,6 +115,13 @@ def kp_marks(calibration: Path | None) -> dict[str, float]:
+     return measured_kp_scales(ActuatorCalibration.load(calibration), nominal, sim_cfg.arm_joints)
+ 
+ 
++def deployed_speed(args: argparse.Namespace, repo: CheckpointRepository, seeds: tuple[int, ...]) -> float:
++    """The requested rate scale, or the one that caps the checkpoint's step at the hardware's."""
++    if args.speed_scale is not None:
++        return args.speed_scale
++    return hardware_speed_scale(repo.load_preset(seeds[0]).task, HardwareConfig())
++
++
+ def build_report(args: argparse.Namespace, cfg: RobustnessConfig) -> RobustnessReport:
+     """Run every sweep and draw the verdicts."""
+     repo = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig())
+@@ -127,7 +137,7 @@ def build_report(args: argparse.Namespace, cfg: RobustnessConfig) -> RobustnessR
+     return RobustnessReport(
+         model_dir=str(args.model_dir), seeds=seeds, calibration_path=str(cal) if cal else None,
+         stiffness=stiffness, sensing=sensing, sensing_calibrated=sensing_cal,
+-        speed=speed_results(repo, seeds, decide, args.speed_scale, cfg), calibrated=calibrated,
++        speed=speed_results(repo, seeds, decide, deployed_speed(args, repo, seeds), cfg), calibrated=calibrated,
+         decision_condition=label, decision=transfer_decision(decision_results, cfg),
+         correction=classify_correction(stiffness), working_range=working_range(stiffness, cfg),
+         measured_kp_scales=kp_marks(cal),
+diff --git a/scripts/sim2real/collect/run_policy_real.py b/scripts/sim2real/collect/run_policy_real.py
+index a544ecc..db2fb96 100644
+--- a/scripts/sim2real/collect/run_policy_real.py
++++ b/scripts/sim2real/collect/run_policy_real.py
+@@ -53,7 +53,7 @@ from rbe_501_so101.provenance import begin_run, experiment_dir, require_clean_tr
+ from rbe_501_so101.rl.checkpoints import CheckpointRepository
+ from rbe_501_so101.rl.evaluation import load_trained_policy
+ from rbe_501_so101.rl.policies import BASELINE_NAMES, EvalPolicy, make_baseline
+-from rbe_501_so101.rl.robustness import TRAINED, baseline_task, slowed_preset
++from rbe_501_so101.rl.robustness import TRAINED, baseline_task, hardware_speed_scale, slowed_preset
+ 
+ DEFAULT_PRESET = "residual_ik"
+ 
+@@ -68,7 +68,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
+     parser.add_argument("--calibration", type=Path, default=None, help="ActuatorCalibration JSON")
+     parser.add_argument("--targets", type=Path, default=trials.fixed_targets_path)
+     parser.add_argument("--repeats", type=int, default=1)
+-    parser.add_argument("--speed-scale", type=float, default=hw.speed_scale, help="scales the command rate limit")
++    parser.add_argument(
++        "--speed-scale",
++        type=float,
++        default=None,
++        help=f"scales the command rate limit (default: cap it at the arm's {hw.max_command_step_rad:.3f} rad/step)",
++    )
+     parser.add_argument("--port", default=hw.port)
+     parser.add_argument("--robot-id", default=hw.robot_id)
+     parser.add_argument("--p-gain", type=int, default=hw.position_p_gain, help="servo P_Coefficient written on connect")
+@@ -84,10 +89,15 @@ def load_preset(args: argparse.Namespace) -> ExperimentPreset:
+         preset = CheckpointRepository(resolve_project_path(args.model_dir), TrainConfig()).load_preset(args.seed)
+     else:
+         preset = PRESETS[DEFAULT_PRESET]
+-    preset = slowed_preset(preset, args.speed_scale)
++    preset = slowed_preset(preset, speed_scale(args, preset))
+     return preset if args.policy == TRAINED else replace(preset, task=baseline_task(preset.task))
+ 
+ 
++def speed_scale(args: argparse.Namespace, preset: ExperimentPreset) -> float:
++    """The requested rate scale, or the one that caps the preset's step at the hardware's."""
++    return args.speed_scale if args.speed_scale is not None else hardware_speed_scale(preset.task, HardwareConfig())
++
++
+ def build_policy(args: argparse.Namespace, preset: ExperimentPreset, env: SO101ReachEnv) -> EvalPolicy:
+     """The selected controller, with stiffness from the calibration file when given."""
+     if args.policy == TRAINED:
+@@ -160,7 +170,8 @@ def main(argv: list[str] | None = None) -> None:
+     if records:
+         summary = summarize_trials(records, TrainConfig().holding_window_steps)
+         TrialRepository(out).save_summary(summary)
+-        context = f"Robot `{robot_id}`, speed scale {args.speed_scale}, calibration `{args.calibration}`."
++        speed = args.speed_scale if args.speed_scale is not None else "hardware cap"
++        context = f"Robot `{robot_id}`, speed scale {speed}, calibration `{args.calibration}`."
+         (out / "README.md").write_text(trial_readme(summary, aborted, context))
+         print(f"mean {summary.mean_error_mm:.2f} mm, p95 {summary.p95_error_mm:.2f} mm -> {out}")
+     if aborted:
+diff --git a/scripts/sim2real/collect/sag_check.py b/scripts/sim2real/collect/sag_check.py
+index 839d19e..0ce4b15 100644
+--- a/scripts/sim2real/collect/sag_check.py
++++ b/scripts/sim2real/collect/sag_check.py
+@@ -23,7 +23,6 @@ from datetime import datetime
+ from pathlib import Path
+ 
+ import mujoco
+-import numpy as np
+ 
+ from rbe_501_so101.config import HardwareConfig, SagCheckConfig, SimConfig, resolve_project_path
+ from rbe_501_so101.hardware.bus import JointBus, LeRobotJointBus
+@@ -33,7 +32,12 @@ from rbe_501_so101.hardware.operator import ABORT_KEY, TerminalKeys, redraw
+ from rbe_501_so101.hardware.path_safety import MM_PER_M, preflight
+ from rbe_501_so101.hardware.safety import SafetyAbort, SafetyMonitor
+ from rbe_501_so101.hardware.sag import RecordedPose, SagRepository, SagSession
+-from rbe_501_so101.hardware.sag_procedure import GravityAwareOffsets, SagCheckRunner, with_approach_offset
++from rbe_501_so101.hardware.sag_procedure import (
++    GravityAwareOffsets,
++    SagCheckRunner,
++    lerobot_waypoint,
++    with_approach_offset,
++)
+ from rbe_501_so101.hardware.session import open_bus, robot_id_for
+ from rbe_501_so101.kinematics.gravity import GravityTorqueModel
+ from rbe_501_so101.provenance import begin_run, require_clean_tree, timestamped_suffix
+@@ -112,9 +116,7 @@ def build_runner(bus: JointBus, clock: Clock, cfg: SagCheckConfig, joint_map: Jo
+     offsets = GravityAwareOffsets(
+         joint_map, GravityTorqueModel.from_config(SimConfig()), cfg.approach_offset_deg, cfg.gravity_torque_floor_nm
+     )
+-    waypoint = joint_map.to_lerobot(np.append(np.deg2rad(cfg.waypoint_sim_deg), 0.0))
+-    arm_waypoint = {pos_key(j): waypoint[pos_key(j)] for j in SimConfig().arm_joints}
+-    return SagCheckRunner(bus, clock, cfg, joints(), offsets, arm_waypoint)
++    return SagCheckRunner(bus, clock, cfg, joints(), offsets, lerobot_waypoint(joint_map, cfg.waypoint_sim_deg))
+ 
+ 
+ def check_path(
+diff --git a/src/rbe_501_so101/config.py b/src/rbe_501_so101/config.py
+index 09f52ce..e32e4d0 100644
+--- a/src/rbe_501_so101/config.py
++++ b/src/rbe_501_so101/config.py
+@@ -1,6 +1,6 @@
+ """Central configuration: every tunable constant for simulation, tasks, and training."""
+ 
+-from dataclasses import asdict, dataclass, field
++from dataclasses import asdict, dataclass, field, replace
+ from math import pi, radians
+ from pathlib import Path
+ from typing import Any, Literal, Self
+@@ -94,13 +94,18 @@ class ReachTaskConfig:
+ 
+ @dataclass(frozen=True)
+ class TargetSamplerConfig:
+-    """Clearance, radial band (from the shoulder-pan axis), and joint-limit margin."""
++    """Clearance, radial band (from the shoulder-pan axis), and joint-limit margin.
++
++    `joint_window_rad` (sim radians, per arm joint) intersects the model's
++    joint ranges (minus the margin) when given.
++    """
+ 
+     clearance_m: float = 0.025
+     radial_min_m: float = 0.12
+     radial_max_m: float = 0.32
+     joint_limit_margin_rad: float = 0.15
+     max_attempts: int = 10_000
++    joint_window_rad: tuple[tuple[float, float], ...] | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -229,29 +234,67 @@ class PerturbationConfig:
+ ENCODER_QUANTIZATION_RAD = 2 * pi / ENCODER_COUNTS_PER_REV
+ 
+ 
++@dataclass(frozen=True)
++class ServoEffectsConfig:
++    """Real-servo effects between the controller's command and the MuJoCo actuator.
++
++    `stiction` applies the calibration's friction band as play on the servo
++    goal: the goal only moves once the command pulls it further than the band,
++    which reproduces the real arm's direction-dependent stop (D-03). Each
++    episode scales the band by a draw from `stiction_scale_range`.
++    `stiction_transition_ratio` rounds the corner of the play (0 = sharp play,
++    1 = Dahl): after a reversal the goal starts slipping before the command has
++    crossed the whole band. 1.5 fits the 3° and 8° sag checks and the pose
++    check together (calibrated-sim gate, 2026-10-31).
++    `relative_clip_rad` mimics LeRobot's `max_relative_target`: the goal
++    reaching the servo stays within it of the measured position (None = off).
++    """
++
++    stiction: bool = False
++    stiction_scale_range: tuple[float, float] = (1.0, 1.0)
++    stiction_transition_ratio: float = 1.5
++    relative_clip_rad: float | None = None
++
++    @property
++    def active(self) -> bool:
++        """True if any effect changes what reaches the actuator."""
++        return self.stiction or self.relative_clip_rad is not None
++
++
+ @dataclass(frozen=True)
+ class EnvOptions:
+     """Simulator options a preset (or an evaluation) builds the reach env with.
+ 
+     `calibration_path` is stored as a string so presets stay JSON-serializable.
+     `randomization.enabled` forces randomization on even without the CLI flag.
++    `target_joint_window_rad` (sim radians, per arm joint) further restricts the
++    joint ranges reach targets are sampled from, e.g. to the real arm's range.
+     """
+ 
+     calibration_path: str | None = None
+     perturbation: PerturbationConfig = field(default_factory=PerturbationConfig)
+     randomization: DynamicsRandomizationConfig = field(default_factory=DynamicsRandomizationConfig)
++    servo: ServoEffectsConfig = field(default_factory=ServoEffectsConfig)
++    target_joint_window_rad: tuple[tuple[float, float], ...] | None = None
+ 
+     @classmethod
+     def from_dict(cls, data: dict[str, Any]) -> Self:
+-        """Inverse of `asdict`, restoring tuples that JSON turned into lists."""
+-        rand = {k: tuple(v) if isinstance(v, list) else v for k, v in data["randomization"].items()}
++        """Inverse of `asdict`, restoring tuples that JSON turned into lists (newer fields default)."""
++        window = data.get("target_joint_window_rad")
+         return cls(
+             calibration_path=data["calibration_path"],
+             perturbation=PerturbationConfig(**data["perturbation"]),
+-            randomization=DynamicsRandomizationConfig(**rand),
++            randomization=DynamicsRandomizationConfig(**_tuples(data["randomization"])),
++            servo=ServoEffectsConfig(**_tuples(data.get("servo", {}))),
++            target_joint_window_rad=None if window is None else tuple(tuple(w) for w in window),
+         )
+ 
+ 
++def _tuples(data: dict[str, Any]) -> dict[str, Any]:
++    """Lists (from JSON) back to tuples."""
++    return {k: tuple(v) if isinstance(v, list) else v for k, v in data.items()}
++
++
+ @dataclass(frozen=True)
+ class ExperimentPreset:
+     """Everything that defines a training variant; saved next to each checkpoint."""
+@@ -348,6 +391,10 @@ class HardwareConfig:
+     in motion. Every actuator calibration is specific to the gain it was
+     measured at.
+ 
++    `real_half_range_deg` is each arm joint's calibrated half range in LeRobot
++    degrees, from LeRobot's `rbe501_follower` calibration file (2026-10-31); the
++    live value comes from the bus, this copy lets training use the window offline.
++
+     `rest_deg` is in sim degrees (arm joints, then gripper): the pose ramped to
+     before torque is cut. It is the folded, supported pose read from the arm
+     on 2026-10-31 (LeRobot -2.42, -73.19, 96.57, 3.25, 2.24, gripper 0.27).
+@@ -374,6 +421,51 @@ class HardwareConfig:
+     rest_deg: tuple[float, ...] = (-0.92, -99.99, 89.87, 2.75, 2.24, -9.7)
+     rest_ramp_s: float = 3.0
+     lerobot_degrees_per_count: float = 360.0 / 4095
++    real_half_range_deg: tuple[float, ...] = (118.7, 87.8, 97.0, 104.9, 180.0)
++
++    @property
++    def max_command_step_rad(self) -> float:
++        """Largest per-step command change deployed on the arm: the default sim rate times `speed_scale`."""
++        return self.speed_scale * ReachTaskConfig().delta_q_max_rad
++
++    def sim_joint_window_rad(self) -> tuple[tuple[float, float], ...]:
++        """Real calibrated arm range in sim radians, shrunk by `limit_margin_rad` (what the real backend allows)."""
++        window = []
++        for half, entry in zip(self.real_half_range_deg, self.joint_map, strict=True):
++            ends = sorted(entry.sign * radians(s * half) + entry.offset_rad for s in (-1.0, 1.0))
++            window.append((ends[0] + self.limit_margin_rad, ends[1] - self.limit_margin_rad))
++        return tuple(window)
++
++
++# Plan steps 8-12: train on the arm as measured on 2026-10-31. Stiffness from the
++# 8° sag check, randomized 0.7-1.4x around it (pan and roll kp are assumed);
++# stiction randomized 0.5-1.5x around the fitted band; LeRobot's 10° relative
++# clip; reach targets inside the real joint range; the real arm's command rate,
++# so deployment needs no slowdown; a 0.2 rad residual, enough for sag plus a
++# friction band at the soft end of the stiffness range.
++SIM2REAL_RESIDUAL_MAX_RAD = 0.2
++SIM2REAL_KP_SCALE_RANGE = (0.7, 1.4)
++SIM2REAL_STICTION_SCALE_RANGE = (0.5, 1.5)
++PRESETS["residual_ik_sim2real"] = ExperimentPreset(
++    task=replace(
++        PRESETS["residual_ik"].task,
++        delta_q_max_rad=HardwareConfig().max_command_step_rad,
++        residual_max_rad=SIM2REAL_RESIDUAL_MAX_RAD,
++    ),
++    reward=PRESETS["residual_ik"].reward,
++    sac=PRESETS["residual_ik"].sac,
++    env=EnvOptions(
++        calibration_path=DEFAULT_CALIBRATION_FILE,
++        perturbation=CALIBRATED_PERTURBATION,
++        randomization=replace(CALIBRATED_RANDOMIZATION, kp_scale_range=SIM2REAL_KP_SCALE_RANGE),
++        servo=ServoEffectsConfig(
++            stiction=True,
++            stiction_scale_range=SIM2REAL_STICTION_SCALE_RANGE,
++            relative_clip_rad=radians(HardwareConfig().max_relative_target_deg),
++        ),
++        target_joint_window_rad=HardwareConfig().sim_joint_window_rad(),
++    ),
++)
+ 
+ 
+ @dataclass(frozen=True)
+@@ -437,6 +529,15 @@ class SagFitConfig:
+ 
+     A joint is not identifiable when its gravity torque spans less than
+     `min_torque_span_nm` across the poses.
++
++    Stiction (the friction band) is only fitted from sessions whose approach
++    offsets are all at least `min_friction_approach_deg`: smaller approaches
++    land inside the band and under-measure it (3° gave a third of the 8°
++    band on 2026-10-31). The band's load slope is fitted only when the
++    joint's gravity torque spans `min_slope_torque_span_nm`; otherwise the
++    band is the mean. With `assume_unidentified_kp`, joints without gravity
++    load (pan, wrist roll) get the mean fitted stiffness, flagged as assumed:
++    every arm joint is the same servo at the same gain.
+     """
+ 
+     confidence: float = 0.95
+@@ -444,6 +545,9 @@ class SagFitConfig:
+     min_samples: int = 3
+     early_warning_fraction: float = 0.5
+     min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
++    min_friction_approach_deg: float = 6.0
++    min_slope_torque_span_nm: float = 0.2
++    assume_unidentified_kp: bool = True
+     experiment_suffix: str = "sag_analysis"
+ 
+ 
+@@ -490,6 +594,19 @@ class PoseCheckConfig:
+     path_check: PathCheckConfig = PathCheckConfig()
+ 
+ 
++@dataclass(frozen=True)
++class CalibratedSimGateConfig:
++    """Plan step 10: the calibrated sim must reproduce the real measurements before training.
++
++    For every joint and arrival direction, the mean absolute difference
++    between real and replayed error must stay within `tolerance_deg` (about
++    2 mm at the gripper for the shoulder at reach distance).
++    """
++
++    tolerance_deg: float = 1.0
++    experiment_suffix: str = "calibrated_sim_gate"
++
++
+ @dataclass(frozen=True)
+ class MirrorConfig:
+     """Phase 1 mirror tool loop rate and where reference readings are saved."""
+@@ -524,6 +641,31 @@ class RobustnessConfig:
+     experiment_suffix: str = "reach_robustness"
+ 
+ 
++@dataclass(frozen=True)
++class AcceptanceConfig:
++    """Plan step 15: what a retrained policy must do in the calibrated sim before it goes on the arm.
++
++    Judged in the deployment condition (every random draw at the measured arm,
++    the longest training delay, encoder rounding) and in stress conditions at
++    the edges of the training randomization (each kp extreme, the largest
++    stiction band). The policy must hold within `deployment_max_mean_mm`, beat
++    IK hold by more than its seed spread, saturate on less than
++    `max_saturation_fraction` of holding steps, stay within
++    `worst_case_max_mean_mm` under stress, and be no worse than integral
++    control (plus `integral_margin_mm`) in any condition. Settling time and the
++    two-sided approach test are left to the hardware repeatability runs.
++    """
++
++    deployment_max_mean_mm: float = 2.0
++    worst_case_max_mean_mm: float = 5.0
++    max_saturation_fraction: float = 0.2
++    integral_margin_mm: float = 0.0
++    kp_scales: tuple[float, ...] = SIM2REAL_KP_SCALE_RANGE
++    stiction_scales: tuple[float, ...] = (SIM2REAL_STICTION_SCALE_RANGE[1],)
++    episodes_per_condition: int = 20
++    experiment_suffix: str = "acceptance"
++
++
+ @dataclass(frozen=True)
+ class RealTrialConfig:
+     """Phase 3 output naming and the fixed repeatability protocol."""
+diff --git a/src/rbe_501_so101/envs/calibration.py b/src/rbe_501_so101/envs/calibration.py
+index 5656352..48bb143 100644
+--- a/src/rbe_501_so101/envs/calibration.py
++++ b/src/rbe_501_so101/envs/calibration.py
+@@ -17,11 +17,21 @@ KV_BIAS_COL = 2
+ 
+ @dataclass(frozen=True)
+ class JointActuatorCalibration:
+-    """Measured values for one joint; `None` keeps the MJCF value."""
++    """Measured values for one joint; `None` keeps the MJCF value.
++
++    `kp_assumed` marks a stiffness that was not measured on this joint (no
++    gravity load) but copied from the measured ones. The stiction fields are
++    the friction band's half-width `stiction_half_band_rad +
++    stiction_load_slope_rad_per_nm * |gravity torque|`, applied by the servo
++    model in `ServoEffectsBackend`, not by MuJoCo.
++    """
+ 
+     joint: str
+     kp_nm_per_rad: float | None = None
+     frictionloss_nm: float | None = None
++    kp_assumed: bool = False
++    stiction_half_band_rad: float | None = None
++    stiction_load_slope_rad_per_nm: float | None = None
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/src/rbe_501_so101/envs/factory.py b/src/rbe_501_so101/envs/factory.py
+index cdbb623..9b10a7b 100644
+--- a/src/rbe_501_so101/envs/factory.py
++++ b/src/rbe_501_so101/envs/factory.py
+@@ -3,11 +3,25 @@
+ from dataclasses import replace
+ from typing import Any
+ 
+-from rbe_501_so101.config import EnvOptions, ExperimentPreset, IKConfig, SimConfig, resolve_project_path
++import numpy as np
++
++from rbe_501_so101.config import (
++    EnvOptions,
++    ExperimentPreset,
++    IKConfig,
++    ServoEffectsConfig,
++    SimConfig,
++    TargetSamplerConfig,
++    resolve_project_path,
++)
++from rbe_501_so101.envs.calibration import ActuatorCalibration
+ from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend, RenderMode
+ from rbe_501_so101.envs.perturbed_backend import PerturbedBackend
++from rbe_501_so101.envs.protocols import RobotBackend
+ from rbe_501_so101.envs.reach_env import SO101ReachEnv, task_home_deg
++from rbe_501_so101.envs.servo_effects import ServoEffectsBackend, StictionParams
+ from rbe_501_so101.kinematics import PositionIKSolver
++from rbe_501_so101.kinematics.gravity import GravityTorqueModel
+ 
+ 
+ def reach_env_kwargs(
+@@ -19,19 +33,45 @@ def reach_env_kwargs(
+     """Keyword arguments for `SO101ReachEnv` (or `gym.make`).
+ 
+     `options` defaults to the preset's own; randomization is on if either the
+-    caller or the options ask for it. A perturbation wraps the MuJoCo backend
+-    in `PerturbedBackend`, which the env then receives already built.
++    caller or the options ask for it. Servo effects wrap the MuJoCo backend in
++    `ServoEffectsBackend` (what reaches the servo), and a perturbation wraps
++    that in `PerturbedBackend` (what the controller sees); the env then
++    receives the backend already built.
+     """
+     options = options or preset.env
+     sim_cfg = _sim_config(options)
+     randomization = replace(options.randomization, enabled=randomize or options.randomization.enabled)
+-    base = {"render_mode": render_mode, "task_cfg": preset.task, "reward_cfg": preset.reward}
+-    if not options.perturbation.active:
++    base = {
++        "render_mode": render_mode,
++        "task_cfg": preset.task,
++        "reward_cfg": preset.reward,
++        "sampler_cfg": replace(TargetSamplerConfig(), joint_window_rad=options.target_joint_window_rad),
++    }
++    if not (options.perturbation.active or options.servo.active):
+         return {**base, "sim_cfg": sim_cfg, "randomization_cfg": randomization}
+     home_cfg = replace(sim_cfg, initial_deg=task_home_deg(sim_cfg, preset.task))
+-    inner = MujocoSo101Backend(home_cfg, randomization, render_mode)
+-    kinematics = PositionIKSolver(inner.model, inner.ids, sim_cfg, IKConfig())
+-    return {**base, "backend": PerturbedBackend(inner, options.perturbation, sim_cfg.control_dt, kinematics)}
++    backend: RobotBackend = MujocoSo101Backend(home_cfg, randomization, render_mode)
++    kinematics = PositionIKSolver(backend.model, backend.ids, sim_cfg, IKConfig())
++    if options.servo.active:
++        backend = servo_effects(backend, options.servo, sim_cfg, options.target_joint_window_rad)
++    if options.perturbation.active:
++        backend = PerturbedBackend(backend, options.perturbation, sim_cfg.control_dt, kinematics)
++    return {**base, "backend": backend}
++
++
++def servo_effects(
++    inner: MujocoSo101Backend,
++    cfg: ServoEffectsConfig,
++    sim_cfg: SimConfig,
++    command_window: tuple[tuple[float, float], ...] | None = None,
++) -> ServoEffectsBackend:
++    """Wrap a MuJoCo arm with the calibrated stiction band and/or LeRobot's relative clip (and command window)."""
++    if cfg.stiction and sim_cfg.calibration_path is None:
++        raise ValueError("stiction needs a calibration file with a fitted friction band")
++    params = StictionParams(np.zeros(len(sim_cfg.arm_joints)), np.zeros(len(sim_cfg.arm_joints)))
++    if sim_cfg.calibration_path is not None:
++        params = StictionParams.from_calibration(ActuatorCalibration.load(sim_cfg.calibration_path), sim_cfg.arm_joints)
++    return ServoEffectsBackend(inner, params, cfg, GravityTorqueModel(inner.model, inner.ids), command_window)
+ 
+ 
+ def make_reach_env(
+diff --git a/src/rbe_501_so101/envs/perturbed_backend.py b/src/rbe_501_so101/envs/perturbed_backend.py
+index 8385996..d3c70ca 100644
+--- a/src/rbe_501_so101/envs/perturbed_backend.py
++++ b/src/rbe_501_so101/envs/perturbed_backend.py
+@@ -1,16 +1,16 @@
+ """Wrap any RobotBackend with encoder rounding and whole-step command delay."""
+ 
+ from collections import deque
+-from typing import Any
+ 
+ import numpy as np
+ 
+ from rbe_501_so101.config import PerturbationConfig
+-from rbe_501_so101.envs.protocols import ForwardKinematics, Renderable, RobotBackend, TargetMarker
+-from rbe_501_so101.envs.types import JointLimits, RobotState
++from rbe_501_so101.envs.backend_wrapper import BackendWrapper
++from rbe_501_so101.envs.protocols import ForwardKinematics, RobotBackend
++from rbe_501_so101.envs.types import RobotState
+ 
+ 
+-class PerturbedBackend:
++class PerturbedBackend(BackendWrapper):
+     """Makes a simulated arm look like the real one to the policy.
+ 
+     Delay: deltas queue for `delay_steps` control periods before reaching the
+@@ -25,7 +25,7 @@ class PerturbedBackend:
+     def __init__(
+         self, inner: RobotBackend, cfg: PerturbationConfig, control_dt: float, kinematics: ForwardKinematics
+     ) -> None:
+-        self.inner = inner
++        super().__init__(inner)
+         self._cfg = cfg
+         self._dt = control_dt
+         self._fk = kinematics
+@@ -34,16 +34,6 @@ class PerturbedBackend:
+         self._pending: np.ndarray | None = None
+         self._prev_q: np.ndarray | None = None
+ 
+-    @property
+-    def model(self) -> Any:
+-        """Inner MuJoCo model, if any (lets the env share it with samplers and IK)."""
+-        return getattr(self.inner, "model", None)
+-
+-    @property
+-    def ids(self) -> Any:
+-        """Inner model indices, if any."""
+-        return getattr(self.inner, "ids", None)
+-
+     def reset(self, rng: np.random.Generator) -> RobotState:
+         """Reset the inner backend, draw this episode's delay, and clear the queue."""
+         state = self.inner.reset(rng)
+@@ -66,27 +56,6 @@ class PerturbedBackend:
+         self.inner.apply_delta(self._queue.popleft())
+         return self._perturb(self.inner.step())
+ 
+-    def joint_limits(self) -> JointLimits:
+-        """Inner limits."""
+-        return self.inner.joint_limits()
+-
+-    def close(self) -> None:
+-        """Close the inner backend."""
+-        self.inner.close()
+-
+-    def set_target_marker(self, xyz: np.ndarray) -> None:
+-        """Forward to the inner backend if it has a marker."""
+-        if isinstance(self.inner, TargetMarker):
+-            self.inner.set_target_marker(xyz)
+-
+-    def render(self) -> np.ndarray | None:
+-        """Forward to the inner backend if it renders."""
+-        return self.inner.render() if isinstance(self.inner, Renderable) else None
+-
+-    def is_open(self) -> bool:
+-        """Inner viewer state (True when the inner backend cannot render)."""
+-        return self.inner.is_open() if isinstance(self.inner, Renderable) else True
+-
+     def _perturb(self, state: RobotState) -> RobotState:
+         """Apply rounding (if enabled) and report the issued command."""
+         q_cmd = self._issued_command(state.q_cmd)
+diff --git a/src/rbe_501_so101/envs/targets.py b/src/rbe_501_so101/envs/targets.py
+index e3e466f..84d6e38 100644
+--- a/src/rbe_501_so101/envs/targets.py
++++ b/src/rbe_501_so101/envs/targets.py
+@@ -55,7 +55,8 @@ class SequenceTargetSampler:
+ class ReachableTargetSampler:
+     """Samples targets from random arm configurations via forward kinematics.
+ 
+-    Joint angles are drawn uniformly within the limits shrunk by a margin; the
++    Joint angles are drawn uniformly within the limits shrunk by a margin (and
++    intersected with `cfg.joint_window_rad`, if set); the
+     resulting gripper-site position is accepted only if it clears the table,
+     lies within the radial band around the shoulder-pan axis, and the pose
+     does not put the arm in contact with the world. Every accepted target is
+@@ -76,9 +77,7 @@ class ReachableTargetSampler:
+         self._data = mujoco.MjData(model)
+         hold_deg = ReachTaskConfig().gripper_hold_deg if gripper_hold_deg is None else gripper_hold_deg
+         self._gripper_angle = float(np.deg2rad(hold_deg))
+-        arm_range = model.jnt_range[ids.arm_joint_ids]
+-        self._low = arm_range[:, 0] + cfg.joint_limit_margin_rad
+-        self._high = arm_range[:, 1] - cfg.joint_limit_margin_rad
++        self._low, self._high = self._bounds(model.jnt_range[ids.arm_joint_ids], cfg)
+         self._axis_xy = self._radial_axis_xy(model, sim_cfg.radial_axis_joint)
+         self._z_min_m = table_clearance_z(model, sim_cfg.table_top_geom, cfg.clearance_m)
+         self._robot_bodies = descendant_body_ids(model, sim_cfg.robot_root_body)
+@@ -95,6 +94,21 @@ class ReachableTargetSampler:
+         model = mujoco.MjModel.from_xml_path(str(sim_cfg.model_path))
+         return cls(model, ModelIndices.from_model(model, sim_cfg), sim_cfg, cfg, gripper_hold_deg)
+ 
++    @property
++    def joint_bounds(self) -> tuple[np.ndarray, np.ndarray]:
++        """Lower and upper arm-joint bounds the configurations are drawn from (radians)."""
++        return self._low.copy(), self._high.copy()
++
++    @staticmethod
++    def _bounds(arm_range: np.ndarray, cfg: TargetSamplerConfig) -> tuple[np.ndarray, np.ndarray]:
++        """Model range minus the margin, intersected with the optional joint window."""
++        low = arm_range[:, 0] + cfg.joint_limit_margin_rad
++        high = arm_range[:, 1] - cfg.joint_limit_margin_rad
++        if cfg.joint_window_rad is not None:
++            window = np.asarray(cfg.joint_window_rad, dtype=float)
++            low, high = np.maximum(low, window[:, 0]), np.minimum(high, window[:, 1])
++        return low, high
++
+     @property
+     def z_min_m(self) -> float:
+         """World-Z threshold: table-top surface plus configured clearance."""
+diff --git a/src/rbe_501_so101/hardware/figures.py b/src/rbe_501_so101/hardware/figures.py
+index c565c40..10a7d8e 100644
+--- a/src/rbe_501_so101/hardware/figures.py
++++ b/src/rbe_501_so101/hardware/figures.py
+@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt  # noqa: E402
+ 
+ from rbe_501_so101.hardware.direction_errors import DirectionalError  # noqa: E402
+ from rbe_501_so101.hardware.sag import JointComplianceFit  # noqa: E402
++from rbe_501_so101.hardware.sim_gate import GateRow  # noqa: E402
+ 
+ FIG_SIZE = (9, 5)
+ WIDE_FIG_SIZE = (11, 4.5)
+@@ -19,6 +20,7 @@ DPI = 150
+ BAR_WIDTH = 0.8
+ GRID_ALPHA = 0.3
+ FIT_POINTS = 50
++GATE_LABEL_WIDTH_IN = 1.3
+ WITH_MARKER, AGAINST_MARKER = "v", "^"
+ 
+ 
+@@ -134,6 +136,24 @@ def plot_gain_sweep(gains: Sequence[int], errors_deg: Mapping[str, Sequence[floa
+     _finish(ax, fig, path)
+ 
+ 
++def plot_gate(rows_by_model: Mapping[str, Sequence[GateRow]], tolerance_deg: float, path: Path) -> None:
++    """Mean error per gate row: the real arm, then each sim model (rows must line up across models)."""
++    models = list(rows_by_model)
++    first = rows_by_model[models[0]]
++    labels = [f"{r.source.replace(', ', chr(10))}\n{r.joint}\n{r.direction}" for r in first]
++    series = {"real arm": [r.real_mean_deg for r in first]}
++    series |= {m: [r.sim_mean_deg for r in rows_by_model[m]] for m in models}
++    fig, ax = plt.subplots(figsize=(max(WIDE_FIG_SIZE[0], len(labels) * GATE_LABEL_WIDTH_IN), WIDE_FIG_SIZE[1] + 1))
++    width = BAR_WIDTH / len(series)
++    for k, (name, values) in enumerate(series.items()):
++        ax.bar(np.arange(len(labels)) + (k - (len(series) - 1) / 2) * width, values, width, label=name)
++    ax.axhline(0.0, color="k", lw=0.8)
++    ax.set_xticks(np.arange(len(labels)), labels, fontsize=7)
++    ax.set_ylabel("mean error along gravity (sim deg)")
++    ax.set_title(f"Real arm vs simulator, replaying the same procedures (gate: within {tolerance_deg:g}°)")
++    _finish(ax, fig, path)
++
++
+ def _finish(ax: plt.Axes, fig: plt.Figure, path: Path) -> None:
+     """Grid, legend, save, close."""
+     ax.grid(alpha=GRID_ALPHA)
+diff --git a/src/rbe_501_so101/hardware/sag.py b/src/rbe_501_so101/hardware/sag.py
+index 0fa48c5..008360f 100644
+--- a/src/rbe_501_so101/hardware/sag.py
++++ b/src/rbe_501_so101/hardware/sag.py
+@@ -110,6 +110,20 @@ class JointComplianceFit:
+     kp_ci_high: float | None = None
+ 
+ 
++@dataclass(frozen=True)
++class StictionFit:
++    """Friction band of one joint: half-width `half_band_rad + load_slope_rad_per_nm * |gravity torque|`.
++
++    Fitted to half the difference between arriving from above and from below
++    (sim radians), one point per pose.
++    """
++
++    joint: str
++    half_band_rad: float
++    load_slope_rad_per_nm: float
++    n_poses: int
++
++
+ class SagRepository:
+     """Owns `data/sag_check/`: the recorded pose list and one folder per session."""
+ 
+@@ -193,6 +207,49 @@ def fit_compliance(
+     return tuple(_fit_joint(name, torques[:, j], sags[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
+ 
+ 
++def one_sided_sag_by_joint(session: SagSession) -> PoseJointTable:
++    """Sag of every single arrival (one row per sample): what a correction must cover."""
++    rows = np.array([_sag(s) for s in session.samples]).reshape(len(session.samples), len(session.joints))
++    return PoseJointTable(tuple(s.pose_id for s in session.samples), session.joints, rows)
++
++
++def smallest_approach_deg(session: SagSession) -> float | None:
++    """Smallest arm-joint approach offset in the session, or None if offsets were not recorded."""
++    offsets = [s.approach_offset_deg for s in session.samples]
++    if not offsets or any(o is None for o in offsets):
++        return None
++    return float(min(np.min(np.abs(o[:-1])) for o in offsets))
++
++
++def fit_stiction(
++    session: SagSession,
++    joint_map: JointMap,
++    model: mujoco.MjModel,
++    sim_cfg: SimConfig = SimConfig(),
++    cfg: SagFitConfig = SagFitConfig(),
++) -> tuple[StictionFit, ...]:
++    """Friction band per arm joint; empty when the approaches were too small to sweep it."""
++    smallest = smallest_approach_deg(session)
++    if smallest is None or smallest < cfg.min_friction_approach_deg:
++        return ()
++    gravity = GravityTorqueModel(model, ModelIndices.from_model(model, sim_cfg))
++    torques, _ = _torques_and_sags(session, joint_map, gravity)
++    n_arm = len(joint_map.joints) - 1
++    half = np.abs([joint_map.arm_delta_to_sim(row[:n_arm]) for row in hysteresis_by_joint(session).values_deg])
++    return tuple(_fit_band(name, np.abs(torques[:, j]), half[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
++
++
++def _fit_band(joint: str, load: np.ndarray, half: np.ndarray, cfg: SagFitConfig) -> StictionFit:
++    """Least squares `half = b0 + slope * load`, or the mean when the load barely varies or the slope is negative."""
++    mean = StictionFit(joint, float(np.mean(half)), 0.0, len(half))
++    if np.ptp(load) < cfg.min_slope_torque_span_nm or len(half) < cfg.min_samples:
++        return mean
++    (slope, b0), *_ = np.linalg.lstsq(np.c_[load, np.ones_like(load)], half, rcond=None)
++    if slope < 0 or b0 < 0:
++        return mean
++    return StictionFit(joint, float(b0), float(slope), len(half))
++
++
+ def _torques_and_sags(
+     session: SagSession, joint_map: JointMap, gravity: GravityTorqueModel
+ ) -> tuple[np.ndarray, np.ndarray]:
+diff --git a/src/rbe_501_so101/hardware/sag_analysis.py b/src/rbe_501_so101/hardware/sag_analysis.py
+index 86a01d8..8fd2d98 100644
+--- a/src/rbe_501_so101/hardware/sag_analysis.py
++++ b/src/rbe_501_so101/hardware/sag_analysis.py
+@@ -1,33 +1,28 @@
+ """Turn a Phase 0 session into sim terms: per-joint summary, calibration file, sim comparison, README."""
+ 
+-from dataclasses import dataclass
++from dataclasses import dataclass, replace
+ 
+ import mujoco
+ import numpy as np
+ 
+-from rbe_501_so101.config import (
+-    DynamicsRandomizationConfig,
+-    SagCheckConfig,
+-    SagFitConfig,
+-    SimConfig,
+-)
++from rbe_501_so101.config import SagCheckConfig, SagFitConfig, SimConfig
+ from rbe_501_so101.envs.calibration import ActuatorCalibration, JointActuatorCalibration
+-from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
+ from rbe_501_so101.hardware.joint_mapping import JointMap
+ from rbe_501_so101.hardware.sag import (
+     JointComplianceFit,
+     PoseJointTable,
+-    RecordedPose,
+     SagSession,
++    StictionFit,
+     fit_compliance,
++    fit_stiction,
+     friction_torque,
+     headroom_warnings,
+     hysteresis_by_joint,
++    one_sided_sag_by_joint,
+     sag_by_joint,
+     usable_samples,
+ )
+-from rbe_501_so101.hardware.sag_procedure import RecordedOffsets, SagCheckRunner, UniformOffsets
+-from rbe_501_so101.hardware.sim_bus import SimJointBus
++from rbe_501_so101.hardware.sim_replay import ReplaySetup, replay_sag_session
+ 
+ 
+ @dataclass(frozen=True)
+@@ -41,6 +36,7 @@ class JointSagSummary:
+     mjcf_kp: float
+     fit: JointComplianceFit
+     friction_nm: float | None
++    stiction: StictionFit | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -55,6 +51,7 @@ class SagAnalysis:
+     warning_fraction: float
+     min_hysteresis_deg: float
+     n_excluded_clamped: int = 0
++    assume_unidentified_kp: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+@@ -74,17 +71,20 @@ def analyze_session(
+     fit_cfg: SagFitConfig,
+     residual_max_rad: float,
+ ) -> SagAnalysis:
+-    """Sag, hysteresis, and stiffness fit per arm joint, plus the headroom early warning.
++    """Sag, hysteresis, stiffness and stiction fits per arm joint, plus the headroom early warning.
+ 
+     Samples flagged as clamped (LeRobot clipped a goal) are excluded first.
++    The warning uses the worst single arrival, since that is what a policy
++    correction has to cover.
+     """
+     usable = usable_samples(session)
+     sag = sag_by_joint(usable)
+     joints = _joint_summaries(usable, sag, joint_map, model, sim_cfg, fit_cfg)
+-    warnings = headroom_warnings(sag, joint_map, residual_max_rad, fit_cfg.early_warning_fraction)
++    one_sided = one_sided_sag_by_joint(usable)
++    warnings = headroom_warnings(one_sided, joint_map, residual_max_rad, fit_cfg.early_warning_fraction)
+     return SagAnalysis(
+         session.robot_id, len(sag.pose_ids), joints, warnings, residual_max_rad, fit_cfg.early_warning_fraction,
+-        fit_cfg.min_hysteresis_deg, len(session.samples) - len(usable.samples),
++        fit_cfg.min_hysteresis_deg, len(session.samples) - len(usable.samples), fit_cfg.assume_unidentified_kp,
+     )
+ 
+ 
+@@ -95,37 +95,59 @@ def _joint_summaries(
+     """Per-arm-joint sag, hysteresis, and stiffness fit against the MJCF kp."""
+     hysteresis = hysteresis_by_joint(session)
+     fits = fit_compliance(session, joint_map, model, sim_cfg, fit_cfg)
++    stiction = {s.joint: s for s in fit_stiction(session, joint_map, model, sim_cfg, fit_cfg)}
+     kp_mjcf = model.actuator_gainprm[[model.actuator(j + sim_cfg.actuator_suffix).id for j in sim_cfg.arm_joints], 0]
+     return tuple(
+-        _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map)
++        replace(
++            _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map),
++            stiction=stiction.get(fit.joint),
++        )
+         for i, fit in enumerate(fits)
+     )
+ 
+ 
+ def calibration_from_analysis(analysis: SagAnalysis, source: str) -> ActuatorCalibration:
+-    """Measured stiffness for identifiable joints; friction only where hysteresis exceeds one count."""
+-    entries = []
+-    for joint in analysis.joints:
+-        if not joint.fit.identifiable or joint.fit.kp_nm_per_rad is None:
+-            continue
+-        friction = joint.friction_nm if joint.mean_abs_hysteresis_deg >= analysis.min_hysteresis_deg else None
+-        entries.append(JointActuatorCalibration(joint.joint, joint.fit.kp_nm_per_rad, friction))
+-    return ActuatorCalibration(tuple(entries), source=source)
++    """Measured stiffness (or the assumed mean where unmeasured) and the friction model per joint.
++
++    A stiction fit replaces MuJoCo `frictionloss` (which creeps, D-03). Without
++    one, friction falls back to `kp * hysteresis` where hysteresis exceeds one count.
++    """
++    fitted = [j.fit.kp_nm_per_rad for j in analysis.joints if _has_kp(j)]
++    assumed = float(np.mean(fitted)) if fitted and analysis.assume_unidentified_kp else None
++    entries = (_calibration_entry(j, assumed, analysis.min_hysteresis_deg) for j in analysis.joints)
++    return ActuatorCalibration(tuple(e for e in entries if e is not None), source=source)
++
++
++def _has_kp(joint: JointSagSummary) -> bool:
++    """True if the joint's stiffness was identified."""
++    return joint.fit.identifiable and joint.fit.kp_nm_per_rad is not None
++
++
++def _calibration_entry(
++    joint: JointSagSummary, assumed_kp: float | None, min_hysteresis_deg: float
++) -> JointActuatorCalibration | None:
++    """One joint's calibration entry, or None when nothing about it was measured."""
++    kp, kp_assumed = (joint.fit.kp_nm_per_rad, False) if _has_kp(joint) else (assumed_kp, assumed_kp is not None)
++    if joint.stiction is not None:
++        return JointActuatorCalibration(
++            joint.joint, kp, None, kp_assumed, joint.stiction.half_band_rad, joint.stiction.load_slope_rad_per_nm
++        )
++    if kp is None:
++        return None
++    friction = joint.friction_nm if joint.mean_abs_hysteresis_deg >= min_hysteresis_deg and not kp_assumed else None
++    return JointActuatorCalibration(joint.joint, kp, friction, kp_assumed)
+ 
+ 
+ def simulate_session(
+     real: SagSession, sim_cfg: SimConfig, joint_map: JointMap, cfg: SagCheckConfig, quantization_rad: float
+ ) -> SagSession:
+-    """Run the Phase 0 procedure in sim (with `sim_cfg.calibration_path`, if set) at the real poses."""
+-    no_randomization = DynamicsRandomizationConfig(enabled=False)
+-    bus = SimJointBus(MujocoSo101Backend(sim_cfg, no_randomization), joint_map, sim_cfg, quantization_rad)
+-    goals = {s.pose_id: s.goal_deg for s in usable_samples(real).samples}
+-    poses = tuple(RecordedPose(pid, goal) for pid, goal in goals.items())
+-    offsets = RecordedOffsets(real, UniformOffsets(cfg.approach_offset_deg, real.joints))
+-    try:
+-        return SagCheckRunner(bus, bus, cfg, real.joints, offsets).session("sim", poses)
+-    finally:
+-        bus.close()
++    """Run the Phase 0 procedure in sim (with `sim_cfg.calibration_path`, if set) at the real poses.
++
++    Plain MuJoCo arm from the sim home pose: no servo effects, clip, or waypoint
++    (see `sim_replay.replay_sag_session` for the full replay).
++    """
++    setup = ReplaySetup(sim_cfg, joint_map, quantization_rad=quantization_rad, max_relative_deg=None, start_sim_deg=None)
++    return replay_sag_session(real, setup, cfg, waypoint_sim_deg=None)
+ 
+ 
+ def compare_sag(real: SagSession, sim: SagSession, joints: tuple[str, ...]) -> tuple[JointSagComparison, ...]:
+@@ -145,8 +167,9 @@ def sag_readme(analysis: SagAnalysis) -> str:
+         "measured (LeRobot degrees); hysteresis is half of (from above minus from below).",
+         *_exclusion_lines(analysis),
+         "",
+-        "| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) | friction (N*m) |",
+-        "|---|---|---|---|---|---|---|",
++        "| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) "
++        "| friction (N*m) | stiction half-band (deg) |",
++        "|---|---|---|---|---|---|---|---|",
+         *(_joint_row(j) for j in analysis.joints),
+         "",
+         *_warning_lines(analysis),
+@@ -193,15 +216,25 @@ def _joint_row(j: JointSagSummary) -> str:
+     friction = "-" if j.friction_nm is None else f"{j.friction_nm:.3f}"
+     return (
+         f"| {j.joint} | {j.mean_sag_deg:.2f} | {j.max_abs_sag_deg:.2f} | {j.mean_abs_hysteresis_deg:.2f} "
+-        f"| {j.mjcf_kp:.1f} | {kp} | {friction} |"
++        f"| {j.mjcf_kp:.1f} | {kp} | {friction} | {_stiction_text(j.stiction)} |"
+     )
+ 
+ 
++def _stiction_text(fit: StictionFit | None) -> str:
++    """`b0 + slope * |tau|` in degrees, or a dash when the session could not measure it."""
++    if fit is None:
++        return "- (approaches too small)"
++    b0 = np.rad2deg(fit.half_band_rad)
++    if fit.load_slope_rad_per_nm == 0.0:
++        return f"{b0:.2f}"
++    return f"{b0:.2f} + {np.rad2deg(fit.load_slope_rad_per_nm):.2f}·|τ|"
++
++
+ def _warning_lines(analysis: SagAnalysis) -> list[str]:
+     """The early-warning statement against the policy's correction cap."""
+     limit_deg = np.rad2deg(analysis.warning_fraction * analysis.residual_max_rad)
+     header = (
+-        f"**Early warning** (sag above {analysis.warning_fraction:.0%} of the policy's "
++        f"**Early warning** (worst single-approach sag above {analysis.warning_fraction:.0%} of the policy's "
+         f"±{analysis.residual_max_rad:g} rad correction cap, i.e. {limit_deg:.2f} deg):"
+     )
+     if not analysis.headroom_warnings:
+diff --git a/src/rbe_501_so101/hardware/sag_procedure.py b/src/rbe_501_so101/hardware/sag_procedure.py
+index 4e24b74..5f39325 100644
+--- a/src/rbe_501_so101/hardware/sag_procedure.py
++++ b/src/rbe_501_so101/hardware/sag_procedure.py
+@@ -25,6 +25,12 @@ def with_approach_offset(cfg: SagCheckConfig, offset_deg: float) -> SagCheckConf
+     return replace(cfg, approach_offset_deg=offset_deg)
+ 
+ 
++def lerobot_waypoint(joint_map: JointMap, waypoint_sim_deg: tuple[float, ...]) -> dict[str, float]:
++    """The raised waypoint (sim degrees, arm joints) as an arm-only LeRobot goal."""
++    goal = joint_map.to_lerobot(np.append(np.deg2rad(waypoint_sim_deg), 0.0))
++    return {pos_key(j): goal[pos_key(j)] for j in joint_map.joints[:-1]}
++
++
+ class ApproachOffsets(Protocol):
+     """Per-joint offset (LeRobot degrees) from a goal to its "from above" approach point."""
+ 
+diff --git a/src/rbe_501_so101/hardware/sim_bus.py b/src/rbe_501_so101/hardware/sim_bus.py
+index 06a9cdf..1f860a9 100644
+--- a/src/rbe_501_so101/hardware/sim_bus.py
++++ b/src/rbe_501_so101/hardware/sim_bus.py
+@@ -1,9 +1,11 @@
+ """A `JointBus` (and `Clock`) backed by the MuJoCo arm, so hardware procedures run in sim."""
+ 
++from typing import Protocol
++
+ import numpy as np
+ 
+ from rbe_501_so101.config import SimConfig
+-from rbe_501_so101.envs.mujoco_backend import MujocoSo101Backend
++from rbe_501_so101.envs.protocols import RobotBackend
+ from rbe_501_so101.hardware.bus import clip_relative
+ from rbe_501_so101.hardware.joint_mapping import JointMap, pos_key
+ from rbe_501_so101.hardware.types import MotorSettings, MotorStatus
+@@ -12,6 +14,15 @@ SIM_RNG_SEED = 0
+ NOT_MEASURED = float("nan")
+ 
+ 
++class CommandedBackend(RobotBackend, Protocol):
++    """A simulated arm that also reports its current command (arm joints, then gripper)."""
++
++    @property
++    def command(self) -> np.ndarray:
++        """Current commanded joint angles, as a copy."""
++        ...
++
++
+ class SimJointBus:
+     """Speaks LeRobot units to a simulated arm; sleeping advances the physics.
+ 
+@@ -24,7 +35,7 @@ class SimJointBus:
+ 
+     def __init__(
+         self,
+-        backend: MujocoSo101Backend,
++        backend: CommandedBackend,
+         joint_map: JointMap,
+         sim_cfg: SimConfig = SimConfig(),
+         quantization_rad: float = 0.0,
+diff --git a/src/rbe_501_so101/rl/robustness.py b/src/rbe_501_so101/rl/robustness.py
+index 32c78e7..f364c62 100644
+--- a/src/rbe_501_so101/rl/robustness.py
++++ b/src/rbe_501_so101/rl/robustness.py
+@@ -15,6 +15,7 @@ from rbe_501_so101.config import (
+     DynamicsRandomizationConfig,
+     EnvOptions,
+     ExperimentPreset,
++    HardwareConfig,
+     PerturbationConfig,
+     ReachTaskConfig,
+     RobustnessConfig,
+@@ -134,10 +135,17 @@ def evaluate_condition(
+     """Trained policy (all seeds) and each baseline (once) under one condition."""
+     trained = {str(s): _trained_stats(repo, s, condition, cfg, train_cfg) for s in seeds}
+     results = [_to_result(TRAINED, condition, trained, cfg)]
+-    preset = repo.load_preset(seeds[0])
+-    for name in BASELINE_NAMES:
+-        results.append(_to_result(name, condition, {"all": _baseline_stats(name, preset, condition, cfg, train_cfg)}, None))
+-    return results
++    return results + evaluate_baselines(repo.load_preset(seeds[0]), condition, cfg, train_cfg)
++
++
++def evaluate_baselines(
++    preset: ExperimentPreset, condition: SweepCondition, cfg: RobustnessConfig, train_cfg: TrainConfig = TrainConfig()
++) -> list[SweepResult]:
++    """Each classical baseline (once) under one condition, with the preset's task timing."""
++    return [
++        _to_result(name, condition, {"all": _baseline_stats(name, preset, condition, cfg, train_cfg)}, None)
++        for name in BASELINE_NAMES
++    ]
+ 
+ 
+ def transfer_decision(results: list[SweepResult], cfg: RobustnessConfig) -> TransferDecision:
+@@ -242,6 +250,11 @@ def slowed_preset(preset: ExperimentPreset, speed_scale: float) -> ExperimentPre
+     return replace(preset, task=replace(preset.task, delta_q_max_rad=preset.task.delta_q_max_rad * speed_scale))
+ 
+ 
++def hardware_speed_scale(task: ReachTaskConfig, hw: HardwareConfig) -> float:
++    """Rate scale that caps a task's command step at the hardware's (never above 1)."""
++    return min(1.0, hw.max_command_step_rad / task.delta_q_max_rad)
++
++
+ def _calibration(options: EnvOptions) -> ActuatorCalibration | None:
+     """Load the calibration named by the options, if any."""
+     if options.calibration_path is None:
+diff --git a/tests/test_sag_analysis.py b/tests/test_sag_analysis.py
+index cf7786f..c946da5 100644
+--- a/tests/test_sag_analysis.py
++++ b/tests/test_sag_analysis.py
+@@ -71,11 +71,13 @@ def test_large_sag_triggers_the_headroom_warning(analysis):
+     assert analysis.headroom_warnings == ("shoulder_lift",)
+ 
+ 
+-def test_calibration_only_includes_identifiable_joints(analysis):
++def test_calibration_measures_identifiable_joints_and_assumes_the_rest(analysis):
+     calibration = calibration_from_analysis(analysis, source="unit test")
+-    names = {e.joint for e in calibration.joints}
+-    assert "shoulder_pan" not in names
+-    lift = next(e for e in calibration.joints if e.joint == "shoulder_lift")
++    entries = {e.joint: e for e in calibration.joints}
++    assert entries["shoulder_pan"].kp_assumed and entries["shoulder_pan"].frictionloss_nm is None
++    no_assumption = calibration_from_analysis(replace(analysis, assume_unidentified_kp=False), source="unit test")
++    assert "shoulder_pan" not in {e.joint for e in no_assumption.joints}
++    lift = entries["shoulder_lift"]
+     assert lift.kp_nm_per_rad is not None and lift.frictionloss_nm is not None
+     wrist = next((e for e in calibration.joints if e.joint == "wrist_flex"), None)
+     assert wrist is None or wrist.frictionloss_nm is None

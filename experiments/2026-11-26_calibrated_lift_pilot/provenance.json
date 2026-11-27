@@ -1,0 +1,10 @@
+{
+  "base_commit": "e5b9cc49914a3030c264881803204d75a4204f4f",
+  "original_inputs_unchanged": true,
+  "note": "New source files are recorded in the subsequent pilot commit. Local checkpoints are excluded by .gitignore.",
+  "source_sha256": {
+    "src/rbe_501_so101/rl/calibrated_pick_lift.py": "6bb2ef5c7957245d82da6b9e535efb0ac4b72d3005dbe658fbefaf5d10d96ef4",
+    "scripts/sim2real/analyze/calibrated_lift_pilot.py": "bde566c668b8c8cb819fef7d68ce1fb449966bc9ff361b8c5b721c4d75cefbef"
+  },
+  "tests": "382 passed, 1 optional LeRobot skipped; new watch command verified headlessly"
+}

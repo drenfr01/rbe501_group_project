@@ -1,0 +1,30 @@
+{
+  "python": "3.12.15 (main, Oct  1 2026, 21:00:48) [MSC v.1944 64 bit (AMD64)]",
+  "git_base": "fb98b094797555dbcd8ab21b72be979fabb1874b",
+  "command": "python -m scripts.sim2real.analyze.pick_lift_motion_ablation --out experiments/2026-11-26_pick_lift_motion_ablation",
+  "versions": {
+    "mujoco": "3.14.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0"
+  },
+  "script_sha256": {
+    "src/rbe_501_so101/control/aligned_pick_lift.py": "1796f6ec1326d9b053824f9072e0ceb4e6351e82c25b8aeae4e5a134c00eb786",
+    "scripts/sim2real/analyze/pick_lift_motion_ablation.py": "b339b3c214335be36bd238925fa623b8d8822bf229f3dbf649cb394d25662c91",
+    "src/rbe_501_so101/config.py": "c3168d8ec48b0abf5700e5f64195c48626c77462ce7ad5812954a0e6dc7b05e3",
+    "src/rbe_501_so101/envs/grasp_servo_backend.py": "b4f691571ad4069120c2650ee60c18f95157d790dc6a0e56bf348964518f5b44"
+  },
+  "geometry_probe": {
+    "seed": 60000,
+    "ideal_fixed_pad_min_z_m": 0.4813811691477638,
+    "table_top_z_m": 0.475,
+    "cube_center_z_m": 0.4875
+  },
+  "limitations": [
+    "radial cube yaw inferred using the TablePlacer rule",
+    "simulated contact guard, not hardware sensing",
+    "unmeasured moving-jaw dynamics and pad friction",
+    "no independent physical manipulation validation"
+  ]
+}

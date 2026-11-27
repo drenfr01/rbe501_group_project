@@ -1,0 +1,14 @@
+{
+  "seed_dir": "checkpoints\\calibrated_lift_only_v2_pilot\\seed_0",
+  "sha256": {
+    "checkpoint_log.json": "91e22720618587aa5ff28f7ca742bc0d5cd5b6fa8788bfe1533440a9fca48aba",
+    "model.zip": "eb8d158e5cade0eab91a6a3e6ea31089c4687d0f7e5d9a4c8ad78300540ecb92",
+    "train.monitor.csv": "a7f5ca403af5ec4f51032a2713702de2e38121a4557a0299179c458a31102d03",
+    "vecnormalize.pkl": "b9a44c9388b4743d1505b95f0352c62c83b519cfee04cb0d4a6edb797863934d",
+    "checkpoint\\model.zip": "3908746175cee2752bb2918be2d49d30dc4f3e0b29c5b310479c18ad319407e7",
+    "checkpoint\\replay_buffer.pkl": "29f07d31417a33380372ff11e0d66621a5b5000229926be235a63e5279b92411",
+    "checkpoint\\vecnormalize.pkl": "b9a44c9388b4743d1505b95f0352c62c83b519cfee04cb0d4a6edb797863934d"
+  },
+  "timesteps": 10000,
+  "device": "cuda"
+}

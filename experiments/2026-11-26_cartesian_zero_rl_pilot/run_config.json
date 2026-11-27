@@ -1,0 +1,350 @@
+{
+  "schema": 3,
+  "preset": {
+    "base": {
+      "name": "calibrated_cartesian_zero_v3",
+      "motion": {
+        "name": "outer_wrist",
+        "gravity_feedforward": true,
+        "radial_jaw_alignment": true,
+        "grasp_height_m": 0.0,
+        "upright_lift": false,
+        "lift_reference": "cube",
+        "correction_limit_rad": 0.1,
+        "yaw_rounds": 3,
+        "yaw_probe_rad": 0.001,
+        "minimum_yaw_derivative": 0.1,
+        "wrist_seed_offset_rad": 0.0,
+        "opposite_wrist_radius_m": 0.21
+      },
+      "mass": {
+        "mode": "random",
+        "fixed_kg": 0.01,
+        "range_kg": [
+          0.005,
+          0.02
+        ]
+      },
+      "residual": {
+        "scale": 0.05
+      },
+      "arm_effects": true,
+      "stable_steps": 5,
+      "calibration_file": "data/calibration/actuator_calibration.json"
+    },
+    "descent": {
+      "name": "cartesian_table",
+      "grasp_height_m": 0.0,
+      "xy_tolerance_m": 0.003,
+      "final_z_tolerance_m": 0.004,
+      "height_step_m": 0.002,
+      "tracking_lag_m": 0.008,
+      "feedback_gain": 0.2,
+      "feedback_limit_m": 0.012,
+      "feedback_period": 2,
+      "stable_steps": 3,
+      "table_margin_m": 0.004,
+      "cube_margin_m": 0.0003,
+      "segment_samples": 4,
+      "check_cube": false,
+      "feedback": true,
+      "close_dwell_steps": 25
+    },
+    "closing": {
+      "name": "position_zero",
+      "target_deg": 0.0,
+      "rate_rad": 0.05,
+      "stop_on_contact": false,
+      "stable_steps": 1
+    },
+    "limits": {
+      "scale": 0.05,
+      "command_budget_rad": 0.02,
+      "clearance_m": 0.004,
+      "holding_drop_m": 0.0005,
+      "distance_search_m": 0.05
+    }
+  },
+  "snapshot": {
+    "preset": {
+      "base": {
+        "name": "calibrated_cartesian_zero_v3",
+        "motion": {
+          "name": "outer_wrist",
+          "gravity_feedforward": true,
+          "radial_jaw_alignment": true,
+          "grasp_height_m": 0.0,
+          "upright_lift": false,
+          "lift_reference": "cube",
+          "correction_limit_rad": 0.1,
+          "yaw_rounds": 3,
+          "yaw_probe_rad": 0.001,
+          "minimum_yaw_derivative": 0.1,
+          "wrist_seed_offset_rad": 0.0,
+          "opposite_wrist_radius_m": 0.21
+        },
+        "mass": {
+          "mode": "random",
+          "fixed_kg": 0.01,
+          "range_kg": [
+            0.005,
+            0.02
+          ]
+        },
+        "residual": {
+          "scale": 0.05
+        },
+        "arm_effects": true,
+        "stable_steps": 5,
+        "calibration_file": "data/calibration/actuator_calibration.json"
+      },
+      "descent": {
+        "name": "cartesian_table",
+        "grasp_height_m": 0.0,
+        "xy_tolerance_m": 0.003,
+        "final_z_tolerance_m": 0.004,
+        "height_step_m": 0.002,
+        "tracking_lag_m": 0.008,
+        "feedback_gain": 0.2,
+        "feedback_limit_m": 0.012,
+        "feedback_period": 2,
+        "stable_steps": 3,
+        "table_margin_m": 0.004,
+        "cube_margin_m": 0.0003,
+        "segment_samples": 4,
+        "check_cube": false,
+        "feedback": true,
+        "close_dwell_steps": 25
+      },
+      "closing": {
+        "name": "position_zero",
+        "target_deg": 0.0,
+        "rate_rad": 0.05,
+        "stop_on_contact": false,
+        "stable_steps": 1
+      },
+      "limits": {
+        "scale": 0.05,
+        "command_budget_rad": 0.02,
+        "clearance_m": 0.004,
+        "holding_drop_m": 0.0005,
+        "distance_search_m": 0.05
+      }
+    },
+    "environment": {
+      "sim": {
+        "model_path": "models/so101/so101.xml",
+        "timestep_s": 0.001,
+        "n_substeps": 33,
+        "initial_deg": [
+          0.0,
+          -20.0,
+          40.0,
+          15.0,
+          0.0,
+          45.0
+        ],
+        "stall_torque_nm": 2.9,
+        "arm_joints": [
+          "shoulder_pan",
+          "shoulder_lift",
+          "elbow_flex",
+          "wrist_flex",
+          "wrist_roll"
+        ],
+        "gripper_joint": "gripper",
+        "actuator_suffix": "_motor",
+        "tcp_site": "gripper_site",
+        "target_mocap_body": "reach_target",
+        "target_site": "reach_target_site",
+        "payload_body": "gripper_link",
+        "radial_axis_joint": "shoulder_pan",
+        "robot_root_body": "robot_mount",
+        "table_body": "table_frame",
+        "table_top_geom": "table_top",
+        "parked_bodies": [],
+        "calibration_path": "data/calibration/actuator_calibration.json"
+      },
+      "task": {
+        "delta_q_max_rad": 0.07,
+        "delta_gripper_max_rad": 0.1,
+        "max_episode_steps": 200,
+        "lift_success_m": 0.04
+      },
+      "gripper": {
+        "fixed_jaw_mesh": "wrist_roll_follower_so101_v1",
+        "moving_jaw_mesh": "moving_jaw_so101_v1",
+        "fixed_pad_cutoff_m": -0.058,
+        "moving_pad_cutoff_m": -0.048,
+        "pad_friction": [
+          1.5,
+          0.01,
+          0.001
+        ],
+        "pad_solref": [
+          0.005,
+          1.0
+        ],
+        "pad_solimp": [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        "pinch_clearance_m": 0.004,
+        "open_deg": 45.0,
+        "close_deg": 0.0
+      },
+      "object": {
+        "body": "cube",
+        "geom": "cube_geom",
+        "side_m": 0.025
+      },
+      "contact": {
+        "elliptic_cone": true,
+        "impratio": 10.0
+      },
+      "placement": {
+        "radial_min_m": 0.14,
+        "radial_max_m": 0.22,
+        "azimuth_max_deg": 40.0
+      },
+      "reward": {
+        "reach_scale_per_m": 10.0,
+        "grasp_bonus": 0.25,
+        "lift_weight": 1.0,
+        "success_bonus": 1.0,
+        "action_penalty": 0.01
+      },
+      "mass": {
+        "mode": "random",
+        "fixed_kg": 0.01,
+        "range_kg": [
+          0.005,
+          0.02
+        ]
+      }
+    },
+    "scripted": {
+      "pregrasp_height_m": 0.05,
+      "grasp_height_m": 0.0,
+      "lift_height_m": 0.07,
+      "approach_steps": 40,
+      "descend_steps": 30,
+      "close_steps": 30,
+      "arm_rate_rad": 0.07,
+      "close_rate_rad": 0.05,
+      "lift_rate_rad": 0.02
+    },
+    "servo": {
+      "stiction": true,
+      "stiction_scale_range": [
+        1.0,
+        1.0
+      ],
+      "stiction_transition_ratio": 1.5,
+      "relative_clip_rad": 0.17453292519943295
+    },
+    "sensing": {
+      "delay_steps": 1,
+      "quantization_rad": 0.0015339807878856412,
+      "randomize_delay": false
+    },
+    "effects_rng_seed": 0,
+    "wrapper_order": [
+      "limited_cartesian_residual",
+      "contact_audit",
+      "cartesian_guard",
+      "raw"
+    ],
+    "acquisition": {
+      "name": "cartesian",
+      "raise_first": true,
+      "alignment_gate": true,
+      "raise_delta_m": 0.05,
+      "raise_above_cube_m": 0.08,
+      "raise_tolerance_m": 0.025,
+      "xy_tolerance_m": 0.003,
+      "z_tolerance_m": 0.004,
+      "tilt_tolerance_rad": 0.13962634015954636,
+      "correction_enabled": false,
+      "correction_gain": 0.5,
+      "correction_limit_m": 0.015,
+      "correction_period": 3,
+      "stable_alignment_steps": 3
+    },
+    "descent": {
+      "name": "cartesian_table",
+      "grasp_height_m": 0.0,
+      "xy_tolerance_m": 0.003,
+      "final_z_tolerance_m": 0.004,
+      "height_step_m": 0.002,
+      "tracking_lag_m": 0.008,
+      "feedback_gain": 0.2,
+      "feedback_limit_m": 0.012,
+      "feedback_period": 2,
+      "stable_steps": 3,
+      "table_margin_m": 0.004,
+      "cube_margin_m": 0.0003,
+      "segment_samples": 4,
+      "check_cube": false,
+      "feedback": true,
+      "close_dwell_steps": 25
+    },
+    "ik": {
+      "tolerance_m": 0.001,
+      "tilt_tolerance_rad": 0.05235987755982989,
+      "max_iterations": 600,
+      "damping": 0.03,
+      "step_gain": 0.5,
+      "max_step_rad": 0.08,
+      "seed_posture_deg": [
+        0.0,
+        0.0,
+        90.0
+      ]
+    },
+    "limits": {
+      "scale": 0.05,
+      "command_budget_rad": 0.02,
+      "clearance_m": 0.004,
+      "holding_drop_m": 0.0005,
+      "distance_search_m": 0.05
+    },
+    "shadow_reference": "starts_after_actual_guard_release"
+  },
+  "training": {
+    "algo": "sac",
+    "timesteps": 10000,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "learning_rate": 0.0003,
+    "batch_size": 256,
+    "gamma": 0.98,
+    "model_dir": "checkpoints/reach",
+    "eval_episodes": 20,
+    "eval_seed_offset": 10000,
+    "holding_window_steps": 30,
+    "success_mean_m": 0.005,
+    "success_p95_m": 0.01,
+    "holding_joint_speed_max_rad_s": 0.05,
+    "model_filename": "model.zip",
+    "vecnormalize_filename": "vecnormalize.pkl",
+    "checkpoint_freq_steps": 5000,
+    "checkpoint_dirname": "checkpoint",
+    "checkpoint_log_filename": "checkpoint_log.json",
+    "replay_buffer_filename": "replay_buffer.pkl",
+    "run_config_filename": "run_config.json",
+    "monitor_stem": "train"
+  },
+  "seed": 0,
+  "steps": 10000,
+  "input_sha256": {
+    "models/so101/so101.xml": "4917fd2596e1f91952945420a0805ead922e7a4c6135e4995dad73fc98215771",
+    "data/calibration/actuator_calibration.json": "56fd3cbf22c69bfb60e3049699be9db435c3b0b1dc2ce4d215ccc7f00141f74c"
+  }
+}

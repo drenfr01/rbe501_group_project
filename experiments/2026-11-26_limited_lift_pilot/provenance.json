@@ -1,0 +1,16 @@
+{
+  "base_commit": "7dccc30b5b7bbc9b93f6ac846bc7c5f3339f5a8b",
+  "note": "Envelope and held-out seeds frozen before evaluation; original v1, script, gains and source model are preserved.",
+  "initial_source_sha256": {
+    "src/rbe_501_so101/rl/lift_residual_limits.py": "61272e61d3458260203e8a68876348fa2ed147f48993e5ffa04329e144e7962e",
+    "src/rbe_501_so101/rl/limited_lift_training.py": "34f607f89b9d8a17b4040126e5ea78ca8bb67309cedc09026fa8cd69c40f71b5",
+    "scripts/sim2real/analyze/limited_lift_pilot.py": "25ad5f9c9e882a27a7a507d21076f1b0dc04468d4425b7dd8f96f438890d85e6"
+  },
+  "final_source_sha256": {
+    "src/rbe_501_so101/rl/lift_residual_limits.py": "f8fe54fe49a6ba2f643ae8d5847c2051d7c3fd099d2c736400e71e4e4806f02d",
+    "src/rbe_501_so101/rl/limited_lift_training.py": "34f607f89b9d8a17b4040126e5ea78ca8bb67309cedc09026fa8cd69c40f71b5",
+    "scripts/sim2real/analyze/limited_lift_pilot.py": "d53b17bb898a05e85364eec4ace5b09a17736fa1e1af67b765c44f714a9778e4"
+  },
+  "final_revision_note": "Added explicit aborted-latch eligibility check and removed an unused import after the pilot. All 80 evaluations repeated exactly; see final_guard_verification_eval.json. Original training records retained.",
+  "tests": "388 passed, 1 optional LeRobot skipped"
+}

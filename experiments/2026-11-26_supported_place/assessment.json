@@ -1,0 +1,10 @@
+{
+  "episodes": 60,
+  "complete_successes": 59,
+  "acquisition_successes": 60,
+  "passed_gate": false,
+  "failures": {
+    "lower_timeout": 1
+  },
+  "start_training": false
+}

@@ -1,0 +1,720 @@
+{
+  "schema": 1,
+  "preset": "pick_place_residual_v1",
+  "environment": {
+    "preset": {
+      "base": {
+        "name": "calibrated_cartesian_zero_v3",
+        "motion": {
+          "name": "outer_wrist",
+          "gravity_feedforward": true,
+          "radial_jaw_alignment": true,
+          "grasp_height_m": 0.0,
+          "upright_lift": false,
+          "lift_reference": "cube",
+          "correction_limit_rad": 0.1,
+          "yaw_rounds": 3,
+          "yaw_probe_rad": 0.001,
+          "minimum_yaw_derivative": 0.1,
+          "wrist_seed_offset_rad": 0.0,
+          "opposite_wrist_radius_m": 0.21
+        },
+        "mass": {
+          "mode": "random",
+          "fixed_kg": 0.01,
+          "range_kg": [
+            0.005,
+            0.02
+          ]
+        },
+        "residual": {
+          "scale": 0.05
+        },
+        "arm_effects": true,
+        "stable_steps": 5,
+        "calibration_file": "data/calibration/actuator_calibration.json"
+      },
+      "descent": {
+        "name": "cartesian_table",
+        "grasp_height_m": 0.0,
+        "xy_tolerance_m": 0.003,
+        "final_z_tolerance_m": 0.004,
+        "height_step_m": 0.002,
+        "tracking_lag_m": 0.008,
+        "feedback_gain": 0.2,
+        "feedback_limit_m": 0.012,
+        "feedback_period": 2,
+        "stable_steps": 3,
+        "table_margin_m": 0.004,
+        "cube_margin_m": 0.0003,
+        "segment_samples": 4,
+        "check_cube": false,
+        "feedback": true,
+        "close_dwell_steps": 25
+      },
+      "closing": {
+        "name": "position_zero",
+        "target_deg": 0.0,
+        "rate_rad": 0.05,
+        "stop_on_contact": false,
+        "stable_steps": 1
+      },
+      "limits": {
+        "scale": 0.05,
+        "command_budget_rad": 0.02,
+        "clearance_m": 0.004,
+        "holding_drop_m": 0.0005,
+        "distance_search_m": 0.05
+      }
+    },
+    "transfer": {
+      "destination_angle_deg": 12.0,
+      "cartesian_step_m": 0.002,
+      "tracking_lag_m": 0.012,
+      "arm_rate_rad": 0.02,
+      "open_rate_rad": 0.025,
+      "xy_tolerance_m": 0.005,
+      "support_height_m": 0.005,
+      "speed_tolerance_m_s": 0.01,
+      "carry_tolerance_m": 0.004,
+      "final_tolerance_m": 0.01,
+      "retreat_m": 0.05,
+      "retreat_clearance_m": 0.04,
+      "stable_steps": 5,
+      "carry_steps": 150,
+      "lower_steps": 150,
+      "release_steps": 60,
+      "retreat_steps": 100,
+      "settle_steps": 60,
+      "clearance_m": 0.004
+    },
+    "support": {
+      "maximum_descent_m": 0.003
+    },
+    "tracking": {
+      "gain": 0.2,
+      "correction_limit_m": 0.006,
+      "activation_distance_m": 0.015,
+      "reference_tolerance_m": 0.001
+    },
+    "timing": {
+      "alignment_deadline_step": 120,
+      "lift_release_deadline_step": 150,
+      "minimum_lift_steps": 50
+    },
+    "reward": {
+      "gamma": 0.98,
+      "distance_scale": 10.0,
+      "step_cost": 0.001,
+      "residual_cost": 0.001,
+      "success_bonus": 10.0,
+      "failure_penalty": 10.0
+    },
+    "max_episode_steps": 720,
+    "residual_scale_m": 0.001,
+    "yaw_offsets_deg": [
+      -30.0,
+      0.0,
+      30.0
+    ],
+    "angular_speed_tolerance_rad_s": 0.1
+  },
+  "snapshot": {
+    "task": {
+      "preset": {
+        "base": {
+          "name": "calibrated_cartesian_zero_v3",
+          "motion": {
+            "name": "outer_wrist",
+            "gravity_feedforward": true,
+            "radial_jaw_alignment": true,
+            "grasp_height_m": 0.0,
+            "upright_lift": false,
+            "lift_reference": "cube",
+            "correction_limit_rad": 0.1,
+            "yaw_rounds": 3,
+            "yaw_probe_rad": 0.001,
+            "minimum_yaw_derivative": 0.1,
+            "wrist_seed_offset_rad": 0.0,
+            "opposite_wrist_radius_m": 0.21
+          },
+          "mass": {
+            "mode": "random",
+            "fixed_kg": 0.01,
+            "range_kg": [
+              0.005,
+              0.02
+            ]
+          },
+          "residual": {
+            "scale": 0.05
+          },
+          "arm_effects": true,
+          "stable_steps": 5,
+          "calibration_file": "data/calibration/actuator_calibration.json"
+        },
+        "descent": {
+          "name": "cartesian_table",
+          "grasp_height_m": 0.0,
+          "xy_tolerance_m": 0.003,
+          "final_z_tolerance_m": 0.004,
+          "height_step_m": 0.002,
+          "tracking_lag_m": 0.008,
+          "feedback_gain": 0.2,
+          "feedback_limit_m": 0.012,
+          "feedback_period": 2,
+          "stable_steps": 3,
+          "table_margin_m": 0.004,
+          "cube_margin_m": 0.0003,
+          "segment_samples": 4,
+          "check_cube": false,
+          "feedback": true,
+          "close_dwell_steps": 25
+        },
+        "closing": {
+          "name": "position_zero",
+          "target_deg": 0.0,
+          "rate_rad": 0.05,
+          "stop_on_contact": false,
+          "stable_steps": 1
+        },
+        "limits": {
+          "scale": 0.05,
+          "command_budget_rad": 0.02,
+          "clearance_m": 0.004,
+          "holding_drop_m": 0.0005,
+          "distance_search_m": 0.05
+        }
+      },
+      "transfer": {
+        "destination_angle_deg": 12.0,
+        "cartesian_step_m": 0.002,
+        "tracking_lag_m": 0.012,
+        "arm_rate_rad": 0.02,
+        "open_rate_rad": 0.025,
+        "xy_tolerance_m": 0.005,
+        "support_height_m": 0.005,
+        "speed_tolerance_m_s": 0.01,
+        "carry_tolerance_m": 0.004,
+        "final_tolerance_m": 0.01,
+        "retreat_m": 0.05,
+        "retreat_clearance_m": 0.04,
+        "stable_steps": 5,
+        "carry_steps": 150,
+        "lower_steps": 150,
+        "release_steps": 60,
+        "retreat_steps": 100,
+        "settle_steps": 60,
+        "clearance_m": 0.004
+      },
+      "support": {
+        "maximum_descent_m": 0.003
+      },
+      "tracking": {
+        "gain": 0.2,
+        "correction_limit_m": 0.006,
+        "activation_distance_m": 0.015,
+        "reference_tolerance_m": 0.001
+      },
+      "timing": {
+        "alignment_deadline_step": 120,
+        "lift_release_deadline_step": 150,
+        "minimum_lift_steps": 50
+      },
+      "reward": {
+        "gamma": 0.98,
+        "distance_scale": 10.0,
+        "step_cost": 0.001,
+        "residual_cost": 0.001,
+        "success_bonus": 10.0,
+        "failure_penalty": 10.0
+      },
+      "max_episode_steps": 720,
+      "residual_scale_m": 0.001,
+      "yaw_offsets_deg": [
+        -30.0,
+        0.0,
+        30.0
+      ],
+      "angular_speed_tolerance_rad_s": 0.1
+    },
+    "pickup": {
+      "preset": {
+        "base": {
+          "name": "calibrated_cartesian_zero_v3",
+          "motion": {
+            "name": "outer_wrist",
+            "gravity_feedforward": true,
+            "radial_jaw_alignment": true,
+            "grasp_height_m": 0.0,
+            "upright_lift": false,
+            "lift_reference": "cube",
+            "correction_limit_rad": 0.1,
+            "yaw_rounds": 3,
+            "yaw_probe_rad": 0.001,
+            "minimum_yaw_derivative": 0.1,
+            "wrist_seed_offset_rad": 0.0,
+            "opposite_wrist_radius_m": 0.21
+          },
+          "mass": {
+            "mode": "random",
+            "fixed_kg": 0.01,
+            "range_kg": [
+              0.005,
+              0.02
+            ]
+          },
+          "residual": {
+            "scale": 0.05
+          },
+          "arm_effects": true,
+          "stable_steps": 5,
+          "calibration_file": "data/calibration/actuator_calibration.json"
+        },
+        "descent": {
+          "name": "cartesian_table",
+          "grasp_height_m": 0.0,
+          "xy_tolerance_m": 0.003,
+          "final_z_tolerance_m": 0.004,
+          "height_step_m": 0.002,
+          "tracking_lag_m": 0.008,
+          "feedback_gain": 0.2,
+          "feedback_limit_m": 0.012,
+          "feedback_period": 2,
+          "stable_steps": 3,
+          "table_margin_m": 0.004,
+          "cube_margin_m": 0.0003,
+          "segment_samples": 4,
+          "check_cube": false,
+          "feedback": true,
+          "close_dwell_steps": 25
+        },
+        "closing": {
+          "name": "position_zero",
+          "target_deg": 0.0,
+          "rate_rad": 0.05,
+          "stop_on_contact": false,
+          "stable_steps": 1
+        },
+        "limits": {
+          "scale": 0.05,
+          "command_budget_rad": 0.02,
+          "clearance_m": 0.004,
+          "holding_drop_m": 0.0005,
+          "distance_search_m": 0.05
+        }
+      },
+      "environment": {
+        "sim": {
+          "model_path": "models/so101/so101.xml",
+          "timestep_s": 0.001,
+          "n_substeps": 33,
+          "initial_deg": [
+            0.0,
+            -20.0,
+            40.0,
+            15.0,
+            0.0,
+            45.0
+          ],
+          "stall_torque_nm": 2.9,
+          "arm_joints": [
+            "shoulder_pan",
+            "shoulder_lift",
+            "elbow_flex",
+            "wrist_flex",
+            "wrist_roll"
+          ],
+          "gripper_joint": "gripper",
+          "actuator_suffix": "_motor",
+          "tcp_site": "gripper_site",
+          "target_mocap_body": "reach_target",
+          "target_site": "reach_target_site",
+          "payload_body": "gripper_link",
+          "radial_axis_joint": "shoulder_pan",
+          "robot_root_body": "robot_mount",
+          "table_body": "table_frame",
+          "table_top_geom": "table_top",
+          "parked_bodies": [],
+          "calibration_path": "data/calibration/actuator_calibration.json"
+        },
+        "task": {
+          "delta_q_max_rad": 0.07,
+          "delta_gripper_max_rad": 0.1,
+          "max_episode_steps": 200,
+          "lift_success_m": 0.04
+        },
+        "gripper": {
+          "fixed_jaw_mesh": "wrist_roll_follower_so101_v1",
+          "moving_jaw_mesh": "moving_jaw_so101_v1",
+          "fixed_pad_cutoff_m": -0.058,
+          "moving_pad_cutoff_m": -0.048,
+          "pad_friction": [
+            1.5,
+            0.01,
+            0.001
+          ],
+          "pad_solref": [
+            0.005,
+            1.0
+          ],
+          "pad_solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ],
+          "pinch_clearance_m": 0.004,
+          "open_deg": 45.0,
+          "close_deg": 0.0
+        },
+        "object": {
+          "body": "cube",
+          "geom": "cube_geom",
+          "side_m": 0.025
+        },
+        "contact": {
+          "elliptic_cone": true,
+          "impratio": 10.0
+        },
+        "placement": {
+          "radial_min_m": 0.14,
+          "radial_max_m": 0.22,
+          "azimuth_max_deg": 40.0
+        },
+        "reward": {
+          "reach_scale_per_m": 10.0,
+          "grasp_bonus": 0.25,
+          "lift_weight": 1.0,
+          "success_bonus": 1.0,
+          "action_penalty": 0.01
+        },
+        "mass": {
+          "mode": "random",
+          "fixed_kg": 0.01,
+          "range_kg": [
+            0.005,
+            0.02
+          ]
+        }
+      },
+      "scripted": {
+        "pregrasp_height_m": 0.05,
+        "grasp_height_m": 0.0,
+        "lift_height_m": 0.07,
+        "approach_steps": 40,
+        "descend_steps": 30,
+        "close_steps": 30,
+        "arm_rate_rad": 0.07,
+        "close_rate_rad": 0.05,
+        "lift_rate_rad": 0.02
+      },
+      "servo": {
+        "stiction": true,
+        "stiction_scale_range": [
+          1.0,
+          1.0
+        ],
+        "stiction_transition_ratio": 1.5,
+        "relative_clip_rad": 0.17453292519943295
+      },
+      "sensing": {
+        "delay_steps": 1,
+        "quantization_rad": 0.0015339807878856412,
+        "randomize_delay": false
+      },
+      "effects_rng_seed": 0,
+      "wrapper_order": [
+        "limited_cartesian_residual",
+        "contact_audit",
+        "cartesian_guard",
+        "raw"
+      ],
+      "acquisition": {
+        "name": "cartesian",
+        "raise_first": true,
+        "alignment_gate": true,
+        "raise_delta_m": 0.05,
+        "raise_above_cube_m": 0.08,
+        "raise_tolerance_m": 0.025,
+        "xy_tolerance_m": 0.003,
+        "z_tolerance_m": 0.004,
+        "tilt_tolerance_rad": 0.13962634015954636,
+        "correction_enabled": false,
+        "correction_gain": 0.5,
+        "correction_limit_m": 0.015,
+        "correction_period": 3,
+        "stable_alignment_steps": 3
+      },
+      "descent": {
+        "name": "cartesian_table",
+        "grasp_height_m": 0.0,
+        "xy_tolerance_m": 0.003,
+        "final_z_tolerance_m": 0.004,
+        "height_step_m": 0.002,
+        "tracking_lag_m": 0.008,
+        "feedback_gain": 0.2,
+        "feedback_limit_m": 0.012,
+        "feedback_period": 2,
+        "stable_steps": 3,
+        "table_margin_m": 0.004,
+        "cube_margin_m": 0.0003,
+        "segment_samples": 4,
+        "check_cube": false,
+        "feedback": true,
+        "close_dwell_steps": 25
+      },
+      "ik": {
+        "tolerance_m": 0.001,
+        "tilt_tolerance_rad": 0.05235987755982989,
+        "max_iterations": 600,
+        "damping": 0.03,
+        "step_gain": 0.5,
+        "max_step_rad": 0.08,
+        "seed_posture_deg": [
+          0.0,
+          0.0,
+          90.0
+        ]
+      },
+      "limits": {
+        "scale": 0.05,
+        "command_budget_rad": 0.02,
+        "clearance_m": 0.004,
+        "holding_drop_m": 0.0005,
+        "distance_search_m": 0.05
+      },
+      "shadow_reference": "starts_after_actual_guard_release"
+    },
+    "observations": [
+      [
+        "q",
+        6
+      ],
+      [
+        "qvel",
+        6
+      ],
+      [
+        "command_error",
+        6
+      ],
+      [
+        "pinch",
+        3
+      ],
+      [
+        "cube",
+        3
+      ],
+      [
+        "cube_quaternion",
+        4
+      ],
+      [
+        "cube_velocity",
+        6
+      ],
+      [
+        "destination",
+        3
+      ],
+      [
+        "destination_error",
+        3
+      ],
+      [
+        "previous_action",
+        3
+      ],
+      [
+        "phase",
+        6
+      ],
+      [
+        "progress",
+        3
+      ],
+      [
+        "contacts",
+        2
+      ],
+      [
+        "mass",
+        1
+      ],
+      [
+        "reference_error",
+        3
+      ],
+      [
+        "tracking_bias",
+        3
+      ],
+      [
+        "jaw_axis",
+        3
+      ],
+      [
+        "carry_height",
+        1
+      ],
+      [
+        "retreat_error",
+        3
+      ],
+      [
+        "reference_valid",
+        1
+      ],
+      [
+        "milestones",
+        3
+      ]
+    ],
+    "action_shape": [
+      3
+    ],
+    "authority": "<=1mm absolute Cartesian residual during grasped carry/lower; no gripper control; supported Z masked",
+    "success": "lifted, released, retreated, settled, supported, ungrasped, destination/height/linear/angular speed limits",
+    "hash_scheme": "sha256; LF-normalized .py/.xml/.json; binary assets unchanged"
+  },
+  "training": {
+    "algo": "sac",
+    "timesteps": 10000,
+    "seeds": [
+      0
+    ],
+    "learning_rate": 0.0003,
+    "batch_size": 256,
+    "gamma": 0.98,
+    "model_dir": "checkpoints\\pick_place_v1_pilot",
+    "eval_episodes": 5,
+    "eval_seed_offset": 93000,
+    "holding_window_steps": 30,
+    "success_mean_m": 0.005,
+    "success_p95_m": 0.01,
+    "holding_joint_speed_max_rad_s": 0.05,
+    "model_filename": "model.zip",
+    "vecnormalize_filename": "vecnormalize.pkl",
+    "checkpoint_freq_steps": 5000,
+    "checkpoint_dirname": "checkpoint",
+    "checkpoint_log_filename": "checkpoint_log.json",
+    "replay_buffer_filename": "replay_buffer.pkl",
+    "run_config_filename": "run_config.json",
+    "monitor_stem": "train"
+  },
+  "seed": 0,
+  "input_sha256": {
+    "data/calibration/actuator_calibration.json": "f1f614654006a46c15ed0f44ce882e255852ac38f721216ed17be6057cadb1f8",
+    "models/so101/assets/base_motor_holder_so101_v1.stl": "8cd2f241037ea377af1191fffe0dd9d9006beea6dcc48543660ed41647072424",
+    "models/so101/assets/base_so101_v2.stl": "bb12b7026575e1f70ccc7240051f9d943553bf34e5128537de6cd86fae33924d",
+    "models/so101/assets/Handle_SO101.stl": "a69b004691392cf0130b32ed9da5cc0c5fee49c2c8abee6ca27bf88e2a11347d",
+    "models/so101/assets/motor_holder_so101_base_v1.stl": "31242ae6fb59d8b15c66617b88ad8e9bded62d57c35d11c0c43a70d2f4caa95b",
+    "models/so101/assets/motor_holder_so101_wrist_v1.stl": "887f92e6013cb64ea3a1ab8675e92da1e0beacfd5e001f972523540545e08011",
+    "models/so101/assets/moving_jaw_so101_v1.stl": "785a9dded2f474bc1d869e0d3dae398a3dcd9c0c345640040472210d2861fa9d",
+    "models/so101/assets/rotation_pitch_so101_v1.stl": "9be900cc2a2bf718102841ef82ef8d2873842427648092c8ed2ca1e2ef4ffa34",
+    "models/so101/assets/sts3215_03a_no_horn_v1.stl": "75ef3781b752e4065891aea855e34dc161a38a549549cd0970cedd07eae6f887",
+    "models/so101/assets/sts3215_03a_v1.stl": "a37c871fb502483ab96c256baf457d36f2e97afc9205313d9c5ab275ef941cd0",
+    "models/so101/assets/Trigger_SO101.stl": "7122e0c476e69689eaf18441ecd36f5cf5cdca4d7033c15e5238a9b788e9d71a",
+    "models/so101/assets/under_arm_so101_v1.stl": "d01d1f2de365651dcad9d6669e94ff87ff7652b5bb2d10752a66a456a86dbc71",
+    "models/so101/assets/upper_arm_so101_v1.stl": "475056e03a17e71919b82fd88ab9a0b898ab50164f2a7943652a6b2941bb2d4f",
+    "models/so101/assets/waveshare_mounting_plate_so101_v2.stl": "e197e24005a07d01bbc06a8c42311664eaeda415bf859f68fa247884d0f1a6e9",
+    "models/so101/assets/wrist_roll_follower_so101_v1.stl": "4b17b410a12d64ec39554abc3e8054d8a97384b2dc4a8d95a5ecb2a93670f5f4",
+    "models/so101/assets/wrist_roll_pitch_so101_v2.stl": "6c7ec5525b4d8b9e397a30ab4bb0037156a5d5f38a4adf2c7d943d6c56eda5ae",
+    "models/so101/assets/Wrist_Roll_SO101.stl": "db20e6ac7c08cf8d75692a38db5a217011c97c0ab5d73c248296535df81e39b7",
+    "models/so101/so100.urdf": "58265f2ae975e7d54ac82e7d4f8704308a832015041c0cb7367dcf7c63b03676",
+    "models/so101/so101.xml": "90a4a616b695f1582f6d8b5482b892f167a2f4acc8bd0355c43031d7d5bc96c5",
+    "models/so101/so101_leader_new_calib.urdf": "bc947e2fea65dfc91b0fc40e4cff0c01c6bf426687995937e62e2b0f41122db5",
+    "models/so101/so101_new_calib.urdf": "3a65d2d35e68a8d2f0c2cc176d19b884506543c93ba72980145b80abe276022c",
+    "src/rbe_501_so101/__init__.py": "62bff61e6fda7816d1db8cb9113c711346f81e3990888a9ac272d4b03231eb8e",
+    "src/rbe_501_so101/config.py": "dbba6b019e262ae5aeaea39e324ff7eea523bab8fa409e576330ee6996f2cf21",
+    "src/rbe_501_so101/control/__init__.py": "1bbb5ab0bdf4ea23c5c19e0a13b765192788e33c5056aa948a59c95593704c8c",
+    "src/rbe_501_so101/control/aligned_pick_lift.py": "fa7317a7e8eaaeeca76e17fca6ce0b0c07a0434836d8dfae78e99719fd22eb91",
+    "src/rbe_501_so101/control/carry_place.py": "9288006a07206107e2950be3d83058b381b2e24535cdabeae01cab9c14ac2ffd",
+    "src/rbe_501_so101/control/cartesian_descent.py": "02fb946a13d62d15507e450ec80291a134198c014b166ccfe12788486931f712",
+    "src/rbe_501_so101/control/contact_tracked_place.py": "fb731339eeeb8e96952863efc9b2f40c7c1cdd6357bd091c6328df93f1ada8a2",
+    "src/rbe_501_so101/control/gripper_closing.py": "c6332735cddfeeb6fcfe5a790535af87c8b4ddd2679cdc8a18d083c4ac98da7d",
+    "src/rbe_501_so101/control/guarded_pick_lift.py": "65049cc9d361c7cead56356eba6b50a92ee52b32e03ca327d9310efc1540dedd",
+    "src/rbe_501_so101/control/oracle_acquisition.py": "b8229e417bcd911760f8cda802c1da7e1c01b26248243b541bc8ca2a85e3143c",
+    "src/rbe_501_so101/control/pick_place_stepper.py": "57540bd67f5fef39161e382bde9481a1bc93bb13073c6a1bf5fcf7e50b9be0ce",
+    "src/rbe_501_so101/control/raised_approach.py": "8614f147118ef679c084c24bf2fdbaced54ff39fd0a30b6914fd47ec3e7d2f99",
+    "src/rbe_501_so101/control/scripted_pick_lift.py": "3ad33f839b480fd7190b59bd97b80ece68d6e974dce3c2b9b8772f0581339eda",
+    "src/rbe_501_so101/control/supported_place.py": "75a2e5823f0e379fe1af089aba96afa806aca65edd195e3d151403c5ac21d67a",
+    "src/rbe_501_so101/control/timed_oracle_acquisition.py": "c1ffea5f4b6a18c08dadbfe35199cc9092431ad68dd507eba28bde45a2d41780",
+    "src/rbe_501_so101/control/tracked_place.py": "dddc3d54613226e7488b15c37740011e1faf9c8e8e8b654fe0f1fb7bb1ddc73e",
+    "src/rbe_501_so101/envs/__init__.py": "36a2ce57741d386fa8ac29bd6203e9aa9b30a24fef6c6953cdaaccabe392ae2f",
+    "src/rbe_501_so101/envs/actions.py": "85e47d2dabe723437d30969aafd513e6a0f51a80c8eca9bd397d020a3c2f1e93",
+    "src/rbe_501_so101/envs/backend_wrapper.py": "2ea25cbcf6d08dfb1f68ba5baa17e1c44da798056f5bf5e80ebf6ad5377d00ee",
+    "src/rbe_501_so101/envs/calibration.py": "9593a80e338da58e318fc00b2e271cfb75e27367b65fc569c164001cb5e91091",
+    "src/rbe_501_so101/envs/factory.py": "5819d2ae1e40a564126b8b46ae5fabeeb42ecd33b2e2823282f724fc5bb8ab3f",
+    "src/rbe_501_so101/envs/grasp_model.py": "4197368cc363c4921137314bc1c94274075c358a6721b44de8b8832278bf9377",
+    "src/rbe_501_so101/envs/grasp_servo_backend.py": "b4f691571ad4069120c2650ee60c18f95157d790dc6a0e56bf348964518f5b44",
+    "src/rbe_501_so101/envs/model_indices.py": "7f592f05366d20e777397ee2d86322894d6c8a0f9dd78ca4e7277aa88dc99298",
+    "src/rbe_501_so101/envs/mujoco_backend.py": "df0c31a5b3bf83321471578bb5787f37c3eca306f3c1f102b294b065cde36cb4",
+    "src/rbe_501_so101/envs/perturbed_backend.py": "3d4e0d3e1aac337ff08d177ea16a548862de34ece543a5801daa7b68ba839948",
+    "src/rbe_501_so101/envs/pick_lift_backend.py": "29846990792ef39ae610f123cda564e8928071c6b7dd3ba604736378219f1647",
+    "src/rbe_501_so101/envs/pick_lift_env.py": "b59f48210b43fcb6e980651f27d757faa61e3199b527420c79415fe9c4d4a3e2",
+    "src/rbe_501_so101/envs/pick_place_config.py": "00a988ac10710d455e9da9e4a5b2c09202c9b55706be41a5e5b105596cdf7a94",
+    "src/rbe_501_so101/envs/pick_place_env.py": "c486e3bc2b95bec993b1b8d42a78192f1f42d8446f4d0335e2a350f45f2d249a",
+    "src/rbe_501_so101/envs/placement.py": "210fa8f784626f4595b05d0e1586272ca44c72312332ab4101a5bb525b78f15b",
+    "src/rbe_501_so101/envs/protocols.py": "7fc2466db11c26b035bca164443da6550a55b1da2d475f8f5062ffd45ed15a01",
+    "src/rbe_501_so101/envs/reach_env.py": "16fe414a07bdc75ac1d499a214843788fc049c826cc42cee96b01a03d000e902",
+    "src/rbe_501_so101/envs/rewards.py": "9dac533263ae19cc9cce5a969a77b019f4fca59b09b935736c9305af65850a14",
+    "src/rbe_501_so101/envs/servo_effects.py": "6180675517d013e00cae64015f1d8f9a35a6bf89a05ecc759f8636d1df335708",
+    "src/rbe_501_so101/envs/targets.py": "60891280118a17fb07651ada5aacbecd8fc040d6f0a3cad6f75368aa9a0a42d2",
+    "src/rbe_501_so101/envs/types.py": "43f05288276bd88d180a508bc19e0423fcca8e1ecdfc15f8306810977d405ebb",
+    "src/rbe_501_so101/hardware/__init__.py": "31e0ac87876dacabd515396cd99090cb5a42bdfbd718e3908b46231054b44960",
+    "src/rbe_501_so101/hardware/bus.py": "e67836ab8af767533c2be3fc09d2d62c876968cba80ed9a89c0acf53f00b616f",
+    "src/rbe_501_so101/hardware/clock.py": "acc1474950e93a2c311afddd77e54fad04a2d6cf75a3489afc61cf628367b9d7",
+    "src/rbe_501_so101/hardware/direction_errors.py": "abef753418d93960d7bab6d88edf213bd4151d46397f32f33ccf6371dece940b",
+    "src/rbe_501_so101/hardware/figures.py": "29703ecee610737b834e69e73d41db12d0967eec611a66aa9732b1bc1584d030",
+    "src/rbe_501_so101/hardware/joint_mapping.py": "0fcaa4178737d5aa9ce46482aee6d01bcd56923636a2ada55c622d93e3663afe",
+    "src/rbe_501_so101/hardware/operator.py": "07d3af84e0f455c8e97adf4695c3fc00ea7d7bb0fcaf479711b1ec5024ce9a21",
+    "src/rbe_501_so101/hardware/path_safety.py": "b3008ec90b7ff878e507fab12c73599e33eb77fe0e11567027c0995969c70b60",
+    "src/rbe_501_so101/hardware/pose_check.py": "ad78a18f1418cf2783ea34736567f10acb2e92ac3e6b009abade37c2e05e4217",
+    "src/rbe_501_so101/hardware/real_backend.py": "5100d114a2ce454ed093e483f4bd1f5324b318ca390cd2cefd068c4481e61cd2",
+    "src/rbe_501_so101/hardware/references.py": "ccebf1bccf704d53f8253a1b93e501115056d0fc6d2ff63c5f835f6d21220392",
+    "src/rbe_501_so101/hardware/safety.py": "427a8f9ae3505274cc280b42d6da4c55b5bcabf5d06666aa4a2b10689ff983f2",
+    "src/rbe_501_so101/hardware/sag.py": "a027c8c7bd3f2fe64636d1b4eaba1adcaa35d09e8ca7da827ff7a1e4cb942035",
+    "src/rbe_501_so101/hardware/sag_analysis.py": "dca2604138e9848c6e2527576902ce385db5ecd03eeef748eb5ce0b058f74c57",
+    "src/rbe_501_so101/hardware/sag_procedure.py": "dffb3ca2ffcc3ba38ea2bef2d50f9fb997697c7c9f0cbe16486caa0f5b90c6d6",
+    "src/rbe_501_so101/hardware/session.py": "26c58482a4721302e08abb04d36abd7fb0da03a45dc7056f4736f7fa35e42c7e",
+    "src/rbe_501_so101/hardware/sim_bus.py": "e60b4fb1b3cee6ae7ad9e5752f2d3a72069d86df28f6a8f4752547786bf9a09f",
+    "src/rbe_501_so101/hardware/sim_gate.py": "ecbc7d16f169ead3f25f572486f4c50f5b8de28baeb034436aa9913c88bf1c53",
+    "src/rbe_501_so101/hardware/sim_replay.py": "d4619eeec23b0a2f08870bb114b04d22d5929b25f970d408ea49b9237dcaa7cc",
+    "src/rbe_501_so101/hardware/trials.py": "45525bc15b81fad5685076d8ac9b40411c71d6fad087d52587facefac69322a0",
+    "src/rbe_501_so101/hardware/types.py": "bceec53a5e7609e797486addcc8479be8e05c8ef8b714b7276170a623990eb2f",
+    "src/rbe_501_so101/kinematics/__init__.py": "d7b15e9dd051a96251edae2caa64621052bf58a1c1a468b42f7e2fcb15d810f6",
+    "src/rbe_501_so101/kinematics/gravity.py": "ba21932b4595e944bb2927af11c105f08d5465599bb148f97447d054df29642e",
+    "src/rbe_501_so101/kinematics/ik.py": "27d48569f555fa0c6d98e28a852dda1c0d7bde4d1b2b0e6b5453866f0897290e",
+    "src/rbe_501_so101/kinematics/oracle_jaw_ik.py": "9150b78599629a303620243a001bdbbf10d3e2a8cd5c9063ddb31b40fca2c273",
+    "src/rbe_501_so101/kinematics/pinch_ik.py": "56be31f51e62e74788efbfecd364c7277e3484a9573f407684fc06b9cf07840b",
+    "src/rbe_501_so101/perception/__init__.py": "ff1a507a08916e6e1e2efce83434e0feadebfdfcda882503580cc77219f45cbc",
+    "src/rbe_501_so101/provenance.py": "37e7037e0ceb76cff5bfeabf52a2733099861b1a505b1611dc96fc1f815d1541",
+    "src/rbe_501_so101/reports.py": "37d27f904b18bab2d888e311d3fc8a2b4fece9b4bc0c89ced0c3ba6753b455d7",
+    "src/rbe_501_so101/rl/__init__.py": "312d46ac016fb02bb8484694264faa1815a6d9ef0e3fb4918c3e58e8250d50b6",
+    "src/rbe_501_so101/rl/acceptance.py": "47c2e67cd3c53a161f46a7639765377b08747cc67b75d87d898821cdc3b45a17",
+    "src/rbe_501_so101/rl/calibrated_pick_lift.py": "6bb2ef5c7957245d82da6b9e535efb0ac4b72d3005dbe658fbefaf5d10d96ef4",
+    "src/rbe_501_so101/rl/cartesian_zero_training.py": "5ad4352bf38665014966122f48af0574ed4446946713de564d11e75ba8cb3301",
+    "src/rbe_501_so101/rl/checkpoint.py": "4baedba86c2d75eabdb2d935c4f9f3c29257219fb48b0e085611861ce9e664f1",
+    "src/rbe_501_so101/rl/checkpoints.py": "4559bb79cbd00a45361510c792f4751bb76d7fbcd594af723f7478e3a3ba24c4",
+    "src/rbe_501_so101/rl/cli.py": "f4487fd029eb0c1d0a1026560150f427662aa350bdcd272b873342ebff933d51",
+    "src/rbe_501_so101/rl/evaluation.py": "d778bea920d3b2697976eda6650ba53b8732e5e7c5b23233e2fb01d934d5842b",
+    "src/rbe_501_so101/rl/lift_residual_limits.py": "f8fe54fe49a6ba2f643ae8d5847c2051d7c3fd099d2c736400e71e4e4806f02d",
+    "src/rbe_501_so101/rl/limited_lift_training.py": "34f607f89b9d8a17b4040126e5ea78ca8bb67309cedc09026fa8cd69c40f71b5",
+    "src/rbe_501_so101/rl/pick_lift.py": "b4032135247778eb2505aea13d04626abddf4c8a004b20945ce5357654b1db1b",
+    "src/rbe_501_so101/rl/pick_lift_cli.py": "14a05938dbb9379e29df2fb1d528edc6a17f345f71651f1120ff8ecf7481e02a",
+    "src/rbe_501_so101/rl/pick_lift_plots.py": "114ccbbaed2f6f96e27c6155ad5c9d1bcb7aa1787f0131cf8d449639693dbfe7",
+    "src/rbe_501_so101/rl/pick_place_training.py": "6c64176d462458c3f7b4bb91dbcedaeed7e469006f8d6c2aea40a2ac3edf57ef",
+    "src/rbe_501_so101/rl/plots.py": "070cf7d47c8ee44d1422f69c68993b34d039d264d93e739134222639311cc075",
+    "src/rbe_501_so101/rl/policies.py": "232bebd837b3f4700bc79d2f84951651ff84a2c04624ce0732abf05270505dc6",
+    "src/rbe_501_so101/rl/reporting.py": "50a1e516a13c9e1f1d85f7e13f47198497a915467b741ae434adaad795ef38aa",
+    "src/rbe_501_so101/rl/residual.py": "0ef16405c2f1e2b0b21294be6d6fb78f2d4ec7b76246d101b31a970f1054520a",
+    "src/rbe_501_so101/rl/robustness.py": "77a9febd2d31c6bf38049ff2a68f2c51444461910fb40c57789832a2b534482a",
+    "src/rbe_501_so101/rl/robustness_report.py": "fb9534771a178ef264741bc32a586216ac23c93c71edd8e32eaca5fb1a75b4c9",
+    "src/rbe_501_so101/rl/training.py": "0e17f4ca1709d87aaa3a94a93638b530d93d20ff276f019abcdeda15e7500894",
+    "src/rbe_501_so101/stats.py": "d3b94cb024e070b7219f7285584a459ccef2e4328d64e6101d41d3b51a077bd2"
+  }
+}

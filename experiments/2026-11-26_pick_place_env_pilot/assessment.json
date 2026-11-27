@@ -1,0 +1,10 @@
+{
+  "paired_conditions_complete": true,
+  "scripted_successes": 60,
+  "learned_successes": 60,
+  "episodes_each": 60,
+  "new_failures": [],
+  "passed_stability_gate": true,
+  "useful_rl_benefit_established": false,
+  "start_long_training": false
+}

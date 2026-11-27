@@ -1,0 +1,17 @@
+{
+  "seed": 93000,
+  "yaw_offset_deg": 0.0,
+  "mass_kg": 0.01,
+  "success": true,
+  "terminated": true,
+  "truncated": false,
+  "steps": 480,
+  "error_mm": 4.210472721668622,
+  "table_steps": 0,
+  "warning": false,
+  "residual_steps": 125,
+  "residual_rejections": 0,
+  "failure_reason": "",
+  "released": true,
+  "grasped": false
+}

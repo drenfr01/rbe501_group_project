@@ -1,0 +1,32 @@
+{
+  "candidate": {
+    "name": "cartesian_table",
+    "descent": {
+      "name": "cartesian_table",
+      "grasp_height_m": 0.0,
+      "xy_tolerance_m": 0.003,
+      "final_z_tolerance_m": 0.004,
+      "height_step_m": 0.002,
+      "tracking_lag_m": 0.008,
+      "feedback_gain": 0.2,
+      "feedback_limit_m": 0.012,
+      "feedback_period": 2,
+      "stable_steps": 3,
+      "table_margin_m": 0.004,
+      "cube_margin_m": 0.0003,
+      "segment_samples": 4,
+      "check_cube": false,
+      "feedback": true,
+      "close_dwell_steps": 25
+    },
+    "raised": false
+  },
+  "passed_tuning_gate": false,
+  "metrics": {
+    "worst_success": 1.0,
+    "table_episodes": 0,
+    "approach_contact_episodes": 0,
+    "worst_shift_rate": 0.0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "base_commit": "8af5141e0460a6a49af014d8411cc9cefce985f4",
+  "source_sha256": {
+    "src/rbe_501_so101/control/timed_oracle_acquisition.py": "c1ffea5f4b6a18c08dadbfe35199cc9092431ad68dd507eba28bde45a2d41780",
+    "scripts/sim2real/analyze/timed_oracle_check.py": "eabccc4ffef9303bb56bbd2efd094e4fce55b3c48a75e0b2ee2fab5edb29e47b",
+    "tests/test_timed_oracle.py": "5b4bd91a7e4bf761cea063f6a778bfe5e8a9f3d2f266052bdb76ab4235f034e6"
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.timed_oracle_check --model-dir checkpoints/calibrated_cartesian_zero_v3_pilot --out experiments/2026-11-26_timed_oracle",
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "new_matrix_episodes": 1020,
+  "additional_substep_audit_episodes": 16,
+  "additional_image_replays": 2,
+  "training_updates": 0,
+  "episode_steps": 200,
+  "validation": {
+    "passed": 433,
+    "skipped": 1,
+    "seconds": 38.83
+  },
+  "runtime_changes": "New opt-in controller/guard only; previous runtime files and source physics unchanged."
+}

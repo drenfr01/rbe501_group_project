@@ -7,6 +7,7 @@ from rbe_501_so101.envs.reach_env import SO101ReachEnv
 
 REACH_ENV_ID = "SO101Reach-v0"
 PICK_LIFT_ENV_ID = "SO101PickLift-v0"
+PICK_PLACE_ENV_ID = "SO101PickPlace-v1"
 
 register(
     id=REACH_ENV_ID,
@@ -17,4 +18,6 @@ register(
     entry_point="rbe_501_so101.envs.pick_lift_env:SO101PickLiftEnv",
 )
 
-__all__ = ["PICK_LIFT_ENV_ID", "REACH_ENV_ID", "SO101PickLiftEnv", "SO101ReachEnv"]
+register(id=PICK_PLACE_ENV_ID, entry_point="rbe_501_so101.envs.pick_place_env:SO101PickPlaceEnv")
+
+__all__ = ["PICK_PLACE_ENV_ID", "PICK_LIFT_ENV_ID", "REACH_ENV_ID", "SO101PickLiftEnv", "SO101ReachEnv"]

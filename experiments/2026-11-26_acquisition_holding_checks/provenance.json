@@ -1,0 +1,10 @@
+{
+  "base_commit": "4b780ae43e5c19d4127d9a15cebeb5fa2f1326d9",
+  "command": "uv run --locked python -m scripts.sim2real.analyze.acquisition_holding_checks --model-dir checkpoints/calibrated_lift_only_v2_pilot --out experiments/2026-11-26_acquisition_holding_checks",
+  "source_sha256": {
+    "scripts/sim2real/analyze/acquisition_holding_checks.py": "59c0ad39f122056ef84d0924414647baeb6ab4e1a02bc04eb5ade6ab18fdeb7a",
+    "tests/test_holding_disturbance.py": "7316d38be52e0ba603ebed57a23f139b3d9f28b09c9df3d64ade2bd51ec1aeb8"
+  },
+  "tests": "393 passed, 1 optional LeRobot skipped",
+  "training": "None; all weights frozen."
+}

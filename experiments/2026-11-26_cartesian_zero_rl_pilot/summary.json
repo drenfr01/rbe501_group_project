@@ -1,0 +1,56 @@
+{
+  "scripted_eval": {
+    "episodes": 160,
+    "successes": 160,
+    "max_preclose_xy_mm": 0.15458726342517404,
+    "table_contact_steps": 0,
+    "approach_contact_steps": 0,
+    "warnings": 0,
+    "mean_cube_tail_rms_mm": 0.221127030244992,
+    "mean_pinch_tail_rms_mm": 0.0009762836746164021,
+    "interventions": {
+      "active_steps": 0,
+      "applied_steps": 0,
+      "clearance_rejections": 0,
+      "holding_rejections": 0,
+      "budget_clips": 0,
+      "applied_norm_sum": 0.0
+    }
+  },
+  "learned_eval": {
+    "episodes": 160,
+    "successes": 160,
+    "max_preclose_xy_mm": 0.15458726342517404,
+    "table_contact_steps": 0,
+    "approach_contact_steps": 0,
+    "warnings": 0,
+    "mean_cube_tail_rms_mm": 0.2202382720158152,
+    "mean_pinch_tail_rms_mm": 0.006982349065535268,
+    "interventions": {
+      "active_steps": 15422,
+      "applied_steps": 15333,
+      "clearance_rejections": 0,
+      "holding_rejections": 89,
+      "budget_clips": 1600,
+      "applied_norm_sum": 931.9778830390424
+    }
+  },
+  "known_eval": {
+    "episodes": 24,
+    "successes": 24,
+    "max_preclose_xy_mm": 0.14139141909292963,
+    "table_contact_steps": 0,
+    "approach_contact_steps": 0,
+    "warnings": 0,
+    "mean_cube_tail_rms_mm": 0.38669777677812883,
+    "mean_pinch_tail_rms_mm": 0.03234456486940201,
+    "interventions": {
+      "active_steps": 2276,
+      "applied_steps": 2276,
+      "clearance_rejections": 0,
+      "holding_rejections": 0,
+      "budget_clips": 178,
+      "applied_norm_sum": 140.01310405880213
+    }
+  }
+}

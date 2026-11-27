@@ -1,0 +1,3133 @@
+[
+  {
+    "directory": "original_fixed_10g_5g_20006",
+    "final_success": false,
+    "final_lift_cm": -0.010776410937668457,
+    "events": [
+      {
+        "step": 46,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 142,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 144,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 145,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 149,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 150,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 152,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 153,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 155,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 156,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 157,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 158,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 178,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 195,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 196,
+        "signal": "table_contact",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_fixed_10g_5g_20014",
+    "final_success": true,
+    "final_lift_cm": 7.342775094134013,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 103,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_fixed_10g_20g_20002",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 79,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 83,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 84,
+        "signal": "table_contact",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_fixed_10g_20g_20014",
+    "final_success": true,
+    "final_lift_cm": 7.392329610746162,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_5g_20008",
+    "final_success": false,
+    "final_lift_cm": 0.25240222629843156,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 84,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 149,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 185,
+        "signal": "table_contact",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_5g_20010",
+    "final_success": true,
+    "final_lift_cm": 6.953074589413077,
+    "events": [
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 103,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_5g_20017",
+    "final_success": true,
+    "final_lift_cm": 9.089010183665858,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 72,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_10g_20004",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 72,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 76,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 82,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 84,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 87,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 88,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 89,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 90,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 91,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 106,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 109,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 112,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 113,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 115,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 116,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 117,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 118,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 121,
+        "signal": "table_contact",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_10g_20005",
+    "final_success": true,
+    "final_lift_cm": 6.950856665346683,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_10g_20008",
+    "final_success": true,
+    "final_lift_cm": 6.722918004932177,
+    "events": [
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_15g_20008",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 117,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 120,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 121,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 136,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 137,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 152,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 158,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_15g_20017",
+    "final_success": true,
+    "final_lift_cm": 8.510507696987746,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 72,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_20g_20005",
+    "final_success": true,
+    "final_lift_cm": 8.268379825675332,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 104,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_random_5_20g_20g_20008",
+    "final_success": false,
+    "final_lift_cm": 0.1056419703295397,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 136,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 138,
+        "signal": "grasped",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_scripted_20g_20002",
+    "final_success": true,
+    "final_lift_cm": 6.545120864913279,
+    "events": [
+      {
+        "step": 81,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 111,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "original_scripted_20g_20010",
+    "final_success": true,
+    "final_lift_cm": 6.570886325809722,
+    "events": [
+      {
+        "step": 82,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 111,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_fixed_10g_5g_20006",
+    "final_success": true,
+    "final_lift_cm": 6.877741407379601,
+    "events": [
+      {
+        "step": 46,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 105,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_fixed_10g_5g_20014",
+    "final_success": false,
+    "final_lift_cm": -0.15581270066927777,
+    "events": [
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 84,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 85,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 86,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 87,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 87,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 88,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 90,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 91,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 101,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 103,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 105,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 106,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 107,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 109,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 111,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 113,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 114,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 117,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 118,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 134,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 135,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 141,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 142,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 144,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 145,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 146,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 147,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 148,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 149,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 150,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 151,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 156,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 157,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 158,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 159,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 160,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 168,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 169,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 170,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 188,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_fixed_10g_20g_20002",
+    "final_success": true,
+    "final_lift_cm": 5.559609450416836,
+    "events": [
+      {
+        "step": 45,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 75,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 85,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 86,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 91,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 93,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 105,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_fixed_10g_20g_20014",
+    "final_success": false,
+    "final_lift_cm": -0.013005668347509936,
+    "events": [
+      {
+        "step": 103,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 105,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 114,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 126,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 128,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 132,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 133,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 153,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 154,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 194,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 195,
+        "signal": "grasped",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_5g_20008",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 79,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 106,
+        "signal": "success",
+        "value": true
+      },
+      {
+        "step": 124,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 124,
+        "signal": "success",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_5g_20010",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 83,
+        "signal": "table_contact",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_5g_20017",
+    "final_success": false,
+    "final_lift_cm": -0.12429118436110831,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 83,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 84,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 93,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 94,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 99,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 100,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 158,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_10g_20004",
+    "final_success": true,
+    "final_lift_cm": 7.936299594330376,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 50,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 57,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 59,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 106,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_10g_20005",
+    "final_success": false,
+    "final_lift_cm": -0.010940862770097981,
+    "events": [
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 72,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 83,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_10g_20008",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 65,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 84,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 85,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 86,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 88,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 89,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 90,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 91,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 92,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 93,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 97,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 98,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 99,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 100,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 101,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 117,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 122,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 134,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 140,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 141,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 143,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 147,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 151,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 153,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 154,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 155,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_15g_20008",
+    "final_success": false,
+    "final_lift_cm": -0.16613586066377972,
+    "events": [
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 79,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 105,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 109,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_15g_20017",
+    "final_success": false,
+    "final_lift_cm": 0.05469878763187941,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 49,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 55,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 63,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 67,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 70,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 81,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 155,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 156,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 157,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 158,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 168,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 176,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 177,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_20g_20005",
+    "final_success": false,
+    "final_lift_cm": 0.2169545100917769,
+    "events": [
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 52,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 61,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 72,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 77,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 77,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 83,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 144,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 147,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 148,
+        "signal": "grasped",
+        "value": false
+      },
+      {
+        "step": 177,
+        "signal": "table_contact",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_random_5_20g_20g_20008",
+    "final_success": true,
+    "final_lift_cm": 8.818531251992457,
+    "events": [
+      {
+        "step": 48,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 51,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 53,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 54,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 56,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 58,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 60,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 62,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 64,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 66,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 68,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 69,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 71,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 73,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 74,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 76,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 78,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 106,
+        "signal": "success",
+        "value": true
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_scripted_20g_20002",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021668194,
+    "events": [
+      {
+        "step": 46,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 80,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 82,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 89,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 90,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 92,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 93,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 94,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 98,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 99,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 100,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 101,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 106,
+        "signal": "grasped",
+        "value": false
+      }
+    ],
+    "warnings": false
+  },
+  {
+    "directory": "calibrated_scripted_20g_20010",
+    "final_success": false,
+    "final_lift_cm": -0.010775542021673745,
+    "events": [
+      {
+        "step": 47,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 81,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 82,
+        "signal": "grasped",
+        "value": true
+      },
+      {
+        "step": 82,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 94,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 95,
+        "signal": "table_contact",
+        "value": true
+      },
+      {
+        "step": 96,
+        "signal": "table_contact",
+        "value": false
+      },
+      {
+        "step": 99,
+        "signal": "grasped",
+        "value": false
+      }
+    ],
+    "warnings": false
+  }
+]

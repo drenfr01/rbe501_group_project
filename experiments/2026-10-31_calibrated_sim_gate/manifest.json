@@ -1,0 +1,34 @@
+{
+  "script": "scripts/sim2real/analyze/calibrated_sim_gate.py",
+  "argv": [
+    "--sag-sessions",
+    "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
+    "data/sag_check/2026-10-31_rbe501_follower_p24_190722",
+    "--pose-check",
+    "data/pose_check/2026-10-31_rbe501_follower_p24_184714",
+    "--report-figures"
+  ],
+  "git_commit": "7d7c81633d4e51c75e5274044996f4e28db31c82",
+  "git_dirty": true,
+  "started_at": "2026-10-31T19:49:26.951412+00:00",
+  "finished_at": "2026-10-31T19:49:28.883027+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": null
+}

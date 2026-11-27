@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "worst_success": 0.96,
+    "table_episodes": 0,
+    "approach_contact_episodes": 0,
+    "worst_shift_rate": 0.84,
+    "warnings": 0
+  },
+  "passed_heldout_gate": false,
+  "promote_defaults": false,
+  "train": false
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "name": "shoulder_pan",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 1000,
+    "protection_current": 310,
+    "overload_torque": 80
+  },
+  {
+    "name": "shoulder_lift",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 1000,
+    "protection_current": 310,
+    "overload_torque": 80
+  },
+  {
+    "name": "elbow_flex",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 1000,
+    "protection_current": 310,
+    "overload_torque": 80
+  },
+  {
+    "name": "wrist_flex",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 1000,
+    "protection_current": 310,
+    "overload_torque": 80
+  },
+  {
+    "name": "wrist_roll",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 1000,
+    "protection_current": 310,
+    "overload_torque": 80
+  },
+  {
+    "name": "gripper",
+    "p": 32,
+    "i": 0,
+    "d": 32,
+    "acceleration": 254,
+    "max_acceleration": 254,
+    "max_torque_limit": 500,
+    "protection_current": 250,
+    "overload_torque": 25
+  }
+]

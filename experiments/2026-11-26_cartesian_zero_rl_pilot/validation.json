@@ -1,0 +1,12 @@
+{
+  "command": ".venv/Scripts/python.exe -B -m pytest -q",
+  "passed": 414,
+  "skipped": 1,
+  "seconds": 35.51,
+  "git_diff_check": "passed",
+  "reloaded_policy_replay": {
+    "mass_kg": 0.005,
+    "placement_seed": 68006,
+    "final_success": true
+  }
+}

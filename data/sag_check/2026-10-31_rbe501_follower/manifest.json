@@ -1,0 +1,29 @@
+{
+  "script": "scripts/sim2real/collect/sag_check.py",
+  "argv": [
+    "run"
+  ],
+  "git_commit": "e0b129e4a6c2118032d2619f3572d5c084d679e8",
+  "git_dirty": false,
+  "started_at": "2026-10-31T14:31:30.742636+00:00",
+  "finished_at": "2026-10-31T14:32:44.460602+00:00",
+  "package_versions": [
+    {
+      "name": "rbe_501_so101",
+      "version": "0.1.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.17.0"
+    },
+    {
+      "name": "lerobot",
+      "version": "0.6.1"
+    },
+    {
+      "name": "torch",
+      "version": "2.11.0"
+    }
+  ],
+  "robot_id": "rbe501_follower"
+}

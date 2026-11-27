@@ -1,0 +1,15 @@
+{
+  "steps": 10000,
+  "device": "cuda",
+  "sha256": {
+    "checkpoint_log.json": "91e22720618587aa5ff28f7ca742bc0d5cd5b6fa8788bfe1533440a9fca48aba",
+    "model.zip": "b17ce872c56288848034d14d93eb9cb78b56da9e4a9d565232186935cc77af09",
+    "train.monitor.csv": "eb1a1d68bfcc952dd9bc12426c3677506526ea40d1c648536ddf6e8bfda3b11d",
+    "vecnormalize.pkl": "300cc23a1af33a36e66e3059a30d388eb26c4fac1c15566ca81569c3c91f5de7",
+    "checkpoint\\model.zip": "7c9a0acbd16c12d5a1858ed26f40aaa71d5520085e234c0409190235627cd4bc",
+    "checkpoint\\replay_buffer.pkl": "70f8235cfda5d05c3930014f7ecef191fd8aeb1e601ee546e73a1402c716c4a8",
+    "checkpoint\\vecnormalize.pkl": "300cc23a1af33a36e66e3059a30d388eb26c4fac1c15566ca81569c3c91f5de7"
+  },
+  "policy": "SACPolicy(\n  (actor): Actor(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (latent_pi): Sequential(\n      (0): Linear(in_features=72, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n    )\n    (mu): Linear(in_features=256, out_features=3, bias=True)\n    (log_std): Linear(in_features=256, out_features=3, bias=True)\n  )\n  (critic): ContinuousCritic(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (qf0): Sequential(\n      (0): Linear(in_features=75, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n    (qf1): Sequential(\n      (0): Linear(in_features=75, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n  )\n  (critic_target): ContinuousCritic(\n    (features_extractor): FlattenExtractor(\n      (flatten): Flatten(start_dim=1, end_dim=-1)\n    )\n    (qf0): Sequential(\n      (0): Linear(in_features=75, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n    (qf1): Sequential(\n      (0): Linear(in_features=75, out_features=256, bias=True)\n      (1): ReLU()\n      (2): Linear(in_features=256, out_features=256, bias=True)\n      (3): ReLU()\n      (4): Linear(in_features=256, out_features=1, bias=True)\n    )\n  )\n)",
+  "seed_dir": "checkpoints\\pick_place_v1_pilot\\seed_0"
+}

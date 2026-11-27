@@ -1,0 +1,11 @@
+{
+  "source_sha256": {
+    "C:\\Users\\halay\\Desktop\\SO101\\scripts\\sim2real\\analyze\\pick_lift_wrist_branch.py": "cf1e6af493b93130fa333113475f93be5553fe72dc6c0a02397bcc578082fd65",
+    "src\\rbe_501_so101\\control\\aligned_pick_lift.py": "fa7317a7e8eaaeeca76e17fca6ce0b0c07a0434836d8dfae78e99719fd22eb91"
+  },
+  "note": "Old failed placements used only for diagnosis; fresh tune and held-out seeds.",
+  "base_commit": "ed29d81",
+  "execution": "Equivalent inline Python invocation of run_adaptive; frozen selection saved before 65000-65049 evaluation. CLI available for repetition with --adaptive --out NEWDIR.",
+  "command": "uv run --locked python -m scripts.sim2real.analyze.pick_lift_wrist_branch --adaptive --out experiments/adaptive_wrist_repeat",
+  "source_snapshots": "source/ contains final source with unchanged evaluated controller behavior"
+}

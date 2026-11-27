@@ -1,0 +1,4700 @@
+[
+  {
+    "mask": {
+      "name": "all",
+      "phases": [
+        "approach",
+        "descend",
+        "close",
+        "lift"
+      ],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.41094613075256
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 53.14554786682129
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 4,
+            "success_losses": 1,
+            "action_norm_sum": 180.15037190914154
+          }
+        },
+        "table_steps": 5,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807017803192
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.634817719459534
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.346993803977966
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 129.01570653915405
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 49.30563187599182
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.81436502933502
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 216.87966680526733
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 47.39961767196655
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 58.5237752199173
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 97,
+            "success_losses": 0,
+            "action_norm_sum": 218.50062799453735
+          }
+        },
+        "table_steps": 97,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 13,
+            "success_losses": 0,
+            "action_norm_sum": 60.40044927597046
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 4,
+            "success_losses": 0,
+            "action_norm_sum": 51.36362946033478
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 16,
+            "success_losses": 1,
+            "action_norm_sum": 199.36624312400818
+          }
+        },
+        "table_steps": 33,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.98097121715546
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 54.49638783931732
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 1,
+            "action_norm_sum": 148.29367125034332
+          }
+        },
+        "table_steps": 1,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.938068985939026
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.634819865226746
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.168514251708984
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 124.9421159029007
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.81610631942749
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 57.33857619762421
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 88,
+            "success_losses": 0,
+            "action_norm_sum": 188.26561284065247
+          }
+        },
+        "table_steps": 88,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.97703778743744
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 59.71415972709656
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 87,
+            "success_losses": 0,
+            "action_norm_sum": 229.6304647922516
+          }
+        },
+        "table_steps": 87,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 13,
+            "success_losses": 0,
+            "action_norm_sum": 60.400450229644775
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 8,
+            "success_losses": 0,
+            "action_norm_sum": 50.35549306869507
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 33,
+            "success_losses": 1,
+            "action_norm_sum": 199.34941172599792
+          }
+        },
+        "table_steps": 54,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.78589403629303
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 52.58319163322449
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 11,
+            "success_losses": 1,
+            "action_norm_sum": 161.23568856716156
+          }
+        },
+        "table_steps": 12,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807089328766
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.63482093811035
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 55.52622961997986
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 134.87675023078918
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.145551562309265
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.32471704483032
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 220.30795109272003
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.65558052062988
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 60.02795922756195
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 225.08922743797302
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 13,
+            "success_losses": 0,
+            "action_norm_sum": 60.400449991226196
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 10,
+            "success_losses": 0,
+            "action_norm_sum": 48.484307408332825
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 35,
+            "success_losses": 1,
+            "action_norm_sum": 200.1885871887207
+          }
+        },
+        "table_steps": 58,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.68551528453827
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.883912444114685
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 16,
+            "success_losses": 1,
+            "action_norm_sum": 165.2235403060913
+          }
+        },
+        "table_steps": 16,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807089328766
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.63482081890106
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.95286583900452
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 125.89454877376556
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249607563019
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.4047532081604
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 55.86403679847717
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 219.585573554039
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.827146887779236
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 59.80629885196686
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 224.2015516757965
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.89249682426453
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 13,
+            "success_losses": 0,
+            "action_norm_sum": 60.40045142173767
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 7,
+            "success_losses": 0,
+            "action_norm_sum": 49.11742401123047
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 49,
+            "success_losses": 1,
+            "action_norm_sum": 197.81263649463654
+          }
+        },
+        "table_steps": 69,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "approach",
+      "phases": [
+        "approach"
+      ],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807017803192
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.938068985939026
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807089328766
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249619483948
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.8924971818924
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 70.4209326505661
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.93807089328766
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 63.05249607563019
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 66.26509922742844
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 75.89249682426453
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "descend",
+      "phases": [
+        "descend"
+      ],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.9678111076355
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 2,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 2,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.814614057540894
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.92867708206177
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.49187910556793
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 11,
+            "success_losses": 0,
+            "action_norm_sum": 60.464359283447266
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 17,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 29,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.9678111076355
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 2,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 2,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.30819869041443
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.578892946243286
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 1,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.96565365791321
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 11,
+            "success_losses": 0,
+            "action_norm_sum": 60.464359402656555
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 3,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 14,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.9678111076355
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 2,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 2,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.7236567735672
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.41162180900574
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 1,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.40307259559631
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 11,
+            "success_losses": 0,
+            "action_norm_sum": 60.464359760284424
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 3,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 14,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.9678111076355
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 2,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 2,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 52.38639175891876
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.05907070636749
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.344066977500916
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 11,
+            "success_losses": 0,
+            "action_norm_sum": 60.464359283447266
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 12,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 1,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 24,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "close",
+      "phases": [
+        "close"
+      ],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.01490521430969
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 55.14458477497101
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 55.97215747833252
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.54659163951874
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.49959743022919
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 51.544572949409485
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.0467985868454
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 57.02783501148224
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.63789892196655
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.29794645309448
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.52260863780975
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.305611968040466
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.32833671569824
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 53.504546761512756
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 50.05031096935272
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 53.767991065979004
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.79716885089874
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 54.31968533992767
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 56.547417879104614
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 48.45971894264221
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "lift",
+      "phases": [
+        "lift"
+      ],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 1,
+            "action_norm_sum": 139.67354422807693
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 129.82475662231445
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 109.78649711608887
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 113.36339390277863
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 51,
+            "success_losses": 1,
+            "action_norm_sum": 203.708869099617
+          }
+        },
+        "table_steps": 51,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 1,
+            "action_norm_sum": 135.20566874742508
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 123.82673591375351
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 133.77982133626938
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 108.55758619308472
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 52,
+            "success_losses": 1,
+            "action_norm_sum": 203.5729296207428
+          }
+        },
+        "table_steps": 52,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 1,
+            "action_norm_sum": 140.7753244638443
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 129.10295939445496
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 141.98763805627823
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 123.46181458234787
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 51,
+            "success_losses": 1,
+            "action_norm_sum": 203.15416431427002
+          }
+        },
+        "table_steps": 51,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 1,
+            "action_norm_sum": 142.91430020332336
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 130.54542195796967
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 144.58489054441452
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 202.1250158548355
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 49,
+            "success_losses": 1,
+            "action_norm_sum": 202.8291871547699
+          }
+        },
+        "table_steps": 49,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "none",
+      "phases": [],
+      "multiplier": 1.0
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      }
+    ]
+  },
+  {
+    "mask": {
+      "name": "small_lift",
+      "phases": [
+        "lift"
+      ],
+      "multiplier": 0.1
+    },
+    "episodes": [
+      {
+        "mass_kg": 0.005,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 12.34293533116579
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.644960835576057
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 13.116442255675793
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 13.502300351858139
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.005,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 15.984582796692848
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 10.36936280876398
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.586941480636597
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 11.376263104379177
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 12.686625979840755
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.01,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.18227382004261
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 10.311791740357876
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.61155867576599
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 11.345794297754765
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66003,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 12.47799588739872
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.015,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.24036130309105
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66000,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 10.443666614592075
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66001,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.63036385178566
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66002,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 11.43333237618208
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66003,
+        "success": false,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 20.212501898407936
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      },
+      {
+        "mass_kg": 0.02,
+        "seed": 66004,
+        "success": true,
+        "phases": {
+          "approach": {
+            "steps": 40,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "descend": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "close": {
+            "steps": 30,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 0.0
+          },
+          "lift": {
+            "steps": 100,
+            "table_steps": 0,
+            "success_losses": 0,
+            "action_norm_sum": 16.25589917600155
+          }
+        },
+        "table_steps": 0,
+        "warning": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "base_commit": "0241310ce30d0e0f513773bdfbee198b20dc57c4",
+  "source_sha256": {
+    "scripts/sim2real/analyze/cartesian_zero_pilot.py": "b57dbccbf4453ca28459176c2ce83f7b9fdd3e8d2cdbef099b008d1a7ecec27f",
+    "src/rbe_501_so101/rl/cartesian_zero_training.py": "5ad4352bf38665014966122f48af0574ed4446946713de564d11e75ba8cb3301",
+    "tests/test_cartesian_zero_training.py": "5fc4e3c69692a3e6d7db8086852567540f8d70daeac813193f1f080e0e8e7403",
+    "tests/test_cartesian_zero_assessment.py": "dccc23a7036eb1d813cbc5b09c6ad03c9f759cdd032f890dce5744461b5714d4"
+  },
+  "training_command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.cartesian_zero_pilot --out experiments/2026-11-26_cartesian_zero_rl_pilot --model-dir checkpoints/calibrated_cartesian_zero_v3_pilot",
+  "scope": "Fresh seed-0 10000-transition CUDA stability pilot; no full training; checkpoint binaries retained locally and excluded from Git."
+}

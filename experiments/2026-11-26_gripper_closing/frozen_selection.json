@@ -1,0 +1,15 @@
+{
+  "profile": {
+    "name": "position_zero",
+    "target_deg": 0.0,
+    "rate_rad": 0.05,
+    "stop_on_contact": false,
+    "stable_steps": 1
+  },
+  "passed_tuning_gate": true,
+  "metrics": {
+    "worst_success": 1.0,
+    "table_episodes": 0,
+    "warnings": 0
+  }
+}

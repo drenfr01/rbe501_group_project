@@ -1,0 +1,37 @@
+{
+  "common_eligible_disturbed_pairs": 640,
+  "additional_rl_failures": 0,
+  "retention_not_worse": true,
+  "no_new_overall_paired_failures": true,
+  "overall_final_successes": {
+    "scripted": 680,
+    "sac": 680
+  },
+  "retention_rl_minus_script": {
+    "clusters": 10,
+    "mean": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ]
+  },
+  "adjusted_cube_difference_mm": {
+    "clusters": 10,
+    "mean": 0.008418214343614712,
+    "ci95": [
+      0.002617559655261776,
+      0.0150104844972529
+    ]
+  },
+  "adjusted_pinch_difference_mm": {
+    "clusters": 10,
+    "mean": 0.05043635579456322,
+    "ci95": [
+      0.03781795911699732,
+      0.06190271232580641
+    ]
+  },
+  "safe": true,
+  "useful_benefit_established": false,
+  "start_full_training": false
+}

@@ -1,0 +1,12 @@
+{
+  "passed_heldout_gate": true,
+  "ready_for_training": false,
+  "promote_defaults": false,
+  "metrics": {
+    "worst_success": 0.995,
+    "worst_table_rate": 0.0
+  },
+  "reason": "Separate explicit training preset and short pilot still required.",
+  "original_inputs_unchanged": true,
+  "tests": "377 passed, 1 optional LeRobot skipped"
+}

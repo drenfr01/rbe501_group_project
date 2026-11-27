@@ -1,0 +1,7 @@
+{
+  "source_sha256": {
+    "C:\\Users\\halay\\Desktop\\SO101\\scripts\\sim2real\\analyze\\pick_lift_wrist_branch.py": "de81824c7355896f2c694fc41afad0b783d58109adbafb2a439f498a897054e2",
+    "src\\rbe_501_so101\\control\\aligned_pick_lift.py": "e2f1388e6042d2ed71e35d5a0d5c80ef1a74f522fb7bce84ea8e0ff0bb8700f6"
+  },
+  "note": "Old failed placements used only for diagnosis; fresh tune and held-out seeds."
+}
