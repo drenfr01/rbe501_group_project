@@ -117,15 +117,33 @@ state. Hardware needs corresponding sensing/estimation, camera-to-robot/table
 transforms, and a way to determine grasp retention and table support before
 release. This PR does not provide a verified physical full-task deployment.
 
-Suggested handoff sequence:
+### Teammate next steps, in order
 
-1. Review the PR's calibration/control changes and checkpoint provenance.
-2. Validate low-speed reach, jaw closing and a short lift separately on the robot.
-3. Test the nearby carry, supported release and retreat under supervision, using
-   actual robot limits and stopping controls.
-4. Record time-aligned commanded/measured joints, cube source/destination poses,
-   gripper commands/contact estimates, phase timing, slips/drops and final error.
-   Compare matched conditions with simulation before changing gains or training.
+Owners below are suggested roles, not assigned people. Record who takes each
+item in the PR discussion. Hardware work starts only after the preceding
+calibration and sensing checks are understood.
+
+| Order | Suggested owner | Action | Evidence to bring back |
+|---|---|---|---|
+| 1 | Code/calibration reviewer | Review PR #9, especially measured versus assumed stiffness, damping mapping, acquisition changes and supported-release guards. | Review comments and the exact calibration file/commit and real servo settings used. |
+| 2 | Simulation/artifact owner | Check out the integration branch, establish the locked environment, share the matching full-task checkpoint directory, and replay script and SAC. Run the automated suite on the review PC. | Commit hash, environment versions, checkpoint provenance, test output and replay results. |
+| 3 | Physical-robot owner | Verify joint order, signs, units, offsets, travel limits and gain mapping. Check gripper zero/closing behavior separately. | Measured settings and low-speed commanded-versus-measured joint traces; note the two assumed stiffness values. |
+| 4 | Hardware/perception owner | Establish cube position/yaw in the robot/table frame and identify how grasp retention and table support will be detected. Review or implement the required hardware adapter before full-task execution. | Pose/frame validation and a documented replacement for each privileged simulation signal. |
+| 5 | Physical-robot owner | Test low-speed reaching, then grasp and a short lift as separate stages, using actual hardware limits and stopping controls. | Per-stage error, grasp retention, slips and any aborted attempts. |
+| 6 | Physical-robot owner | After those stages pass, test the nearby carry, supported release and retreat. Start with one reproducible setup before varying mass, position or yaw. | Complete-task videos and logs, final placement error, successes/attempts and failure stages. |
+| 7 | Simulation/report owner | Replay matched hardware conditions in simulation and identify the first meaningful discrepancy. Add the comparison to `reports/findings/`. | A sim-versus-real error table and a supported recommendation: calibration, sensing, control/model correction or a defined RL objective. |
+
+For each physical trial, record the code/calibration versions, actual cube size
+and mass, start/destination pose, time-aligned commanded/measured joints,
+gripper commands/contact estimates, phase timings, slips/drops and final error.
+Report failed and stopped trials alongside successes. Agree on hardware
+acceptance criteria before collecting the comparison; the simulation thresholds
+are not automatically hardware acceptance limits.
+
+After review, the team can decide whether to merge. Keep the draft until that
+decision; do not treat simulation success or the existence of SAC weights as
+approval to run the full sequence on the physical robot. No new training is
+requested by this checklist.
 
 Current demonstrated scope is a **25 mm cube**, simulated masses **5-20 g**, the
 tested placement/yaw sets and a nearby **12-degree same-radius transfer** (roughly
