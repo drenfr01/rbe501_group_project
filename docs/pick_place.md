@@ -1,5 +1,8 @@
 # Full-task pick-and-place environment
 
+For the current results, review order, checkpoint sharing and physical-robot
+handoff, see the [2026-11-26 team summary](../reports/findings/2026-11-26_team_handoff.md).
+
 `SO101PickPlace-v1` is a separate Gymnasium environment for the complete sequence:
 reach, grasp, lift, carry, lower, release, retreat and verify resting placement.
 The existing reaching and pick/lift environments and saved policies remain available.
