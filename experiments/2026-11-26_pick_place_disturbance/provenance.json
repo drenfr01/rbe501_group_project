@@ -1,0 +1,23 @@
+{
+  "base_commit": "f62ad58f1e4c975823883ea46d8daf9ed0855b3e",
+  "python": "3.12.15",
+  "versions": {
+    "mujoco": "3.14.0",
+    "gymnasium": "1.4.0",
+    "stable-baselines3": "2.9.0",
+    "torch": "2.14.1+cu130",
+    "numpy": "2.5.3"
+  },
+  "source_sha256": {
+    "scripts/sim2real/analyze/pick_place_disturbance.py": "5aa1d9fdb28cb2bb6a3711aabfc9fc729d4178eeb9adf7e3a695bccd1cd86827",
+    "tests/test_pick_place_disturbance.py": "43b89460dcac684e483daa266511c07444f2c348b412254acc3554f9d514cd15"
+  },
+  "command": ".venv/Scripts/python.exe -B -m scripts.sim2real.analyze.pick_place_disturbance --out experiments/2026-11-26_pick_place_disturbance",
+  "evaluation_device": "cpu",
+  "training_updates": 0,
+  "validation": {
+    "passed": 457,
+    "skipped": 1,
+    "seconds": 52.69
+  }
+}

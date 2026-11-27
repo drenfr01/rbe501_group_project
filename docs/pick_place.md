@@ -85,3 +85,10 @@ The full-task pilot is a short stability check against an already successful
 script. Matching scripted success does not establish added RL benefit or justify
 a long training run automatically. Hardware orientation/contact sensing and
 gripper/contact dynamics still need physical validation.
+
+The [frozen carry-push comparison](../reports/findings/2026-11-26_pick_place_disturbance.md)
+then tests the saved full-task policy and its scripted baseline without training.
+Both complete 320/320 pushed placements and 40/40 controls. It establishes no
+useful added RL robustness; see the report for paired errors, recovery definition
+and limits. Reproduce with `scripts.sim2real.analyze.pick_place_disturbance` and
+a new `--out` directory.

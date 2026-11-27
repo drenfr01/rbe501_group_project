@@ -202,3 +202,8 @@ placement rewards/success. A fresh 10k CUDA SAC pilot matches its scripted
 baseline at 60/60 full-task trials. This passes stability, not an RL-benefit gate.
 See [full-task usage](pick_place.md) for training and actual learned-policy replay;
 the earlier reaching and pickup environments/policies remain separate.
+
+The [full-task carrying-force comparison](../reports/findings/2026-11-26_pick_place_disturbance.md)
+preserves that policy and script: both complete all 320 pushed placements and
+40 controls. The modest-push test establishes no useful added RL benefit and
+does not justify longer training by itself.
