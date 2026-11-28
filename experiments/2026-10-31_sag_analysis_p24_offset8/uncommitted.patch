@@ -1,0 +1,340 @@
+diff --git a/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json b/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
+index 9f3dfef..f0b3bf7 100644
+--- a/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
++++ b/experiments/2026-10-31_sag_analysis_p24_offset8/manifest.json
+@@ -4,13 +4,12 @@
+     "data/sag_check/2026-10-31_rbe501_follower_p24_192311",
+     "--out",
+     "experiments/2026-10-31_sag_analysis_p24_offset8",
+-    "--calibration-out",
+-    "experiments/2026-10-31_sag_analysis_p24_offset8/actuator_calibration.json"
++    "--report-figures"
+   ],
+-  "git_commit": "9d1d9b0262f0dbf5ea0a56dc0d23e3fc51630bf1",
+-  "git_dirty": false,
+-  "started_at": "2026-10-31T19:24:27.096080+00:00",
+-  "finished_at": "2026-10-31T19:24:27.255910+00:00",
++  "git_commit": "7d7c81633d4e51c75e5274044996f4e28db31c82",
++  "git_dirty": true,
++  "started_at": "2026-10-31T19:38:56.730871+00:00",
++  "finished_at": null,
+   "package_versions": [
+     {
+       "name": "rbe_501_so101",
+diff --git a/src/rbe_501_so101/config.py b/src/rbe_501_so101/config.py
+index 09f52ce..4c71310 100644
+--- a/src/rbe_501_so101/config.py
++++ b/src/rbe_501_so101/config.py
+@@ -437,6 +437,15 @@ class SagFitConfig:
+ 
+     A joint is not identifiable when its gravity torque spans less than
+     `min_torque_span_nm` across the poses.
++
++    Stiction (the friction band) is only fitted from sessions whose approach
++    offsets are all at least `min_friction_approach_deg`: smaller approaches
++    land inside the band and under-measure it (3° gave a third of the 8°
++    band on 2026-10-31). The band's load slope is fitted only when the
++    joint's gravity torque spans `min_slope_torque_span_nm`; otherwise the
++    band is the mean. With `assume_unidentified_kp`, joints without gravity
++    load (pan, wrist roll) get the mean fitted stiffness, flagged as assumed:
++    every arm joint is the same servo at the same gain.
+     """
+ 
+     confidence: float = 0.95
+@@ -444,6 +453,9 @@ class SagFitConfig:
+     min_samples: int = 3
+     early_warning_fraction: float = 0.5
+     min_hysteresis_deg: float = 360.0 / ENCODER_COUNTS_PER_REV
++    min_friction_approach_deg: float = 6.0
++    min_slope_torque_span_nm: float = 0.2
++    assume_unidentified_kp: bool = True
+     experiment_suffix: str = "sag_analysis"
+ 
+ 
+diff --git a/src/rbe_501_so101/envs/calibration.py b/src/rbe_501_so101/envs/calibration.py
+index 5656352..48bb143 100644
+--- a/src/rbe_501_so101/envs/calibration.py
++++ b/src/rbe_501_so101/envs/calibration.py
+@@ -17,11 +17,21 @@ KV_BIAS_COL = 2
+ 
+ @dataclass(frozen=True)
+ class JointActuatorCalibration:
+-    """Measured values for one joint; `None` keeps the MJCF value."""
++    """Measured values for one joint; `None` keeps the MJCF value.
++
++    `kp_assumed` marks a stiffness that was not measured on this joint (no
++    gravity load) but copied from the measured ones. The stiction fields are
++    the friction band's half-width `stiction_half_band_rad +
++    stiction_load_slope_rad_per_nm * |gravity torque|`, applied by the servo
++    model in `ServoEffectsBackend`, not by MuJoCo.
++    """
+ 
+     joint: str
+     kp_nm_per_rad: float | None = None
+     frictionloss_nm: float | None = None
++    kp_assumed: bool = False
++    stiction_half_band_rad: float | None = None
++    stiction_load_slope_rad_per_nm: float | None = None
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/src/rbe_501_so101/hardware/sag.py b/src/rbe_501_so101/hardware/sag.py
+index 0fa48c5..008360f 100644
+--- a/src/rbe_501_so101/hardware/sag.py
++++ b/src/rbe_501_so101/hardware/sag.py
+@@ -110,6 +110,20 @@ class JointComplianceFit:
+     kp_ci_high: float | None = None
+ 
+ 
++@dataclass(frozen=True)
++class StictionFit:
++    """Friction band of one joint: half-width `half_band_rad + load_slope_rad_per_nm * |gravity torque|`.
++
++    Fitted to half the difference between arriving from above and from below
++    (sim radians), one point per pose.
++    """
++
++    joint: str
++    half_band_rad: float
++    load_slope_rad_per_nm: float
++    n_poses: int
++
++
+ class SagRepository:
+     """Owns `data/sag_check/`: the recorded pose list and one folder per session."""
+ 
+@@ -193,6 +207,49 @@ def fit_compliance(
+     return tuple(_fit_joint(name, torques[:, j], sags[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
+ 
+ 
++def one_sided_sag_by_joint(session: SagSession) -> PoseJointTable:
++    """Sag of every single arrival (one row per sample): what a correction must cover."""
++    rows = np.array([_sag(s) for s in session.samples]).reshape(len(session.samples), len(session.joints))
++    return PoseJointTable(tuple(s.pose_id for s in session.samples), session.joints, rows)
++
++
++def smallest_approach_deg(session: SagSession) -> float | None:
++    """Smallest arm-joint approach offset in the session, or None if offsets were not recorded."""
++    offsets = [s.approach_offset_deg for s in session.samples]
++    if not offsets or any(o is None for o in offsets):
++        return None
++    return float(min(np.min(np.abs(o[:-1])) for o in offsets))
++
++
++def fit_stiction(
++    session: SagSession,
++    joint_map: JointMap,
++    model: mujoco.MjModel,
++    sim_cfg: SimConfig = SimConfig(),
++    cfg: SagFitConfig = SagFitConfig(),
++) -> tuple[StictionFit, ...]:
++    """Friction band per arm joint; empty when the approaches were too small to sweep it."""
++    smallest = smallest_approach_deg(session)
++    if smallest is None or smallest < cfg.min_friction_approach_deg:
++        return ()
++    gravity = GravityTorqueModel(model, ModelIndices.from_model(model, sim_cfg))
++    torques, _ = _torques_and_sags(session, joint_map, gravity)
++    n_arm = len(joint_map.joints) - 1
++    half = np.abs([joint_map.arm_delta_to_sim(row[:n_arm]) for row in hysteresis_by_joint(session).values_deg])
++    return tuple(_fit_band(name, np.abs(torques[:, j]), half[:, j], cfg) for j, name in enumerate(sim_cfg.arm_joints))
++
++
++def _fit_band(joint: str, load: np.ndarray, half: np.ndarray, cfg: SagFitConfig) -> StictionFit:
++    """Least squares `half = b0 + slope * load`, or the mean when the load barely varies or the slope is negative."""
++    mean = StictionFit(joint, float(np.mean(half)), 0.0, len(half))
++    if np.ptp(load) < cfg.min_slope_torque_span_nm or len(half) < cfg.min_samples:
++        return mean
++    (slope, b0), *_ = np.linalg.lstsq(np.c_[load, np.ones_like(load)], half, rcond=None)
++    if slope < 0 or b0 < 0:
++        return mean
++    return StictionFit(joint, float(b0), float(slope), len(half))
++
++
+ def _torques_and_sags(
+     session: SagSession, joint_map: JointMap, gravity: GravityTorqueModel
+ ) -> tuple[np.ndarray, np.ndarray]:
+diff --git a/src/rbe_501_so101/hardware/sag_analysis.py b/src/rbe_501_so101/hardware/sag_analysis.py
+index 86a01d8..ba2a259 100644
+--- a/src/rbe_501_so101/hardware/sag_analysis.py
++++ b/src/rbe_501_so101/hardware/sag_analysis.py
+@@ -1,6 +1,6 @@
+ """Turn a Phase 0 session into sim terms: per-joint summary, calibration file, sim comparison, README."""
+ 
+-from dataclasses import dataclass
++from dataclasses import dataclass, replace
+ 
+ import mujoco
+ import numpy as np
+@@ -19,10 +19,13 @@ from rbe_501_so101.hardware.sag import (
+     PoseJointTable,
+     RecordedPose,
+     SagSession,
++    StictionFit,
+     fit_compliance,
++    fit_stiction,
+     friction_torque,
+     headroom_warnings,
+     hysteresis_by_joint,
++    one_sided_sag_by_joint,
+     sag_by_joint,
+     usable_samples,
+ )
+@@ -41,6 +44,7 @@ class JointSagSummary:
+     mjcf_kp: float
+     fit: JointComplianceFit
+     friction_nm: float | None
++    stiction: StictionFit | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -55,6 +59,7 @@ class SagAnalysis:
+     warning_fraction: float
+     min_hysteresis_deg: float
+     n_excluded_clamped: int = 0
++    assume_unidentified_kp: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+@@ -74,17 +79,20 @@ def analyze_session(
+     fit_cfg: SagFitConfig,
+     residual_max_rad: float,
+ ) -> SagAnalysis:
+-    """Sag, hysteresis, and stiffness fit per arm joint, plus the headroom early warning.
++    """Sag, hysteresis, stiffness and stiction fits per arm joint, plus the headroom early warning.
+ 
+     Samples flagged as clamped (LeRobot clipped a goal) are excluded first.
++    The warning uses the worst single arrival, since that is what a policy
++    correction has to cover.
+     """
+     usable = usable_samples(session)
+     sag = sag_by_joint(usable)
+     joints = _joint_summaries(usable, sag, joint_map, model, sim_cfg, fit_cfg)
+-    warnings = headroom_warnings(sag, joint_map, residual_max_rad, fit_cfg.early_warning_fraction)
++    one_sided = one_sided_sag_by_joint(usable)
++    warnings = headroom_warnings(one_sided, joint_map, residual_max_rad, fit_cfg.early_warning_fraction)
+     return SagAnalysis(
+         session.robot_id, len(sag.pose_ids), joints, warnings, residual_max_rad, fit_cfg.early_warning_fraction,
+-        fit_cfg.min_hysteresis_deg, len(session.samples) - len(usable.samples),
++        fit_cfg.min_hysteresis_deg, len(session.samples) - len(usable.samples), fit_cfg.assume_unidentified_kp,
+     )
+ 
+ 
+@@ -95,22 +103,47 @@ def _joint_summaries(
+     """Per-arm-joint sag, hysteresis, and stiffness fit against the MJCF kp."""
+     hysteresis = hysteresis_by_joint(session)
+     fits = fit_compliance(session, joint_map, model, sim_cfg, fit_cfg)
++    stiction = {s.joint: s for s in fit_stiction(session, joint_map, model, sim_cfg, fit_cfg)}
+     kp_mjcf = model.actuator_gainprm[[model.actuator(j + sim_cfg.actuator_suffix).id for j in sim_cfg.arm_joints], 0]
+     return tuple(
+-        _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map)
++        replace(
++            _joint_summary(i, fit, sag.values_deg, hysteresis.values_deg, float(kp_mjcf[i]), joint_map),
++            stiction=stiction.get(fit.joint),
++        )
+         for i, fit in enumerate(fits)
+     )
+ 
+ 
+ def calibration_from_analysis(analysis: SagAnalysis, source: str) -> ActuatorCalibration:
+-    """Measured stiffness for identifiable joints; friction only where hysteresis exceeds one count."""
+-    entries = []
+-    for joint in analysis.joints:
+-        if not joint.fit.identifiable or joint.fit.kp_nm_per_rad is None:
+-            continue
+-        friction = joint.friction_nm if joint.mean_abs_hysteresis_deg >= analysis.min_hysteresis_deg else None
+-        entries.append(JointActuatorCalibration(joint.joint, joint.fit.kp_nm_per_rad, friction))
+-    return ActuatorCalibration(tuple(entries), source=source)
++    """Measured stiffness (or the assumed mean where unmeasured) and the friction model per joint.
++
++    A stiction fit replaces MuJoCo `frictionloss` (which creeps, D-03). Without
++    one, friction falls back to `kp * hysteresis` where hysteresis exceeds one count.
++    """
++    fitted = [j.fit.kp_nm_per_rad for j in analysis.joints if _has_kp(j)]
++    assumed = float(np.mean(fitted)) if fitted and analysis.assume_unidentified_kp else None
++    entries = (_calibration_entry(j, assumed, analysis.min_hysteresis_deg) for j in analysis.joints)
++    return ActuatorCalibration(tuple(e for e in entries if e is not None), source=source)
++
++
++def _has_kp(joint: JointSagSummary) -> bool:
++    """True if the joint's stiffness was identified."""
++    return joint.fit.identifiable and joint.fit.kp_nm_per_rad is not None
++
++
++def _calibration_entry(
++    joint: JointSagSummary, assumed_kp: float | None, min_hysteresis_deg: float
++) -> JointActuatorCalibration | None:
++    """One joint's calibration entry, or None when nothing about it was measured."""
++    kp, kp_assumed = (joint.fit.kp_nm_per_rad, False) if _has_kp(joint) else (assumed_kp, assumed_kp is not None)
++    if joint.stiction is not None:
++        return JointActuatorCalibration(
++            joint.joint, kp, None, kp_assumed, joint.stiction.half_band_rad, joint.stiction.load_slope_rad_per_nm
++        )
++    if kp is None:
++        return None
++    friction = joint.friction_nm if joint.mean_abs_hysteresis_deg >= min_hysteresis_deg and not kp_assumed else None
++    return JointActuatorCalibration(joint.joint, kp, friction, kp_assumed)
+ 
+ 
+ def simulate_session(
+@@ -145,8 +178,9 @@ def sag_readme(analysis: SagAnalysis) -> str:
+         "measured (LeRobot degrees); hysteresis is half of (from above minus from below).",
+         *_exclusion_lines(analysis),
+         "",
+-        "| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) | friction (N*m) |",
+-        "|---|---|---|---|---|---|---|",
++        "| joint | mean sag (deg) | max abs sag (deg) | mean abs hysteresis (deg) | MJCF kp | fitted kp (95% CI) "
++        "| friction (N*m) | stiction half-band (deg) |",
++        "|---|---|---|---|---|---|---|---|",
+         *(_joint_row(j) for j in analysis.joints),
+         "",
+         *_warning_lines(analysis),
+@@ -193,15 +227,25 @@ def _joint_row(j: JointSagSummary) -> str:
+     friction = "-" if j.friction_nm is None else f"{j.friction_nm:.3f}"
+     return (
+         f"| {j.joint} | {j.mean_sag_deg:.2f} | {j.max_abs_sag_deg:.2f} | {j.mean_abs_hysteresis_deg:.2f} "
+-        f"| {j.mjcf_kp:.1f} | {kp} | {friction} |"
++        f"| {j.mjcf_kp:.1f} | {kp} | {friction} | {_stiction_text(j.stiction)} |"
+     )
+ 
+ 
++def _stiction_text(fit: StictionFit | None) -> str:
++    """`b0 + slope * |tau|` in degrees, or a dash when the session could not measure it."""
++    if fit is None:
++        return "- (approaches too small)"
++    b0 = np.rad2deg(fit.half_band_rad)
++    if fit.load_slope_rad_per_nm == 0.0:
++        return f"{b0:.2f}"
++    return f"{b0:.2f} + {np.rad2deg(fit.load_slope_rad_per_nm):.2f}·|τ|"
++
++
+ def _warning_lines(analysis: SagAnalysis) -> list[str]:
+     """The early-warning statement against the policy's correction cap."""
+     limit_deg = np.rad2deg(analysis.warning_fraction * analysis.residual_max_rad)
+     header = (
+-        f"**Early warning** (sag above {analysis.warning_fraction:.0%} of the policy's "
++        f"**Early warning** (worst single-approach sag above {analysis.warning_fraction:.0%} of the policy's "
+         f"±{analysis.residual_max_rad:g} rad correction cap, i.e. {limit_deg:.2f} deg):"
+     )
+     if not analysis.headroom_warnings:
+diff --git a/tests/test_sag_analysis.py b/tests/test_sag_analysis.py
+index cf7786f..c946da5 100644
+--- a/tests/test_sag_analysis.py
++++ b/tests/test_sag_analysis.py
+@@ -71,11 +71,13 @@ def test_large_sag_triggers_the_headroom_warning(analysis):
+     assert analysis.headroom_warnings == ("shoulder_lift",)
+ 
+ 
+-def test_calibration_only_includes_identifiable_joints(analysis):
++def test_calibration_measures_identifiable_joints_and_assumes_the_rest(analysis):
+     calibration = calibration_from_analysis(analysis, source="unit test")
+-    names = {e.joint for e in calibration.joints}
+-    assert "shoulder_pan" not in names
+-    lift = next(e for e in calibration.joints if e.joint == "shoulder_lift")
++    entries = {e.joint: e for e in calibration.joints}
++    assert entries["shoulder_pan"].kp_assumed and entries["shoulder_pan"].frictionloss_nm is None
++    no_assumption = calibration_from_analysis(replace(analysis, assume_unidentified_kp=False), source="unit test")
++    assert "shoulder_pan" not in {e.joint for e in no_assumption.joints}
++    lift = entries["shoulder_lift"]
+     assert lift.kp_nm_per_rad is not None and lift.frictionloss_nm is not None
+     wrist = next((e for e in calibration.joints if e.joint == "wrist_flex"), None)
+     assert wrist is None or wrist.frictionloss_nm is None

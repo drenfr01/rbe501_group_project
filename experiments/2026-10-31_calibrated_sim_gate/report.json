@@ -1,0 +1,257 @@
+{
+  "passed": true,
+  "tolerance_deg": 1.0,
+  "rows": {
+    "sim: stiffness + stiction": [
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 5,
+        "real_mean_deg": 0.231472527472528,
+        "sim_mean_deg": 0.3395468750000029,
+        "mean_abs_diff_deg": 0.21492359203296357,
+        "passed": true
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 5,
+        "real_mean_deg": 3.2908131868131845,
+        "sim_mean_deg": 3.2399375000000035,
+        "mean_abs_diff_deg": 0.07724244505494493,
+        "passed": true
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 5,
+        "real_mean_deg": 0.2802637362637347,
+        "sim_mean_deg": 0.3416562499999987,
+        "mean_abs_diff_deg": 0.1561143543956076,
+        "passed": true
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 5,
+        "real_mean_deg": 3.884659340659339,
+        "sim_mean_deg": 3.6990781249999998,
+        "mean_abs_diff_deg": 0.21039577609889956,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 12,
+        "real_mean_deg": 1.353919413919406,
+        "sim_mean_deg": 1.450286458333327,
+        "mean_abs_diff_deg": 0.4667940132783861,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 12,
+        "real_mean_deg": 2.613992673992667,
+        "sim_mean_deg": 3.3619075520833266,
+        "mean_abs_diff_deg": 0.7703844007554945,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 12,
+        "real_mean_deg": 1.3923076923076907,
+        "sim_mean_deg": 1.4068359375000037,
+        "mean_abs_diff_deg": 0.48141597985348117,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 12,
+        "real_mean_deg": 2.3813186813186804,
+        "sim_mean_deg": 2.8057617187500035,
+        "mean_abs_diff_deg": 0.42444303743132233,
+        "passed": true
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 2,
+        "real_mean_deg": 0.7494505494505395,
+        "sim_mean_deg": 1.4355468749999907,
+        "mean_abs_diff_deg": 0.686096325549451,
+        "passed": true
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 2,
+        "real_mean_deg": 4.168131868131874,
+        "sim_mean_deg": 4.1455078124999964,
+        "mean_abs_diff_deg": 0.08425266140110077,
+        "passed": true
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 1,
+        "real_mean_deg": 4.980219780219792,
+        "sim_mean_deg": 5.273437500000001,
+        "mean_abs_diff_deg": 0.29321771978020905,
+        "passed": true
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 1,
+        "real_mean_deg": 0.20109890109890316,
+        "sim_mean_deg": 0.5273437499999998,
+        "mean_abs_diff_deg": 0.3262448489010966,
+        "passed": true
+      }
+    ],
+    "sim: stiffness only": [
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 5,
+        "real_mean_deg": 0.231472527472528,
+        "sim_mean_deg": 1.6930625000000041,
+        "mean_abs_diff_deg": 1.4615899725274761,
+        "passed": false
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 5,
+        "real_mean_deg": 3.2908131868131845,
+        "sim_mean_deg": 1.6930625000000041,
+        "mean_abs_diff_deg": 1.59775068681318,
+        "passed": false
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 5,
+        "real_mean_deg": 0.2802637362637347,
+        "sim_mean_deg": 2.0818906249999998,
+        "mean_abs_diff_deg": 1.8016268887362652,
+        "passed": false
+      },
+      {
+        "source": "sag check, 8\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 5,
+        "real_mean_deg": 3.884659340659339,
+        "sim_mean_deg": 2.0818906249999998,
+        "mean_abs_diff_deg": 1.8027687156593395,
+        "passed": false
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 12,
+        "real_mean_deg": 1.353919413919406,
+        "sim_mean_deg": 2.8052669270833266,
+        "mean_abs_diff_deg": 1.4737848414606212,
+        "passed": false
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 12,
+        "real_mean_deg": 2.613992673992667,
+        "sim_mean_deg": 2.8052669270833266,
+        "mean_abs_diff_deg": 0.6190472613324065,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 12,
+        "real_mean_deg": 1.3923076923076907,
+        "sim_mean_deg": 2.066015625000004,
+        "mean_abs_diff_deg": 0.8585028903388298,
+        "passed": true
+      },
+      {
+        "source": "sag check, 3\u00b0 approaches",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 12,
+        "real_mean_deg": 2.3813186813186804,
+        "sim_mean_deg": 2.066015625000004,
+        "mean_abs_diff_deg": 0.3262505723443178,
+        "passed": true
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "shoulder_lift",
+        "direction": "with gravity",
+        "n": 2,
+        "real_mean_deg": 0.7494505494505395,
+        "sim_mean_deg": 3.676757812499994,
+        "mean_abs_diff_deg": 2.927307263049454,
+        "passed": false
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "elbow_flex",
+        "direction": "against gravity",
+        "n": 2,
+        "real_mean_deg": 4.168131868131874,
+        "sim_mean_deg": 2.2998046874999982,
+        "mean_abs_diff_deg": 1.8683271806318755,
+        "passed": false
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "shoulder_lift",
+        "direction": "against gravity",
+        "n": 1,
+        "real_mean_deg": 4.980219780219792,
+        "sim_mean_deg": 3.1640625000000018,
+        "mean_abs_diff_deg": 1.81615728021979,
+        "passed": false
+      },
+      {
+        "source": "pose check, 30\u00b0 moves",
+        "joint": "elbow_flex",
+        "direction": "with gravity",
+        "n": 1,
+        "real_mean_deg": 0.20109890109890316,
+        "sim_mean_deg": 2.28515625,
+        "mean_abs_diff_deg": 2.084057348901097,
+        "passed": false
+      }
+    ]
+  },
+  "sources": {
+    "sag_sessions": "[PosixPath('data/sag_check/2026-10-31_rbe501_follower_p24_192311'), PosixPath('data/sag_check/2026-10-31_rbe501_follower_p24_190722')]",
+    "pose_check": "data/pose_check/2026-10-31_rbe501_follower_p24_184714",
+    "calibration": "data/calibration/actuator_calibration.json",
+    "tolerance_deg": "1.0",
+    "out": "None"
+  }
+}

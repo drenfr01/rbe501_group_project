@@ -1,0 +1,844 @@
+{
+  "robot_id": "sim",
+  "joints": [
+    "shoulder_pan",
+    "shoulder_lift",
+    "elbow_flex",
+    "wrist_flex",
+    "wrist_roll",
+    "gripper"
+  ],
+  "settings": [],
+  "samples": [
+    {
+      "pose_id": 0,
+      "approach": "above",
+      "goal_deg": [
+        -4.35,
+        -25.19,
+        27.74,
+        18.29,
+        1.19,
+        17.48
+      ],
+      "measured_deg": [
+        -4.312500000000001,
+        -24.791796874999992,
+        28.8484375,
+        19.396484375,
+        1.23046875,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        7.105427357601002e-15,
+        3.552713678800501e-15,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -4.35,
+        -25.19,
+        27.74,
+        18.29,
+        1.19,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        8.0,
+        -7.9999999999999964,
+        -8.0,
+        -8.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 0,
+      "approach": "below",
+      "goal_deg": [
+        -4.35,
+        -25.19,
+        27.74,
+        18.29,
+        1.19,
+        17.48
+      ],
+      "measured_deg": [
+        -4.312500000000001,
+        -24.791796874999992,
+        28.8484375,
+        19.396484375,
+        1.23046875,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        7.105427357601002e-15,
+        3.552713678800501e-15,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -4.35,
+        -25.19,
+        27.74,
+        18.29,
+        1.19,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        -8.0,
+        8.0,
+        7.9999999999999964,
+        8.0,
+        -8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 1,
+      "approach": "above",
+      "goal_deg": [
+        57.63,
+        -14.99,
+        28.09,
+        -41.93,
+        1.19,
+        17.48
+      ],
+      "measured_deg": [
+        57.650390625000014,
+        -14.508593749999994,
+        29.112109375,
+        -41.423828125,
+        1.23046875,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        7.105427357601002e-15,
+        5.329070518200751e-15,
+        0.0,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        57.63,
+        -14.99,
+        28.09,
+        -41.93,
+        1.19,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        7.999999999999993,
+        -8.000000000000002,
+        -8.0,
+        -8.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 1,
+      "approach": "below",
+      "goal_deg": [
+        57.63,
+        -14.99,
+        28.09,
+        -41.93,
+        1.19,
+        17.48
+      ],
+      "measured_deg": [
+        57.650390625000014,
+        -14.508593749999994,
+        29.112109375,
+        -41.423828125,
+        1.23046875,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        7.105427357601002e-15,
+        5.329070518200751e-15,
+        0.0,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        57.63,
+        -14.99,
+        28.09,
+        -41.93,
+        1.19,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        -8.0,
+        8.0,
+        8.000000000000004,
+        8.0,
+        -8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 2,
+      "approach": "above",
+      "goal_deg": [
+        -48.66,
+        2.24,
+        5.76,
+        58.99,
+        0.92,
+        17.48
+      ],
+      "measured_deg": [
+        -48.69726562500001,
+        3.157421874999999,
+        6.875781250000001,
+        59.914062499999986,
+        0.87890625,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        1.3322676295501878e-15,
+        8.881784197001252e-16,
+        7.105427357601002e-15,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -48.66,
+        2.24,
+        5.76,
+        58.99,
+        0.92,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        8.0,
+        -8.0,
+        -8.0,
+        -8.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 2,
+      "approach": "below",
+      "goal_deg": [
+        -48.66,
+        2.24,
+        5.76,
+        58.99,
+        0.92,
+        17.48
+      ],
+      "measured_deg": [
+        -48.69726562500001,
+        3.157421874999999,
+        6.875781250000001,
+        59.914062499999986,
+        0.87890625,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        1.3322676295501878e-15,
+        8.881784197001252e-16,
+        7.105427357601002e-15,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -48.66,
+        2.24,
+        5.76,
+        58.99,
+        0.92,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        -8.0,
+        8.0,
+        8.0,
+        8.000000000000007,
+        -8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 3,
+      "approach": "above",
+      "goal_deg": [
+        1.71,
+        7.6,
+        -9.54,
+        58.2,
+        1.01,
+        17.48
+      ],
+      "measured_deg": [
+        1.751953125,
+        8.606640625,
+        -8.4171875,
+        59.2109375,
+        0.9667968749999998,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        0.0,
+        1.7763568394002505e-15,
+        0.0,
+        1.1102230246251565e-16,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        1.71,
+        7.6,
+        -9.54,
+        58.2,
+        1.01,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        8.0,
+        -8.0,
+        -8.0,
+        -8.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 3,
+      "approach": "below",
+      "goal_deg": [
+        1.71,
+        7.6,
+        -9.54,
+        58.2,
+        1.01,
+        17.48
+      ],
+      "measured_deg": [
+        1.751953125,
+        8.606640625,
+        -8.4171875,
+        59.2109375,
+        0.9667968749999998,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        0.0,
+        1.7763568394002505e-15,
+        0.0,
+        1.1102230246251565e-16,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        1.71,
+        7.6,
+        -9.54,
+        58.2,
+        1.01,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        -8.0,
+        8.0,
+        8.0,
+        8.0,
+        -8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 4,
+      "approach": "above",
+      "goal_deg": [
+        -1.54,
+        19.82,
+        5.23,
+        10.9,
+        1.1,
+        17.48
+      ],
+      "measured_deg": [
+        -1.5000000000000002,
+        21.262890625000004,
+        6.524218750000001,
+        12.013671875000002,
+        1.142578125,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        3.552713678800501e-15,
+        1.7763568394002505e-15,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -1.54,
+        19.82,
+        5.23,
+        10.9,
+        1.1,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        8.0,
+        -8.0,
+        -8.0,
+        -8.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "pose_id": 4,
+      "approach": "below",
+      "goal_deg": [
+        -1.54,
+        19.82,
+        5.23,
+        10.9,
+        1.1,
+        17.48
+      ],
+      "measured_deg": [
+        -1.5000000000000002,
+        21.262890625000004,
+        6.524218750000001,
+        12.013671875000002,
+        1.142578125,
+        45.44565203287769
+      ],
+      "measured_std_deg": [
+        0.0,
+        3.552713678800501e-15,
+        1.7763568394002505e-15,
+        0.0,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "status": [
+        {
+          "name": "shoulder_pan",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "shoulder_lift",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "elbow_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_flex",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "wrist_roll",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        },
+        {
+          "name": "gripper",
+          "temperature_c": NaN,
+          "voltage_v": NaN,
+          "load_fraction": NaN
+        }
+      ],
+      "sent_goal_deg": [
+        -1.54,
+        19.82,
+        5.23,
+        10.9,
+        1.1,
+        17.48
+      ],
+      "clamped": false,
+      "approach_offset_deg": [
+        -7.999999999999999,
+        8.0,
+        8.0,
+        7.999999999999998,
+        -8.0,
+        0.0
+      ]
+    }
+  ]
+}

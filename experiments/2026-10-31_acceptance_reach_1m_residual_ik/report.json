@@ -1,0 +1,215 @@
+{
+  "preset": "residual_ik_sim2real",
+  "model_dir": "checkpoints/reach_1m_residual_ik",
+  "criteria": {
+    "deployment_max_mean_mm": 2.0,
+    "worst_case_max_mean_mm": 5.0,
+    "max_saturation_fraction": 0.2,
+    "integral_margin_mm": 0.0,
+    "kp_scales": [
+      0.7,
+      1.4
+    ],
+    "stiction_scales": [
+      1.5
+    ],
+    "episodes_per_condition": 20,
+    "experiment_suffix": "acceptance"
+  },
+  "verdict": {
+    "passed": false,
+    "reasons": [
+      "FAIL: deployment mean error 8.92 mm vs limit 2.00 mm",
+      "PASS: beats IK hold by 11.48 mm vs seed spread 2.24 mm",
+      "FAIL: saturation 30.9% vs limit 20%",
+      "FAIL: worst case kp_scale 0.7: 15.01 mm vs limit 5.00 mm",
+      "FAIL: vs integral control, worst at kp_scale 0.7: +13.62 mm (allowed +0.00 mm)"
+    ]
+  },
+  "results": [
+    {
+      "controller": "trained",
+      "parameter": "deployment",
+      "value": 1.0,
+      "mean_mm": 8.924060611332546,
+      "p95_mm": 18.149410154021293,
+      "per_seed_mean_mm": {
+        "0": 9.018548292370733,
+        "1": 9.994812184982075,
+        "2": 7.7588213566448285
+      },
+      "saturation_fraction": 0.3088888888888889
+    },
+    {
+      "controller": "ik_hold",
+      "parameter": "deployment",
+      "value": 1.0,
+      "mean_mm": 20.40703964159541,
+      "p95_mm": 31.501118926033097,
+      "per_seed_mean_mm": {
+        "all": 20.40703964159541
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "gravity_comp",
+      "parameter": "deployment",
+      "value": 1.0,
+      "mean_mm": 12.415862555395377,
+      "p95_mm": 20.522452559075965,
+      "per_seed_mean_mm": {
+        "all": 12.415862555395377
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "integral",
+      "parameter": "deployment",
+      "value": 1.0,
+      "mean_mm": 0.8008927241219055,
+      "p95_mm": 1.024774445518779,
+      "per_seed_mean_mm": {
+        "all": 0.8008927241219055
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "trained",
+      "parameter": "kp_scale",
+      "value": 0.7,
+      "mean_mm": 15.008151910753373,
+      "p95_mm": 26.722872784341828,
+      "per_seed_mean_mm": {
+        "0": 13.039087476401585,
+        "1": 16.83064916044357,
+        "2": 15.154719095414958
+      },
+      "saturation_fraction": 0.3983333333333333
+    },
+    {
+      "controller": "ik_hold",
+      "parameter": "kp_scale",
+      "value": 0.7,
+      "mean_mm": 28.14180230416948,
+      "p95_mm": 41.66295395327814,
+      "per_seed_mean_mm": {
+        "all": 28.14180230416948
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "gravity_comp",
+      "parameter": "kp_scale",
+      "value": 0.7,
+      "mean_mm": 14.221645910021126,
+      "p95_mm": 25.66845507124729,
+      "per_seed_mean_mm": {
+        "all": 14.221645910021126
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "integral",
+      "parameter": "kp_scale",
+      "value": 0.7,
+      "mean_mm": 1.387162399564984,
+      "p95_mm": 4.3519573963476095,
+      "per_seed_mean_mm": {
+        "all": 1.387162399564984
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "trained",
+      "parameter": "kp_scale",
+      "value": 1.4,
+      "mean_mm": 7.033196267607428,
+      "p95_mm": 14.854052256886195,
+      "per_seed_mean_mm": {
+        "0": 7.1422827009778835,
+        "1": 7.122183501993294,
+        "2": 6.835122599851107
+      },
+      "saturation_fraction": 0.31722222222222224
+    },
+    {
+      "controller": "ik_hold",
+      "parameter": "kp_scale",
+      "value": 1.4,
+      "mean_mm": 15.9688561046605,
+      "p95_mm": 27.326342560050076,
+      "per_seed_mean_mm": {
+        "all": 15.9688561046605
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "gravity_comp",
+      "parameter": "kp_scale",
+      "value": 1.4,
+      "mean_mm": 12.989112939196321,
+      "p95_mm": 27.361400910719645,
+      "per_seed_mean_mm": {
+        "all": 12.989112939196321
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "integral",
+      "parameter": "kp_scale",
+      "value": 1.4,
+      "mean_mm": 0.8094358824881893,
+      "p95_mm": 1.0271252018007058,
+      "per_seed_mean_mm": {
+        "all": 0.8094358824881893
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "trained",
+      "parameter": "stiction_scale",
+      "value": 1.5,
+      "mean_mm": 8.371630357011787,
+      "p95_mm": 17.886190547257684,
+      "per_seed_mean_mm": {
+        "0": 8.508964029152873,
+        "1": 8.668927894837214,
+        "2": 7.936999147045272
+      },
+      "saturation_fraction": 0.3061111111111111
+    },
+    {
+      "controller": "ik_hold",
+      "parameter": "stiction_scale",
+      "value": 1.5,
+      "mean_mm": 23.343543250704748,
+      "p95_mm": 40.73092696293728,
+      "per_seed_mean_mm": {
+        "all": 23.343543250704748
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "gravity_comp",
+      "parameter": "stiction_scale",
+      "value": 1.5,
+      "mean_mm": 18.33998682933374,
+      "p95_mm": 30.141119646088068,
+      "per_seed_mean_mm": {
+        "all": 18.33998682933374
+      },
+      "saturation_fraction": null
+    },
+    {
+      "controller": "integral",
+      "parameter": "stiction_scale",
+      "value": 1.5,
+      "mean_mm": 0.8083447519444665,
+      "p95_mm": 1.0852982903692179,
+      "per_seed_mean_mm": {
+        "all": 0.8083447519444665
+      },
+      "saturation_fraction": null
+    }
+  ]
+}

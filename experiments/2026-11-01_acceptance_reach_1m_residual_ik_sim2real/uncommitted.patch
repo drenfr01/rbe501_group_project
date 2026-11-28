@@ -1,0 +1,295 @@
+diff --git a/reports/README.md b/reports/README.md
+index 19cefeb..8172236 100644
+--- a/reports/README.md
++++ b/reports/README.md
+@@ -11,7 +11,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of
+   [first real sag check](findings/2026-10-31_real_sag_check.md) the [pose check](findings/2026-10-31_pose_check.md), and the
+   [pre-retraining plan](findings/2026-10-31_pre_retraining_plan.md), and the
+   [P = 24 sag check](findings/2026-10-31_sag_check_p24.md), and the
+-  [servo model, calibrated-sim gate, and retraining setup](findings/2026-10-31_servo_model_and_gate.md).
++  [servo model, calibrated-sim gate, and retraining setup](findings/2026-10-31_servo_model_and_gate.md), and the
++  [first retrain result](findings/2026-11-01_retrain_sim2real_result.md).
+ - `figures/`: report-ready figures with stable names, refreshed by the analyze scripts' `--report-figures` flag.
+ 
+ ## Outline and status
+@@ -52,5 +53,8 @@ Working outline of the class paper on sim2real and dynamics, with the status of
+    lets the calibrated sim reproduce every real direction-dependent error within 1° (12/12 rows; stiffness alone:
+    3/12). In that sim the current policy holds 8.9 mm and integral control 0.8 mm, which is the bar for the retrained
+    policy ([servo model and gate](findings/2026-10-31_servo_model_and_gate.md), D-03, D-08).
++10. Retrained on the calibrated sim, the policy's error falls from 8.9 to 4.0 mm, but it gets there by dithering
++   every command at the maximum rate to break static friction, an exploit of a regime the gate never validated
++   ([retrain result](findings/2026-11-01_retrain_sim2real_result.md)).
+ 
+ ![Stiffness sweep](figures/kp_sweep.png)
+diff --git a/scripts/sim2real/analyze/acceptance.py b/scripts/sim2real/analyze/acceptance.py
+index 2d6ed5f..08d14c5 100644
+--- a/scripts/sim2real/analyze/acceptance.py
++++ b/scripts/sim2real/analyze/acceptance.py
+@@ -75,10 +75,11 @@ def table(results: list[SweepResult]) -> list[str]:
+ 
+ 
+ def _cell(results: list[SweepResult], controller: str, parameter: str, value: float) -> str:
+-    """'mean (p95)' for one controller and condition, plus saturation for the policy."""
++    """'mean (p95)' for one controller and condition, plus command step and (policy) saturation."""
+     r = next(r for r in results if (r.controller, r.parameter, r.value) == (controller, parameter, value))
++    step = "" if r.command_step_deg is None else f", {r.command_step_deg:.2f}°/step"
+     sat = "" if r.saturation_fraction is None else f", sat {r.saturation_fraction:.0%}"
+-    return f"{r.mean_mm:.2f} ({r.p95_mm:.2f}{sat})"
++    return f"{r.mean_mm:.2f} ({r.p95_mm:.2f}{step}{sat})"
+ 
+ 
+ def readme(args: argparse.Namespace, results: list[SweepResult], verdict: AcceptanceVerdict | None) -> str:
+@@ -89,7 +90,8 @@ def readme(args: argparse.Namespace, results: list[SweepResult], verdict: Accept
+     else:
+         head += [f"Checkpoint `{args.model_dir}`, seeds {args.seeds}.", "",
+                  f"## Verdict: {'ACCEPT' if verdict.passed else 'REJECT'}", "", *[f"- {r}" for r in verdict.reasons], ""]
+-    note = "Holding-window error, mean (p95) in mm, over the same evaluation targets; sat = policy saturation."
++    note = ("Holding-window error, mean (p95) in mm, over the same evaluation targets; °/step = mean command change "
++            "per holding step; sat = policy saturation.")
+     return "\n".join([*head, note, "", *table(results)]) + "\n"
+ 
+ 
+diff --git a/src/rbe_501_so101/config.py b/src/rbe_501_so101/config.py
+index e32e4d0..ad00476 100644
+--- a/src/rbe_501_so101/config.py
++++ b/src/rbe_501_so101/config.py
+@@ -468,6 +468,17 @@ PRESETS["residual_ik_sim2real"] = ExperimentPreset(
+ )
+ 
+ 
++# The first retrain dithered (2026-11-01). A 200k-step sweep of the smoothness
++# weight: up to 1.0 the command still reversed by ~1-2° every holding step; 3
++# stopped it (0.03°/step) at the best error (3.5 mm); 10 and above pinned the
++# elbow at the residual cap and lost accuracy.
++SIM2REAL_SMOOTHNESS_PENALTY = 3.0
++PRESETS["residual_ik_sim2real_smooth"] = replace(
++    PRESETS["residual_ik_sim2real"],
++    reward=replace(PRESETS["residual_ik_sim2real"].reward, smoothness_penalty=SIM2REAL_SMOOTHNESS_PENALTY),
++)
++
++
+ @dataclass(frozen=True)
+ class SafetyConfig:
+     """Abort thresholds checked on every hardware control step."""
+@@ -654,9 +665,16 @@ class AcceptanceConfig:
+     `worst_case_max_mean_mm` under stress, and be no worse than integral
+     control (plus `integral_margin_mm`) in any condition. Settling time and the
+     two-sided approach test are left to the hardware repeatability runs.
++
++    `max_command_step_deg` (added 2026-11-01, before the second retrain) bounds
++    the mean command change per holding step in the deployment condition. The
++    first retrain dithered every command by the full 2° per step to break
++    static friction: that wears the servos and relies on fast-reversal servo
++    behaviour the gate never validated. 0.25° is about three encoder counts.
+     """
+ 
+     deployment_max_mean_mm: float = 2.0
++    max_command_step_deg: float = 0.25
+     worst_case_max_mean_mm: float = 5.0
+     max_saturation_fraction: float = 0.2
+     integral_margin_mm: float = 0.0
+diff --git a/src/rbe_501_so101/rl/acceptance.py b/src/rbe_501_so101/rl/acceptance.py
+index 93543ca..3b24927 100644
+--- a/src/rbe_501_so101/rl/acceptance.py
++++ b/src/rbe_501_so101/rl/acceptance.py
+@@ -58,6 +58,7 @@ def check_acceptance(results: Sequence[SweepResult], cfg: AcceptanceConfig) -> A
+         _deployment_check(deploy, cfg),
+         _ik_hold_check(deploy, _baseline(results, IK_HOLD, deploy)),
+         _saturation_check(deploy, cfg),
++        _dither_check(deploy, cfg),
+         _worst_case_check([r for r in trained if r.parameter != DEPLOYMENT], cfg),
+         _integral_check(trained, results, cfg),
+     )
+@@ -91,6 +92,15 @@ def _saturation_check(deploy: SweepResult, cfg: AcceptanceConfig) -> tuple[bool,
+     )
+ 
+ 
++def _dither_check(deploy: SweepResult, cfg: AcceptanceConfig) -> tuple[bool, str]:
++    """Mean command change per holding step (a still hold, not dithering against friction)."""
++    if deploy.command_step_deg is None:
++        return False, "dither: command step not measured"
++    return deploy.command_step_deg <= cfg.max_command_step_deg, (
++        f"dither: command moves {deploy.command_step_deg:.2f} deg/step while holding vs limit {cfg.max_command_step_deg:.2f}"
++    )
++
++
+ def _worst_case_check(stress: Sequence[SweepResult], cfg: AcceptanceConfig) -> tuple[bool, str]:
+     """Largest mean error over the stress conditions."""
+     worst = max(stress, key=lambda r: r.mean_mm)
+diff --git a/src/rbe_501_so101/rl/evaluation.py b/src/rbe_501_so101/rl/evaluation.py
+index 2bea475..4cb1e4d 100644
+--- a/src/rbe_501_so101/rl/evaluation.py
++++ b/src/rbe_501_so101/rl/evaluation.py
+@@ -34,11 +34,17 @@ AlgoName = Literal["sac", "ppo"]
+ 
+ @dataclass(frozen=True)
+ class EpisodeStats:
+-    """Holding-window errors (m), mean arm joint speed (rad/s), and actions for one episode."""
++    """Holding-window errors (m), mean arm joint speed (rad/s), actions, and command motion for one episode.
++
++    `holding_command_step_rad` is the mean |change| of the arm command per step
++    over the holding window: near zero for a policy that holds still, large for
++    one that dithers.
++    """
+ 
+     holding_errors_m: np.ndarray
+     mean_joint_speed: float
+     holding_actions: np.ndarray | None = None
++    holding_command_step_rad: float | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -55,7 +61,7 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int)
+     """Roll out one episode. Return None if the viewer closed before truncation."""
+     obs, _ = env.reset(seed=seed)
+     policy.reset(env.target, env.state)
+-    errors, speeds, actions, truncated = [], [], [], False
++    errors, speeds, actions, commands, truncated = [], [], [], [], False
+     while not truncated:
+         if not env.viewer_open:
+             return None
+@@ -64,7 +70,13 @@ def run_episode(env: SO101ReachEnv, policy: EvalPolicy, seed: int, window: int)
+         errors.append(info["distance_m"])
+         speeds.append(float(np.mean(np.abs(obs[env.layout.qvel]))))
+         actions.append(action)
+-    return EpisodeStats(np.array(errors[-window:]), float(np.mean(speeds[-window:])), np.array(actions[-window:]))
++        commands.append(env.state.q_cmd[: env.layout.n_arm].copy())
++    return EpisodeStats(
++        np.array(errors[-window:]),
++        float(np.mean(speeds[-window:])),
++        np.array(actions[-window:]),
++        float(np.mean(np.abs(np.diff(commands[-window:], axis=0)))),
++    )
+ 
+ 
+ def completed_episodes(stats: list[EpisodeStats | None]) -> list[EpisodeStats]:
+diff --git a/src/rbe_501_so101/rl/robustness.py b/src/rbe_501_so101/rl/robustness.py
+index f364c62..3ff12da 100644
+--- a/src/rbe_501_so101/rl/robustness.py
++++ b/src/rbe_501_so101/rl/robustness.py
+@@ -49,7 +49,7 @@ class SweepCondition:
+ 
+ @dataclass(frozen=True)
+ class SweepResult:
+-    """Holding-window error of one controller under one condition (mm)."""
++    """Holding-window error of one controller under one condition (mm), and its mean command step (deg)."""
+ 
+     controller: str
+     parameter: str
+@@ -58,6 +58,7 @@ class SweepResult:
+     p95_mm: float
+     per_seed_mean_mm: dict[str, float]
+     saturation_fraction: float | None
++    command_step_deg: float | None = None
+ 
+ 
+ @dataclass(frozen=True)
+@@ -238,8 +239,17 @@ def _to_result(
+     if cfg is not None:
+         actions = np.concatenate([ep.holding_actions for eps in per_seed.values() for ep in eps])
+         saturation = saturation_fraction(actions, cfg.saturation_threshold)
++    steps = [ep.holding_command_step_rad for eps in per_seed.values() for ep in eps]
++    command_step = None if None in steps else math.degrees(float(np.mean(steps)))
+     return SweepResult(
+-        controller, condition.parameter, condition.value, report.mean_mm, report.p95_mm, report.per_seed_mean_mm, saturation
++        controller,
++        condition.parameter,
++        condition.value,
++        report.mean_mm,
++        report.p95_mm,
++        report.per_seed_mean_mm,
++        saturation,
++        command_step,
+     )
+ 
+ 
+diff --git a/tests/test_acceptance.py b/tests/test_acceptance.py
+index e93d166..4d61fe2 100644
+--- a/tests/test_acceptance.py
++++ b/tests/test_acceptance.py
+@@ -16,18 +16,18 @@ TRAINING = PRESETS["residual_ik_sim2real"].env
+ 
+ 
+ def _result(controller: str, parameter: str, value: float, mean: float, saturation: float | None = None,
+-            spread: float = 0.1) -> SweepResult:
++            spread: float = 0.1, command_step: float = 0.02) -> SweepResult:
+     """One controller's result under one condition."""
+     seeds = {"0": mean - spread / 2, "1": mean + spread / 2} if controller == TRAINED else {"all": mean}
+-    return SweepResult(controller, parameter, value, mean, 2 * mean, seeds, saturation)
++    return SweepResult(controller, parameter, value, mean, 2 * mean, seeds, saturation, command_step)
+ 
+ 
+ def _results(rl: dict[tuple[str, float], float], integral: float = 1.0, ik: float = 10.0,
+-             saturation: float = 0.05) -> list[SweepResult]:
++             saturation: float = 0.05, command_step: float = 0.02) -> list[SweepResult]:
+     """Trained policy at the given means, with fixed baselines under every condition."""
+     out = []
+     for (parameter, value), mean in rl.items():
+-        out.append(_result(TRAINED, parameter, value, mean, saturation))
++        out.append(_result(TRAINED, parameter, value, mean, saturation, command_step=command_step))
+         out += [_result("integral", parameter, value, integral), _result("ik_hold", parameter, value, ik),
+                 _result("gravity_comp", parameter, value, 5.0)]
+     return out
+@@ -80,3 +80,10 @@ def test_missing_trained_results_are_refused():
+     baselines = [r for r in _results(GOOD) if r.controller != TRAINED]
+     with pytest.raises(ValueError, match="trained"):
+         check_acceptance(baselines, CFG)
++
++
++def test_dithering_fails_even_when_accurate():
++    """A policy that moves its command every step while holding is rejected (wear, unvalidated regime)."""
++    verdict = check_acceptance(_results(GOOD, command_step=1.9), CFG)
++    assert not verdict.passed
++    assert any("dither" in r for r in verdict.reasons if r.startswith("FAIL"))
+diff --git a/tests/test_evaluation.py b/tests/test_evaluation.py
+index 7fbe444..80ce139 100644
+--- a/tests/test_evaluation.py
++++ b/tests/test_evaluation.py
+@@ -77,3 +77,23 @@ def test_episode_stats_record_holding_actions(reach_env):
+     policy = RandomPolicy(0, reach_env.layout.n_arm)
+     stats = run_episode(reach_env, policy, seed=0, window=TrainConfig().holding_window_steps)
+     assert stats.holding_actions.shape == (TrainConfig().holding_window_steps, reach_env.layout.n_arm)
++
++
++class ZeroPolicy:
++    """Never moves the command."""
++
++    def reset(self, target, state) -> None:
++        """Nothing to reset."""
++
++    def __call__(self, obs):
++        """Zero delta."""
++        return np.zeros(5, dtype=np.float32)
++
++
++def test_episode_stats_record_the_holding_command_step(reach_env):
++    """Mean |command change| per step over the holding window: zero for a still policy, positive for a random one."""
++    window = TrainConfig().holding_window_steps
++    still = run_episode(reach_env, ZeroPolicy(), seed=0, window=window)
++    moving = run_episode(reach_env, RandomPolicy(0, reach_env.layout.n_arm), seed=0, window=window)
++    assert still.holding_command_step_rad == pytest.approx(0.0)
++    assert moving.holding_command_step_rad > 0.0
+diff --git a/tests/test_sim2real_preset.py b/tests/test_sim2real_preset.py
+index 0e5d3a3..578d783 100644
+--- a/tests/test_sim2real_preset.py
++++ b/tests/test_sim2real_preset.py
+@@ -1,6 +1,7 @@
+ """The sim2real training preset, the hardware speed cap, and the deployment condition."""
+ 
+ import json
++from dataclasses import replace
+ from math import radians
+ 
+ import numpy as np
+@@ -94,3 +95,11 @@ def test_sim2real_env_clips_commands_to_the_real_joint_window():
+         assert np.all(limits.lower >= window[:, 0] - 1e-12) and np.all(limits.upper <= window[:, 1] + 1e-12)
+     finally:
+         env.close()
++
++
++def test_smooth_preset_only_raises_the_smoothness_penalty():
++    """`residual_ik_sim2real_smooth` is `residual_ik_sim2real` with a much larger action-change penalty."""
++    smooth = PRESETS["residual_ik_sim2real_smooth"]
++    assert smooth.reward.smoothness_penalty > 100 * SIM2REAL.reward.smoothness_penalty
++    assert smooth.task == SIM2REAL.task and smooth.env == SIM2REAL.env and smooth.sac == SIM2REAL.sac
++    assert replace(smooth.reward, smoothness_penalty=SIM2REAL.reward.smoothness_penalty) == SIM2REAL.reward

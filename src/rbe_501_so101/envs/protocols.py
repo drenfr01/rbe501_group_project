@@ -54,6 +54,14 @@ class Renderable(Protocol):
         ...
 
 
+class ForwardKinematics(Protocol):
+    """Maps a full joint vector (arm joints, then gripper) to the gripper-site position."""
+
+    def forward(self, q: np.ndarray) -> np.ndarray:
+        """World-frame gripper-site XYZ (m)."""
+        ...
+
+
 @runtime_checkable
 class JointGoalSolver(Protocol):
     """Maps a Cartesian target to arm joint angles (e.g. inverse kinematics)."""
