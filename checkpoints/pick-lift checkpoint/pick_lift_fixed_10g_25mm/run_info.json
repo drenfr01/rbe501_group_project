@@ -1,0 +1,17 @@
+{
+  "mass": {
+    "mode": "fixed",
+    "fixed_kg": 0.01,
+    "range_kg": [
+      0.005,
+      0.02
+    ]
+  },
+  "control": "residual",
+  "algo": "sac",
+  "object": {
+    "body": "cube",
+    "geom": "cube_geom",
+    "side_m": 0.025
+  }
+}
