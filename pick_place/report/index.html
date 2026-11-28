@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SO-101 Payload Dynamics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: a step-by-step walkthrough. One step at a time: a big visual beside a short takeaway; the math folds away. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #17202b;
+  --muted: #566273;
+  --rule: #d9dee6;
+  --grid: #e8ecf1;
+  --accent: #c2410c;        /* servo amber: torque, limits */
+  --accent-soft: #fdebdc;
+  --cool: #1d5fa8;          /* model / prediction */
+  --cool-soft: #e3edf9;
+  --good: #17803d;
+  --bad: #b42318;
+  --plate: #ffffff;
+  --s-script: #8b95a3;      /* scripted baseline: neutral */
+  --s-ff: #2a78d6;          /* feedforward */
+  --s-fixed: #eb6834;       /* fixed-mass SAC */
+  --s-random: #1baf7a;      /* random-mass SAC */
+  --display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --rule: #2b3644; --grid: #222c38;
+    --accent: #fb923c; --accent-soft: #3a2416; --cool: #7fb2ec; --cool-soft: #1a2a3d; --good: #4ade80; --bad: #f87171;
+    --plate: #f4f6f8; --s-script: #7d8896; --s-ff: #3987e5; --s-fixed: #d95926; --s-random: #199e70; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --rule: #2b3644; --grid: #222c38;
+  --accent: #fb923c; --accent-soft: #3a2416; --cool: #7fb2ec; --cool-soft: #1a2a3d; --good: #4ade80; --bad: #f87171;
+  --plate: #f4f6f8; --s-script: #7d8896; --s-ff: #3987e5; --s-fixed: #d95926; --s-random: #199e70; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
+header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; color: var(--accent); letter-spacing: .04em; }
+h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 36px); line-height: 1.1; margin: 4px 0 0; letter-spacing: -.01em; }
+.toplinks { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; }
+a { color: var(--cool); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+
+/* step rail */
+.rail { display: flex; gap: 6px; overflow-x: auto; margin: 20px 0 18px; padding: 2px 2px 8px; scrollbar-width: thin; }
+.rail button { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; border: 1px solid var(--rule); background: var(--surface);
+  border-radius: 999px; padding: 5px 12px 5px 5px; font-size: 13.5px; color: var(--muted); white-space: nowrap; }
+.rail button .n { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--bg);
+  font-family: var(--mono); font-size: 12px; }
+.rail button[aria-current="step"] { color: var(--ink); border-color: var(--accent); }
+.rail button[aria-current="step"] .n { background: var(--accent); color: var(--surface); }
+.rail button.done .n { background: var(--accent-soft); color: var(--accent); }
+
+/* step panel */
+.step { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 28px; align-items: start;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 24px; }
+.allmode .step + .step { margin-top: 22px; }
+.visual { min-width: 0; display: grid; gap: 12px; }
+.text { min-width: 0; display: grid; gap: 14px; align-content: start; }
+.kicker { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+h2 { font-family: var(--display); font-size: clamp(22px, 2.6vw, 28px); line-height: 1.18; margin: 0; text-wrap: balance; }
+.text p { margin: 0; }
+.text ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.big { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.big div { border-top: 3px solid var(--rule); padding-top: 6px; }
+.big b { display: block; font-family: var(--display); font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.big span { font-size: 13px; color: var(--muted); }
+.big .hot { border-top-color: var(--accent); }
+.big .ok { border-top-color: var(--good); }
+.big .model { border-top-color: var(--cool); }
+details { border-top: 1px solid var(--rule); padding-top: 10px; font-size: 14.5px; }
+summary { cursor: pointer; color: var(--cool); font-weight: 500; }
+details > *:not(summary) { margin-top: 10px; }
+.eq { font-family: var(--mono); background: var(--cool-soft); border-radius: 8px; padding: 10px 12px; font-size: 13.5px;
+  overflow-x: auto; white-space: pre; line-height: 1.7; }
+code { font-family: var(--mono); font-size: .9em; }
+video, .plate img { width: 100%; max-width: 100%; display: block; border-radius: 10px; background: #000; }
+.plate { background: var(--plate); border-radius: 10px; padding: 8px; }
+.plate img { background: transparent; }
+.cap { font-size: 13.5px; color: var(--muted); }
+.nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.nav button { border: 1px solid var(--rule); background: var(--surface); border-radius: 10px; padding: 9px 16px; }
+.nav button.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 600; }
+.nav button:disabled { opacity: .4; cursor: default; }
+.hint { font-size: 13px; color: var(--muted); }
+.allmode .nav .pager { display: none; }
+
+/* charts */
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { fill: var(--muted); font-family: var(--body); font-size: 12px; }
+.chart .axis-title { font-size: 12.5px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 7px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgb(0 0 0 / .12); min-width: 130px; line-height: 1.45; }
+.tip b { font-family: var(--mono); font-weight: 500; }
+.tip .row { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 3px 10px 3px 0; text-align: right; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: var(--surface); padding: 5px 12px; font-size: 13px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+
+/* step 2: arm + slider */
+.armbox { display: grid; gap: 10px; }
+.slider { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider output { font-family: var(--display); font-size: 22px; min-width: 76px; text-align: right; font-variant-numeric: tabular-nums; }
+.ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding-inline: 2px; }
+.gauge { position: relative; height: 12px; background: var(--grid); border-radius: 6px; }
+.gauge .fill { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 6px; transition: width .25s; }
+.gauge .mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.gauge-l { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.big.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* chain + pipeline diagrams */
+.chain { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.chain .box { flex: 1 1 130px; border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
+.chain .box small { display: block; font-size: 12px; color: var(--muted); }
+.chain .box b { font-family: var(--display); font-size: 20px; }
+.chain .box em { font-style: normal; font-family: var(--mono); font-size: 12.5px; color: var(--cool); }
+.chain .arrow { align-self: center; color: var(--muted); font-size: 20px; }
+.chain .box.hl { border-color: var(--accent); background: var(--accent-soft); }
+.reasons { display: grid; gap: 10px; }
+.reason { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; }
+.reason .n { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft);
+  color: var(--accent); font-family: var(--display); font-weight: 700; }
+.reason b { display: block; }
+.reason span { font-size: 14px; color: var(--muted); }
+.ladder { display: flex; align-items: end; gap: 6px; height: 170px; padding-top: 8px; }
+.ladder div { flex: 1; background: var(--cool-soft); border-top: 3px solid var(--cool); border-radius: 4px 4px 0 0; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-start; align-items: center; font-size: 12px; padding-top: 4px; min-width: 0; }
+.ladder div b { font-family: var(--mono); font-weight: 500; font-size: 12px; }
+.ladder div.win { background: var(--accent-soft); border-top-color: var(--accent); }
+.ladder-l { display: flex; gap: 6px; font-size: 12px; color: var(--muted); }
+.ladder-l span { flex: 1; text-align: center; min-width: 0; overflow-wrap: anywhere; }
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.flow .box { border: 1px solid var(--rule); border-radius: 10px; padding: 8px 12px; background: var(--bg); font-size: 14px; }
+.flow .box small { display: block; color: var(--muted); font-size: 12px; }
+.flow .box.hl { border-color: var(--accent); background: var(--accent-soft); }
+.flow .box.md { border-color: var(--cool); background: var(--cool-soft); }
+.flow .arrow { color: var(--muted); }
+.cards3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.cards3 > div { border: 1px solid var(--rule); border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; background: var(--bg); }
+.cards3 b { font-family: var(--display); font-size: 17px; }
+.cards3 span { font-size: 14px; color: var(--muted); }
+.cards3 .tag { font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
+
+@media (max-width: 860px) {
+  .step { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 18px; }
+  .text { order: -1; }
+}
+@media (prefers-reduced-motion: reduce) { .gauge .fill { transition: none; } }
+</style>
+</head><body>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div>
+      <div class="eyebrow">RBE 501 · SO-101 pick-and-place · simulation results</div>
+      <h1>SO-101 Payload Dynamics</h1>
+    </div>
+    <div class="toplinks">
+      <button class="linkish" id="allBtn" type="button" style="border:0;background:none;color:var(--cool);text-decoration:underline;padding:0">Show all steps</button>
+      <a href="details.html">Full report with every table and the code</a>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+
+  <div id="steps">
+
+  <!-- 1 -->
+  <section class="step" data-title="The question">
+    <div class="visual">
+      <video controls muted playsinline preload="metadata" src="compare_1kg.mp4"></video>
+      <p class="cap">Same 1 kg cube, same start and goal, four controllers. Green disk = 2 cm place tolerance.</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 1 · the question</div>
+      <h2>Should the RL policy train on the heaviest cube, or on random masses?</h2>
+      <p>Both policies are a small learned correction (SAC) on top of a scripted IK controller.</p>
+      <div class="big">
+        <div class="hot"><b>1.0 kg</b><span><b style="display:inline;font-size:inherit;color:var(--s-fixed)">Fixed</b>: always trained at 1 kg</span></div>
+        <div class="hot"><b>0.05–1 kg</b><span><b style="display:inline;font-size:inherit;color:var(--s-random)">Random</b>: new mass each episode</span></div>
+      </div>
+      <p>To explain the results we first need to know what a heavy cube does to this small arm. That is steps 2–6.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" data-title="The arm sags" hidden>
+    <div class="visual armbox">
+      <svg id="arm" viewBox="0 0 520 330" role="img" aria-label="Side view of the arm holding the cube. Dashed: where the controller aims. Solid: where the arm actually ends up."></svg>
+      <div class="slider">
+        <label for="massIn" class="hint">Cube mass</label>
+        <input id="massIn" type="range" min="0" max="6" step="1" value="4">
+        <output id="massOut" for="massIn">1.0 kg</output>
+      </div>
+      <div class="ticks"><span>0.05</span><span>0.25</span><span>0.5</span><span>0.75</span><span>1.0</span><span>1.25</span><span>1.5</span></div>
+      <p class="cap">Dashed = where the scripted controller aims. Solid = where the arm really is, drawn with the measured joint sag (link lengths approximate).</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 2 · drag the slider</div>
+      <h2>A heavier cube makes the arm sag below where it is aimed.</h2>
+      <div class="big two">
+        <div class="hot"><b id="rTorque">1.96</b><span>N·m peak shoulder torque</span></div>
+        <div class="hot"><b id="rSag">−4.4°</b><span>shoulder sag (elbow <span id="rSagE">−4.3°</span>)</span></div>
+        <div class="hot"><b id="rDrop">22.5 mm</b><span>cube hangs lower than planned</span></div>
+        <div class="ok"><b id="rSucc">60%</b><span>scripted placements that succeed</span></div>
+      </div>
+      <div>
+        <div class="gauge" aria-hidden="true"><div class="fill" id="gFill"></div><div class="mark" style="left:30.6%"></div><div class="mark" style="left:90.6%"></div></div>
+        <div class="gauge-l" style="position:relative;height:16px"><span style="position:absolute;left:0">0</span><span style="position:absolute;left:30.6%;transform:translateX(-50%)">rated 0.98</span><span style="position:absolute;left:90.6%;transform:translateX(-50%)">stall 2.9</span></div>
+      </div>
+      <p class="hint">All numbers are measured averages over 50 episodes per mass.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" data-title="Why: servo = spring" hidden>
+    <div class="visual">
+      <svg viewBox="0 0 520 210" role="img" aria-label="A servo acts like a torsional spring: the joint settles where the spring torque equals the load torque">
+        <g style="stroke:var(--muted);fill:none;stroke-width:2">
+          <circle cx="120" cy="120" r="14" style="fill:var(--surface)"></circle>
+          <line x1="120" y1="120" x2="420" y2="62" style="stroke:var(--cool);stroke-dasharray:7 6"></line>
+          <line x1="120" y1="120" x2="420" y2="120" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"></line>
+          <path d="M 330 120 A 210 210 0 0 0 326 80" style="stroke:var(--accent);stroke-width:2.5"></path>
+          <path d="M 70 120 c 8 -30 22 -30 30 0 c 8 30 22 30 30 0" style="stroke:var(--accent)"></path>
+        </g>
+        <rect x="402" y="120" width="36" height="36" rx="3" style="fill:var(--accent)"></rect>
+        <line x1="420" y1="160" x2="420" y2="196" style="stroke:var(--ink);stroke-width:2"></line>
+        <path d="M414 190 l6 8 l6 -8" style="fill:var(--ink)"></path>
+        <text x="430" y="58" style="fill:var(--cool);font-size:14px;font-family:var(--mono)">θ_cmd (aimed)</text>
+        <text x="446" y="112" style="fill:var(--ink);font-size:14px;font-family:var(--mono)">θ (actual)</text>
+        <text x="338" y="96" style="fill:var(--accent);font-size:14px;font-family:var(--mono)">sag</text>
+        <text x="432" y="196" style="fill:var(--ink);font-size:14px;font-family:var(--mono)">m·g</text>
+        <text x="60" y="160" style="fill:var(--accent);font-size:13px;font-family:var(--mono)">Kp spring</text>
+      </svg>
+      <div class="chain">
+        <div class="box"><small>cube</small><b>1.0 kg</b></div><span class="arrow">→</span>
+        <div class="box"><small>shoulder must hold</small><b>1.54 N·m</b><em>τ = g(θ) + m·b(θ)</em></div><span class="arrow">→</span>
+        <div class="box hl"><small>so it sags</small><b>4.4°</b><em>Δθ = τ / Kp</em></div><span class="arrow">→</span>
+        <div class="box"><small>cube ends up</small><b>22 mm low</b><em>Δz ≈ J·Δθ</em></div>
+      </div>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 3 · the cause</div>
+      <h2>Each servo acts like a spring: it only pushes back after it has been pulled off target.</h2>
+      <ul>
+        <li>The servo makes torque <b>τ = Kp·(θ_cmd − θ)</b>.</li>
+        <li>To hold a load τ, it must sit <b>τ / Kp</b> below its command. That gap is the sag.</li>
+        <li>Shoulder and elbow have Kp = 20 N·m/rad, so every 1 N·m of load costs about <b>2.9°</b>.</li>
+      </ul>
+      <p>So sag grows in a straight line with cube mass. Nothing is broken; this is how a position-controlled servo works.</p>
+      <details>
+        <summary>Show the math</summary>
+        <div class="eq">τ_act = M(θ)θ̈ + c(θ,θ̇) + g(θ) + τ_passive + τ_contact
+payload:   τ_payload = m · b(θ),   b = J_vᵀ(−g_s) = 9.81 · J_v,z
+at rest:   θ_cmd − θ = Kp⁻¹ ( g(θ) + m·b(θ) )
+cube drop: Δz = b(θ)·Δθ / 9.81</div>
+        <p>J_v is the linear part of the space Jacobian at the cube's centre (Lynch &amp; Park notation). Every term is read straight out of MuJoCo; step 4 checks that they add up.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" data-title="Is the model right?" hidden>
+    <div class="visual">
+      <div class="plate"><img src="fig2_model_validation.png" alt="Predicted vs measured payload torque and sag, all points on the y = x line except gray saturated episodes" loading="lazy"></div>
+      <p class="cap">Each dot is one episode. On the line = the formula predicts the simulator exactly. Gray × = episodes where the servo hit its torque limit.</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 4 · check</div>
+      <h2>The simple spring formula predicts the simulator almost perfectly.</h2>
+      <div class="big">
+        <div class="model"><b>1.0000</b><span>R² shoulder sag</span></div>
+        <div class="model"><b>0.9998</b><span>R² elbow sag</span></div>
+        <div class="model"><b>0.995</b><span>R² wrist sag</span></div>
+        <div class="model"><b>0.0005</b><span>N·m worst equation error</span></div>
+      </div>
+      <p>It breaks only when the servo runs out of torque (42 of 350 episodes, mostly at 1.25–1.5 kg). Then the sag is bigger than the formula says.</p>
+      <p>This matters because it means the sag can be <b>predicted and cancelled</b>. Step 8 does exactly that.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="step" data-title="How hard the motors work" hidden>
+    <div class="visual">
+      <div class="legend" id="lg5"></div>
+      <div class="chart" id="c5"></div>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 5 · torque</div>
+      <h2>At 1 kg the shoulder already uses two-thirds of its stall torque.</h2>
+      <div class="big">
+        <div class="hot"><b>68%</b><span>of stall at 1.0 kg</span></div>
+        <div class="hot"><b>2×</b><span>the rated (continuous) torque</span></div>
+        <div class="hot"><b>16×</b><span>more motor heat, 0.05 → 1.5 kg</span></div>
+      </div>
+      <ul>
+        <li><b>Rated 0.98 N·m</b> is what the servo can hold all day. <b>Stall 2.9 N·m</b> is the absolute max.</li>
+        <li>At 1.5 kg the shoulder is pinned at stall for 6.9% of the episode.</li>
+        <li>The wrist stays light (under 40% of stall) because the cube hangs close to it.</li>
+      </ul>
+      <details><summary>Show the data as a table</summary><div class="tbl" id="t5"></div></details>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="step" data-title="How much it can lift" hidden>
+    <div class="visual">
+      <div class="legend" id="lg6"></div>
+      <div class="chart" id="c6"></div>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 6 · capacity</div>
+      <h2>The further the arm reaches, the less it can hold.</h2>
+      <div class="big">
+        <div class="hot"><b>1.8 kg</b><span>max at 14–16 cm reach (stall)</span></div>
+        <div class="hot"><b>1.06 kg</b><span>max at 24 cm reach</span></div>
+        <div class="model"><b>0.45 kg</b><span>if kept within rated torque</span></div>
+      </div>
+      <ul>
+        <li>Close in, the <b>elbow</b> runs out first. Past about 17 cm, the <b>shoulder</b> does.</li>
+        <li>So a 1 kg cube is fine for the motors in sim, but well over what the real servo can hold for long. Keep real-robot tests short.</li>
+      </ul>
+      <details><summary>How this is computed</summary>
+        <div class="eq">m_max = min over joints i of  (L − sign(b_i)·g_i) / |b_i|
+L = 2.9 N·m (stall) or 0.98 N·m (rated), arm at 7 cm carry height</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="step" data-title="What RL can correct" hidden>
+    <div class="visual">
+      <div class="chart" id="c7"></div>
+      <p class="cap">Shoulder command offset at the moment of placing, 1 kg. The shaded band is the most a residual can move the command (±0.8°).</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 7 · the RL limit</div>
+      <h2>The learned correction can move the arm at most 0.8°, but the sag is 4–5°.</h2>
+      <ul>
+        <li>The policy's output is scaled by 0.2 × 0.07 rad = <b>0.8°</b> per step.</li>
+        <li>The script pulls the command back to its own target every step, so corrections can't build up.</li>
+        <li>Both SAC policies stay well inside that band (−0.3° and −0.1°). They only nudge.</li>
+      </ul>
+      <p>This one design choice explains most of what follows.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="step" data-title="The model-based fix" hidden>
+    <div class="visual">
+      <video controls muted playsinline preload="metadata" src="torque_1kg.mp4"></video>
+      <p class="cap">Top: scripted. Bottom: feedforward. Red sphere = where the cube would be with no sag. Charts: live shoulder (blue) and elbow (orange) torque and sag.</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 8 · aim higher</div>
+      <h2>Aim higher by exactly the predicted sag, and the cube lands on target.</h2>
+      <p>"Feedforward" uses the formula from step 3 with the known cube mass and adds <b>τ / Kp</b> to the command.</p>
+      <div class="big">
+        <div class="ok"><b>98%</b><span>success at 1 kg (scripted 60%)</span></div>
+        <div class="ok"><b>3.8 mm</b><span>sideways error (scripted 17 mm)</span></div>
+        <div class="model"><b>Same</b><span>torque as scripted</span></div>
+      </div>
+      <p>The motors work just as hard; the arm is simply aimed so that it sags <i>onto</i> the target. The catch: it needs to know the mass.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="step" data-title="All results" hidden>
+    <div class="visual">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="legend" id="lg9"></div>
+        <div class="seg" id="seg9" role="group" aria-label="Metric">
+          <button type="button" aria-pressed="true" data-m="succ">Success %</button>
+          <button type="button" aria-pressed="false" data-m="err">Final error cm</button>
+        </div>
+      </div>
+      <div class="chart" id="c9"></div>
+      <label class="hint" for="ff9" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ff9"> Show feedforward as a reference (it is given the true mass and has no 0.8° limit)</label>
+      <p class="cap">50 episodes per point. Training masses end at 1.0 kg; 1.25 and 1.5 kg are new to both policies.</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 9 · scoreboard</div>
+      <h2>Fixed matches or beats random at every mass.</h2>
+      <ul>
+        <li>Fixed beats the script from 0.5 kg up. Random only beats it on success from 1 kg up, and its final error is worse than the script's at every mass.</li>
+        <li><b style="color:var(--s-fixed)">Fixed</b> lands closer than <b style="color:var(--s-random)">random</b> at every mass, and succeeds as often or more (they tie at 0.25 kg).</li>
+        <li>Pooled over 0.75–1.5 kg: fixed 156/200 (78%) vs random 137/200 (69%), p ≈ 0.03.</li>
+      </ul>
+      <details><summary>Show the data as a table</summary><div class="tbl" id="t9"></div></details>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="step" data-title="Why fixed beats random" hidden>
+    <div class="visual">
+      <div class="seg" id="seg10" role="group" aria-label="Training seed">
+        <button type="button" aria-pressed="true" data-src="torque_rl_1kg_seed4.mp4" data-cap="Training seed 4: fixed places at 1.8 cm, random misses at 2.0 cm.">Training seed 4</button>
+        <button type="button" aria-pressed="false" data-src="torque_rl_1kg.mp4" data-cap="Training seed 0: here random lands closer (0.9 cm) than fixed (1.9 cm).">Training seed 0</button>
+      </div>
+      <video id="vid10" controls muted playsinline preload="metadata" src="torque_rl_1kg_seed4.mp4"></video>
+      <p class="cap"><span id="cap10">Training seed 4: fixed places at 1.8 cm, random misses at 2.0 cm.</span> Top: fixed SAC. Bottom: random SAC. Same 1 kg episode, and both still sag about 4–5° in carry. One episode can go either way, so the 50-episode numbers in step 9 are the real comparison.</p>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 10 · the surprise</div>
+      <h2>Randomizing usually helps a policy generalize. Here it didn't, for three reasons.</h2>
+      <div class="reasons">
+        <div class="reason"><div class="n">1</div><div><b>The error always points one way.</b><span>A heavier cube always pulls the arm down. "Always push up a bit", learned at 1 kg, is right for every mass.</span></div></div>
+        <div class="reason"><div class="n">2</div><div><b>Knowing the mass doesn't help.</b><span>With only 0.8° to give, the best move is "push up" at almost every mass. Random's ability to adapt has nothing to act on.</span></div></div>
+        <div class="reason"><div class="n">3</div><div><b>Random has a harder job.</b><span>It must guess the mass mid-motion, and half its training cubes barely sag. It ends up hedging: smaller, gentler corrections.</span></div></div>
+      </div>
+      <p class="hint">Randomization's usual advantage is surviving a model that's wrong (sim-to-real). We test in the same simulator we trained in, so that advantage never shows.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="step" data-title="The RL model" hidden>
+    <div class="visual">
+      <div class="flow" role="img" aria-label="Control loop">
+        <div class="box">Observation<small>39 numbers</small></div><span class="arrow">→</span>
+        <div class="box hl">SAC actor<small>39 → 256 → 256 → 6</small></div><span class="arrow">→</span>
+        <div class="box hl">× 0.2<small>residual scale</small></div><span class="arrow">+</span>
+        <div class="box md">Scripted IK<small>6 numbers</small></div><span class="arrow">→</span>
+        <div class="box">× 0.07 rad<small>joint step</small></div><span class="arrow">→</span>
+        <div class="box">Servos + MuJoCo<small>33 ms</small></div>
+      </div>
+      <div>
+        <div class="kicker" style="margin:6px 0 2px">Reward: the highest stage reached so far, minus small penalties</div>
+        <div class="ladder" aria-hidden="true">
+          <div style="height:25%"><b>0.25</b></div><div style="height:35%"><b>0.35</b></div><div style="height:50%"><b>0.5</b></div>
+          <div style="height:75%"><b>0.75</b></div><div style="height:90%"><b>0.9</b></div><div style="height:90%"><b>0.9</b></div>
+          <div class="win" style="height:100%"><b>1.0</b></div>
+        </div>
+        <div class="ladder-l"><span>reach</span><span>grasp</span><span>lift</span><span>carry</span><span>lower</span><span>placed</span><span>success</span></div>
+      </div>
+      <div class="cards3">
+        <div><span class="tag">INPUT · 39</span><b>What it sees</b><span>joint angles and speeds, command − angle (the hidden load signal), last action, gripper, cube and goal positions. Never the mass.</span></div>
+        <div><span class="tag">OUTPUT · 6</span><b>What it does</b><span>one number in [−1, 1] per joint, added to the script. The gripper channel is zeroed; the script opens and closes it.</span></div>
+        <div><span class="tag">PENALTY</span><b>What it pays</b><span>0.01·‖motion‖² for every move and 0.1·‖correction‖² for its own nudges, so it only corrects when it helps.</span></div>
+      </div>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 11 · how the policy works</div>
+      <h2>The policy is a small nudge added to a scripted controller, scored by how far the task got.</h2>
+      <ul>
+        <li><b>Algorithm:</b> Soft Actor-Critic (Stable-Baselines3), 300k steps, 5 seeds per experiment.</li>
+        <li><b>Network:</b> actor 39 → 256 → 256 → 6 (mean and spread). Two critics score each action.</li>
+        <li><b>Only difference</b> between the experiments: the cube mass during training.</li>
+      </ul>
+      <details><summary>Show hyperparameters and the SAC losses</summary>
+        <div class="tbl"><table>
+          <tr><th>Setting</th><th>Value</th></tr>
+          <tr><td>Learning rate</td><td>3×10⁻⁴</td></tr><tr><td>Discount γ</td><td>0.98</td></tr>
+          <tr><td>Batch / buffer</td><td>256 / 300k</td></tr><tr><td>Target update τ</td><td>0.005</td></tr>
+          <tr><td>Entropy</td><td>auto, target −6</td></tr><tr><td>Obs. normalization</td><td>VecNormalize</td></tr>
+          <tr><td>Episode</td><td>320 steps × 33 ms = 10.6 s</td></tr>
+        </table></div>
+        <div class="eq">critic: y = r + γ( min_j Q'_j(o',ã') − α log π(ã'|o') )
+actor:  L_π = E[ α log π(ã|o) − min_j Q_j(o,ã) ]
+reward: r = max(stages) − 0.01‖executed‖² − 0.1‖residual‖²</div>
+        <p>The full observation table, reward table and code skeletons are in the <a href="details.html#rl">full report</a>.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="step" data-title="What to try next" hidden>
+    <div class="visual">
+      <div class="cards3">
+        <div><span class="tag">CHEAPEST · eval only</span><b>Test with a wrong model</b><span>Change servo gains ±20% and friction, then re-run the sweep. This is where randomization should finally help, and it is the closest thing to the real robot.</span></div>
+        <div><span class="tag">ONE RETRAIN</span><b>Tell random the mass</b><span>Add the true mass to the observation. If it still doesn't beat fixed, the 0.8° cap is the bottleneck, not guessing the mass.</span></div>
+        <div><span class="tag">NEW VERSION</span><b>Give the residual more room</b><span>Raise or remove the 0.8° cap (v3). Once the policy can really cancel sag, knowing the mass should matter, and random may win at light masses.</span></div>
+      </div>
+    </div>
+    <div class="text">
+      <div class="kicker">Step 12 · next</div>
+      <h2>Three experiments would tell us which explanation is right.</h2>
+      <p>For the paper, the finding as it stands: <b>when the disturbance always points one way and the correction is capped, training at the worst case beats randomizing</b>. Both trail a model-based fix that uses the physics from step 3.</p>
+      <p class="hint">Everything here comes from <code>pick_place/scripts/torque_analysis.py</code> and <code>pick_place/scripts/record_videos.py</code>.</p>
+    </div>
+  </section>
+
+  </div>
+
+  <div class="nav">
+    <div class="pager" style="display:flex;gap:8px">
+      <button type="button" id="prev">← Back</button>
+      <button type="button" id="next" class="primary">Next →</button>
+    </div>
+    <span class="hint" id="pos"></span>
+  </div>
+</div>
+
+<script>
+const MASS = [0.05, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5];
+const D = {
+  peak: { lift: [0.66,0.85,1.23,1.61,1.96,2.28,2.51], elbow: [0.62,0.83,1.21,1.57,1.91,2.27,2.58], wrist: [0.41,0.56,0.73,0.88,0.98,1.08,1.12] },
+  sag: { lift: [-1.08,-1.81,-2.70,-3.56,-4.41,-5.55,-7.19], elbow: [-1.14,-1.86,-2.70,-3.50,-4.27,-4.97,-5.49] },
+  drop: [2.8,8.0,13.0,17.9,22.5,28.8,35.8],
+  succ: { scripted: [100,100,98,84,60,42,44], feedforward: [100,100,100,100,98,96,92], fixed: [100,98,100,94,86,70,62], random: [98,98,94,84,80,58,52] },
+  err: { scripted: [0.8,0.9,1.4,1.6,1.9,2.0,2.1], feedforward: [0.4,0.4,0.5,0.6,0.9,1.3,1.9], fixed: [0.7,1.2,1.0,1.3,1.4,1.6,1.6], random: [1.6,1.6,2.0,2.2,2.3,2.6,2.7] },
+  reach: [10,12,14,16,18,20,22,24,26,28],
+  cap: { stall: [1.67,1.77,1.82,1.82,1.75,1.50,1.30,1.06,0.87,0.81], rated: [0.41,0.44,0.46,0.45,0.43,0.34,0.26,0.18,0.13,0.11] },
+};
+const STALL = 2.9, RATED = 0.98;
+const CTRL = [
+  { key: "scripted", name: "Scripted IK", color: "var(--s-script)", dash: "5 4" },
+  { key: "feedforward", name: "Feedforward", color: "var(--s-ff)" },
+  { key: "fixed", name: "Fixed SAC", color: "var(--s-fixed)" },
+  { key: "random", name: "Random SAC", color: "var(--s-random)" },
+];
+const NS = "http://www.w3.org/2000/svg";
+const fmt = (v, d = 2) => (v < 0 ? "−" : "") + Math.abs(v).toFixed(d);
+
+/** Small SVG line chart with grid, reference lines, hover crosshair and tooltip. */
+function lineChart(host, o) {
+  const W = 600, H = 340, m = { l: 52, r: 18, t: 14, b: 46 };
+  const sx = v => m.l + (v - o.xMin) / (o.xMax - o.xMin) * (W - m.l - m.r);
+  const sy = v => H - m.b - (v - o.yMin) / (o.yMax - o.yMin) * (H - m.t - m.b);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${o.label}">`;
+  for (const t of o.yTicks) s += `<line x1="${m.l}" x2="${W - m.r}" y1="${sy(t)}" y2="${sy(t)}" style="stroke:var(--grid)"/><text x="${m.l - 8}" y="${sy(t) + 4}" text-anchor="end">${t}</text>`;
+  for (const t of o.xTicks) s += `<text x="${sx(t)}" y="${H - m.b + 18}" text-anchor="middle">${t}</text>`;
+  s += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b}" y2="${H - m.b}" style="stroke:var(--rule)"/>`;
+  s += `<text class="axis-title" x="${(W + m.l) / 2}" y="${H - 6}" text-anchor="middle">${o.xLabel}</text>`;
+  s += `<text class="axis-title" transform="translate(14 ${(H - m.b + m.t) / 2}) rotate(-90)" text-anchor="middle">${o.yLabel}</text>`;
+  for (const r of o.refs || []) s += `<line x1="${m.l}" x2="${W - m.r}" y1="${sy(r.y)}" y2="${sy(r.y)}" style="stroke:var(--ink);stroke-dasharray:3 4;opacity:.55"/><text x="${m.l + 6}" y="${sy(r.y) - 6}" text-anchor="start" style="fill:var(--ink)">${r.label}</text>`;
+  for (const se of o.series) {
+    const pts = o.x.map((x, i) => `${sx(x)},${sy(se.v[i])}`).join(" ");
+    s += `<polyline points="${pts}" style="fill:none;stroke:${se.color};stroke-width:2.2;stroke-linejoin:round;opacity:${se.opacity ?? 1}${se.dash ? `;stroke-dasharray:${se.dash}` : ""}"/>`;
+    s += o.x.map((x, i) => `<circle cx="${sx(x)}" cy="${sy(se.v[i])}" r="4" style="fill:${se.color};stroke:var(--surface);stroke-width:2;opacity:${se.opacity ?? 1}"/>`).join("");
+  }
+  s += `<line class="xh" y1="${m.t}" y2="${H - m.b}" style="stroke:var(--muted);opacity:0" /><rect class="hit" x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}" style="fill:transparent"/></svg><div class="tip" hidden></div>`;
+  host.innerHTML = s;
+  const svg = host.querySelector("svg"), tip = host.querySelector(".tip"), xh = host.querySelector(".xh");
+  const move = e => {
+    const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * W;
+    let i = 0; o.x.forEach((x, k) => { if (Math.abs(sx(x) - px) < Math.abs(sx(o.x[i]) - px)) i = k; });
+    xh.setAttribute("x1", sx(o.x[i])); xh.setAttribute("x2", sx(o.x[i])); xh.style.opacity = .6;
+    tip.innerHTML = `<b>${o.xFmt(o.x[i])}</b>` + o.series.map(se => `<div class="row"><span><i style="display:inline-block;width:10px;height:3px;background:${se.color};vertical-align:middle;margin-right:6px"></i>${se.name}</span><span>${o.yFmt(se.v[i])}</span></div>`).join("");
+    tip.hidden = false;
+    const left = sx(o.x[i]) / W * r.width;
+    tip.style.left = Math.min(Math.max(left + 12, 0), r.width - tip.offsetWidth) + "px";
+    tip.style.top = "8px";
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.style.opacity = 0; });
+}
+
+function legend(el, series) {
+  el.innerHTML = series.map(s => `<span><i style="background:${s.color}"></i>${s.name}</span>`).join("");
+}
+
+function table(el, head, rows) {
+  el.innerHTML = `<table><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</table>`;
+}
+
+/* step 5: torque vs mass */
+const s5 = [
+  { name: "Shoulder lift", v: D.peak.lift, color: "var(--s-fixed)" },
+  { name: "Elbow flex", v: D.peak.elbow, color: "var(--s-ff)" },
+  { name: "Wrist flex", v: D.peak.wrist, color: "var(--s-random)" },
+];
+legend(document.getElementById("lg5"), s5);
+lineChart(document.getElementById("c5"), { label: "Peak joint torque against cube mass", x: MASS, xMin: 0, xMax: 1.6, xTicks: [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5],
+  yMin: 0, yMax: 3.2, yTicks: [0, 0.5, 1, 1.5, 2, 2.5, 3], series: s5, xLabel: "cube mass (kg)", yLabel: "peak torque (N·m)",
+  refs: [{ y: STALL, label: "stall 2.9" }, { y: RATED, label: "rated 0.98" }], xFmt: x => `${x} kg`, yFmt: v => `${v.toFixed(2)} N·m` });
+table(document.getElementById("t5"), ["kg", "shoulder", "elbow", "wrist", "% stall (shoulder)"], MASS.map((m, i) => [m, D.peak.lift[i], D.peak.elbow[i], D.peak.wrist[i], Math.round(D.peak.lift[i] / STALL * 100) + "%"]));
+
+/* step 6: capacity vs reach */
+const s6 = [
+  { name: "Stall torque 2.9 N·m", v: D.cap.stall, color: "var(--s-fixed)" },
+  { name: "Rated torque 0.98 N·m", v: D.cap.rated, color: "var(--s-ff)" },
+];
+legend(document.getElementById("lg6"), s6);
+lineChart(document.getElementById("c6"), { label: "Largest payload the arm can hold against reach", x: D.reach, xMin: 9, xMax: 29, xTicks: [10, 14, 18, 22, 26],
+  yMin: 0, yMax: 2, yTicks: [0, 0.5, 1, 1.5, 2], series: s6, xLabel: "reach from base (cm), 7 cm above table", yLabel: "max payload (kg)",
+  refs: [{ y: 1.0, label: "1 kg test cube" }], xFmt: x => `${x} cm reach`, yFmt: v => `${v.toFixed(2)} kg` });
+
+/* step 7: needed vs delivered offset */
+(function offsetChart() {
+  const rows = [
+    { name: "Sag to cancel", v: -4.20, color: "var(--accent)" },
+    { name: "Feedforward", v: -4.72, color: "var(--s-ff)" },
+    { name: "Fixed SAC", v: -0.29, color: "var(--s-fixed)" },
+    { name: "Random SAC", v: -0.12, color: "var(--s-random)" },
+  ];
+  const W = 600, rowH = 52, top = 30, H = top + rows.length * rowH + 34, l = 128, r = 24;
+  const sx = v => l + (v + 5.5) / 6.5 * (W - l - r);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Command offset needed vs delivered at 1 kg">`;
+  s += `<rect x="${sx(-0.8)}" y="${top - 8}" width="${sx(0.8) - sx(-0.8)}" height="${rows.length * rowH + 8}" style="fill:var(--cool-soft)"/>`;
+  s += `<text x="${sx(0)}" y="${top - 14}" text-anchor="middle" style="fill:var(--cool)">residual reach ±0.8°</text>`;
+  for (const t of [-5, -4, -3, -2, -1, 0, 1]) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="${top - 8}" y2="${top + rows.length * rowH}" style="stroke:var(--grid)"/><text x="${sx(t)}" y="${H - 14}" text-anchor="middle">${t === 0 ? "0" : fmt(t, 0) + "°"}</text>`;
+  rows.forEach((row, i) => {
+    const y = top + i * rowH + 12, x0 = sx(0), x1 = sx(row.v);
+    s += `<text x="${l - 10}" y="${y + 17}" text-anchor="end" style="fill:var(--ink);font-size:13px">${row.name}</text>`;
+    s += `<rect x="${Math.min(x0, x1)}" y="${y}" width="${Math.max(Math.abs(x1 - x0), 2)}" height="26" rx="4" style="fill:${row.color}"/>`;
+    s += `<text x="${x1 - 6}" y="${y + 17}" text-anchor="end" style="fill:var(--ink);font-family:var(--mono)">${fmt(row.v, 2)}°</text>`;
+  });
+  s += `<line x1="${sx(0)}" x2="${sx(0)}" y1="${top - 8}" y2="${top + rows.length * rowH}" style="stroke:var(--ink)"/></svg>`;
+  document.getElementById("c7").innerHTML = s;
+})();
+
+/* step 9: results */
+function drawResults(metric) {
+  const succ = metric === "succ";
+  const shown = CTRL.filter(c => c.key !== "feedforward" || document.getElementById("ff9").checked);
+  const series = shown.map(c => ({ name: c.key === "feedforward" ? "Feedforward (knows mass)" : c.name, v: D[metric][c.key], color: c.color,
+    dash: c.key === "feedforward" ? "2 5" : c.dash, opacity: c.key === "feedforward" ? 0.55 : 1 }));
+  legend(document.getElementById("lg9"), series);
+  lineChart(document.getElementById("c9"), { label: succ ? "Success rate against mass" : "Final placement error against mass", x: MASS, xMin: 0, xMax: 1.6,
+    xTicks: [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5], yMin: succ ? 40 : 0, yMax: succ ? 100 : 3, yTicks: succ ? [40, 50, 60, 70, 80, 90, 100] : [0, 0.5, 1, 1.5, 2, 2.5, 3],
+    series, xLabel: "cube mass (kg)", yLabel: succ ? "success (%)" : "final cube-to-goal error (cm)",
+    refs: succ ? [] : [{ y: 2, label: "2 cm tolerance" }], xFmt: x => `${x} kg`, yFmt: v => succ ? `${v}%` : `${v.toFixed(1)} cm` });
+}
+let metric9 = "succ";
+drawResults(metric9);
+document.getElementById("ff9").addEventListener("change", () => drawResults(metric9));
+document.querySelectorAll("#seg9 button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#seg9 button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  metric9 = b.dataset.m; drawResults(metric9);
+}));
+document.querySelectorAll("#seg10 button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#seg10 button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.getElementById("vid10").src = b.dataset.src;
+  document.getElementById("cap10").textContent = b.dataset.cap;
+}));
+table(document.getElementById("t9"), ["kg", ...CTRL.map(c => c.name)], MASS.map((m, i) => [m, ...CTRL.map(c => `${D.succ[c.key][i]}% · ${D.err[c.key][i]} cm`)]));
+
+/* step 2: arm sketch */
+const ARM = { sx: 110, sy: 250, L1: 139, L2: 162, G: 84, px: 374, py: 216, table: 300, cube: 36 };
+function armPoints(q1, q2, tilt) {
+  const e = [ARM.sx + ARM.L1 * Math.cos(q1), ARM.sy - ARM.L1 * Math.sin(q1)];
+  const w = [e[0] + ARM.L2 * Math.cos(q1 + q2), e[1] - ARM.L2 * Math.sin(q1 + q2)];
+  const g = -Math.PI / 2 - tilt;
+  const p = [w[0] + ARM.G * Math.cos(g), w[1] - ARM.G * Math.sin(g)];
+  return { e, w, p, g };
+}
+function ik() {
+  const wx = ARM.px - ARM.sx, wy = ARM.sy - (ARM.py - ARM.G);
+  const d2 = wx * wx + wy * wy, c2 = (d2 - ARM.L1 ** 2 - ARM.L2 ** 2) / (2 * ARM.L1 * ARM.L2);
+  const q2 = -Math.acos(c2), q1 = Math.atan2(wy, wx) - Math.atan2(ARM.L2 * Math.sin(q2), ARM.L1 + ARM.L2 * Math.cos(q2));
+  return [q1, q2];
+}
+const [Q1, Q2] = ik();
+function armSvg(a, style) {
+  const pts = `${ARM.sx},${ARM.sy} ${a.e[0]},${a.e[1]} ${a.w[0]},${a.w[1]} ${a.p[0]},${a.p[1]}`;
+  const deg = -a.g * 180 / Math.PI - 90;
+  return `<polyline points="${pts}" style="fill:none;${style}"/>` +
+    `<rect x="${a.p[0] - ARM.cube / 2}" y="${a.p[1] - ARM.cube / 2}" width="${ARM.cube}" height="${ARM.cube}" rx="3" transform="rotate(${deg} ${a.p[0]} ${a.p[1]})" style="${style.includes("dash") ? "fill:none;stroke:var(--cool);stroke-width:1.5;stroke-dasharray:4 4" : "fill:var(--accent)"}"/>`;
+}
+function drawArm(i) {
+  const r = Math.PI / 180, sL = Math.abs(D.sag.lift[i]) * r, sE = Math.abs(D.sag.elbow[i]) * r;
+  const aim = armPoints(Q1, Q2, 0), act = armPoints(Q1 - sL, Q2 - sE, 0);  // the wrist servo keeps the gripper roughly vertical
+  let s = `<rect x="0" y="${ARM.table}" width="520" height="30" style="fill:var(--grid)"/>`;
+  s += `<ellipse cx="${ARM.px}" cy="${ARM.table}" rx="24" ry="6" style="fill:var(--good);opacity:.35"/>`;
+  s += `<text x="${ARM.px}" y="${ARM.table + 22}" text-anchor="middle" style="fill:var(--muted);font-size:12px">goal ±2 cm</text>`;
+  s += `<rect x="${ARM.sx - 30}" y="${ARM.sy}" width="60" height="${ARM.table - ARM.sy}" rx="6" style="fill:var(--muted);opacity:.35"/>`;
+  s += armSvg(aim, "stroke:var(--cool);stroke-width:3;stroke-dasharray:8 7;stroke-linecap:round");
+  s += armSvg(act, "stroke:var(--ink);stroke-width:9;stroke-linecap:round;stroke-linejoin:round");
+  for (const pt of [[ARM.sx, ARM.sy], act.e, act.w]) s += `<circle cx="${pt[0]}" cy="${pt[1]}" r="7" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`;
+  s += `<text x="${aim.p[0] + 30}" y="${aim.p[1] - 8}" style="fill:var(--cool);font-size:13px">aimed</text>`;
+  s += `<text x="${act.p[0] + 30}" y="${act.p[1] + 14}" style="fill:var(--accent);font-size:13px;font-weight:600">actual</text>`;
+  s += `<text x="${ARM.sx - 2}" y="${ARM.sy - 16}" text-anchor="middle" style="fill:var(--muted);font-size:12px">shoulder</text>`;
+  document.getElementById("arm").innerHTML = s;
+  const t = D.peak.lift[i];
+  document.getElementById("massOut").textContent = `${MASS[i]} kg`;
+  document.getElementById("rTorque").textContent = t.toFixed(2);
+  document.getElementById("rSag").textContent = fmt(D.sag.lift[i], 1) + "°";
+  document.getElementById("rSagE").textContent = fmt(D.sag.elbow[i], 1) + "°";
+  document.getElementById("rDrop").textContent = `${D.drop[i]} mm`;
+  document.getElementById("rSucc").textContent = `${D.succ.scripted[i]}%`;
+  document.getElementById("gFill").style.width = `${Math.min(t / 3.2, 1) * 100}%`;
+}
+const massIn = document.getElementById("massIn");
+massIn.addEventListener("input", () => drawArm(+massIn.value));
+drawArm(+massIn.value);
+
+/* stepper */
+const steps = [...document.querySelectorAll("#steps .step")];
+const rail = document.getElementById("rail");
+rail.innerHTML = steps.map((s, i) => `<button type="button" data-i="${i}"><span class="n">${i + 1}</span>${s.dataset.title}</button>`).join("");
+let cur = 0, all = false;
+function show(i, scroll) {
+  cur = Math.max(0, Math.min(steps.length - 1, i));
+  steps.forEach((s, k) => { s.hidden = !all && k !== cur; if (k !== cur && !all) s.querySelectorAll("video").forEach(v => v.pause()); });
+  rail.querySelectorAll("button").forEach((b, k) => { b.toggleAttribute("aria-current", false); if (k === cur) b.setAttribute("aria-current", "step"); b.classList.toggle("done", k < cur); });
+  rail.querySelector(`[data-i="${cur}"]`).scrollIntoView({ block: "nearest", inline: "nearest" });
+  document.getElementById("prev").disabled = cur === 0;
+  document.getElementById("next").disabled = cur === steps.length - 1;
+  document.getElementById("pos").textContent = all ? `${steps.length} steps` : `Step ${cur + 1} of ${steps.length} · use ← → keys`;
+  if (location.hash !== `#step-${cur + 1}`) history.replaceState(null, "", `#step-${cur + 1}`);
+  if (scroll) (all ? steps[cur] : document.getElementById("rail")).scrollIntoView({ behavior: "smooth", block: "start" });
+}
+rail.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(+b.dataset.i, all); });
+document.getElementById("prev").addEventListener("click", () => show(cur - 1, true));
+document.getElementById("next").addEventListener("click", () => show(cur + 1, true));
+document.addEventListener("keydown", e => {
+  if (e.target.matches("input, textarea") || all) return;
+  if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1);
+});
+document.getElementById("allBtn").addEventListener("click", e => {
+  all = !all; document.getElementById("app").classList.toggle("allmode", all);
+  e.target.textContent = all ? "One step at a time" : "Show all steps"; show(cur);
+});
+const fromHash = () => { const m = location.hash.match(/^#step-(\d+)$/); return m ? +m[1] - 1 : 0; };
+window.addEventListener("hashchange", () => show(fromHash()));
+show(fromHash());
+</script>
+</body></html>

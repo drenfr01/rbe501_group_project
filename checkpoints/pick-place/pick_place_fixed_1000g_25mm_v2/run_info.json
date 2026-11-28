@@ -1,0 +1,22 @@
+{
+  "mass": {
+    "mode": "fixed",
+    "fixed_kg": 1.0,
+    "range_kg": [
+      0.005,
+      0.02
+    ]
+  },
+  "control": "residual",
+  "algo": "sac",
+  "object": {
+    "body": "cube",
+    "geom": "cube_geom",
+    "side_m": 0.025
+  },
+  "task": "place",
+  "residual_scale": 0.2,
+  "residual_penalty": 0.1,
+  "arm_only": true,
+  "tag": "v2"
+}

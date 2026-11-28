@@ -221,3 +221,18 @@ __marimo__/
 !/checkpoints/pick-lift\ checkpoint/pick_lift_fixed_10g_25mm/seed_0/train.monitor.csv
 !/checkpoints/pick-lift\ checkpoint/pick_lift_random_5_20g_25mm/seed_0/train.monitor.csv
 logs/
+
+# Local diagram tool output
+.archify/
+
+# Pick-and-place results: final v2 models, torque report, 5-seed comparison
+!/checkpoints/pick-place/
+/checkpoints/pick-place/*
+!/checkpoints/pick-place/pick_place_fixed_1000g_25mm_v2/
+!/checkpoints/pick-place/pick_place_random_50_1000g_25mm_v2/
+/checkpoints/pick-place/*_v2/seed_*/checkpoint/
+!/checkpoints/pick-place/*_v2/seed_*/train.monitor.csv
+!/checkpoints/pick-place/torque/
+/checkpoints/pick-place/torque/*
+!/checkpoints/pick-place/torque/report.txt
+!/checkpoints/pick-place/compare_v2_5seeds_50ep.*

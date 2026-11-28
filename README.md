@@ -100,6 +100,11 @@ Known trade-offs for this task:
 - **Seed variance.** Results differ noticeably between seeds at 300k steps, so
   every experiment trains and reports three seeds.
 
+## Pick-and-place: fixed vs random cube mass
+
+The pick-and-place mass study (training, torque analysis, videos, and a results page) lives in
+[`pick_place/`](pick_place/README.md). See its README for how to run everything.
+
 ## How the code flows
 
 Three layers hand control to each other on every step:

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SO-101 Payload Dynamics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: one reading column (~72ch) with a sticky contents rail on wide screens; figures break out wider. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #17202b;
+  --muted: #566273;
+  --rule: #d9dee6;
+  --accent: #c2410c;        /* servo-amber: torque, limits */
+  --accent-soft: #fdebdc;
+  --cool: #1d5fa8;          /* model / prediction */
+  --cool-soft: #e3edf9;
+  --good: #17803d;
+  --code-bg: #eef1f5;
+  --plate: #ffffff;         /* figures are white PNGs */
+  --display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --rule: #2b3644;
+    --accent: #fb923c; --accent-soft: #3a2416; --cool: #7fb2ec; --cool-soft: #1a2a3d; --good: #4ade80;
+    --code-bg: #1f2935; --plate: #f4f6f8; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --rule: #2b3644;
+  --accent: #fb923c; --accent-soft: #3a2416; --cool: #7fb2ec; --cool-soft: #1a2a3d; --good: #4ade80;
+  --code-bg: #1f2935; --plate: #f4f6f8; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.62; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 80px;
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 13.5px; }
+nav.toc b { font-family: var(--display); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+nav.toc ol { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 4px; }
+nav.toc a { color: var(--muted); text-decoration: none; display: block; padding: 3px 0 3px 10px; border-left: 2px solid var(--rule); }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); border-left-color: var(--accent); outline: none; }
+main { min-width: 0; max-width: 800px; }
+header.top { margin-bottom: 36px; }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; color: var(--accent); letter-spacing: .04em; }
+h1 { font-family: var(--display); font-size: clamp(30px, 5vw, 44px); line-height: 1.08; margin: 8px 0 14px; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font-family: var(--display); font-size: 26px; line-height: 1.2; margin: 56px 0 12px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--rule); }
+h3 { font-family: var(--display); font-size: 18.5px; margin: 30px 0 8px; }
+p { margin: 0 0 14px; }
+.lede { font-size: 18px; color: var(--muted); max-width: 66ch; }
+a { color: var(--cool); }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+:not(pre) > code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 14px 16px; border-radius: 8px; overflow-x: auto; font-size: 13.2px; line-height: 1.5; margin: 0 0 16px; }
+.eq { font-family: var(--mono); background: var(--cool-soft); border-left: 3px solid var(--cool); padding: 12px 16px; border-radius: 0 8px 8px 0;
+  margin: 0 0 16px; overflow-x: auto; white-space: pre; font-size: 14px; line-height: 1.7; }
+.findings { display: grid; gap: 10px; margin: 22px 0 8px; padding: 0; list-style: none; counter-reset: f; }
+.findings li { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px 12px 52px; position: relative; counter-increment: f; }
+.findings li::before { content: counter(f); position: absolute; left: 16px; top: 12px; font-family: var(--display); font-weight: 700; color: var(--accent); font-size: 18px; }
+.findings b { font-weight: 600; }
+figure { margin: 20px 0 26px; }
+figure .plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px; padding: 8px; overflow-x: auto; }
+figure img { display: block; width: 100%; height: auto; min-width: 560px; }
+figcaption { font-size: 13.5px; color: var(--muted); margin-top: 8px; }
+.tbl { overflow-x: auto; margin: 0 0 18px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.8px; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 12px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .03em; color: var(--muted); background: var(--bg); }
+td:first-child, th:first-child { text-align: left; }
+tr:last-child td { border-bottom: 0; }
+td.hot { color: var(--accent); font-weight: 600; }
+td.ok { color: var(--good); font-weight: 600; }
+td.l, th.l { text-align: left; white-space: normal; }
+.note { background: var(--accent-soft); border-radius: 10px; padding: 12px 16px; margin: 0 0 18px; }
+.note b { color: var(--accent); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.card h4 { font-family: var(--display); margin: 0 0 6px; font-size: 15.5px; }
+.card p, .card ul { font-size: 14.5px; margin: 0; }
+.card ul { padding-left: 18px; }
+ul.tight { padding-left: 20px; margin: 0 0 14px; }
+ul.tight li { margin-bottom: 4px; }
+video { display: block; width: 100%; height: auto; border-radius: 6px; background: #000; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: var(--muted); margin: 0 0 14px; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 18px; font-size: 13.5px; }
+.flow span { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 7px 11px; font-family: var(--mono); }
+.flow i { color: var(--muted); font-style: normal; }
+.flow .hl { border-color: var(--accent); color: var(--accent); }
+.flow .md { border-color: var(--cool); color: var(--cool); }
+footer { margin-top: 56px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 14px; }
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  nav.toc { display: none; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head><body>
+<p style="max-width:1180px;margin:16px auto 0;padding-inline:16px"><a href="index.html">← Back to the walkthrough</a></p>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <b>Contents</b>
+  <ol>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#model">Torque model</a></li>
+    <li><a href="#validation">Does the model hold?</a></li>
+    <li><a href="#episode">Torque over an episode</a></li>
+    <li><a href="#load">Load vs mass</a></li>
+    <li><a href="#sag">Sag and drop</a></li>
+    <li><a href="#capacity">Payload capacity</a></li>
+    <li><a href="#controllers">Model vs learned</a></li>
+    <li><a href="#residual">What the RL does</a></li>
+    <li><a href="#rl">The RL model in detail</a></li>
+    <li><a href="#code">How it is written</a></li>
+    <li><a href="#next">What to do next</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <div class="eyebrow">RBE501 · SO-101 pick-and-place · MuJoCo · 350 episodes per controller</div>
+  <h1>SO-101 Payload Dynamics</h1>
+  <p class="lede">Where the joint torque goes when the arm carries a 0.05–1.5 kg cube, why the arm misses the goal with heavy cubes, how a gravity-compensating feedforward fixes it, and what the residual SAC policies actually learned. The second half explains the RL model in full.</p>
+</header>
+
+<section id="findings">
+<h2>Findings</h2>
+<ol class="findings">
+  <li><b>The rigid-body model explains the simulator almost exactly.</b> τ = Mθ̈ + c + g + τ<sub>contact</sub> balances MuJoCo to 4.6×10⁻⁴ N·m. The payload torque m·J<sub>v</sub>ᵀ(−g) and the servo sag K<sub>p</sub>⁻¹τ fit with R² ≥ 0.994 on every loaded joint whenever no joint saturates.</li>
+  <li><b>Payload gravity dominates; dynamics barely matter.</b> Inertial and Coriolis terms stay under about 0.1 N·m. At 1 kg the shoulder and elbow each carry about 2 N·m, two thirds of stall.</li>
+  <li><b>Heavy cubes miss because the position servos sag, and the sag also shifts the cube sideways.</b> At 1 kg the shoulder settles 4.4° and the elbow 4.3° short of their commands. The cube hangs 22 mm low and sits 17 mm off the goal just before release, so the scripted controller lands near the 2 cm tolerance and succeeds only 60% of the time.</li>
+  <li><b>Above 1.25 kg the shoulder hits the stall cap</b> (10 of 50 episodes at 1.25 kg, 28 of 50 at 1.5 kg). There the linear sag model breaks: the arm falls further than K<sub>p</sub>⁻¹τ predicts.</li>
+  <li><b>Model-based gravity compensation beats both learned policies by a wide margin.</b> Adding K<sub>p</sub>⁻¹(g + m·b) to each joint target, with the mass known, gives 98% at 1.0 kg and 92–98% at 1.5 kg. The fixed-mass SAC policy gets 86% and 62%; the random-mass one gets 80% and 52%.</li>
+  <li><b>The v2 residual cannot compensate sag even in principle.</b> The scripted part pulls the command back to its IK target every step, so the residual can hold the command at most 0.2 × 0.07 rad = <b>0.8°</b> away from it. Compensation needs 4–6°. The policies instead make small corrections throughout the episode, reducing the sideways offset by 2–3 mm, which is just enough to pull some 2.1–2.6 cm misses back under 2 cm.</li>
+  <li><b>On the real STS3215 servos at rated torque (0.98 N·m)</b>, the static payload limit is 0.41–0.46 kg within 18 cm reach and 0.18 kg at 24 cm. A 1-inch tungsten cube (315 g) is safe out to about 20 cm.</li>
+</ol>
+</section>
+
+<section id="videos">
+<h2>Videos</h2>
+<p>Every clip replays one evaluation episode with the same start and goal for each controller. The camera looks from the side so vertical sag shows, and the inset in each tile looks straight down on the goal with the arm hidden. The trained policies are seed 0 of each v2 run.</p>
+<div class="legend"><span><i style="background:#3cb45a"></i>green disk: the 2 cm place tolerance</span><span><i style="background:#d9261a"></i>red sphere: where the cube would be with no sag (pinch point at the IK target θ*)</span></div>
+
+<h3>1.0 kg: scripted vs gravity feedforward vs both SAC policies</h3>
+<figure><video controls muted playsinline preload="metadata" src="compare_1kg.mp4"></video>
+<figcaption>Episode 20008. The scripted controller misses by 2.2 cm; feedforward places at 0.8 cm, fixed SAC at 1.9 cm, random SAC at 0.9 cm. During carry, the red sphere floats above the scripted cube; with feedforward it sits inside the cube.</figcaption></figure>
+
+<h3>Live torque and sag at 1.0 kg</h3>
+<figure><video controls muted playsinline preload="metadata" src="torque_1kg.mp4"></video>
+<figcaption>Top: scripted. Bottom: feedforward. Both draw nearly the same shoulder and elbow torque, because the cube weighs the same. The feedforward commands an extra 4–5° so that the sag lands the arm on θ*, while the scripted arm hangs short.</figcaption></figure>
+
+<h3>Live torque and sag at 1.0 kg: fixed vs random SAC</h3>
+<figure><video controls muted playsinline preload="metadata" src="torque_rl_1kg.mp4"></video>
+<figcaption>Same episode. Top: SAC trained at a fixed 1.0 kg (placed at 1.9 cm). Bottom: SAC trained on random 0.05–1.0 kg (placed at 0.9 cm). The torque curves look almost the same as the scripted run, and the carry sag still sits around −4 to −5°, because each residual can shift the command by at most 0.8°. The two policies differ mostly in the small corrections they make while lowering, which is why the random-mass policy lands closer here. Over 50 episodes at 1 kg, though, the fixed policy succeeds more often (86% vs 80%).</figcaption></figure>
+
+<h3>The same controller, four masses</h3>
+<figure><video controls muted playsinline preload="metadata" src="mass_sweep.mp4"></video>
+<figcaption>Scripted controller, episode 20008, at 0.05, 0.5, 1.0 and 1.5 kg. The gap between the red sphere and the cube is K<sub>p</sub>⁻¹τ in Cartesian space and grows with mass. The top views show it pushing the cube toward the edge of the tolerance disk.</figcaption></figure>
+
+<h3>1.5 kg</h3>
+<figure><video controls muted playsinline preload="metadata" src="compare_1500g.mp4"></video>
+<figcaption>Episode 20016, beyond the training range. The scripted controller misses; the other three place the cube.</figcaption></figure>
+
+<h3>Where the learned residual still fails</h3>
+<figure><video controls muted playsinline preload="metadata" src="limits_1500g.mp4"></video>
+<figcaption>Episode 20018 at 1.5 kg. Both SAC policies miss along with the scripted controller, since an 0.8° residual cannot cancel a 6° sag. The feedforward still places the cube.</figcaption></figure>
+<p>Regenerate with <code>uv run python pick_place/scripts/record_videos.py</code> (about 1 minute). The files are saved in <code>checkpoints/pick-place/videos/</code>.</p>
+</section>
+
+<section id="model">
+<h2>Torque model</h2>
+<p>Lynch &amp; Park notation. θ ∈ ℝ⁵ are the arm joints (shoulder pan, shoulder lift, elbow flex, wrist flex, wrist roll); the gripper is the sixth actuated joint. Every term is written as the torque the motors must supply.</p>
+<div class="eq">τ_act = M(θ) θ̈  +  c(θ, θ̇)  +  g(θ)  +  τ_passive  +  τ_contact
+τ_contact = −Jᵀ F          (cube, table and joint-limit forces mapped to the joints)</div>
+<p>A cube of mass m held at the pinch point adds, when the arm is still,</p>
+<div class="eq">τ_payload = J_v(θ)ᵀ (−m g_s) = m · b(θ),     b(θ) = J_v(θ)ᵀ (0, 0, 9.81)   [N·m per kg]</div>
+<p>J<sub>v</sub> is the 3×5 linear Jacobian of the cube center in {s}. Because only the z-component of gravity acts, b<sub>i</sub> = 9.81 · J<sub>v,z,i</sub>: the payload torque on joint i is the cube weight times how fast that joint raises the cube.</p>
+<h3>Why the arm sags</h3>
+<p>The STS3215 servos, and the MuJoCo actuators that model them, are pure position servos with no gravity compensation:</p>
+<div class="eq">τ_i = K_p,i (θ_cmd,i − θ_i) − K_d,i θ̇_i         K_p = (20, 20, 20, 6, 4) N·m/rad,  |τ_i| ≤ 2.9 N·m
+at rest (θ̇ = 0):   Δθ = θ_cmd − θ = K_p⁻¹ ( g(θ) + m b(θ) )
+cube drop:          Δp ≈ J_v Δθ,   Δz = J_v,z Δθ = b · Δθ / 9.81</div>
+<p>So the steady-state error grows linearly with the cube mass, and so does the pinch-point position error. The horizontal part J<sub>v,xy</sub>Δθ is what moves the cube off the goal.</p>
+<h3>Largest payload a posture can hold</h3>
+<div class="eq">|g_i + m b_i| ≤ L  for every joint   ⇒   m_max = min_i ( L − sign(b_i) g_i ) / |b_i|</div>
+<p>with L = 2.9 N·m (stall, the sim's cap) or 0.98 N·m (STS3215 12 V rated, continuous). The argmin is the limiting joint.</p>
+<div class="tbl"><table>
+<tr><th>Quantity</th><th>Value</th><th class="l">Source</th></tr>
+<tr><td>Physics step / control step</td><td>1 ms / 33 ms</td><td class="l"><code>SimConfig.timestep_s</code>, <code>n_substeps = 33</code></td></tr>
+<tr><td>Episode</td><td>320 steps = 10.56 s</td><td class="l"><code>PickPlaceConfig.task.max_episode_steps</code></td></tr>
+<tr><td>K<sub>p</sub> arm (N·m/rad)</td><td>20, 20, 20, 6, 4</td><td class="l">MJCF <code>&lt;position kp=…&gt;</code>, K<sub>d</sub> from <code>dampratio=1</code></td></tr>
+<tr><td>Torque cap</td><td>±2.9 N·m</td><td class="l"><code>jnt_actfrcrange</code>, STS3215 stall 30 kg·cm</td></tr>
+<tr><td>Rated torque (real servo)</td><td>0.98 N·m</td><td class="l">STS3215 12 V, 10 kg·cm</td></tr>
+<tr><td>Finger-pad friction μ</td><td>1.5</td><td class="l"><code>GripperConfig.pad_friction</code>, elliptic cone</td></tr>
+</table></div>
+</section>
+
+<section id="validation">
+<h2>Does the model hold?</h2>
+<p>Each control step, <code>torque_terms()</code> reads the MuJoCo state and splits it term by term. MuJoCo solves M q̈ + bias = τ<sub>act</sub> + τ<sub>passive</sub> + τ<sub>constraint</sub>, so:</p>
+<div class="tbl"><table>
+<tr><th>Term</th><th class="l">MuJoCo quantity</th></tr>
+<tr><td>τ_act</td><td class="l"><code>qfrc_actuator</code> (already clipped to ±2.9)</td></tr>
+<tr><td>M θ̈</td><td class="l"><code>mj_mulM(qacc)</code></td></tr>
+<tr><td>g(θ)</td><td class="l"><code>mj_rne</code> on a scratch copy with θ̇ = 0, θ̈ = 0</td></tr>
+<tr><td>c(θ, θ̇)</td><td class="l"><code>qfrc_bias − g</code></td></tr>
+<tr><td>τ_passive</td><td class="l"><code>−qfrc_passive</code> (zero here: no joint damping in the model)</td></tr>
+<tr><td>τ_contact</td><td class="l"><code>−qfrc_constraint</code> (cube, table, joint limits)</td></tr>
+</table></div>
+<p>The model is then checked against the simulator in the <b>hold window</b> (the last 20 steps of CARRY, with the arm waiting above the goal holding the cube), over all 350 scripted episodes:</p>
+<div class="tbl"><table>
+<tr><th>Joint</th><th>Episodes</th><th>Payload R²</th><th>max |err| (N·m)</th><th>Sag R²</th><th>max |err| (deg)</th></tr>
+<tr><td>shoulder_lift</td><td>unsaturated</td><td class="ok">1.0000</td><td>0.022</td><td class="ok">0.99999</td><td>0.03</td></tr>
+<tr><td>shoulder_lift</td><td>all</td><td>0.9890</td><td>0.688</td><td class="hot">0.855</td><td class="hot">8.2</td></tr>
+<tr><td>elbow_flex</td><td>unsaturated</td><td class="ok">0.9998</td><td>0.036</td><td class="ok">0.99977</td><td>0.12</td></tr>
+<tr><td>elbow_flex</td><td>all</td><td>0.9917</td><td>0.457</td><td>0.9916</td><td>1.3</td></tr>
+<tr><td>wrist_flex</td><td>unsaturated</td><td class="ok">0.9962</td><td>0.024</td><td class="ok">0.9945</td><td>0.34</td></tr>
+<tr><td>wrist_flex</td><td>all</td><td>0.9881</td><td>0.150</td><td>0.9876</td><td>1.4</td></tr>
+</table></div>
+<p>Largest equation-of-motion residual over every episode of every controller: <b>4.6×10⁻⁴ N·m</b>, which is within the contact solver's tolerance. 42 of the 350 scripted episodes hit the stall cap (28 at 1.5 kg, 10 at 1.25 kg). All of the large errors come from those episodes: once τ is clipped at 2.9 N·m, the servo cannot hold the posture, and the arm keeps sinking past K<sub>p</sub>⁻¹τ.</p>
+<figure>
+  <div class="plate"><img src="fig2_model_validation.png" alt="Scatter plots of payload torque model vs measured contact torque and predicted vs measured sag, both on the y = x line except for gray saturated episodes, plus a histogram of equation-of-motion residuals around 1e-4 N·m" loading="lazy"></div>
+  <figcaption>Left: payload model vs measured contact torque. Middle: predicted vs measured sag. Gray crosses are episodes that hit the stall cap. Right: largest equation-of-motion residual per controller-mass job.</figcaption>
+</figure>
+</section>
+
+<section id="episode">
+<h2>Torque over an episode</h2>
+<figure>
+  <div class="plate"><img src="fig1_torque_breakdown.png" alt="Time series of actuator torque and its gravity, contact, inertial and Coriolis terms for shoulder lift, elbow flex and wrist flex, for a 0.05 kg and a 1 kg cube, with phase shading" loading="lazy"></div>
+  <figcaption>Scripted controller, same start and goal. Black is τ<sub>act</sub>; colored lines are its terms. Dashed is stall (2.9 N·m), dotted is rated (0.98 N·m). Shading marks the phases approach, descend, close, lift, carry, lower, release, retreat.</figcaption>
+</figure>
+<ul class="tight">
+  <li><b>Light cube:</b> the arm only holds itself up. Shoulder and elbow sit near −0.3 N·m of arm gravity the whole time.</li>
+  <li><b>1 kg cube:</b> once the grasp closes (≈ 3.3 s), the contact term, which is the cube's weight through Jᵀ, jumps to −0.7 to −1.3 N·m on the shoulder and −1.2 to −1.5 N·m on the elbow, depending on the pose. The elbow stays above the rated torque through lift and carry; the shoulder exceeds it during the lift.</li>
+  <li><b>Lowering flips the sign.</b> The script lowers to 3 mm below the resting height, so the table pushes the cube up while the jaws still hold it. Shoulder and elbow torque swing to +0.8 and +1.0 N·m as the arm presses the cube into the table. A real servo would be just as loaded here, so it is worth knowing for hardware.</li>
+  <li><b>Inertial and Coriolis terms</b> stay under about 0.1 N·m apart from short spikes at phase changes. The motion is quasi-static, so a static gravity model is enough.</li>
+  <li><b>The wrist rings during lift</b> with a heavy cube: its K<sub>p</sub> is 6, so its natural frequency is low. In the poses we inspected, the top-down IK also puts it at its +95° joint limit, where the limit constraint carries part of the load.</li>
+</ul>
+</section>
+
+<section id="load">
+<h2>Load vs mass</h2>
+<div class="tbl"><table>
+<tr><th>Mass (kg)</th><th>Lift peak</th><th>Lift RMS</th><th>Elbow peak</th><th>Elbow RMS</th><th>Wrist peak</th><th>Lift steps at cap</th><th>Σ τ² Δt lift</th></tr>
+<tr><td>0.05</td><td>0.66 (23%)</td><td>0.34</td><td>0.62 (21%)</td><td>0.36</td><td>0.41 (14%)</td><td>0%</td><td>1.3</td></tr>
+<tr><td>0.25</td><td>0.85 (29%)</td><td>0.49</td><td>0.83 (29%)</td><td>0.51</td><td>0.56 (19%)</td><td>0%</td><td>2.7</td></tr>
+<tr><td>0.5</td><td>1.23 (42%)</td><td>0.68</td><td>1.21 (42%)</td><td>0.72</td><td>0.73 (25%)</td><td>0%</td><td>5.2</td></tr>
+<tr><td>0.75</td><td>1.61 (56%)</td><td>0.87</td><td>1.57 (54%)</td><td>0.91</td><td>0.88 (30%)</td><td>0%</td><td>8.6</td></tr>
+<tr><td>1.0</td><td>1.96 (68%)</td><td>1.05</td><td>1.91 (66%)</td><td>1.08</td><td>0.98 (34%)</td><td>0%</td><td>12.4</td></tr>
+<tr><td>1.25</td><td class="hot">2.28 (79%)</td><td>1.22</td><td class="hot">2.27 (78%)</td><td>1.24</td><td>1.08 (37%)</td><td class="hot">1.6%</td><td>16.8</td></tr>
+<tr><td>1.5</td><td class="hot">2.51 (87%)</td><td>1.37</td><td class="hot">2.58 (89%)</td><td>1.37</td><td>1.12 (39%)</td><td class="hot">6.9%</td><td>20.9</td></tr>
+</table></div>
+<p>Peak and RMS torques are in N·m, with peak as a share of the 2.9 N·m cap; all are means over 50 scripted episodes. The peak is a mean across episodes, so a single episode can reach the cap even when the mean peak is below it. Σ τ² Δt (N²m²s) is proportional to the copper loss in the servo, since current scales with torque. It grows about 16× from 0.05 to 1.5 kg, which is the number that matters for overheating a real STS3215.</p>
+<figure>
+  <div class="plate"><img src="fig5_load_vs_mass.png" alt="Four panels: peak torque percentage of stall, percentage of saturated steps, sum of torque squared, and mechanical work, each against cube mass for the three loaded joints" loading="lazy"></div>
+  <figcaption>Joint load per episode vs mass, scripted controller, mean ± std over 50 episodes.</figcaption>
+</figure>
+</section>
+
+<section id="sag">
+<h2>Sag and drop</h2>
+<div class="tbl"><table>
+<tr><th>Mass (kg)</th><th>Lift sag meas / model (°)</th><th>Elbow sag meas / model (°)</th><th>Drop total (mm)</th><th>= arm</th><th>+ slip</th><th>Model J<sub>v,z</sub>Δθ</th><th>Grip ΣN (N)</th><th>μΣN / mg</th></tr>
+<tr><td>0.05</td><td>−1.08 / −1.08</td><td>−1.14 / −1.14</td><td>2.8</td><td>5.7</td><td>−2.9</td><td>5.5</td><td>30.8</td><td>94</td></tr>
+<tr><td>0.25</td><td>−1.81 / −1.81</td><td>−1.86 / −1.86</td><td>8.0</td><td>9.2</td><td>−1.2</td><td>8.8</td><td>32.6</td><td>20</td></tr>
+<tr><td>0.5</td><td>−2.70 / −2.70</td><td>−2.70 / −2.71</td><td>13.0</td><td>13.4</td><td>−0.4</td><td>12.8</td><td>32.8</td><td>10</td></tr>
+<tr><td>0.75</td><td>−3.56 / −3.56</td><td>−3.50 / −3.51</td><td>17.9</td><td>17.4</td><td>0.5</td><td>16.5</td><td>32.5</td><td>6.6</td></tr>
+<tr><td>1.0</td><td>−4.41 / −4.41</td><td>−4.27 / −4.29</td><td>22.5</td><td>21.3</td><td>1.2</td><td>20.1</td><td>32.3</td><td>4.9</td></tr>
+<tr><td>1.25</td><td class="hot">−5.55 / −5.24</td><td>−4.97 / −5.00</td><td>28.8</td><td>26.1</td><td>2.7</td><td>23.5</td><td>31.9</td><td>3.9</td></tr>
+<tr><td>1.5</td><td class="hot">−7.19 / −6.08</td><td>−5.49 / −5.65</td><td>35.8</td><td>32.1</td><td>3.7</td><td>26.9</td><td>31.1</td><td>3.2</td></tr>
+</table></div>
+<ul class="tight">
+  <li><b>Sag</b> is θ<sub>cmd</sub> − θ in the hold window. The model matches it to 0.02° until the shoulder starts saturating at 1.25 kg (highlighted).</li>
+  <li><b>Drop</b> is how far the cube center hangs below the scripted carry height. It splits into the pinch point's own sag (arm) and the cube sliding in the jaws (slip). The arm part follows J<sub>v,z</sub>Δθ to within 0.2–1.2 mm up to 1 kg. The gap grows above that because a 5–7° sag is no longer small enough for the linear J<sub>v</sub>Δθ estimate, and because the shoulder saturates.</li>
+  <li><b>The grip never lets go.</b> The jaw squeeze stays at about 31–33 N whatever the mass. Friction can hold μΣN = 1.5 × 32 ≈ 48 N, against a weight of 14.7 N at 1.5 kg, so the margin is still 3.2×. Slip stays under 4 mm; grip strength is not the failure mode.</li>
+  <li>Even at 0.05 kg the arm sags 1.1° from its own weight. The scripted waypoints were tuned with that sag already in place.</li>
+</ul>
+<figure>
+  <div class="plate"><img src="fig3_sag_and_drop.png" alt="Left: joint sag against mass, measured points with error bars and dashed model lines overlapping. Right: cube drop total, arm part, slip, and model prediction against mass, with the 20 mm tolerance line" loading="lazy"></div>
+  <figcaption>Left: measured sag (points, ± std) vs K<sub>p</sub>⁻¹τ (dashed). Right: cube drop and its parts.</figcaption>
+</figure>
+</section>
+
+<section id="capacity">
+<h2>Payload capacity</h2>
+<p><code>capacity_map()</code> solves the top-down IK on a grid of reach r (10–28 cm, in front of the robot) and pinch height h (0–12 cm), then applies the m<sub>max</sub> formula at each point.</p>
+<div class="tbl"><table>
+<tr><th>Reach (cm)</th><th>10</th><th>12</th><th>14</th><th>16</th><th>18</th><th>20</th><th>22</th><th>24</th><th>26</th><th>28</th></tr>
+<tr><td>Stall 2.9 N·m (kg)</td><td>1.67</td><td>1.77</td><td>1.82</td><td>1.82</td><td>1.75</td><td>1.50</td><td>1.30</td><td>1.06</td><td>0.87</td><td>0.81</td></tr>
+<tr><td>Rated 0.98 N·m (kg)</td><td>0.41</td><td>0.44</td><td>0.46</td><td>0.45</td><td>0.43</td><td>0.34</td><td>0.26</td><td class="hot">0.18</td><td>0.13</td><td>0.11</td></tr>
+<tr><td>Limiting joint</td><td>elbow</td><td>elbow</td><td>elbow</td><td>elbow</td><td>shoulder</td><td>shoulder</td><td>shoulder</td><td>shoulder</td><td>shoulder</td><td>shoulder</td></tr>
+</table></div>
+<p>Close to the base the elbow is the weak joint; beyond about 17 cm the shoulder takes over. At stall, 1.5 kg fits only inside 20 cm and 1.25 kg inside about 23 cm. This is why the 1.5 kg runs saturate: random goals often lie at 20–24 cm.</p>
+<figure>
+  <div class="plate"><img src="fig4_capacity.png" alt="Left: largest static payload against reach for stall and rated torque, with the tungsten cube mass as a dashed line. Right: heat map of stall-limited payload over reach and height, each cell marked E for elbow or S for shoulder" loading="lazy"></div>
+  <figcaption>Left: m<sub>max</sub>(r) at the 7 cm carry height; gray lines are the sim masses. Right: stall-limited m<sub>max</sub>(r, h); each letter names the limiting joint.</figcaption>
+</figure>
+<div class="note"><b>For the real robot:</b> at rated torque, a 315 g tungsten cube is inside the limit out to about 20 cm. Stall only lasts seconds, so keep real heavy tests inside 18 cm and short.</div>
+</section>
+
+<section id="controllers">
+<h2>Model-based vs learned</h2>
+<p>Five controllers ran on the same 50 start/goal seeds at each mass, the same seeds as the earlier comparison:</p>
+<div class="split">
+  <div class="card"><h4>scripted</h4><p>IK waypoints only, no dynamics. The baseline.</p></div>
+  <div class="card"><h4>feedforward</h4><p>Scripted, but each target θ* becomes θ* + K<sub>p</sub>⁻¹(g(θ*) + m·b(θ*)), using the true mass while carrying. <code>FeedforwardPickPlace</code>.</p></div>
+  <div class="card"><h4>ff_payload</h4><p>Same, but only the m·b part, leaving the arm's own-weight sag the script was tuned with.</p></div>
+  <div class="card"><h4>fixed / random</h4><p>The v2 residual SAC policies, 5 seeds each, 10 episodes per seed per mass.</p></div>
+</div>
+<div class="tbl" style="margin-top:16px"><table>
+<tr><th>Mass (kg)</th><th>scripted</th><th>feedforward</th><th>ff_payload</th><th>fixed SAC</th><th>random SAC</th></tr>
+<tr><td>0.05</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>98%</td></tr>
+<tr><td>0.25</td><td>100%</td><td>100%</td><td>100%</td><td>98%</td><td>98%</td></tr>
+<tr><td>0.5</td><td>98%</td><td>100%</td><td>98%</td><td>100%</td><td>94%</td></tr>
+<tr><td>0.75</td><td>84%</td><td class="ok">100%</td><td class="ok">100%</td><td>94%</td><td>84%</td></tr>
+<tr><td>1.0</td><td class="hot">60%</td><td class="ok">98%</td><td class="ok">98%</td><td>86%</td><td>80%</td></tr>
+<tr><td>1.25</td><td class="hot">42%</td><td class="ok">96%</td><td class="ok">96%</td><td>70%</td><td>58%</td></tr>
+<tr><td>1.5</td><td class="hot">44%</td><td class="ok">92%</td><td class="ok">98%</td><td>62%</td><td>52%</td></tr>
+</table></div>
+<p>The scripted, fixed and random numbers reproduce the earlier 5-seed comparison. With an exact mass, a single line of dynamics beats 300k steps of SAC. The reason shows up in what each controller does to the command just before release:</p>
+<figure>
+  <div class="plate"><img src="fig6_correction.png" alt="Left and middle: command offset at placement for shoulder lift and elbow against mass; feedforward follows the needed sag line down to minus 6 degrees while fixed and random stay within plus or minus 0.8 degrees. Right: horizontal cube to goal offset, scripted rising to 19 mm, feedforward flat near 4 mm" loading="lazy"></div>
+  <figcaption>Left, middle: θ<sub>cmd</sub> − θ* in the place window (the last 10 steps of LOWER) vs the needed K<sub>p</sub>⁻¹τ (dashed). The orange band is the most a v2 residual can hold. Right: horizontal cube-to-goal offset just before release; the dashed line is ‖J<sub>v,xy</sub>Δθ‖, the shift sag would cause if the cube hung freely.</figcaption>
+</figure>
+<div class="tbl"><table>
+<tr><th>At 1.0 kg</th><th>Lift offset (°)</th><th>Elbow offset (°)</th><th>Needed (°)</th><th>Cube–goal before release (mm)</th><th>Carry drop (mm)</th></tr>
+<tr><td>scripted</td><td>0.00</td><td>0.00</td><td>−4.2 / −4.0</td><td>17.0</td><td>22.5</td></tr>
+<tr><td>feedforward</td><td>−4.72</td><td>−4.43</td><td>−4.7 / −4.6</td><td class="ok">3.8</td><td class="ok">4.6</td></tr>
+<tr><td>ff_payload</td><td>−3.80</td><td>−3.56</td><td>−4.6 / −4.5</td><td class="ok">5.1</td><td>6.1</td></tr>
+<tr><td>fixed SAC</td><td>−0.29</td><td>+0.29</td><td>−4.3 / −4.1</td><td>14.0</td><td>23.7</td></tr>
+<tr><td>random SAC</td><td>−0.12</td><td>+0.04</td><td>−4.3 / −4.1</td><td>15.2</td><td>22.5</td></tr>
+</table></div>
+<h3>Why the residual cannot compensate</h3>
+<p>The scripted controller tracks its target from the <em>commanded</em> angle: each step it outputs clip(θ* − θ<sub>cmd</sub>, ±rate) / Δθ<sub>max</sub>. If the residual pushes the command off by δ, the script pulls the full δ back on the next step. Steady state is reached when the two cancel:</p>
+<div class="eq">θ_cmd,k+1 = θ_cmd,k + Δθ_max · ( −δ_k/Δθ_max + 0.2 a_k )   ⇒   δ = 0.2 · a · Δθ_max ≤ 0.2 × 0.07 rad = 0.8°</div>
+<p><code>test_residual_can_offset_the_command_by_at_most_scale_times_delta_max</code> confirms it: with a = +1 on every step, the command sits exactly 0.014 rad above θ* during lowering. The policies can steer while the arm is moving between waypoints, where the script is rate-limited, but they cannot hold an offset. Fixing heavy-cube placement needs a 4–6° offset.</p>
+<figure>
+  <div class="plate"><img src="fig7_success.png" alt="Success rate and mean placement error against mass for all five controllers; feedforward stays near 100 percent while scripted falls to 44 percent" loading="lazy"></div>
+  <figcaption>Success rate and final placement error vs mass, 50 episodes per point.</figcaption>
+</figure>
+</section>
+
+<section id="residual">
+<h2>What the RL policies actually do</h2>
+<figure>
+  <div class="plate"><img src="fig8_residual_by_phase.png" alt="Four heat maps of mean absolute residual per phase and joint for the fixed and random policies at 0.05 and 1 kg; fixed around 0.4 degrees everywhere, random around 0.3" loading="lazy"></div>
+  <figcaption>Mean |executed − scripted| joint step per phase, in degrees. The most a step can carry is 0.8°.</figcaption>
+</figure>
+<ul class="tight">
+  <li><b>Both policies act all the time, not just with heavy cubes.</b> The fixed policy uses about half its range (0.3–0.5° per step) in every phase, at 0.05 kg as much as at 1 kg. The random policy uses less (0.2–0.4°) because the ‖a‖² penalty costs it on the many light episodes where correction does not pay.</li>
+  <li><b>Before the grasp, the action is identical at every mass</b> (approach 0.381°, descend 0.351° in every row). Nothing in the observation reveals the mass until the cube is lifted.</li>
+  <li><b>After the grasp, activity rises with mass.</b> From 0.05 to 1.5 kg, the fixed policy goes from 0.38° to 0.43° in lift, 0.38° to 0.44° in lower and 0.44° to 0.49° in release; the random policy goes from 0.28° to 0.40° in lower. The policies do sense the load, through one observation channel: θ<sub>cmd</sub> − θ, which equals K<sub>p</sub>⁻¹τ at rest. The servo error is an implicit torque sensor. An earlier summary said neither policy senses mass; this corrects it. They have no direct mass input, but they see its effect.</li>
+  <li>Their net effect is a 2–3 mm smaller cube–goal offset at 1 kg (17.0 → 14.0 mm for fixed). That turns many 2.1–2.6 cm misses into 1.6–1.9 cm successes, which matches the 60% → 86% improvement.</li>
+</ul>
+</section>
+
+<section id="rl">
+<h2>The RL model in detail</h2>
+<p>It is a <b>residual policy</b>: SAC learns a small correction added to the scripted IK controller, not the whole motion. Both experiments use the same model and code. The only difference is the cube mass in training: always 1.0 kg (<em>fixed</em>) or uniform in 0.05–1.0 kg per episode (<em>random</em>).</p>
+
+<div class="flow" role="img" aria-label="Control loop: observation goes to the scripted controller and to the policy; their actions are added, clipped, scaled into joint deltas and integrated into the servo command">
+  <span>obs o<sub>t</sub> (39)</span><i>→</i>
+  <span class="md">scripted u<sub>t</sub> (6)</span><i>+</i>
+  <span class="hl">0.2 · π(o<sub>t</sub>) (6, gripper zeroed)</span><i>→</i>
+  <span>clip to [−1, 1]</span><i>→</i>
+  <span>× (0.07 rad arm, 0.1 rad grip)</span><i>→</i>
+  <span>θ<sub>cmd</sub> += Δθ</span><i>→</i>
+  <span>33 × 1 ms MuJoCo</span>
+</div>
+
+<h3>Input: the observation (39 numbers)</h3>
+<div class="tbl"><table>
+<tr><th>Slice</th><th>Size</th><th class="l">Contents</th><th class="l">Why it is there</th></tr>
+<tr><td>0–5</td><td>6</td><td class="l">θ: measured joint angles (5 arm + gripper), rad</td><td class="l">where the arm is</td></tr>
+<tr><td>6–11</td><td>6</td><td class="l">θ̇: joint speeds, rad/s</td><td class="l">motion, settling</td></tr>
+<tr><td>12–17</td><td>6</td><td class="l">θ<sub>cmd</sub> − θ: command error</td><td class="l"><b>= K<sub>p</sub>⁻¹τ at rest: the load signal</b></td></tr>
+<tr><td>18–23</td><td>6</td><td class="l">previous executed action</td><td class="l">smoothness, phase cue</td></tr>
+<tr><td>24–26</td><td>3</td><td class="l">pinch point p<sub>pinch</sub> in {s}, m</td><td class="l">gripper position</td></tr>
+<tr><td>27–29</td><td>3</td><td class="l">cube center p<sub>obj</sub> in {s}</td><td class="l">ground-truth cube (no camera in sim)</td></tr>
+<tr><td>30–32</td><td>3</td><td class="l">p<sub>obj</sub> − p<sub>pinch</sub></td><td class="l">grasp alignment, slip</td></tr>
+<tr><td>33–35</td><td>3</td><td class="l">goal p<sub>goal</sub> in {s}</td><td class="l">where to place</td></tr>
+<tr><td>36–38</td><td>3</td><td class="l">p<sub>goal</sub> − p<sub>obj</sub></td><td class="l">remaining placement error</td></tr>
+</table></div>
+<p>The mass is never observed directly. The observation is standardized by <code>VecNormalize</code> (running mean and std, frozen at evaluation and saved as <code>vecnormalize.pkl</code>). The policy sees no time step or phase; it infers the phase from the state and the previous action.</p>
+
+<h3>Output: the action (6 numbers)</h3>
+<ul class="tight">
+  <li>a ∈ [−1, 1]⁶, one number per actuated joint: 5 arm joints plus the gripper.</li>
+  <li><b>Executed</b> action: e = clip(u<sub>script</sub> + 0.2 a, −1, 1). The gripper entry of a is forced to 0 (<code>arm_only</code>), so the script alone opens and closes the jaw.</li>
+  <li>The env turns e into <b>command increments</b>: θ<sub>cmd,arm</sub> += 0.07·e<sub>arm</sub> rad and θ<sub>cmd,grip</sub> += 0.1·e<sub>grip</sub> rad, clipped to joint limits. The servos track θ<sub>cmd</sub> for 33 ms.</li>
+  <li>Training samples a ~ tanh(𝒩(μ, σ)) for exploration. Evaluation uses the deterministic a = tanh(μ).</li>
+</ul>
+
+<h3>Reward and penalties</h3>
+<div class="eq">r_t = max(reach, grasp, lift, carry, place, success)  −  0.01 ‖e_t‖²  −  0.1 ‖a_t‖²
+        └──────────── staged task progress ────────────┘   └ executed ┘   └ residual ┘</div>
+<div class="tbl"><table>
+<tr><th>Stage</th><th>Value</th><th class="l">Active when</th></tr>
+<tr><td>reach</td><td>0.25 (1 − tanh(10 d))</td><td class="l">always; d = ‖p<sub>obj</sub> − p<sub>pinch</sub>‖</td></tr>
+<tr><td>grasp</td><td>0.35</td><td class="l">both finger pads touch the cube</td></tr>
+<tr><td>lift</td><td>0.35 → 0.5</td><td class="l">grasped; linear in lift height up to 4 cm</td></tr>
+<tr><td>carry</td><td>0.5 → 0.75</td><td class="l">grasped and lifted ≥ 1 cm; 0.5 + 0.25 (1 − tanh(10 d<sub>goal</sub>))</td></tr>
+<tr><td>place (lower)</td><td>0.75 → 0.9</td><td class="l">grasped within 2 cm of goal; grows as it comes down</td></tr>
+<tr><td>placed</td><td>0.9</td><td class="l">released low (≤ 1.5 cm) over the goal, resting within 2 cm</td></tr>
+<tr><td>success</td><td>1.0</td><td class="l">placed and neither pad touches the cube</td></tr>
+</table></div>
+<ul class="tight">
+  <li>Taking the <b>max</b>, not the sum, means each stage starts where the last one ends. The reward can only go up as the task advances, with no double counting.</li>
+  <li><b>0.01‖e‖²</b> charges every executed motion, scripted or not, and favors smooth motion.</li>
+  <li><b>0.1‖a‖²</b> is the v2 <em>residual penalty</em>, applied in the wrapper. It charges only the policy's own correction: full-scale correction on all 5 arm joints costs 0.5 per step, half the success reward. So the policy corrects only where it pays. v1 had no penalty and scale 0.5, and it overrode the script and placed worse.</li>
+  <li>No early termination: every episode runs 320 steps. Success is read at the last step.</li>
+</ul>
+
+<h3>The policy network (Soft Actor-Critic)</h3>
+<div class="split">
+  <div class="card"><h4>Actor π(a | o)</h4>
+    <ul><li>39 → 256 → ReLU → 256 → ReLU</li><li>two heads: μ (6) and log σ (6)</li><li>a = tanh(μ + σ ε), ε ~ 𝒩(0, I)</li><li>78,860 parameters</li></ul></div>
+  <div class="card"><h4>Twin critics Q₁, Q₂(o, a)</h4>
+    <ul><li>45 (39 + 6) → 256 → 256 → 1, each</li><li>plus slowly-updated target copies (τ = 0.005)</li><li>155,650 parameters for the pair</li><li>min(Q₁, Q₂) curbs overestimation</li></ul></div>
+</div>
+<p style="margin-top:14px">Each update samples 256 transitions from the replay buffer and minimizes three losses:</p>
+<div class="eq">critic:   y = r + γ ( min_j Q'_j(o', ã') − α log π(ã'|o') ),   ã' ~ π(·|o');   L_Q = Σ_j (Q_j(o,a) − y)²
+actor:    L_π = E[ α log π(ã|o) − min_j Q_j(o, ã) ]        (reparameterized ã)
+entropy:  L_α = E[ −α ( log π(ã|o) + H_target ) ],   H_target = −6 (−dim a)</div>
+<p>α trades exploration against reward and tunes itself. In the trained fixed-mass seed 0 it ended at α ≈ 0.0023, so the policy became nearly deterministic.</p>
+<div class="tbl"><table>
+<tr><th>Hyperparameter</th><th>Value</th><th>Hyperparameter</th><th>Value</th></tr>
+<tr><td>Algorithm</td><td>SAC (SB3 2.9.0)</td><td>Steps per seed</td><td>300,000 (≈ 937 episodes)</td></tr>
+<tr><td>Learning rate</td><td>3×10⁻⁴ (Adam)</td><td>Seeds</td><td>5 per experiment</td></tr>
+<tr><td>Discount γ</td><td>0.98 (horizon ≈ 50 steps)</td><td>Replay buffer</td><td>300,000 (holds everything)</td></tr>
+<tr><td>Batch size</td><td>256</td><td>Learning starts</td><td>100 steps</td></tr>
+<tr><td>Updates</td><td>1 gradient step per env step</td><td>Target update τ</td><td>0.005</td></tr>
+<tr><td>Entropy coef.</td><td>auto, target −6</td><td>Obs normalization</td><td>VecNormalize, obs only</td></tr>
+<tr><td>Residual scale</td><td>0.2</td><td>Residual penalty</td><td>0.1 ‖a‖²</td></tr>
+<tr><td>Envs</td><td>1 (DummyVecEnv)</td><td>Checkpoint</td><td>every 25k steps, resumable</td></tr>
+</table></div>
+</section>
+
+<section id="code">
+<h2>How it is written</h2>
+<p>Everything is in <code>src/rbe_501_so101/pick_place/env.py</code>, built on the pick-and-lift modules. These are condensed versions of the real code, in the order you would write them.</p>
+<h3>1. The environment: what the agent sees and does</h3>
+<pre><code>class SO101PickPlaceEnv(SO101PickLiftEnv):          # a gymnasium.Env
+    # action_space      = Box(-1, 1, (6,))           joint-command increments
+    # observation_space = Box(-inf, inf, (39,))
+
+    def reset(self, seed=None, options=None):
+        self.backend.reset(...)                      # arm to home pose
+        p_s, yaw = self._start_pose(options)         # random cube start and goal in the workspace
+        self.backend.place_object(p_s, yaw, self._cfg.mass.sample(self.np_random))   # &lt;- mass enters here
+        return self._observation(), self._info()
+
+    def step(self, action):
+        action = np.clip(action, -1, 1)
+        self.backend.apply_delta(action[:5] * 0.07)        # theta_cmd += delta (arm)
+        self.backend.apply_gripper_delta(action[5] * 0.1)
+        self.backend.step()                                 # 33 x 1 ms physics
+        terms = self._reward(state, pads, p_goal, p_release, action, prev_action)
+        truncated = self._step_count &gt;= 320
+        return self._observation(), terms.total, False, truncated, info</code></pre>
+<h3>2. The reward</h3>
+<pre><code>reach   = 0.25 * (1 - tanh(10 * dist(cube, pinch)))
+grasp, lift, carry, lower = held_stages(...) if grasped else (0, 0, 0, 0)
+place   = max(lower, 0.9 if is_placed(...) else 0)
+success = 1.0 if is_success(...) else 0
+total   = max(reach, grasp, lift, carry, place, success) - 0.01 * action @ action</code></pre>
+<h3>3. The residual wrapper: where the policy's output goes</h3>
+<pre><code>class PlaceResidual(ResidualPickLift):              # gymnasium.Wrapper
+    def step(self, a):
+        a = a.copy(); a[-1] = 0.0                            # arm_only: the script owns the gripper
+        u = self._controller(self._obs)                      # scripted action from IK waypoints
+        executed = np.clip(u + 0.2 * a, -1, 1)               # residual_scale = 0.2
+        obs, r, term, trunc, info = self.env.step(executed)
+        return obs, r - 0.1 * (a @ a), term, trunc, info     # residual_penalty = 0.1</code></pre>
+<h3>4. Training</h3>
+<pre><code>run = PlaceRun(ObjectMassConfig(mode="fixed", fixed_kg=1.0))                          # fixed
+run = PlaceRun(ObjectMassConfig(mode="random", range_kg=(0.05, 1.0)))                 # random
+
+venv  = DummyVecEnv([lambda: Monitor(make_env(run.mass, run), log_dir)])
+env   = VecNormalize(venv, norm_obs=True, norm_reward=False, gamma=0.98)
+model = SAC("MlpPolicy", env, learning_rate=3e-4, gamma=0.98, batch_size=256,
+            buffer_size=300_000, target_entropy="auto", seed=seed, device="cuda")
+model.learn(total_timesteps=300_000)          # in 25k chunks with resumable checkpoints
+model.save(seed_dir / "model.zip");  env.save(seed_dir / "vecnormalize.pkl")</code></pre>
+<h3>5. Evaluation</h3>
+<pre><code>policy = NormalizedPolicy(SAC.load(".../model.zip"), VecNormalize.load(".../vecnormalize.pkl"))
+for mass in (0.05, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5):
+    env = make_env(ObjectMassConfig(mode="fixed", fixed_kg=mass), run)
+    for i in range(50):                                   # same seeds 20000+i for every controller
+        obs, _ = env.reset(seed=20_000 + i)
+        while not truncated:
+            obs, _, _, truncated, info = env.step(policy(obs))   # deterministic tanh(mu)
+        success += info["is_success"]</code></pre>
+<h3>Commands</h3>
+<pre><code>uv run python pick_place/scripts/pick_place_fixed.py  train --seeds 0 1 2 3 4
+uv run python pick_place/scripts/pick_place_random.py train --seeds 0 1 2 3 4
+uv run python pick_place/scripts/pick_place_fixed.py  compare --episodes 50 --plot compare.png
+uv run python pick_place/scripts/torque_analysis.py                  # this page's figures, about 3.5 min on 20 cores
+uv run python pick_place/scripts/torque_analysis.py --plot-only      # redraw from sweep.pkl
+uv run pytest pick_place/tests/test_torque.py                        # 15 tests of the dynamics code</code></pre>
+<h3>New files for this analysis</h3>
+<div class="tbl"><table>
+<tr><th>File</th><th class="l">What it holds</th></tr>
+<tr><td><code>src/rbe_501_so101/pick_place/torque.py</code></td><td class="l"><code>torque_terms</code>, <code>ArmStatics</code> (g, b, J<sub>v</sub>, sag, capacity), <code>capacity_map</code>, <code>record_episode</code> → <code>Trace</code> / <code>TraceSummary</code>, <code>FeedforwardPickPlace</code></td></tr>
+<tr><td><code>pick_place/scripts/torque_analysis.py</code></td><td class="l">parallel sweep of 5 controllers × 7 masses × 50 episodes, 8 figures, <code>report.txt</code></td></tr>
+<tr><td><code>pick_place/tests/test_torque.py</code></td><td class="l">15 tests: EoM balance, gravity hold, payload model, sag, drop split, grip margin, capacity, feedforward, residual cap</td></tr>
+</table></div>
+</section>
+
+<section id="next">
+<h2>What to do next</h2>
+<ul class="tight">
+  <li><b>Paper framing.</b> This analysis gives the paper its dynamics backbone: the learned residual recovers part of what one line of gravity compensation fixes. The comparison is fair because both start from the same script and the same seeds.</li>
+  <li><b>Estimate the mass online instead of assuming it.</b> At rest, the observation already contains Δθ = K<sub>p</sub>⁻¹(g + m b), so m̂ = bᵀ(K<sub>p</sub>Δθ − g) / ‖b‖², least squares over the loaded joints during lift. Feeding m̂ to the feedforward gives a controller that needs no oracle and runs on the real SO-101 with no learning.</li>
+  <li><b>A v3 residual that can actually compensate:</b> make the policy output an absolute offset added to θ* (not a per-step increment the script undoes), or put the residual on top of the feedforward. Either removes the 0.8° cap.</li>
+  <li><b>Hardware:</b> keep the real tests at ≤ 18 cm reach with the 15 g and 315 g cubes, log STS3215 present-load during carry, and compare it with the τ = g + m b curve from <code>ArmStatics</code>. That is the sim-to-real torque validation.</li>
+</ul>
+</section>
+
+<footer>All numbers come from <code>checkpoints/pick-place/torque/report.txt</code> (50 episodes per controller and mass, evaluation seeds 20000–20049). Simulation: MuJoCo, 1 ms step, elliptic friction cones; policies: v2 checkpoints at 300k steps.</footer>
+</main>
+</div>
+</body></html>
